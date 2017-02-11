@@ -1,0 +1,650 @@
+object frmProperties: TfrmProperties
+  Left = 372
+  Height = 497
+  Top = 334
+  Width = 417
+  HorzScrollBar.Page = 416
+  VertScrollBar.Page = 496
+  ActiveControl = DBGrid1
+  Caption = 'Properties'
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
+  ShowHint = True
+  object Label2: TLabel
+    Left = 8
+    Height = 14
+    Top = 232
+    Width = 33
+    Caption = 'Data:'
+    Color = clNone
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentColor = False
+  end
+  object Label16: TLabel
+    Left = 267
+    Height = 14
+    Top = 104
+    Width = 28
+    Caption = 'Fields'
+    Color = clNone
+    ParentColor = False
+  end
+  object lblGroupState: TLabel
+    Left = 371
+    Height = 14
+    Top = 447
+    Width = 34
+    Anchors = [akRight, akBottom]
+    Caption = '[FML]'
+    Color = clNone
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentColor = False
+  end
+  object DBGrid1: TDBGrid
+    Left = 8
+    Height = 193
+    Top = 248
+    Width = 393
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataSource = DataSource1
+    FixedColor = clBtnFace
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    OptionsExtra = [dgeAutoColumns, dgeCheckboxColumn]
+    ParentColor = False
+    TabOrder = 0
+    TabStop = True
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    OnTitleClick = DBGrid1TitleClick
+  end
+  object edtAggs: TEdit
+    Left = 8
+    Height = 21
+    Top = 443
+    Width = 361
+    Anchors = [akLeft, akRight, akBottom]
+    TabOrder = 1
+  end
+  object PageControl1: TPageControl
+    Left = 8
+    Height = 217
+    Top = 8
+    Width = 393
+    ActivePage = TabSheet1
+    TabIndex = 0
+    TabOrder = 2
+    object TabSheet1: TTabSheet
+      Caption = 'Indexes'
+      object Label3: TLabel
+        Left = 2
+        Height = 14
+        Width = 50
+        Caption = 'Indexes:'
+        Color = clNone
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+      end
+      object Label4: TLabel
+        Left = 128
+        Height = 14
+        Width = 28
+        Caption = 'Name'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 128
+        Height = 14
+        Top = 36
+        Width = 28
+        Caption = 'Fields'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 128
+        Height = 14
+        Top = 72
+        Width = 69
+        Caption = 'Case ins fields'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label14: TLabel
+        Left = 256
+        Height = 14
+        Width = 52
+        Caption = 'Desc fields'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label15: TLabel
+        Left = 256
+        Height = 14
+        Top = 36
+        Width = 53
+        Caption = 'Expression'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label17: TLabel
+        Left = 256
+        Height = 14
+        Top = 72
+        Width = 25
+        Caption = 'Filter'
+        Color = clNone
+        ParentColor = False
+      end
+      object ListBox1: TListBox
+        Left = 2
+        Height = 171
+        Hint = 'Index list'
+        Top = 14
+        Width = 121
+        ItemHeight = 13
+        OnClick = ListBox1Click
+        OnDblClick = ListBox1DblClick
+        TabOrder = 0
+      end
+      object edtName: TEdit
+        Left = 128
+        Height = 21
+        Top = 14
+        Width = 121
+        TabOrder = 1
+      end
+      object edtFields: TEdit
+        Left = 128
+        Height = 21
+        Top = 50
+        Width = 121
+        TabOrder = 2
+      end
+      object cbxPrimary: TCheckBox
+        Left = 129
+        Height = 13
+        Top = 109
+        Width = 65
+        Caption = 'soPrimary'
+        TabOrder = 7
+      end
+      object cbxDesc: TCheckBox
+        Left = 129
+        Height = 13
+        Top = 125
+        Width = 88
+        Caption = 'soDescending'
+        TabOrder = 8
+      end
+      object cbxUnique: TCheckBox
+        Left = 129
+        Height = 13
+        Top = 141
+        Width = 65
+        Caption = 'soUnique'
+        TabOrder = 9
+      end
+      object cbxNoCase: TCheckBox
+        Left = 249
+        Height = 13
+        Top = 109
+        Width = 69
+        Caption = 'soNoCase'
+        TabOrder = 10
+      end
+      object cbxNullLess: TCheckBox
+        Left = 249
+        Height = 13
+        Top = 125
+        Width = 71
+        Caption = 'soNullLess'
+        TabOrder = 11
+      end
+      object btnIndAdd: TButton
+        Left = 129
+        Height = 25
+        Top = 160
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Add'
+        OnClick = btnIndAddClick
+        TabOrder = 12
+      end
+      object btnIndDel: TButton
+        Left = 169
+        Height = 25
+        Top = 160
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Del'
+        OnClick = btnIndDelClick
+        TabOrder = 13
+      end
+      object btnIndMod: TButton
+        Left = 209
+        Height = 25
+        Top = 160
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Mod'
+        OnClick = Edit1Exit
+        TabOrder = 14
+      end
+      object btnIndClearAll: TButton
+        Left = 265
+        Height = 25
+        Top = 160
+        Width = 49
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Clear All'
+        OnClick = btnIndClearAllClick
+        TabOrder = 15
+      end
+      object edtInsFields: TEdit
+        Left = 128
+        Height = 21
+        Top = 86
+        Width = 121
+        TabOrder = 3
+      end
+      object edtDescFields: TEdit
+        Left = 256
+        Height = 21
+        Top = 14
+        Width = 121
+        TabOrder = 4
+      end
+      object edtExpression: TEdit
+        Left = 256
+        Height = 21
+        Top = 50
+        Width = 121
+        TabOrder = 5
+      end
+      object edtFilter: TEdit
+        Left = 256
+        Height = 21
+        Top = 86
+        Width = 121
+        TabOrder = 6
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Aggregates'
+      ImageIndex = 1
+      object Label6: TLabel
+        Left = 8
+        Height = 13
+        Top = 8
+        Width = 69
+        Caption = 'Aggregates:'
+        Color = clNone
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 136
+        Height = 13
+        Top = 8
+        Width = 28
+        Caption = 'Name'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 136
+        Height = 13
+        Top = 48
+        Width = 51
+        Caption = 'Expression'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label10: TLabel
+        Left = 136
+        Height = 13
+        Top = 88
+        Width = 54
+        Caption = 'IndexName'
+        Color = clNone
+        ParentColor = False
+      end
+      object Label11: TLabel
+        Left = 240
+        Height = 13
+        Top = 88
+        Width = 69
+        Caption = 'GroupingLevel'
+        Color = clNone
+        ParentColor = False
+      end
+      object ListBox2: TListBox
+        Left = 8
+        Height = 145
+        Top = 24
+        Width = 121
+        ItemHeight = 13
+        OnClick = ListBox2Click
+        TabOrder = 0
+      end
+      object edtAggName: TEdit
+        Left = 136
+        Height = 21
+        Top = 24
+        Width = 121
+        TabOrder = 1
+        Text = 'InStateCount'
+      end
+      object cbxAggActive: TCheckBox
+        Left = 264
+        Height = 17
+        Top = 24
+        Width = 57
+        Caption = 'Active'
+        Checked = True
+        State = cbChecked
+        TabOrder = 5
+      end
+      object edtAggExp: TEdit
+        Left = 135
+        Height = 21
+        Top = 64
+        Width = 186
+        TabOrder = 2
+      end
+      object edtAggIndexName: TEdit
+        Left = 135
+        Height = 21
+        Top = 104
+        Width = 98
+        TabOrder = 3
+        Text = 'ByState'
+      end
+      object edtAggGrpLevel: TEdit
+        Left = 239
+        Height = 21
+        Top = 104
+        Width = 85
+        TabOrder = 4
+        Text = '1'
+      end
+      object btnAggAdd: TButton
+        Left = 136
+        Height = 25
+        Top = 144
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Add'
+        OnClick = btnAggAddClick
+        TabOrder = 6
+      end
+      object btnAggDel: TButton
+        Left = 176
+        Height = 25
+        Top = 144
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Del'
+        OnClick = btnAggDelClick
+        TabOrder = 7
+      end
+      object btnAggMod: TButton
+        Left = 216
+        Height = 25
+        Top = 144
+        Width = 41
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Mod'
+        OnClick = btnAggModClick
+        TabOrder = 8
+      end
+      object btnAggClearAll: TButton
+        Left = 272
+        Height = 25
+        Top = 144
+        Width = 49
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Clear All'
+        OnClick = btnAggClearAllClick
+        TabOrder = 9
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Filter'
+      ImageIndex = 2
+      object Label12: TLabel
+        Left = 8
+        Height = 13
+        Top = 8
+        Width = 29
+        Caption = 'Filter'
+        Color = clNone
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+      end
+      object edtFltExp: TEdit
+        Left = 8
+        Height = 21
+        Top = 24
+        Width = 313
+        TabOrder = 0
+      end
+      object cbxFltNoPartial: TCheckBox
+        Left = 8
+        Height = 17
+        Top = 48
+        Width = 65
+        Caption = 'NoPartial'
+        TabOrder = 1
+      end
+      object cbxFltCaseIns: TCheckBox
+        Left = 80
+        Height = 17
+        Top = 48
+        Width = 65
+        Caption = 'CaseIns'
+        TabOrder = 2
+      end
+      object cbxFltActive: TCheckBox
+        Left = 152
+        Height = 17
+        Top = 48
+        Width = 57
+        Caption = 'Active'
+        OnClick = cbxFltActiveClick
+        TabOrder = 3
+      end
+      object cbxFltFound: TCheckBox
+        Left = 176
+        Height = 17
+        Top = 72
+        Width = 57
+        Caption = 'Found'
+        Enabled = False
+        Font.Color = clGray
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        TabOrder = 4
+      end
+      object btnFltFirst: TButton
+        Left = 8
+        Height = 25
+        Top = 68
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = '<<'
+        OnClick = btnFltFirstClick
+        TabOrder = 5
+      end
+      object btnFltPrev: TButton
+        Left = 40
+        Height = 25
+        Top = 68
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = '<'
+        OnClick = btnFltPrevClick
+        TabOrder = 6
+      end
+      object btnFltNext: TButton
+        Left = 72
+        Height = 25
+        Top = 68
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = '>'
+        OnClick = btnFltNextClick
+        TabOrder = 7
+      end
+      object btnFltLast: TButton
+        Left = 104
+        Height = 25
+        Top = 68
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = '>>'
+        OnClick = btnFltLastClick
+        TabOrder = 8
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Ranges'
+      ImageIndex = 3
+      object Label13: TLabel
+        Left = 8
+        Height = 13
+        Top = 8
+        Width = 44
+        Caption = 'Ranges'
+        Color = clNone
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentColor = False
+      end
+      object bntRngSetStart: TButton
+        Left = 8
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'SSt'
+        OnClick = bntRngSetStartClick
+        TabOrder = 0
+      end
+      object btnRngEditStart: TButton
+        Left = 40
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'ESt'
+        OnClick = btnRngEditStartClick
+        TabOrder = 1
+      end
+      object btnRngSetEnd: TButton
+        Left = 72
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'SEn'
+        OnClick = btnRngSetEndClick
+        TabOrder = 2
+      end
+      object btnRngEditEnd: TButton
+        Left = 104
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'EEn'
+        OnClick = btnRngEditEndClick
+        TabOrder = 3
+      end
+      object btnRngApply: TButton
+        Left = 152
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Appl'
+        OnClick = btnRngApplyClick
+        TabOrder = 4
+      end
+      object btnRngClear: TButton
+        Left = 184
+        Height = 25
+        Top = 24
+        Width = 33
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Clear'
+        OnClick = btnRngClearClick
+        TabOrder = 5
+      end
+      object cbxRngStartExclusive: TCheckBox
+        Left = 232
+        Height = 17
+        Top = 16
+        Width = 97
+        Caption = 'St KeyExlusive'
+        TabOrder = 6
+      end
+      object cbxRngEndExclusive: TCheckBox
+        Left = 232
+        Height = 17
+        Top = 32
+        Width = 97
+        Caption = 'En KeyExclusive'
+        TabOrder = 7
+      end
+    end
+    object TabSheet5: TTabSheet
+      Caption = 'Cloning'
+      ImageIndex = 4
+      object cbxCloneReset: TCheckBox
+        Left = 8
+        Height = 17
+        Top = 8
+        Width = 97
+        Caption = 'Reset'
+        TabOrder = 0
+      end
+      object cbxCloneKeepSettings: TCheckBox
+        Left = 8
+        Height = 17
+        Top = 24
+        Width = 97
+        Caption = 'KeepSettings'
+        TabOrder = 1
+      end
+      object btnCloneDoit: TButton
+        Left = 8
+        Height = 25
+        Top = 48
+        Width = 49
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Clone'
+        OnClick = btnCloneDoitClick
+        TabOrder = 2
+      end
+    end
+  end
+  object DataSource1: TDatasource
+    OnDataChange = DataSource1DataChange
+    left = 160
+    top = 344
+  end
+end

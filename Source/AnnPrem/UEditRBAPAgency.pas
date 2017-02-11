@@ -1,0 +1,216 @@
+unit UEditRBAPAgency;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  UEditRBAP, IBDatabase, ComCtrls, StdCtrls, ExtCtrls, DB, tsvStdCtrls;
+
+type
+  TfmEditRBAPAgency = class(TfmEditRBAP)
+    lbPhones: TLabel;
+    edPhones: TEdit;
+    lbAddress: TLabel;
+    edAddress: TEdit;
+    lbSite: TLabel;
+    edSite: TEdit;
+    lbEmail: TLabel;
+    edEmail: TEdit;
+    lbFieldViewName: TLabel;
+    edFieldViewName: TEdit;
+    btFieldViewName: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btFieldViewNameClick(Sender: TObject);
+    procedure edFieldViewNameKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    procedure InitUpdateAndView;
+  protected
+    function CheckFieldsFill: Boolean; override;
+  public
+    ap_field_view_id: Integer;
+    procedure InitUpdate; override;
+    procedure InitView; override;
+    procedure InitFilter; override;
+    procedure DoneFilter; override;
+    function GetAddSql: String; override;
+    function GetUpdateSql: String; override;
+    procedure CacheUpdate; override;
+    { Public declarations }
+  end;
+
+var
+  fmEditRBAPAgency: TfmEditRBAPAgency;
+
+implementation
+
+uses UMainUnited, URBAP, URBAPAgency, UAnnPremData;
+
+{$R *.DFM}
+
+procedure TfmEditRBAPAgency.InitUpdateAndView;
+begin
+  with TfmRBAP(ParentForm) do begin
+    edPhones.Text:=Mainqr.FieldByName('PHONES').AsString;
+    edAddress.Text:=Mainqr.FieldByName('ADDRESS').AsString;
+    edSite.Text:=Mainqr.FieldByName('SITE').AsString;
+    edEmail.Text:=Mainqr.FieldByName('EMAIL').AsString;
+    ap_field_view_id:=Mainqr.FieldByName('AP_FIELD_VIEW_ID').AsInteger;
+    edFieldViewName.Text:=Mainqr.FieldByName('FIELD_VIEW_NAME').AsString;
+  end;
+end;
+
+procedure TfmEditRBAPAgency.InitUpdate;
+begin
+  inherited InitUpdate;
+  InitUpdateAndView;
+end;
+
+procedure TfmEditRBAPAgency.InitView;
+begin
+  inherited InitView;
+  InitUpdateAndView;
+end;
+
+procedure TfmEditRBAPAgency.InitFilter;
+begin
+  inherited InitFilter;
+  with TfmRBAPAgency(ParentForm) do begin
+    edPhones.Text:=Filters.Items[IndexFindPhones].Value;
+    edAddress.Text:=Filters.Items[IndexFindAddress].Value;
+    edSite.Text:=Filters.Items[IndexFindSite].Value;
+    edEmail.Text:=Filters.Items[IndexFindEmail].Value;
+    edFieldViewName.Color:=clBtnFace;
+    edFieldViewName.ReadOnly:=false;
+    edFieldViewName.Text:=Filters.Items[IndexFieldView].Value;
+  end;  
+end;
+
+procedure TfmEditRBAPAgency.DoneFilter;
+begin
+  inherited DoneFilter;
+  with TfmRBAPAgency(ParentForm) do begin
+    Filters.Items[IndexFindPhones].Value:=Trim(edPhones.Text);
+    Filters.Items[IndexFindPhones].Enabled:=Trim(edPhones.Text)<>'';
+
+    Filters.Items[IndexFindAddress].Value:=Trim(edAddress.Text);
+    Filters.Items[IndexFindAddress].Enabled:=Trim(edAddress.Text)<>'';
+
+    Filters.Items[IndexFindSite].Value:=Trim(edSite.Text);
+    Filters.Items[IndexFindSite].Enabled:=Trim(edSite.Text)<>'';
+
+    Filters.Items[IndexFindEmail].Value:=Trim(edEmail.Text);
+    Filters.Items[IndexFindEmail].Enabled:=Trim(edEmail.Text)<>'';
+
+    edFieldViewName.Color:=clWindow;
+    edFieldViewName.ReadOnly:=true;
+
+    Filters.Items[IndexFieldView].Value:=Trim(edFieldViewName.Text);
+    Filters.Items[IndexFieldView].Enabled:=Trim(edFieldViewName.Text)<>'';
+  end;
+end;
+
+function TfmEditRBAPAgency.GetAddSql: String;
+begin
+  Result:='INSERT INTO '+TfmRBAP(ParentForm).TableName+
+          ' ('+TfmRBAP(ParentForm).FieldKeyName+',NAME,FULLNAME,VARIANT,PRIORITY,PHONES,ADDRESS,SITE,EMAIL,AP_FIELD_VIEW_ID,LINK,EXPORT) VALUES '+
+          ' ('+inttostr(OldFieldKeyValue)+
+          ','+QuotedStr(Trim(edName.Text))+
+          ','+QuotedStr(Trim(edFullName.Text))+
+          ','+QuotedStr(Trim(meVariant.Lines.Text))+
+          ','+inttostr(udPriority.Position)+
+          ','+QuotedStr(Trim(edPhones.Text))+
+          ','+QuotedStr(Trim(edAddress.Text))+
+          ','+QuotedStr(Trim(edSite.Text))+
+          ','+QuotedStr(Trim(edEmail.Text))+
+          ','+iff(Trim(edFieldViewName.Text)<>'',InttoStr(ap_field_view_id),'NULL')+
+          ','+QuotedStr(Trim(edLink.Text))+
+          ','+QuotedStr(edExport.Text)+
+          ')';
+end;
+
+procedure TfmEditRBAPAgency.CacheUpdate;
+begin
+  inherited CacheUpdate;
+  with TfmRBAP(ParentForm) do begin
+    MainQr.FieldByName('PHONES').AsString:=Trim(edPhones.Text);
+    MainQr.FieldByName('ADDRESS').AsString:=Trim(edAddress.Text);
+    MainQr.FieldByName('SITE').AsString:=Trim(edSite.Text);
+    MainQr.FieldByName('EMAIL').AsString:=Trim(edEmail.Text);
+    MainQr.FieldByName('FIELD_VIEW_NAME').Value:=iff(Trim(edFieldViewName.Text)<>'',Trim(edFieldViewName.Text),Null);
+    Mainqr.FieldByName('AP_FIELD_VIEW_ID').Value:=iff(Trim(edFieldViewName.Text)<>'',ap_field_view_id,Null);
+  end;
+end;
+
+function TfmEditRBAPAgency.GetUpdateSql: String;
+begin
+  Result:='UPDATE '+TfmRBAP(ParentForm).TableName+
+          ' SET NAME='+QuotedStr(Trim(edName.text))+
+          ', FULLNAME='+QuotedStr(Trim(edFullName.text))+
+          ', VARIANT='+QuotedStr(Trim(meVariant.Lines.text))+
+          ', PRIORITY='+inttostr(udPriority.Position)+
+          ', PHONES='+QuotedStr(Trim(edPhones.Text))+
+          ', ADDRESS='+QuotedStr(Trim(edAddress.Text))+
+          ', SITE='+QuotedStr(Trim(edSite.Text))+
+          ', EMAIL='+QuotedStr(Trim(edEmail.Text))+
+          ', AP_FIELD_VIEW_ID='+iff(Trim(edFieldViewName.Text)<>'',InttoStr(ap_field_view_id),'NULL')+
+          ', LINK='+QuotedStr(Trim(edLink.Text))+
+          ', EXPORT='+QuotedStr(edExport.Text)+
+          ' WHERE '+TfmRBAP(ParentForm).FieldKeyName+'='+IntToStr(OldFieldKeyValue);
+end;
+
+procedure TfmEditRBAPAgency.FormCreate(Sender: TObject);
+begin
+  inherited;
+  edPhones.MaxLength:=DomainNoteLength;
+  edAddress.MaxLength:=DomainNoteLength;
+  edSite.MaxLength:=DomainNoteLength;
+  edEmail.MaxLength:=DomainNoteLength;
+end;
+
+function TfmEditRBAPAgency.CheckFieldsFill: Boolean;
+begin
+  Result:=inherited CheckFieldsFill;
+  if Result then
+    if trim(edPhones.Text)='' then begin
+      ShowErrorEx(Format(ConstFieldNoEmpty,[lbPhones.Caption]));
+      edPhones.SetFocus;
+      Result:=false;
+      exit;
+    end;
+end;
+
+procedure TfmEditRBAPAgency.btFieldViewNameClick(Sender: TObject);
+var
+  TPRBI: TParamRBookInterface;
+begin
+  FillChar(TPRBI,SizeOf(TPRBI),0);
+  TPRBI.Visual.TypeView:=tvibvModal;
+  TPRBI.Locate.KeyFields:='AP_FIELD_VIEW_ID';
+  TPRBI.Locate.KeyValues:=ap_field_view_id;
+  TPRBI.Locate.Options:=[loCaseInsensitive];
+  if _ViewInterfaceFromName(NameRbkAPFieldView,@TPRBI) then begin
+   ChangeFlag:=true;
+   ap_field_view_id:=GetFirstValueFromParamRBookInterface(@TPRBI,'AP_FIELD_VIEW_ID');
+   edFieldViewName.Text:=GetFirstValueFromParamRBookInterface(@TPRBI,'NAME');
+  end;
+end;
+
+procedure TfmEditRBAPAgency.edFieldViewNameKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+
+  procedure ClearParent;
+  begin
+    if Length(edFieldViewName.Text)=Length(edFieldViewName.SelText) then begin
+      edFieldViewName.Text:='';
+      ap_field_view_id:=0;
+    end;
+  end;
+
+begin
+  case Key of
+    VK_DELETE,VK_BACK: ClearParent;
+  end;
+end;
+
+end.

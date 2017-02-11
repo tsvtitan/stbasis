@@ -1,0 +1,45 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = stbasis.exe stbasiss.exe systems.dll premises.dll design.dll \
+  interpreter.dll components.dll client.dll server.dll
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+stbasis.exe: stbasis.dpr
+  $(DCC)
+
+systems.dll: systems.dpr
+  $(DCC)
+
+premises.dll: premises.dpr
+  $(DCC)
+
+stbasiss.exe: stbasiss.dpr
+  $(DCC)
+
+client.dll: client.dpr
+  $(DCC)
+
+design.dll: design.dpr
+  $(DCC)
+
+interpreter.dll: interpreter.dpr
+  $(DCC)
+
+components.dll: components.dpr
+  $(DCC)
+
+server.dll: server.dpr
+  $(DCC)
+
+

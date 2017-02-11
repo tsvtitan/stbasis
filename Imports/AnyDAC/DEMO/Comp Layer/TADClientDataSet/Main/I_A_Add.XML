@@ -1,0 +1,56 @@
+<?xml version="1.0" standalone="yes"?>
+
+<ProgramGS ID="TAPRProgramGS">
+	<Version Int="20"/>
+	<StreamFlags Int="0"/>
+	<Enabled Bool="True"/>
+	<Comment Str=""/>
+
+	<VariableListGS ID="">
+		<Enabled Bool="True"/>
+	</VariableListGS>
+
+	<InstructionListGS ID="">
+		<Enabled Bool="True"/>
+
+		<CallProgramGS ID="Call program &apos;&lt;APRHOME&gt;\IndAdd.XML&apos;">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ProgramFileName Str="&lt;APRHOME&gt;\IndAdd.XML"/>
+
+			<ProgramParameters ID="">
+			</ProgramParameters>
+		</CallProgramGS>
+
+		<CallProgramGS ID="Call program &apos;&lt;APRHOME&gt;\AggAdd.XML&apos;">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ProgramFileName Str="&lt;APRHOME&gt;\AggAdd.XML"/>
+
+			<ProgramParameters ID="">
+			</ProgramParameters>
+		</CallProgramGS>
+
+		<CallProgramGS ID="Call program &apos;&lt;APRHOME&gt;\FltSet.XML&apos;">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ProgramFileName Str="&lt;APRHOME&gt;\FltSet.XML"/>
+
+			<ProgramParameters ID="">
+			</ProgramParameters>
+		</CallProgramGS>
+
+		<CallProgramGS ID="Call program &apos;&lt;APRHOME&gt;\RngSet.XML&apos;">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ProgramFileName Str="&lt;APRHOME&gt;\RngSet.XML"/>
+
+			<ProgramParameters ID="">
+			</ProgramParameters>
+		</CallProgramGS>
+	</InstructionListGS>
+
+	<ModuleListGS ID="">
+		<Enabled Bool="True"/>
+	</ModuleListGS>
+</ProgramGS>

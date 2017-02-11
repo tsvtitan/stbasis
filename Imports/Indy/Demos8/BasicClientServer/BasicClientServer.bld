@@ -1,0 +1,13 @@
+[OS]
+Windows
+
+[Files]
+BasicClientServer.bpg
+Client.dpr
+Client.res
+ClientMain.dfm
+ClientMain.pas
+Server.dpr
+Server.res
+ServerMain.dfm
+ServerMain.pas

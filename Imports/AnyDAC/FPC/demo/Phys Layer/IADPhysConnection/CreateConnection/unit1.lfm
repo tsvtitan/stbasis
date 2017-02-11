@@ -1,0 +1,27 @@
+object Form1: TForm1
+  Left = 290
+  Height = 300
+  Top = 149
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 299
+  ActiveControl = Console
+  Caption = 'Form1'
+  object Console: TMemo
+    Left = 8
+    Height = 248
+    Top = 40
+    Width = 384
+    TabOrder = 0
+  end
+  object btnCreateConnection: TButton
+    Left = 10
+    Height = 25
+    Top = 6
+    Width = 158
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Create Connections'
+    OnClick = btnCreateConnectionClick
+    TabOrder = 1
+  end
+end

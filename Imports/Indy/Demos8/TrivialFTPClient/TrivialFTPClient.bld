@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+TFTPClient.dpr
+TFTPClient.res
+main.dfm
+main.pas

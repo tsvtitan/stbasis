@@ -1,0 +1,108 @@
+inherited fmEditRBPms_Premises_Advertisment: TfmEditRBPms_Premises_Advertisment
+  Left = 451
+  Top = 393
+  Caption = 'fmEditRBPms_Premises_Advertisment'
+  ClientHeight = 155
+  ClientWidth = 304
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbAdvertisment: TLabel [0]
+    Left = 13
+    Top = 20
+    Width = 48
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Реклама:'
+  end
+  object lbAgent: TLabel [1]
+    Left = 29
+    Top = 47
+    Width = 32
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Агент:'
+  end
+  object lbPremises: TLabel [2]
+    Left = 14
+    Top = 72
+    Width = 44
+    Height = 13
+    Caption = 'Ид недв:'
+  end
+  inherited pnBut: TPanel
+    Top = 117
+    Width = 304
+    TabOrder = 7
+    inherited Panel2: TPanel
+      Left = 119
+    end
+  end
+  inherited cbInString: TCheckBox
+    Left = 8
+    Top = 97
+    TabOrder = 6
+  end
+  object edAdvertisment: TEdit [5]
+    Left = 69
+    Top = 16
+    Width = 202
+    Height = 21
+    Color = clBtnFace
+    MaxLength = 100
+    ReadOnly = True
+    TabOrder = 0
+    OnChange = edAdvertismentChange
+  end
+  object edAgent: TEdit [6]
+    Left = 69
+    Top = 43
+    Width = 202
+    Height = 21
+    Color = clBtnFace
+    MaxLength = 100
+    ReadOnly = True
+    TabOrder = 2
+    OnChange = edAdvertismentChange
+  end
+  object edPremises: TEdit [7]
+    Left = 69
+    Top = 70
+    Width = 202
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 4
+    OnChange = edPremisesChange
+  end
+  object btAdvertisment: TButton [8]
+    Left = 271
+    Top = 17
+    Width = 23
+    Height = 22
+    Caption = '...'
+    TabOrder = 1
+    OnClick = btAdvertismentClick
+  end
+  object btPremises: TButton [9]
+    Left = 271
+    Top = 71
+    Width = 23
+    Height = 22
+    Caption = '...'
+    TabOrder = 5
+    OnClick = btPremisesClick
+  end
+  object btAgent: TButton [10]
+    Left = 271
+    Top = 44
+    Width = 23
+    Height = 22
+    Caption = '...'
+    TabOrder = 3
+    OnClick = btAgentClick
+  end
+  inherited IBTran: TIBTransaction
+    Left = 120
+    Top = 129
+  end
+end

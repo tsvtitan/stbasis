@@ -1,0 +1,315 @@
+Сменить улицуСменить улицу&{0921F68E-E564-4172-A84A-5D6237FC32D5}†unit Main;
+{ модуль разработан ФИО }
+
+interface
+procedure fmChangeStreetbtRunClick(Sender: TObject);
+procedure fmChangeStreetbtCloseClick(Sender: TObject);
+procedure fmChangeStreetClose(Sender: TObject; var Action: TCloseAction);
+procedure fmChangeStreetbtStreet1Click(Sender: TObject);
+procedure fmChangeStreetbtStreet2Click(Sender: TObject);
+
+implementation
+
+procedure SetStreet1;
+begin
+  fmChangeStreet.rbi.Visual.TypeView:=tviOnlyData;
+  fmChangeStreet.rbi.Condition.WhereStr.Clear;
+  fmChangeStreet.rbi.Condition.WhereStr.Add(' AP_STREET_ID='+fmChangeStreet.edStreet1.Tag+' ');
+  if fmChangeStreet.rbi.View then begin
+    if not fmChangeStreet.memd.IsEmpty then begin
+      fmChangeStreet.edStreet1.Text:=fmChangeStreet.memd.FieldByName('NAME').AsString;
+      fmChangeStreet.edStreet1.Tag:=fmChangeStreet.memd.FieldByName('AP_STREET_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure SetStreet2;
+begin
+  fmChangeStreet.rbi.Visual.TypeView:=tviOnlyData;
+  fmChangeStreet.rbi.Condition.WhereStr.Clear;
+  fmChangeStreet.rbi.Condition.WhereStr.Add(' AP_STREET_ID='+fmChangeStreet.edStreet2.Tag+' ');
+  if fmChangeStreet.rbi.View then begin
+    if not fmChangeStreet.memd.IsEmpty then begin
+      fmChangeStreet.edStreet2.Text:=fmChangeStreet.memd.FieldByName('NAME').AsString;
+      fmChangeStreet.edStreet2.Tag:=fmChangeStreet.memd.FieldByName('AP_STREET_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fmChangeStreet.FormStyle<>fsMDIChild then begin
+  {  fmChangeStreet.edStreet1.Tag:=ReadParam(GetInterfaceName,fmChangeStreet.edStreet1.Name,fmChangeStreet.edStreet1.Tag);
+    fmChangeStreet.edStreet2.Tag:=ReadParam(GetInterfaceName,fmChangeStreet.edStreet2.Name,fmChangeStreet.edStreet2.Tag); }
+    SetStreet1;
+    SetStreet2;
+    fmChangeStreet.FormStyle:=fsMDIChild;
+  end else begin
+    fmChangeStreet.WindowState:=wsNormal;
+    fmChangeStreet.BringToFront;
+    fmChangeStreet.Show;
+  end;
+end;
+
+procedure ChangeStreet;
+begin
+  Screen.Cursor:=crHourGlass;
+  try
+
+    fmChangeStreet.Query.Active:=false;
+    fmChangeStreet.tran.Active:=false;
+  
+    fmChangeStreet.Query.Params.ParamByName('OLD_STREET_ID').Value:=fmChangeStreet.edStreet1.Tag;
+    fmChangeStreet.Query.Params.ParamByName('NEW_STREET_ID').Value:=fmChangeStreet.edStreet2.Tag;
+  
+    fmChangeStreet.tran.Active:=true;
+    fmChangeStreet.Query.ExecSQL;
+
+  finally
+    Screen.Cursor:=crDefault;
+  end;
+end;
+
+procedure fmChangeStreetbtRunClick(Sender: TObject);
+var
+  S: String;
+begin
+  if Trim(fmChangeStreet.edStreet1.Text)='' then begin
+    ShowErrorEx('Выберите какую улицу.');
+    fmChangeStreet.edStreet1.SetFocus;
+    exit;
+  end;
+  if Trim(fmChangeStreet.edStreet2.Text)='' then begin
+    ShowErrorEx('Выберите на какую улицу.');
+    fmChangeStreet.edStreet2.SetFocus;
+    exit;
+  end;
+  S:='Вы действительно хотите сменить улицу: '+fmChangeStreet.edStreet1.Text+' на улицу: '+fmChangeStreet.edStreet2.Text+'?';
+  if ShowQuestionEx(S)=mrYes then begin
+    ChangeStreet;
+    if fmChangeStreet.CheckBoxDel.Checked then begin
+      ExecSQL(MainDataBase,'DELETE FROM AP_REGION_STREET WHERE AP_STREET_ID='+fmChangeStreet.edStreet1.Tag);
+      ExecSQL(MainDataBase,'DELETE FROM AP_STREET WHERE AP_STREET_ID='+fmChangeStreet.edStreet1.Tag);
+    end;
+    ShowInfoEx('Операция по смене улицы успешно завершена.');
+  end;
+end;
+
+procedure fmChangeStreetbtCloseClick(Sender: TObject);
+begin
+  fmChangeStreet.Close;
+end;
+
+procedure fmChangeStreetClose(Sender: TObject; var Action: TCloseAction);
+begin
+ { WriteParam(GetInterfaceName,fmChangeStreet.edStreet1.Name,fmChangeStreet.edStreet1.Tag);
+  WriteParam(GetInterfaceName,fmChangeStreet.edStreet2.Name,fmChangeStreet.edStreet2.Tag); }
+  Action:=caFree;
+end;
+
+procedure fmChangeStreetbtStreet1Click(Sender: TObject);
+begin
+  fmChangeStreet.rbi.Visual.TypeView:=tvibvModal;
+  fmChangeStreet.rbi.Condition.WhereStr.Clear;
+  fmChangeStreet.rbi.Locate.KeyFields:='AP_STREET_ID';
+  fmChangeStreet.rbi.Locate.KeyValues:=fmChangeStreet.edStreet1.Tag;
+  if fmChangeStreet.rbi.View then begin
+    if not fmChangeStreet.memd.IsEmpty then begin
+      fmChangeStreet.edStreet1.Text:=fmChangeStreet.memd.FieldByName('NAME').AsString;
+      fmChangeStreet.edStreet1.Tag:=fmChangeStreet.memd.FieldByName('AP_STREET_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure fmChangeStreetbtStreet2Click(Sender: TObject);
+begin
+  fmChangeStreet.rbi.Visual.TypeView:=tvibvModal;
+  fmChangeStreet.rbi.Condition.WhereStr.Clear;
+  fmChangeStreet.rbi.Locate.KeyFields:='AP_STREET_ID';
+  fmChangeStreet.rbi.Locate.KeyValues:=fmChangeStreet.edStreet2.Tag;
+  if fmChangeStreet.rbi.View then begin
+    if not fmChangeStreet.memd.IsEmpty then begin
+      fmChangeStreet.edStreet2.Text:=fmChangeStreet.memd.FieldByName('NAME').AsString;
+      fmChangeStreet.edStreet2.Tag:=fmChangeStreet.memd.FieldByName('AP_STREET_ID').AsInteger;
+    end;
+  end;
+end;
+
+end.
+Aobject fmChangeStreet: TfmChangeStreet
+  Left = 27
+  Top = 25
+  ActiveControl = btRun
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Сменить улицу'
+  ClientHeight = 123
+  ClientWidth = 262
+  Color = clBtnFace
+  Constraints.MaxHeight = 150
+  Constraints.MaxWidth = 270
+  Constraints.MinHeight = 150
+  Constraints.MinWidth = 270
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    00FF00FFF80007FF00F00FFFF80007FF0000FFFFF80007FF000FFFFFF80007FF
+    0000FFFFF80007FF00FF0FFFF80007FF00FF0FFFF80007FF00FF0FF0000007FF
+    0000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = fmChangeStreetClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbRelease: TiLabel
+    Left = 9
+    Top = 16
+    Width = 66
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Какую улицу:'
+  end
+  object iLabel1: TiLabel
+    Left = 24
+    Top = 59
+    Width = 51
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'На какую:'
+  end
+  object edStreet1: TiEdit
+    Left = 85
+    Top = 13
+    Width = 143
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object btStreet1: TiButton
+    Left = 234
+    Top = 13
+    Width = 21
+    Height = 21
+    Hint = 'Выбрать выпуск'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    OnClick = fmChangeStreetbtStreet1Click
+  end
+  object btRun: TiButton
+    Left = 64
+    Top = 92
+    Width = 107
+    Height = 25
+    Hint = 'Сменить улицу'
+    Anchors = [akRight, akBottom]
+    Caption = 'Сменить'
+    Default = True
+    TabOrder = 5
+    OnClick = fmChangeStreetbtRunClick
+  end
+  object btClose: TiButton
+    Left = 180
+    Top = 92
+    Width = 75
+    Height = 25
+    Hint = 'Закрыть'
+    Anchors = [akRight, akBottom]
+    Caption = 'Закрыть'
+    TabOrder = 6
+    OnClick = fmChangeStreetbtCloseClick
+  end
+  object edStreet2: TiEdit
+    Left = 85
+    Top = 56
+    Width = 143
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object btStreet2: TiButton
+    Left = 234
+    Top = 56
+    Width = 21
+    Height = 21
+    Hint = 'Выбрать выпуск'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    OnClick = fmChangeStreetbtStreet2Click
+  end
+  object CheckBoxDel: TiCheckBox
+    Left = 85
+    Top = 36
+    Width = 145
+    Height = 17
+    Caption = 'и удалить после смены'
+    TabOrder = 2
+  end
+  object rbi: TiRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    ReturnData = memd
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    InterfaceName = 'Справочник улиц'
+    Left = 165
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 197
+  end
+  object tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 68
+  end
+  object Query: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'UPDATE AP_PREMISES'
+      'SET AP_STREET_ID=:NEW_STREET_ID'
+      'WHERE AP_STREET_ID=:OLD_STREET_ID')
+    Left = 132
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'NEW_STREET_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_STREET_ID'
+        ParamType = ptUnknown
+      end>
+  end
+  object siSplash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 100
+  end
+end
+fmChangeStreet 

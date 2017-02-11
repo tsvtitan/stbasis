@@ -1,0 +1,594 @@
+History AnyDAC
+-----------------
+
+------------------------------------------------------------
+v 1.12.2 (13.04.07)
+  - added: TDBX tracing capabilities, etc
+  - added: Oracle: TADTable includes ROWID into SELECT list
+  - fixed: D2007: components are not installed into IDE
+  - fixed: Oracle: ORA-00942 on metadata fetching if user has 
+           'SELECT ANY TABLE' priviledge
+
+------------------------------------------------------------
+v 1.12.1 (12.04.07)
+  - fixed: Oracle: ORA-00942 on connecting to DB
+
+------------------------------------------------------------
+v 1.12.0 (12.04.07)
+  - added: ADSpeed_InMem - benchmark framework for inmemory datasets
+  - added: all ODBC based drivers now supports (DSN | FIL)=<name>
+           in Database connection parameter
+  - changed: enhanced FastReport RTTI
+  - fixed: ADExecutor does not show all datasets, if command
+           returns more than one dataset
+  - fixed: AV/Range check error on consecutive executions of
+           stored procedure returning multiple result sets
+  - fixed: TDBX: driver was broken
+  - fixed: MySQL: memory leak on command returning rowsets
+  - fixed: Batch operation remains active after dataset close
+  - fixed: BCB 2006 installation issues
+  - fixed: Oracle: Instant Client support was broken
+  - fixed: Oracle: ORA-00942 on metadata fetching if user has 
+           'SELECT ANY TABLE' priviledge
+
+------------------------------------------------------------
+v 1.11.0 (21.03.07)
+  - added: D2007 compatibility
+  - added: TDBX driver
+  - changed: improoved sorting of dataset by nonunique fields
+  - fixed: MSSQL: PRINT result was erased before it is 
+           accessible to the programmer
+  - fixed: MySQL: Utf8 parameter value is corrupted
+  - fixed: MySQL: Utf8 column leads to memory overwrite
+  - fixed: MySQL: SP output parameters was always NULL
+  - fixed: MySQL: 'Could not convert' error at getting value of
+                  numeric output parameter, if DecimalSeparator <> '.'
+  - fixed: GUIx was not thema API compatible
+
+------------------------------------------------------------
+v 1.10.1 (12.03.07)
+  - added: TADDataMove.OnError event handler
+  - fixed: few demo applications was broking
+  - fixed: incorrect AnsiString sorting possible
+  - fixed: after posting changes in dataset sorted by not unique
+           index, current record was moved to the bottom
+  - fixed: AV's in DbExpress driver
+  - fixed: MSSQL: "invalid cursor state" if cursor has long 
+           values and record number is multiple of RowsetSize
+  - fixed: ASA 8: invalid length returning for zero length BLOB
+           (thanks to Markus Duttig)
+  - fixed: incorrect "Cannot compare rows" error
+
+------------------------------------------------------------
+v 1.10.0 (20.02.07)
+  - added: FastReport data access driver
+           (thanks to Serega Glazyrin <glserega at mezonplus dot ru>)
+  - added: FPC on Win32 support
+           (see AnyDAC\FPC\readme.txt for details)
+  - changed: ResourceOptions.Disconnectable now True by default
+  - changed: UpdateOptions.AutoRefresh is replaced with RefreshMode
+           (rmManual - AutoRefresh=False,
+            rmOnDemand - AutoRefresh=True,
+            rmAll - AutoRefresh=True, but will be refreshed all fields)
+  - fixed: AV on FastMM & exception & ADQuery.Free
+  - fixed: few C++Builder 5 issues in installer
+  - fixed: CountUpdatedRecords is not using if NO_DATA_FOUND is raised
+  - fixed: left AnyDAC_DEBUG defined
+  - fixed: incorrect refresh record SELECT command generation
+  - fixed: incorrect default value for TADAutoIncField.ProviderFlags
+  - fixed: possible AV at Delphi IDE exit
+  - fixed: possible incorrect time value (21:15:00 -> 21:14:59)
+  - fixed: AV on Oracle on numbers with > 38 digits
+  - fixed: "Data too large for variable" on MD using NVARCHAR fields
+  - fixed: "Invalid object name" on editing of SELECT * FROM Northwind..Orders
+  - fixed: *** multiple bugs founded by FPC compiler ***
+
+------------------------------------------------------------
+v 1.9.2 (16.01.07)
+  - changed: improved installer phrases
+  - fixed: MSSQL driver hang-up on update of data
+  - fixed: MSSQL error "connection busy" on updates using TADUpdateSQL
+  - fixed: non optimal settings of TADUpdateSQL commands
+  - fixed: ADQA does not compile
+
+------------------------------------------------------------
+v 1.9.1 (23.12.06)
+  - fixed: D5 incompatibility
+  - fixed: MySQL UTF8 support
+  - fixed: MySQL max supported version now is 5.2
+  - fixed: AV in Delphi IDE after editing SQL property, etc
+           most annoying bug is gone :)
+  - changed: improved ADSpeed
+
+------------------------------------------------------------
+v 1.9.0 (19.12.06)
+  - added: MSSQL driver VARCHAR(Max) support
+  - added: General AllowReconnect option. If True driver will 
+           automatically restore losted connection with server.
+           Option is experimental. Oracle driver is not supported. 
+  - added: MySQL UTF8 support
+  - added: Oracle driver ORACLE_HOME, TNS_ADMIN environment variables support
+  - fixed: SynEdit syntax highlighting shows some code parts in black
+  - fixed: MSSQL driver gives "[AnyDAC][DatS]-4" error at opening stored 
+           procedure result set without columns and SET NOCOUNT OFF
+  - fixed: Oracle driver does not return "object exists" error, if to 
+           execute the same CREATE command more than one time
+  - fixed: incorrect detection of ftBCD vs ftFmtBCD. If this fix affects
+           your application, then decrement MaxBcdPrecision for 4 units.
+  - fixed: TADClientDataSet cloning functionality was broken
+  - fixed: MySQL driver reconnect functionality does not work as expected
+  - fixed: "Out of range" exception on some SQL's
+  - fixed: AV on custom monitoring
+  - fixed: TADDatSViewList.Rebuild does not take into account 
+           TADDatSView.SourceView
+  - fixed: tracing on & ODBC based drivers give 100% CPU utilization
+  - fixed: ODBC driver (ODBC, MSAcc, MySQL, Sybase ASA) invalid BLOB 
+           content after 1Mb
+
+------------------------------------------------------------
+v 1.8.0 (14.11.06)
+  - added: BCB 5, BCB 2006 support (thanks to Serge Yakovlev <sergey@mag7.ru>)
+  - added: DbExpress D2006 support (thanks to Michal Abramczyk <miab3@o2.pl>)
+  - added: Oracle Instant Client support
+  - added: TDataSetProvder.ResolveToDataset = True support
+  - added: MYSQL driver AllowReconnect option. If True driver will 
+           automatically restore losted connection to the server.
+  - added: MYSQL driver stored procedure / function support
+  - added: ResourceOptions.DefaultParamType
+  - changed: improved data type mapping editor
+  - changed: ADExplorer BDE aliases import improved
+  - changed: MySQL driver was mapping FLOAT/DOUBLE/REAL to ftFMTBcd
+             now it will map them to ftFloat
+  - fixed: DevEx adapting packages had incorrect package references
+  - fixed: incorrect SQL parsing
+  - fixed: "Interface not supported" error in ADExecutor / ADExplorer
+  - fixed: few SynEdit / ADExecutor integration issues
+  - fixed: "dbExp is not installed" in ADExplorer on the clean machine
+  - fixed: Oracle driver can fetch only single record from REF CURSOR
+           on some conditions
+  - fixed: cant edit DATE field in Oracle table using Delphi 5
+  - fixed: TADUpdateSQL editor does not allow editing of SQL's
+  - fixed: MSAccess driver trying to get PK fields for stored queries
+  - fixed: "No cols defined" error on RefreshRecord
+  - fixed: consequent async operations may give error "Async 
+           operation in progress"
+  - fixed: Oracle driver can give ora-01002 on REF CURSOR
+
+------------------------------------------------------------
+v 1.7.0 (23.10.06)
+  - added: BCB 6 support (thanks to Serge Yakovlev <sergey@mag7.ru>)
+  - changed: improved text "Record changed/deleted" error
+  - changed: improved ADSpeed benchmark suite
+  - changed: BPL files now will be installed into one, specified 
+             in "BPL output directory"
+  - fixed: TADUpdateSQL.FetchRowSQL was using only at most first call
+  - fixed: few Query Editor issues
+  - fixed: few TADParam array handling issues
+  - fixed: AV in MSSQL driver on too small TADParam.Precision
+  - fixed: Oracle: removed limitation for max 4000/3 character
+           length of parameter value
+
+------------------------------------------------------------
+v 1.6.1 (28.09.06)
+  - changed: license agreement text changed
+  - fixed: daADGUIxFormsD7 was using SynEdit unconditionally
+  - fixed: demos were hard linked to monitor and dbExp for D10
+
+------------------------------------------------------------
+v 1.6.0 (22.09.06)
+  - added: SynEdit integration
+  - changed: changed packages set
+  - changed: many improovements for Query Editor
+  - changed: many compatibility propeerties was removed:
+
+           TADClientDataSet:
+
+           LogChanges -> CachedUpdates
+           PacketRecords -> FetchOptions.RowsetSize
+           FetchOnDemand = False -> FetchOptions.Mode = fmManual
+           FetchOnDemand = True -> FetchOptions.Mode = fmOnDemand
+           ConstraintsDisabled -> not ConstraintsEnabled
+           DisableStringTrim -> not FormatOptions.StrsTrim
+           HasChanges -> UpdatesPending
+           ReadOnly -> UpdateOptions.ReadOnly
+           MergeChangeLog -> CommitUpdates
+           StatusFilter -> UpdateRecordTypes
+
+           TADconnection:
+
+           TransIsolation -> TxOptions.Isolation
+
+           TADQuery, TADStoredProc, TADTable:
+
+           ParamCheck -> ResourceOptions.ParamCreate
+           MacroCheck -> ResourceOptions.MacroCreate
+           AutoRefresh -> UpdateOptions.AutoRefresh
+           CacheBlobs -> FetchItems.Cache & fiBlobs
+           UpdateMode -> FetchOptions.UpdateMode
+           RequestLive -> UpdateOptions.RequestLive
+           StatusFilter -> UpdateRecordTypes
+           ReadOnly -> UpdateOptions.ReadOnly
+
+  - fixed: macro value with parameters inside was not parsed
+  - fixed: RecordCountMode = cmTotal was broken
+  - fixed: Oracle: if procedure has cursor parameters, then
+           prepare was really executing procedure
+  - fixed: MSSQL: "Invalid Cursor State" error after failed update
+  - fixed: MSSQL: "Cannot parse object name" on names like Northwind..Orders
+
+------------------------------------------------------------
+v 1.5.4 (31.08.06)
+  - changed: Indy Monitor support is disabled by default
+  - fixed: refresh on detail CDS makes it empty
+  - fixed: incorrect handling of SourceEOF in CDS
+
+------------------------------------------------------------
+v 1.5.3 (29.08.06)
+  - changed: improved "condef not found" message
+  - changed: MSAcc conndef is created always
+  - fixed: locking on application termination
+  - fixed: improved installed Indy version detection
+  - fixed: QA tool was outdated
+
+------------------------------------------------------------
+v 1.5.2 (22.08.06)
+  - fixed: few RTC DB incompatibilities
+  - fixed: AV on Delphi IDE exit
+
+------------------------------------------------------------
+v 1.5.1 (19.08.06)
+  - fixed: D7 incompatibility
+  - added: pooled demo connections
+
+------------------------------------------------------------
+v 1.5.0 (18.08.06)
+  - added: DevEx DataController Adapter for AnyDAC. It is located
+           in $(ADHOME)\ADDON\DevEx.
+  - changed: TADDataSet adjusted to support asynchronous RTC DB
+  - changed: Expression evaluator does not evaluate all arguments
+             of IIF function, but only appropriate one
+  - changed: Expression evaluator supports First/Last aggregates
+  - changed: Expression evaluator supports in expression references 
+             to view aggregates
+  - changed: TADAutoIncField.ServerAutoIncrement is True by default
+
+------------------------------------------------------------
+v 1.4.2 (17.05.06)
+  - fixed: DirectExecute handling (MSSQL & EXEC). It will be required
+           to explicityl set DirectExecute to True in some cases, like
+           a sp_setapprole.
+  - fixed: Oracle driver skips first 32768 bytes of LONG/LONG RAW column
+  - fixed: to refresh identities after insert used @@IDENTITY
+  - fixed: extracting table name from SELECT * FROM "aaa".bbb failed
+  - fixed: generic ODBC object name parsing failed
+  - fixed: generated invalid PL/SQL block for PL/SQL function and
+           manually filled parameter list
+  - fixed: installer issue
+  - fixed: Error 400 (Rec changed/deleted) after inserting into table
+           with autoinc field on generic ODBC source
+  - fixed: AV with ftWideString calculated field on D10
+  - changed: optimized detail query execution
+  - changed: FetchOptions.AutoClose = True will close stored procedure
+             also if it is returning multiple rowsets
+  - changed: out parameters of MSSQL stored proc will be fetched even
+             it does not have SET NOCOUNT ON
+  - changed: Query Editor minor improvements
+  - changed: reduced ODBC driver memory usage
+  - added: TADDataMove.OnFindDestRecord event
+  - added: FormatOptions.DefaultParamDataType
+  - added: IADPhysConnection/IADPhysCommand.CliObj method returns
+           appropriate wrapper object (eg, TODBCConnection for ODBC)
+  - added: initial ADS support
+
+------------------------------------------------------------
+v 1.4.1 (16.02.06)
+  - fixed: improved DirectExecute handling (MSSQL & EXEC). Now
+           it is not required to explicityl set DirectExecute to True.
+  - fixed: ODBC escapes was not processing, when required
+  - fixed: "Invalid expression" error on SELECT from table function (DB2)
+  - fixed: AV on D2006 & ftWideString
+  - fixed: MSSQL money and smallmoney fields always have 0 on D2006
+  - fixed: RefreshRecord was not notifying data-aware controls
+
+------------------------------------------------------------
+v 1.4.0 (8.02.06)
+  - added: base MSSQL 2005 support. Now inplace of MSSQL driver id
+           you should use MSSQL2000 or MSSQL20005.
+  - fixed: minor monitoring issues
+  - fixed: incorrect detection of ODBC parameter array support (MimerSQL)
+
+------------------------------------------------------------
+v 1.3.1 (25.01.06)
+  - fixed: D2006 issues
+  - fixed: TADTable and "command must be not empty" bug
+  - fixed: "Out of range" in ODBC driver
+
+------------------------------------------------------------
+v 1.3.0 (16.01.06)
+  - added: 3 new properties ResourceOptions.ProcessXXXX. Control 
+           macro, param and escape expanding
+  - added: new property FetchOptions.RecordCountMode. Controls
+           dataset record counting (RecordCount)
+  - added: wizard to connection definition editor
+  - added: base Delphi 10 support (thanks to Gotze Gerrit)
+  - changed: back updated to support Indy10 stable release 10.0.52.
+             Installer will distinguish 10.0 and 10.1.
+  - changed: added third parameter to AsyncHandler.HandleFinished
+  - fixed: does not set MySQL character set
+  - fixed: broken Indy10 based remote monitoring
+  - fixed: if AsyncCmdMode = amAsync, and exception is raised
+           then exception object will be lost
+  - fixed: resource options editor was not updating some properties
+  - fixed: "Assertion failure" in ODBC driver (PostgreSQL, eg)
+  - fixed: "Invalid precision value" error at empty (not NULL)
+           string parameters (MSSQL)
+  - fixed: BeforeInsert was not firing
+  - fixed: "[AnyDAC][Phys]-321. Character [)] is missed." at some
+           kind of queries to MySQL
+  - fixed: does not set default connection, when component is 
+           dropped onto DM
+  - fixed: Refresh uses RecNo, but not key value
+  - fixed: after Post dataset jumps to the last record
+  - fixed: Query Editor does not work on Delphi 6
+  - fixed: Incorrect detection of ODBC parameter array support (MimerSQL)
+
+------------------------------------------------------------
+v 1.2.11 (28.11.05)
+  - added: droped Command/Query/etc on form/datamodule with
+           Connection will be linked to this connection
+  - fixed: memory leak if no connection was activated
+  - fixed: AV at application shutdown
+  - fixed: AV after append/cancel/append to empty dataset
+  - fixed: AV after changing TADQuery.UpdateObject few times
+           for the same dataset
+  - fixed: seting TADUpdateSQL Connection or ConnectionName
+           properties was not updating underlying commands
+  - fixed: after inserting record into ordered dataset the
+           position was not on new record
+  - fixed: TADTable design time environment
+
+------------------------------------------------------------
+v 1.2.10 (09.11.05)
+  - added: IndexFieldNames now may be in form field[:[D][A][N]];...
+           there D-desc,A-asc,N-nocase
+  - changed: updated to support Indy10 latest code (at least 10.1.0.5)
+  - fixed: missed OnFilterRow assignment
+  - fixed: missed custom monitor type in connection editor
+  - fixed: AV in Query Editor on Delphi 5
+  - fixed: error on SELECT * FROM (SELECT ....)
+  - fixed: AV at application shutdown
+  - fixed: TADTable design time environment
+  - fixed: incorrect behaviour after aborting fetch operation
+
+------------------------------------------------------------
+v 1.2.9 (10.10.05)
+  - fixed: empty list of packaged procedures in Oracle
+  - fixed: cannot compile ADExplorer and ADMonitor after 1.2.8
+
+------------------------------------------------------------
+v 1.2.8 (05.10.05)
+  - added: Custom type of monitoring
+  - fixed: wrong FROM value if table name looks like 
+           Schema."Something with spaces"
+  - fixed: possible wrong row versions at row editing
+  - fixed: monitoring issues
+  - fixed: threading issues
+
+------------------------------------------------------------
+v 1.2.7 (20.09.05)
+  - added: new TADQuery, TADCommand editors
+  - changed: ADDemoConnections.ini renamed to ADConnectionDefs.ini
+  - fixed: cant connect to not open Oracle database
+  - fixed: MySQL client was reporting itself always as non-interactive
+  - fixed: just introduced threading issues, AV in pooler
+  - fixed: "Value out of range" in pooler
+  - fixed: missed file updateIndy.bat, minor installer issues
+  - fixed: TADUpdateSQL does not use Connection property
+
+------------------------------------------------------------
+v 1.2.6 (15.09.05)
+  - changed: unified threading classes usage
+  - changed: removed strong dependency on Indy presence and it version
+  - fixed: once more, wrong row order in CDS with active index
+  - fixed: possible AV at PhysManager.Open/Close calls
+  - fixed: Query Builder does not generate SQL if model is
+           changed, SQL memo is not empty and user press OK
+  - fixed: datasets in inherited forms were losting design time positions
+  - fixed: uDatSUtils unit is not installed
+  - fixed: manual SP params control issue
+  - fixed: wrong row order in CDS without active index
+  - fixed: possible PhysManager timeout on app exit
+  - fixed: ADMonitor stay on top was broken
+  - fixed: no PK fields was returning for MSAccess
+  - fixed: AV if to use few TADUpdateSQL's with one dataset
+  - fixed: doubling rows after inserting new record into
+           dataset with non-unique index
+
+------------------------------------------------------------
+v 1.2.5 (23.08.05)
+  - changed: default Indy version for D5 is 10
+  - changed: default UpdateMode is upWhereKeyOnly
+  - changed: default CacheUpdateCommands is True
+  - changed: default TADDataMove.Mode to dmAlwaysInsert
+  - fixed: AV with master/detail
+  - fixed: ADExplorer was fetching PK info without need
+  - fixed: tables list in query builder was empty for MySQL
+  - fixed: D5 incompatibilities
+  - fixed: error message about empty DriverID was unclear
+  - fixed: connection editor was broken 
+  - fixed: was not detecting MySQL case sensitive servers
+  - fixed: TADTable issues
+  - fixed: ORA-00936 on empty scope
+  - fixed: "invalid variant operation" on inheriting form
+           containing parameterized query
+  - fixed: "cannot assign TADParam to TParam" when using
+           TADQuery & DSP & CDS
+  - fixed: wrong row order in CDS with active index
+  - fixed: CDS IndexDefs management
+  - fixed: some incidental AV's with ODBC
+
+------------------------------------------------------------
+v 1.2.4 (04.08.05)
+  - added: ResourceOptions.ExecuteDirect option. Also AnyDAC will
+    set it to True for some update commands & DBMS automatically.
+  - added: all docu is now in PDF format
+  - fixed: DefaultSchemaName for MSSQL was UserName
+  - fixed: fiMeta was missing from TADQuery.FetchOptions.Items
+  - fixed: cannot set LoginDialog at design time
+  - fixed: cannot open pooled connection
+
+------------------------------------------------------------
+v 1.2.3 (01.08.05)
+  - added: CloseAll method to close command and all it rowsets
+  - fixed: ADExplorer was broken (#252)
+  - fixed: DBX driver was returning RDBMS param twice
+  - fixed: Update SQL Editor was raising AV then generating without dataset
+  - fixed: few issues related to processing multy rowset updating SQL
+  - fixed: D5 incompatibility errors
+  - fixed: Indy 10.0.52 incompatibility errors
+
+------------------------------------------------------------
+v 1.2.2 (28.07.05)
+  - added: RemObjects DataAbstract driver
+  - added: minor API additions
+  - fixed: refresing after UPDATE was using :OLD, but need :NEW values
+  - fixed: few issues in Update SQL Editor. Also improved usability
+  - fixed: unable to load DLL containing AnyDAC
+  - fixed: MSSQL & stored procs issue
+  
+------------------------------------------------------------
+v 1.2.1 (22.07.05)
+  - added: Oracle: if not fiMeta in FetchOptions.Items, then AnyDAC
+    will use existing parameters to generate PL/SQL block for stored proc      
+  - added: $(ADHOME)\DB\ADDrivers.sample 
+  - added: metadata mkForeignKeys, mkForeignKeyFields
+  - added: [IADPhys|TAD]Connection.GetLastAutoGenValue 
+  - changed: AnyDAC will not create parameter with empty name for TSQL label
+  - changed: Now property editors show by default only osMy objects
+  - fixed: cannot use FindKey, SetKey, ranges on ReadOnly = True fields
+  - fixed: few issues in Update SQL Editor. Also improved usability
+  - fixed: TADConnection.GetStoredProcNames was returning just last
+    proc from list
+  - fixed: ADSpeed.inc was missed
+  - fixed: packaged driver loading errors
+  - fixed: AD-306 on TADTable
+  - fixed: few Comp Layer demos was broken - "dmlMainComp cant be found"
+
+------------------------------------------------------------
+v 1.2.0 (5.07.05)
+  - added: "AnyDAC Speed Tester" benchmark application for Oracle and MSSQL
+  - added: MSSQL: analysis of SET NOCOUNT in data adapter
+  - fixed: few D5 incompatibility issues
+  - fixed: fiMeta was turned on for auto generated update commands
+  - fixed: not aliased expression columns missed from result set
+  - fixed: ADMonitor: was seriously broken after D5 port
+  - fixed: MSSQL: "Invalid descriptor index" & fetch mode fmAll
+  - fixed: MySQL: was treating MySQL /*! */ conditional comments
+    as AnyDAC macro
+  - fixed: MySQL: wrong mkTableFields data for server >= 4.1
+  - fixed: Query Builder does not show columns for Oracle tables
+  - fixed: TADParam of ftFixedChar was ingoring Size
+  - fixed: raised maximum metadata name size to 128
+
+------------------------------------------------------------
+v 1.1.0 (21.06.05)
+  - fixed: {IF(...)} was completely broken
+  - fixed ODBC: sometimes names was with trailing zeros
+  - fixed: error at changing TADQuery.SQL property
+  - fixed: AV at deletion of TableAdapter linked with CDS
+  - fixed: Invalid floating point operation on MySQL & Delphi 5,6
+  - fixed Oracle: invalid string meta data on Unicode DB
+  - fixed MySQL: "select host, host h1 from mysql.db" will return
+    single field on 4.1.x
+  - fixed: ADExecutor in console mode may produce unhandled exceptions
+  - fixed DB2: error on fetching BLOB's
+  / added shortcuts to Query Builder and it loads SQL from editing
+    query, although not visializing it
+  / optimized MSSQL driver
+  + '^' is escape character in SQL preprocessor. For example, '^,'
+    will be expanded into ','.
+  + Delphi 5 support
+  + added MySQL 5.0.6, 5.0.7 compatibility 
+
+------------------------------------------------------------
+v 1.0.5 (3.06.05)
+  - fixed: ADVerStr2Int was ignoring version items with
+    letters. For MySQL (eg, 4.1.12b -> 4.1.0) it was source
+    of many strange errors, including AV's.
+  - fixed MySQL: 3.23.31 incompatibility
+  - fixed MySQL: Explorer was not hanling table names with
+    spaces
+  - fixed DB2: error at decimal separator detection
+  / reduced number of non-error messages "File Not Found"
+    and "No compilers installed" at install time
+  / updated FastCode files. That may avoid "Invalid floating
+    point operation" errors.
+  / Explorer improvements (Blob viewer supports HTML, JPEG,
+    query status is not hidden)
+
+------------------------------------------------------------
+v 1.0.4 (30.05.05)
+  - forgot to include fADSettingsDesc unit into installer
+  / reduced number of non-error messages "File Not Found" at
+    install time
+
+------------------------------------------------------------
+v 1.0.3 (30.05.05)
+  - fixed MySQL: error on connecting without DB specified
+  - fixed MySQL: ChangePassword
+  - fixed MySQL: unclear message if libmysql.dll is not found
+  - fixed ODBC: bind was ignoring ColumnSize in certain cases
+  - fixed ASA: cant parse parameters after wizard call
+  / updated: if error offset in command text is not known,
+    then CommandTextOffset will be -1
+  / updated: fixed few installer issues
+  + added ADExecutor: after connecting shows connection info
+  + added ADExplorer: now possible to edit monitoring params
+  + added MySQL: 4.1.12 and pre 3.23.57 compatibility
+  + added MySQL: additional session info
+
+------------------------------------------------------------
+v 1.0.2 (23.05.05)
+  - fixed Indy packaging issues
+  - fixed TADCommand.CommandKind issues
+  - fixed TADClientDataSet.MasterFields design time issue
+  - fixed "Bad relation" at DatS Manager destruction
+  - fixed Cant refresh/use-in-search readonly columns
+  - fixed Installer was building Demo DB's when tool
+    binaries is not checked
+  - fixed TADDatSRelation.XXXXConstraint was not cleared
+    after constraint removed
+  - fixed AV in TADDatSView.Create at invalid filter 
+  - fixed AV on first EndEdit in table with PK and
+    sorting view is not created
+  - fixed DB2 & decimal separator issue
+  - Sybase ASA Demo DB installation issues
+  - TADDatSView.Aggregates was not updated when view is
+    not sorted or sorted on non aggregated column
+  - fkInternalCalc support made compatible with CDS
+  - fixed string fetching in ODBC (was - "value to large"
+    at fetching from ASA table)
+  - Cant DataMove into RO fields
+  / improved "factory not registered" error messages
+  / optimized TADDataSet.CheckDetailRecords in case
+    detail query does not depend on master query
+  / optimized ADExecutor
+  / extended QA
+  + added TADAutoIncField
+  + added TADCommand design time editor
+  + added MySQL 5.0 compatibility (no stored proc support
+    for a while)
+  + new demo $(ADHOME)\DEMO\Comp Layer\TADSchemaAdapter\Main
+
+------------------------------------------------------------
+v 1.0.1 (10.05.05)
+  / documentation updated
+  / cleaned sources
+  - fixed bugs
+
+------------------------------------------------------------
+v 1.0.0 (30.04.05)
+  / updated all demos and applications
+  / finished base set of documentation
+  / cleaned sources
+  - fixed many bugs, etc

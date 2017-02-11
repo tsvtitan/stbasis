@@ -1,0 +1,163 @@
+unit USysTsvData;
+
+interface
+
+{$I stbasis.inc}
+
+uses Windows, Forms, Classes, Controls, IBDatabase, UMainUnited, stdctrls;
+
+var
+  isInitAll: Boolean=false;
+  ListInterfaceHandles: TList;
+  ListMenuHandles: Tlist;
+  ListOptionHandles: TList;
+  ListToolBarHandles: TList;
+
+  ListEditInterfaceForms: TList;
+
+  IBDB,IBDBSec: TIBDatabase;
+  IBT,IBTSec: TIBTransaction;
+  TempStr: String;
+  inistr: string;
+  testControl: TComboBox;
+  MainTypeLib: TTypeLib=ttleDefault;
+  FSecurity: TTsvSecurity;
+
+  // Handles
+
+  hMenuServiceSystemRBooks: THandle;
+  hMenuServiceJournals: THandle;
+  hMenuUsers: THandle;
+  hMenuApp: THandle;
+  hMenuUserApp: THandle;
+  hMenuUsersEmp: THandle;
+  hMenuAppPermColumn: THandle;
+  hMenuJournalError: THandle;
+  hMenuJournalSqlOperation: THandle;
+  hMenuSrvPermission: THandle;
+
+  hInterfaceRbkUsers: THandle;
+  hInterfaceRbkApp: THandle;
+  hInterfaceRbkUserApp: THandle;
+  hInterfaceRbkUsersEmp: THandle;
+  hInterfaceRbkAppPermColumn: THandle;
+  hInterfaceJrnError: THandle;
+  hInterfaceJrnSqlOperation: THandle;
+  hInterfaceSrvPermission: THandle;
+
+  hToolButtonUsers: THandle;
+  hToolButtonApp: THandle;
+  hToolButtonUsersEmp: THandle;
+  hToolButtonAppPermColumn: THandle;
+  hToolButtonJournalError: THandle;
+  hToolButtonJournalSqlOperation: THandle;
+  hToolButtonSrvPermission: THandle;
+
+
+const
+  SKey='D685640410801EB03BB5DCB58186458F'; // Systems
+  
+  LibraryHint='Библиотека содержит системные справочники и некоторые '+
+              'сервисные функции. Необходима для администрирования.';
+  LibraryProgrammers='Томилов Сергей';            
+
+  ConstDefaultPassword='1234567890';
+  ConstSqlExecute='Обработка запроса ...';
+  ConstAdjustJournal='Настройка журнала';
+  ConstUserSysDba='SYSDBA';
+  ConstRDBUserTypeRole=13;
+
+  // Ini Section
+  ConstTypeEntry='te';
+  ConstToolBar='tb';
+  ConstSectionShortCut='SystsvHotKeys';
+  ConstSectionToolBar='SystsvToolBars';
+  ConstSectionOptions='SystsvOptions';
+
+   // Formats
+
+  // Cursors
+  crImageMove=300;
+  crImageDown=301;
+  CursorMove='CRIMAGEMOVE';
+  CursorDown='CRIMAGEDOWN';
+   
+  // Interface Names
+  NameRbkQuery='Запрос';
+  NameRbkUsers='Справочник пользователей';
+  NameRbkApp='Справочник приложений';
+  NameRbkUserApp='Справочник приложений доступных пользователям';
+  NameRbkUsersEmp='Справочник пользователь-сотрудник';
+  NameRbkAppPermColumn='Справочник прав на колонки';
+  NameRbkEmp='Справочник сотрудников';
+  NameJrnError='Журнал ошибок';
+  NameJrnSqlOperation='Журнал SQL операций';
+  NameSrvPermission='Права';
+
+
+  // db Objects
+  tbConsts='const';
+  tbUserApp='usersapp';
+  tbApp='app';
+  tbSysRoles='rdb$roles';
+  tbSysRelations='rdb$relations';
+  tbSysProcedures='rdb$procedures';
+  tbSysRelation_fields='rdb$relation_fields';
+  tbSysUser_privileges='rdb$user_privileges';
+  tbAppPermColumn='apppermcolumn';
+  tbUsersEmp='usersemp';
+  tbEmp='emp';
+  tbUsers='users';
+  tbJournalError='journalerror';
+  tbJournalSqlOperation='journalsqloperation';
+  tbProperty='property';
+  tbAbsence='absence';
+  tbCurrency='currency';
+  tbPlant='plant';
+  tbPersonDocType='PersonDocType';
+  tbCategoryType='categorytype';
+  tbCountry='country';
+  tbState='state';
+  tbRegion='region';
+  tbTown='town';
+  tbPlaceMent='placement';
+  tbCalcPeriod='calcperiod';
+
+  // SQL
+
+  SQLRbkUsers='Select * from '+tbUsers+' ';
+  SQLRbkApp='Select * from '+tbApp+' ';
+  SQLRbkUserApp='Select tua.*, tu.name as usersname, ta.name as appname, ta.sqlrole as sqlrole, tu.user_name as user_name from '+
+             tbUserApp+' tua join '+
+             tbUsers+' tu on tua.user_id=tu.user_id join '+
+             tbApp+' ta on tua.app_id=ta.app_id ';
+  SQLRbkUsersEmp='Select ue.*, e.fname||'' ''||e.name||'' ''||e.sname as empname, u.name as username from '+
+             tbUsersEmp+' ue join '+
+             tbEmp+' e on ue.emp_id=e.emp_id join '+
+             tbUsers+' u on ue.user_id=u.user_id ';
+  SQLRbkAppPermColumn='Select apc.*, a.name as appname from '+tbAppPermColumn+' apc '+
+                   ' join '+tbApp+' a on apc.app_id=a.app_id ';
+
+  SQLJrnError='Select tje.*, tu.name as tuname from '+tbJournalError+
+                  ' tje join '+tbUsers+' tu on tje.user_id=tu.user_id ';
+  SQLJrnSQLOperation='Select jso.*, tu.name as tuname from '+tbJournalSQLOperation+
+                         ' jso join '+tbUsers+' tu on jso.user_id=tu.user_id ';
+
+  SQLSrvPermission='Select rdb$relation_name,rdb$privilege from '+tbSysUser_privileges+' ';
+  SQLSrvPermissionTable='Select rdb$relation_name as name,rdb$description as descr,1 as istable from '+tbSysRelations+' '+
+                        'where rdb$system_flag=0 and rdb$view_source is null ';
+  SQLSrvPermissionView='Select rdb$relation_name as name,rdb$description as descr,1 as istable from '+tbSysRelations+' '+
+                       'where rdb$system_flag=0 and rdb$view_source is not null ';
+  SQLSrvPermissionProcedure='Select rdb$procedure_name as name,rdb$description as descr,0 as istable from '+tbSysProcedures+' '+
+                            'where rdb$system_flag=0 ';
+
+implementation
+
+initialization
+  FSecurity:=TTsvSecurity.Create;
+  FSecurity.Key:=SKey;
+
+finalization
+  FSecurity.Free;
+
+end.

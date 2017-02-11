@@ -1,0 +1,32 @@
+{*******************************************************}
+{                                                       }
+{       Borland Delphi Runtime Library                  }
+{       Remote Access Service interface unit            }
+{                                                       }
+{       Copyright (C) 1995-2000, Microsoft Corporation. }
+{       All Rights Reserved.                            }
+{                                                       }
+{       http://www.delphi-jedi.org                      }
+{       Translator: Petr Vones                          }
+{                                                       }
+{*******************************************************}
+
+
+unit RasEapif;
+
+
+{$ALIGN ON}
+{$MINENUMSIZE 4}
+{$WEAKPACKAGEUNIT}
+
+interface
+
+uses
+  Windows, LmCons;
+
+(*$HPPEMIT '#include <raseapif.h>'*)
+
+
+implementation
+
+end.

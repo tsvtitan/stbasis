@@ -1,0 +1,14 @@
+[Options]
+Windows
+
+[Files]
+WSZipCodes.bpg
+WSZipCodeClient.dpr
+WSZipCodeClient.res
+ClientMain.dfm
+ClientMain.pas
+WSZipCodeServer.dpr
+WSZipCodeServer.res
+ServerMain.dfm
+ServerMain.pas
+ZipCodes.dat

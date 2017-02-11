@@ -1,0 +1,16 @@
+[OS]
+Windows=1
+
+[Files]
+MailDemo.dpr=0
+MailDemo.res=1
+main.dfm=2
+main.pas=3
+MsgEditor.dfm=4
+MsgEditor.pas=5
+MsgEdtAdv.dfm=6
+MsgEdtAdv.pas=7
+Setup.dfm=8
+Setup.pas=9
+SmtpAuth.dfm=10
+SmtpAuth.pas=11

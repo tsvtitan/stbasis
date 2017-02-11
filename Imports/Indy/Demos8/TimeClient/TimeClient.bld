@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+TimeDemo.dpr
+TimeDemo.res
+main.dfm
+main.pas

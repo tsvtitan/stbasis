@@ -1,0 +1,8 @@
+[OS]
+Windows
+
+[Files]
+echoclient.dpr
+echoclient.res
+main.dfm
+main.pas

@@ -1,0 +1,13 @@
+[Options]
+Windows
+
+[Files]
+TCPStreamClientServer.bpg
+TCPStreamClient.dpr
+TCPStreamClient.res
+TCPStreamServer.dpr
+TCPStreamServer.res
+ClientMain.dfm
+ClientMain.pas
+ServerMain.dfm
+ServerMain.pas

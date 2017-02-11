@@ -1,0 +1,76 @@
+object Form1: TForm1
+  Left = 290
+  Height = 429
+  Top = 149
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 428
+  Caption = 'Form1'
+  object Label1: TLabel
+    Left = 180
+    Height = 14
+    Top = 45
+    Width = 39
+    Caption = 'Timeout'
+    Color = clNone
+    ParentColor = False
+  end
+  object Console: TMemo
+    Left = 12
+    Height = 266
+    Top = 152
+    Width = 382
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 12
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Connect'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 92
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Run'
+    OnClick = Button2Click
+    TabOrder = 2
+  end
+  object rgMode: TRadioGroup
+    Left = 16
+    Height = 100
+    Top = 40
+    Width = 150
+    AutoFill = True
+    Caption = 'Async execution mode'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    Items.Strings = (
+      'Blocking'
+      'Non blocking'
+      'Cancel dialog'
+      'Async'
+    )
+    TabOrder = 3
+  end
+  object edtTimeout: TEdit
+    Left = 182
+    Height = 23
+    Top = 64
+    Width = 80
+    TabOrder = 4
+    Text = '$FFFFFFFF'
+  end
+end

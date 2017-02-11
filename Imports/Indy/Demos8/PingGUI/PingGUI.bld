@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+PingGUI.dpr
+PingGUI.res
+main.dfm
+main.pas

@@ -1,0 +1,76 @@
+[API]
+Name=RAS
+Version=1.0
+Date=31 Jan 2000
+Originated=Platforms SDK and Borland C++ 5.5 Free Compiler
+URL=http://msdn.micrsosoft.com
+Description=Interface for the Microsoft Remote Access Service
+[Platform]
+Win31=Unknown
+Win95=Yes
+Win98=Yes
+WinNT3=Unknown
+WinNT4=Yes
+Win2000=Yes
+[Requirements]
+Req0=LmCons.pas, included in LanManager conversion
+Req1=LmErr.pas, included in LanManager conversion
+[Captain]
+Name=Pet Vones
+Email=petr.v@mujmail.cz
+HomePage=
+[Converters]
+Converter1="Petr Vones",petr.v@mujmail.cz,
+[CONVERSION1]
+FileName=Ras.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=ras.h
+[CONVERSION2]
+FileName=RasAuth.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=rasauth.h
+[CONVERSION3]
+FileName=RasDlg.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=rasdlg.h
+[CONVERSION4]
+FileName=RasEapif.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=raseapif.h
+[CONVERSION5]
+FileName=RasError.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=raserror.h
+[CONVERSION6]
+FileName=RasSapi.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=rassapi.h
+[CONVERSION7]
+FileName=RasShost.pas
+FileDate=31 Jan 2000
+Status=Ready-For-Testing
+Version=1.0
+LastModify=05 Mar 2000
+OriginalFile=rasshost.h
+[CONVERSION]
+MajorVersion=1
+MinorVersion=1
+Number=7

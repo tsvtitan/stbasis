@@ -1,0 +1,62 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = daADComID7.bpl daADPhysD7.bpl daADPhysODBCD7.bpl \
+  daADPhysMSAccD7.bpl daADPhysMSSQLD7.bpl daADPhysDb2D7.bpl daADPhysASAD7.bpl \
+  daADPhysADSD7.bpl daADPhysMySQLD7.bpl daADPhysOraclD7.bpl daADPhysDBExpD7.bpl \
+  daADCompD7.bpl daADGUIxFormsD7.bpl daADDclD7.bpl
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+daADGUIxFormsD7.bpl: daADGUIxFormsD7.dpk
+  $(DCC)
+
+daADPhysD7.bpl: daADPhysD7.dpk
+  $(DCC)
+
+daADPhysMSAccD7.bpl: daADPhysMSAccD7.dpk
+  $(DCC)
+
+daADPhysMSSQLD7.bpl: daADPhysMSSQLD7.dpk
+  $(DCC)
+
+daADPhysDBExpD7.bpl: daADPhysDBExpD7.dpk
+  $(DCC)
+
+daADPhysMySQLD7.bpl: daADPhysMySQLD7.dpk
+  $(DCC)
+
+daADPhysOraclD7.bpl: daADPhysOraclD7.dpk
+  $(DCC)
+
+daADComID7.bpl: daADComID7.dpk
+  $(DCC)
+
+daADCompD7.bpl: daADCompD7.dpk
+  $(DCC)
+
+daADDclD7.bpl: daADDclD7.dpk
+  $(DCC)
+
+daADPhysDb2D7.bpl: daADPhysDb2D7.dpk
+  $(DCC)
+
+daADPhysODBCD7.bpl: daADPhysODBCD7.dpk
+  $(DCC)
+
+daADPhysASAD7.bpl: daADPhysASAD7.dpk
+  $(DCC)
+
+daADPhysADSD7.bpl: daADPhysADSD7.dpk
+  $(DCC)
+
+

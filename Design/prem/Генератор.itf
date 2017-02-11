@@ -1,0 +1,1215 @@
+	ГенераторГенератор недвижимости&{0921F68E-E564-4172-A84A-5D6237FC32D5}cNunit Main;
+{ модуль разработан ФИО }
+
+interface
+
+procedure fmGenClose(Sender: TObject; var Action: TCloseAction);
+procedure fmGenbtCloseClick(Sender: TObject);
+procedure fmGenbtGenClick(Sender: TObject);
+
+implementation
+
+procedure FillRegion;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник районов';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbRegion.Items.Clear;
+    try
+      fmGen.cmbRegion.Items.BeginUpdate;
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_REGION_ID').AsInteger;
+        fmGen.cmbRegion.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbRegion.Items.Count>0 then begin
+        fmGen.cmbRegion.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbRegion.Name,fmGen.cmbRegion.ItemIndex);
+      end;
+      fmGen.cmbRegion.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillStreet;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник улиц';
+  fmGen.rbiRBook.Condition.OrderStr.Text:='';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbStreet.Items.Clear;
+    try
+      fmGen.cmbStreet.Items.BeginUpdate;
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_STREET_ID').AsInteger;
+        fmGen.cmbStreet.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbStreet.Items.Count>0 then begin
+        fmGen.cmbStreet.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbStreet.Name,fmGen.cmbStreet.ItemIndex);
+      end;
+      fmGen.cmbStreet.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillCountRoom;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник количества комнат';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbCountRoom.Items.Clear;
+    try
+      fmGen.cmbCountRoom.Items.BeginUpdate;
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_COUNTROOM_ID').AsInteger;
+        fmGen.cmbCountRoom.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbCountRoom.Items.Count>0 then begin
+        fmGen.cmbCountRoom.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbCountRoom.Name,fmGen.cmbCountRoom.ItemIndex);
+      end;
+      fmGen.cmbCountRoom.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillTypeHouse;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник типов дома';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbTypeHouse.Items.Clear;
+    try
+      fmGen.cmbTypeHouse.Items.BeginUpdate;
+      fmGen.cmbTypeHouse.Items.AddObject('',nil);
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_TYPEHOUSE_ID').AsInteger;
+        fmGen.cmbTypeHouse.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbTypeHouse.Items.Count>0 then begin
+        fmGen.cmbTypeHouse.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbTypeHouse.Name,fmGen.cmbTypeHouse.ItemIndex);
+      end;
+      fmGen.cmbTypeHouse.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillPlanning;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник планировок';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbPlanning.Items.Clear;
+    try
+      fmGen.cmbPlanning.Items.BeginUpdate;
+      fmGen.cmbPlanning.Items.AddObject('',nil);
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_PLANNING_ID').AsInteger;
+        fmGen.cmbPlanning.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbPlanning.Items.Count>0 then begin
+        fmGen.cmbPlanning.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbPlanning.Name,fmGen.cmbPlanning.ItemIndex);
+      end;
+      fmGen.cmbPlanning.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillTypePremises;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник типов недвижимости';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbTypePremises.Items.Clear;
+    try
+      fmGen.cmbTypePremises.Items.BeginUpdate;
+      fmGen.cmbTypePremises.Items.AddObject('',nil);
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_TYPEPREMISES_ID').AsInteger;
+        fmGen.cmbTypePremises.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbTypePremises.Items.Count>0 then begin
+        fmGen.cmbTypePremises.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbTypePremises.Name,fmGen.cmbTypePremises.ItemIndex);
+      end;
+      fmGen.cmbTypePremises.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillBuilder;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник застройщиков';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbBuilder.Items.Clear;
+    try
+      fmGen.cmbBuilder.Items.BeginUpdate;
+      fmGen.cmbBuilder.Items.AddObject('',nil);
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_BUILDER_ID').AsInteger;
+        fmGen.cmbBuilder.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbBuilder.Items.Count>0 then begin
+        fmGen.cmbBuilder.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbBuilder.Name,fmGen.cmbBuilder.ItemIndex);
+      end;
+      fmGen.cmbBuilder.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillTypePrice;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник единиц измерения цены';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbTypePrice.Items.Clear;
+    try
+      fmGen.cmbTypePrice.Items.BeginUpdate;
+      fmGen.cmbTypePrice.Items.AddObject('',nil);
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_UNITPRICE_ID').AsInteger;
+        fmGen.cmbTypePrice.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbTypePrice.Items.Count>0 then begin
+        fmGen.cmbTypePrice.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbTypePrice.Name,fmGen.cmbTypePrice.ItemIndex);
+      end;
+      fmGen.cmbTypePrice.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillStation;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник статусов квартиры';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbStation.Items.Clear;
+    try
+      fmGen.cmbStation.Items.BeginUpdate;
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_STATION_ID').AsInteger;
+        fmGen.cmbStation.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbStation.Items.Count>0 then begin
+        fmGen.cmbStation.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbStation.Name,fmGen.cmbStation.ItemIndex);
+      end;
+      fmGen.cmbStation.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure FillAgent;
+var
+  S: string;
+  Id: Integer;
+begin
+  fmGen.rbiRBook.InterfaceName:='Справочник агентов';
+  fmGen.rbiRBook.Condition.OrderStr.Text:=' sortnumber ';
+  if fmGen.rbiRBook.View then begin
+    fmGen.cmbAgent.Items.Clear;
+    try
+      fmGen.cmbAgent.Items.BeginUpdate;
+      fmGen.mdRBook.First;
+      while not fmGen.mdRBook.EOF do begin
+        S:=fmGen.mdRBook.FieldByName('NAME').AsString;
+        Id:=fmGen.mdRBook.FieldByName('PMS_AGENT_ID').AsInteger;
+        fmGen.cmbAgent.Items.AddObject(S,TObject(Id));
+        fmGen.mdRBook.Next;
+      end;
+    finally
+      if fmGen.cmbAgent.Items.Count>0 then begin
+        fmGen.cmbAgent.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbAgent.Name,fmGen.cmbAgent.ItemIndex);
+      end;
+      fmGen.cmbAgent.Items.EndUpdate;
+    end;
+  end;
+end;
+
+procedure TypeOperationChange(Sender: TObject);
+begin
+  case fmGen.cmbTypeOperation.ItemIndex of
+    0: begin
+      fmGen.lbBuilder.Enabled:=false;
+      fmGen.cmbBuilder.Enabled:=false;
+      fmGen.lbDelivery.Enabled:=false;
+      fmGen.edDelivery.Enabled:=false;
+    end;
+    1: begin
+      fmGen.lbBuilder.Enabled:=false;
+      fmGen.cmbBuilder.Enabled:=false;
+      fmGen.lbDelivery.Enabled:=false;
+      fmGen.edDelivery.Enabled:=false;
+    end;
+    2: begin
+      fmGen.lbBuilder.Enabled:=true;
+      fmGen.cmbBuilder.Enabled:=true;
+      fmGen.lbDelivery.Enabled:=true;
+      fmGen.edDelivery.Enabled:=true;
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fmGen.FormStyle<>fsMDIChild then begin
+    Screen.Cursor:=crHourGlass;
+    try
+      fmGen.cmbTypeOperation.ItemIndex:=ReadParam(GetInterfaceName,fmGen.cmbTypeOperation.Name,fmGen.cmbTypeOperation.ItemIndex);
+      fmGen.dtpDate.Date:=GetDateTimeFromServer;
+      fmGen.edContact.Text:=ReadParam(GetInterfaceName,fmGen.edContact.Name,fmGen.edContact.Text);
+      fmGen.edClient.Text:=ReadParam(GetInterfaceName,fmGen.edClient.Name,fmGen.edClient.Text);
+      FillRegion;
+      FillStreet;
+      fmGen.edHouse.Text:=ReadParam(GetInterfaceName,fmGen.edHouse.Name,fmGen.edHouse.Text);
+      fmGen.edCountFloor.Text:=ReadParam(GetInterfaceName,fmGen.edCountFloor.Name,fmGen.edCountFloor.Text);
+      FillTypeHouse;
+      FillPlanning;
+      FillCountRoom;
+      FillTypePremises;
+      FillBuilder;
+      fmGen.edDelivery.Text:=ReadParam(GetInterfaceName,fmGen.edDelivery.Name,fmGen.edDelivery.Text);
+      TypeOperationChange(nil);
+      fmGen.cmbTypeOperation.OnChange:=TypeOperationChange;
+      fmGen.edPrice.Text:=ReadParam(GetInterfaceName,fmGen.edPrice.Name,fmGen.edPrice.Text);
+      FillTypePrice;
+      fmGen.edNote.Text:=ReadParam(GetInterfaceName,fmGen.edNote.Name,fmGen.edNote.Text);
+      fmGen.edGeneralArea.Text:=ReadParam(GetInterfaceName,fmGen.edGeneralArea.Name,fmGen.edGeneralArea.Text);
+      FillStation;
+      FillAgent;
+      fmGen.udCount.Position:=ReadParam(GetInterfaceName,fmGen.udCount.Name,fmGen.udCount.Position);
+      fmGen.FormStyle:=fsMDIChild;
+    finally
+      Screen.Cursor:=crDefault;
+    end;
+  end else begin
+    fmGen.WindowState:=wsNormal;
+    fmGen.BringToFront;
+    fmGen.Show;
+  end;
+end;
+
+procedure fmGenClose(Sender: TObject; var Action: TCloseAction);
+begin
+  WriteParam(GetInterfaceName,fmGen.cmbTypeOperation.Name,fmGen.cmbTypeOperation.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.edContact.Name,fmGen.edContact.Text);
+  WriteParam(GetInterfaceName,fmGen.edClient.Name,fmGen.edClient.Text);
+  WriteParam(GetInterfaceName,fmGen.cmbRegion.Name,fmGen.cmbRegion.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbStreet.Name,fmGen.cmbStreet.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.edHouse.Name,fmGen.edHouse.Text);
+  WriteParam(GetInterfaceName,fmGen.edCountFloor.Name,fmGen.edCountFloor.Text);
+  WriteParam(GetInterfaceName,fmGen.cmbTypeHouse.Name,fmGen.cmbTypeHouse.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbPlanning.Name,fmGen.cmbPlanning.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbCountRoom.Name,fmGen.cmbCountRoom.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbTypePremises.Name,fmGen.cmbTypePremises.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbBuilder.Name,fmGen.cmbBuilder.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.edDelivery.Name,fmGen.edDelivery.Text);
+  WriteParam(GetInterfaceName,fmGen.edPrice.Name,fmGen.edPrice.Text);
+  WriteParam(GetInterfaceName,fmGen.cmbTypePrice.Name,fmGen.cmbTypePrice.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.edNote.Name,fmGen.edNote.Text);
+  WriteParam(GetInterfaceName,fmGen.cmbStation.Name,fmGen.cmbStation.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.cmbAgent.Name,fmGen.cmbAgent.ItemIndex);
+  WriteParam(GetInterfaceName,fmGen.udCount.Name,fmGen.udCount.Position);
+  WriteParam(GetInterfaceName,fmGen.edGeneralArea.Name,fmGen.edGeneralArea.Text);
+  Action:=caFree;
+end;
+
+procedure fmGenbtCloseClick(Sender: TObject);
+begin
+  fmGen.Close;
+end;
+
+procedure Generate;
+var
+  i: Integer;
+  pb: THandle;
+  sqls: string;
+  Id: Integer;
+  Params: TParams;
+  val: Variant;
+  DateServer: TDateTime;
+  UserId: Integer;
+begin
+  pb:=CreateProgressBar(fmGen.udCount.Min,fmGen.udCount.Position,'',clBlack);
+  try
+    DateServer:=GetDateTimeFromServer;
+    UserId:=GetUserId;
+    for i:=fmGen.udCount.Min to fmGen.udCount.Position-1 do begin
+      Id:=GetGenId(MainDataBase,'PMS_PREMISES',1);
+      fmGen.Tran.Active:=false;
+      Params:=fmGen.Query.Params;
+      Params.ParamByName('PMS_PREMISES_ID').Value:=Id;
+      Params.ParamByName('DATETIMEINSERT').Value:=DateServer;
+      Params.ParamByName('DATETIMEUPDATE').Value:=DateServer;
+      Params.ParamByName('WHOINSERT_ID').Value:=UserId;
+      Params.ParamByName('WHOUPDATE_ID').Value:=UserId;
+      Params.ParamByName('SYNC_ID').Value:=GetUniqueId;
+      Params.ParamByName('RECYLED').Value:=0;
+      Params.ParamByName('TYPEOPERATION').Value:=fmGen.cmbTypeOperation.ItemIndex;
+      Params.ParamByName('DATEARRIVALS').Value:=fmGen.dtpDate.Date;
+      Params.ParamByName('CONTACT').Value:=iff(Trim(fmGen.edContact.Text)<>'',fmGen.edContact.Text,Null);
+      Params.ParamByName('CLIENTINFO').Value:=iff(Trim(fmGen.edClient.Text)<>'',fmGen.edClient.Text,Null);
+
+      fmGen.cmbRegion.ItemIndex:=fmGen.cmbRegion.Items.IndexOf(fmGen.cmbRegion.Text);
+      if fmGen.cmbRegion.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbRegion.Items.Objects[fmGen.cmbRegion.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_REGION_ID').Value:=val;
+
+      fmGen.cmbStreet.ItemIndex:=fmGen.cmbStreet.Items.IndexOf(fmGen.cmbStreet.Text);
+      if fmGen.cmbStreet.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbStreet.Items.Objects[fmGen.cmbStreet.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_STREET_ID').Value:=val;
+
+      Params.ParamByName('HOUSENUMBER').Value:=iff(Trim(fmGen.edHouse.Text)<>'',fmGen.edHouse.Text,Null);
+      Params.ParamByName('COUNTFLOOR').Value:=iff(Trim(fmGen.edCountFloor.Text)<>'',fmGen.edCountFloor.Text,Null);
+
+      fmGen.cmbTypeHouse.ItemIndex:=fmGen.cmbTypeHouse.Items.IndexOf(fmGen.cmbTypeHouse.Text);
+      if fmGen.cmbTypeHouse.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbTypeHouse.Items.Objects[fmGen.cmbTypeHouse.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_TYPEHOUSE_ID').Value:=val;
+
+      fmGen.cmbPlanning.ItemIndex:=fmGen.cmbPlanning.Items.IndexOf(fmGen.cmbPlanning.Text);
+      if fmGen.cmbPlanning.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbPlanning.Items.Objects[fmGen.cmbPlanning.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_PLANNING_ID').Value:=val;
+
+      fmGen.cmbCountRoom.ItemIndex:=fmGen.cmbCountRoom.Items.IndexOf(fmGen.cmbCountRoom.Text);
+      if fmGen.cmbCountRoom.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbCountRoom.Items.Objects[fmGen.cmbCountRoom.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_COUNTROOM_ID').Value:=val;
+
+      fmGen.cmbTypePremises.ItemIndex:=fmGen.cmbTypePremises.Items.IndexOf(fmGen.cmbTypePremises.Text);
+      if fmGen.cmbTypePremises.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbTypePremises.Items.Objects[fmGen.cmbTypePremises.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_TYPEPREMISES_ID').Value:=val;
+
+      if fmGen.cmbTypeOperation.ItemIndex=2 then begin
+        fmGen.cmbBuilder.ItemIndex:=fmGen.cmbBuilder.Items.IndexOf(fmGen.cmbBuilder.Text);
+        if fmGen.cmbBuilder.ItemIndex<>-1 then
+          val:=Integer(fmGen.cmbBuilder.Items.Objects[fmGen.cmbBuilder.ItemIndex])
+        else val:=Null;
+        Params.ParamByName('PMS_BUILDER_ID').Value:=val;
+  
+        Params.ParamByName('DELIVERY').Value:=iff(Trim(fmGen.edDelivery.Text)<>'',fmGen.edDelivery.Text,Null);
+      end;
+
+      Params.ParamByName('PRICE').Value:=iff(Trim(fmGen.edPrice.Text)<>'',ChangeString(fmGen.edPrice.Text,DecimalSeparator,'.'),Null);
+
+      fmGen.cmbTypePrice.ItemIndex:=fmGen.cmbTypePrice.Items.IndexOf(fmGen.cmbTypePrice.Text);
+      if fmGen.cmbTypePrice.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbTypePrice.Items.Objects[fmGen.cmbTypePrice.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_UNITPRICE_ID').Value:=val;
+
+      Params.ParamByName('GENERALAREA').Value:=iff(Trim(fmGen.edGeneralArea.Text)<>'',ChangeString(fmGen.edGeneralArea.Text,DecimalSeparator,'.'),Null);
+      Params.ParamByName('NOTE').Value:=iff(Trim(fmGen.edNote.Text)<>'',fmGen.edNote.Text,Null);
+
+      fmGen.cmbStation.ItemIndex:=fmGen.cmbStation.Items.IndexOf(fmGen.cmbStation.Text);
+      if fmGen.cmbStation.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbStation.Items.Objects[fmGen.cmbStation.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_STATION_ID').Value:=val;
+
+      fmGen.cmbAgent.ItemIndex:=fmGen.cmbAgent.Items.IndexOf(fmGen.cmbAgent.Text);
+      if fmGen.cmbAgent.ItemIndex<>-1 then
+        val:=Integer(fmGen.cmbAgent.Items.Objects[fmGen.cmbAgent.ItemIndex])
+      else val:=Null;
+      Params.ParamByName('PMS_AGENT_ID').Value:=val;
+
+      fmGen.Tran.Active:=true;
+      fmGen.Query.ExecSQL;
+      fmGen.Tran.Commit;
+      SetProgressBarStatus(pb,i,fmGen.udCount.Position,'');
+    end;
+  finally
+    SetProgressBarStatus(pb,fmGen.udCount.Min,fmGen.udCount.Position,'');
+    FreeProgressBar(pb);
+  end;
+end;
+
+
+procedure fmGenbtGenClick(Sender: TObject);
+begin
+  if fmGen.cmbTypeOperation.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите операцию.');
+    fmGen.cmbTypeOperation.SetFocus;
+    exit;
+  end;
+  if Trim(fmGen.edContact.Text)='' then begin
+    ShowErrorEx('Введите контакт.');
+    fmGen.edContact.SetFocus;
+    exit;
+  end;
+  if fmGen.cmbRegion.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите район.');
+    fmGen.cmbRegion.SetFocus;
+    exit;
+  end;
+  if fmGen.cmbStreet.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите улицу.');
+    fmGen.cmbStreet.SetFocus;
+    exit;
+  end;
+  if fmGen.cmbCountRoom.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите кол-во комнат.');
+    fmGen.cmbCountRoom.SetFocus;
+    exit;
+  end;
+  if fmGen.cmbStation.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите статус.');
+    fmGen.cmbStation.SetFocus;
+    exit;
+  end;
+  if fmGen.cmbAgent.ItemIndex=-1 then begin
+    ShowErrorEx('Выберите агента.');
+    fmGen.cmbAgent.SetFocus;
+    exit;
+  end;
+
+  if ShowQuestionEx('Начать генерацию?')=mrYes then begin
+    Screen.Cursor:=crHourGlass;
+    try
+      Generate;
+      ShowInfoEx('Сгенерировано вариантов: '+IntTostr(fmGen.udCount.Position));
+    finally
+      Screen.Cursor:=crDefault;
+    end;
+  end;
+end;
+
+end.
+К=object fmGen: TfmGen
+  Left = 44
+  Top = 10
+  Width = 400
+  Height = 400
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Генератор недвижимости'
+  Color = clBtnFace
+  Constraints.MaxHeight = 400
+  Constraints.MaxWidth = 400
+  Constraints.MinHeight = 400
+  Constraints.MinWidth = 400
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    F000FFFFF80007FF00F00FFFF80007FFFFF00FFFF80007FFFF000FFFF80007FF
+    F000FFFFF80007FF000FFFFFF80007FF00FFFFFFF80007FF00F00FF0000007FF
+    F000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = fmGenClose
+  EnabledAdjust = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnBottom: TiPanel
+    Left = 0
+    Top = 337
+    Width = 392
+    Height = 36
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 1
+    object btClose: TiButton
+      Left = 310
+      Top = 5
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Cancel = True
+      Caption = 'Закрыть'
+      TabOrder = 1
+      OnClick = fmGenbtCloseClick
+    end
+    object btGen: TiButton
+      Left = 205
+      Top = 5
+      Width = 100
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = 'Сгенерировать'
+      Default = True
+      TabOrder = 0
+      OnClick = fmGenbtGenClick
+    end
+  end
+  object pnClient: TiPanel
+    Left = 0
+    Top = 0
+    Width = 392
+    Height = 337
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 0
+    object lbTypeOperation: TiLabel
+      Left = 34
+      Top = 12
+      Width = 53
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Операция:'
+      FocusControl = cmbTypeOperation
+    end
+    object lbRegion: TiLabel
+      Left = 52
+      Top = 64
+      Width = 34
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Район:'
+      FocusControl = cmbRegion
+    end
+    object lbStreet: TiLabel
+      Left = 51
+      Top = 90
+      Width = 35
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Улица:'
+      FocusControl = cmbStreet
+    end
+    object lbDate: TiLabel
+      Left = 198
+      Top = 12
+      Width = 96
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Дата поступления:'
+    end
+    object lbContact: TiLabel
+      Left = 43
+      Top = 38
+      Width = 44
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Контакт:'
+      FocusControl = edContact
+    end
+    object lbClient: TiLabel
+      Left = 201
+      Top = 38
+      Width = 39
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Клиент:'
+      FocusControl = edClient
+    end
+    object lbHouse: TiLabel
+      Left = 21
+      Top = 116
+      Width = 66
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Номер дома:'
+      FocusControl = edHouse
+    end
+    object lbCountRoom: TiLabel
+      Left = 9
+      Top = 168
+      Width = 77
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Кол-во комнат:'
+      FocusControl = cmbCountRoom
+    end
+    object lbCountFloor: TiLabel
+      Left = 214
+      Top = 116
+      Width = 58
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Этажность:'
+      FocusControl = edCountFloor
+    end
+    object lbTypeHouse: TiLabel
+      Left = 35
+      Top = 142
+      Width = 51
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Тип дома:'
+      FocusControl = cmbTypeHouse
+    end
+    object lbPlanning: TiLabel
+      Left = 206
+      Top = 142
+      Width = 65
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Планировка:'
+      FocusControl = cmbPlanning
+    end
+    object lbTypePremises: TiLabel
+      Left = 214
+      Top = 168
+      Width = 57
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Тип нед-ти:'
+      FocusControl = cmbTypePremises
+    end
+    object lbBuilder: TiLabel
+      Left = 20
+      Top = 194
+      Width = 66
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Застройщик:'
+      FocusControl = cmbBuilder
+    end
+    object lbDelivery: TiLabel
+      Left = 254
+      Top = 195
+      Width = 33
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Сдача:'
+      FocusControl = edDelivery
+    end
+    object lbPrice: TiLabel
+      Left = 58
+      Top = 220
+      Width = 29
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Цена:'
+      FocusControl = edPrice
+    end
+    object lbNote: TiLabel
+      Left = 21
+      Top = 246
+      Width = 66
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Примечание:'
+      FocusControl = edNote
+    end
+    object lbStation: TiLabel
+      Left = 49
+      Top = 272
+      Width = 37
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Статус:'
+      FocusControl = cmbStation
+    end
+    object lbAgent: TiLabel
+      Left = 238
+      Top = 272
+      Width = 32
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Агент:'
+      FocusControl = cmbAgent
+    end
+    object lbCount: TiLabel
+      Left = 96
+      Top = 312
+      Width = 74
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Количество:'
+      FocusControl = edCount
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -1
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object iBevel1: TiBevel
+      Left = 16
+      Top = 297
+      Width = 370
+      Height = 2
+      Shape = bsTopLine
+    end
+    object lbGeneralArea: TiLabel
+      Left = 261
+      Top = 221
+      Width = 50
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Площадь:'
+      FocusControl = edGeneralArea
+    end
+    object cmbTypeOperation: TiComboBox
+      Left = 94
+      Top = 9
+      Width = 97
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      TabOrder = 0
+      Text = 'Долевое'
+      Items.Strings = (
+        'Продажа'
+        'Аренда'
+        'Долевое')
+      EnabledDown = False
+      ItemIndex = 2
+    end
+    object cmbRegion: TiComboBox
+      Left = 94
+      Top = 61
+      Width = 290
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 4
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object cmbStreet: TiComboBox
+      Left = 94
+      Top = 87
+      Width = 290
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 5
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object dtpDate: TiDateTimePicker
+      Left = 301
+      Top = 9
+      Width = 83
+      Height = 21
+      CalAlignment = dtaLeft
+      Date = 38837.595939537
+      Time = 38837.595939537
+      DateFormat = dfShort
+      DateMode = dmComboBox
+      Kind = dtkDate
+      ParseInput = False
+      TabOrder = 1
+    end
+    object edContact: TiEdit
+      Left = 94
+      Top = 35
+      Width = 97
+      Height = 21
+      TabOrder = 2
+    end
+    object edClient: TiEdit
+      Left = 247
+      Top = 35
+      Width = 137
+      Height = 21
+      TabOrder = 3
+    end
+    object edHouse: TiEdit
+      Left = 94
+      Top = 113
+      Width = 105
+      Height = 21
+      TabOrder = 6
+    end
+    object cmbCountRoom: TiComboBox
+      Left = 94
+      Top = 165
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 10
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object edCountFloor: TiEdit
+      Left = 279
+      Top = 113
+      Width = 105
+      Height = 21
+      TabOrder = 7
+    end
+    object cmbTypeHouse: TiComboBox
+      Left = 94
+      Top = 139
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 8
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object cmbPlanning: TiComboBox
+      Left = 279
+      Top = 139
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 9
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object cmbTypePremises: TiComboBox
+      Left = 279
+      Top = 165
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 11
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object cmbBuilder: TiComboBox
+      Left = 94
+      Top = 191
+      Width = 145
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 12
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object edDelivery: TiEdit
+      Left = 294
+      Top = 191
+      Width = 89
+      Height = 21
+      TabOrder = 13
+    end
+    object edPrice: TiEdit
+      Left = 94
+      Top = 217
+      Width = 89
+      Height = 21
+      TabOrder = 14
+    end
+    object cmbTypePrice: TiComboBox
+      Left = 188
+      Top = 217
+      Width = 51
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 15
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object edNote: TiEdit
+      Left = 94
+      Top = 243
+      Width = 289
+      Height = 21
+      TabOrder = 17
+    end
+    object cmbStation: TiComboBox
+      Left = 94
+      Top = 269
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 18
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object cmbAgent: TiComboBox
+      Left = 278
+      Top = 269
+      Width = 105
+      Height = 21
+      ItemHeight = 13
+      TabOrder = 19
+      EnabledDown = True
+      ItemIndex = -1
+    end
+    object edCount: TiEdit
+      Left = 176
+      Top = 309
+      Width = 49
+      Height = 21
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -1
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 20
+      Text = '0'
+    end
+    object udCount: TiUpDown
+      Left = 225
+      Top = 309
+      Width = 16
+      Height = 21
+      Associate = edCount
+      Min = 0
+      Max = 1000
+      Position = 0
+      TabOrder = 21
+      Wrap = False
+    end
+    object edGeneralArea: TiEdit
+      Left = 318
+      Top = 217
+      Width = 65
+      Height = 21
+      TabOrder = 16
+    end
+  end
+  object rbiRBook: TiRBookInterface
+    Visual.TypeView = tviOnlyData
+    Visual.MultiSelect = False
+    ReturnData = mdRBook
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    Left = 144
+    Top = 16
+  end
+  object mdRBook: TitsvMemoryData
+    Active = True
+    FieldDefs = <>
+    Left = 112
+    Top = 16
+  end
+  object Query: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'INSERT INTO PMS_PREMISES'
+      '(PMS_PREMISES_ID,DATETIMEINSERT,DATETIMEUPDATE,'
+      'WHOINSERT_ID,WHOUPDATE_ID,SYNC_ID,RECYLED,'
+      'TYPEOPERATION,DATEARRIVALS,CONTACT,CLIENTINFO,'
+      'PMS_REGION_ID,PMS_STREET_ID,HOUSENUMBER,'
+      'COUNTFLOOR,PMS_TYPEHOUSE_ID,PMS_PLANNING_ID,'
+      'PMS_COUNTROOM_ID,PMS_TYPEPREMISES_ID,'
+      'PMS_BUILDER_ID,DELIVERY,PRICE,PMS_UNITPRICE_ID,'
+      'GENERALAREA,NOTE,PMS_STATION_ID,PMS_AGENT_ID)'
+      'VALUES'
+      '(:PMS_PREMISES_ID,:DATETIMEINSERT,:DATETIMEUPDATE,'
+      ':WHOINSERT_ID,:WHOUPDATE_ID,:SYNC_ID,:RECYLED,'
+      ':TYPEOPERATION,:DATEARRIVALS,:CONTACT,:CLIENTINFO,'
+      ':PMS_REGION_ID,:PMS_STREET_ID,:HOUSENUMBER,'
+      ':COUNTFLOOR,:PMS_TYPEHOUSE_ID,:PMS_PLANNING_ID,'
+      ':PMS_COUNTROOM_ID,:PMS_TYPEPREMISES_ID,'
+      ':PMS_BUILDER_ID,:DELIVERY,:PRICE,:PMS_UNITPRICE_ID,'
+      ':GENERALAREA,:NOTE,:PMS_STATION_ID,:PMS_AGENT_ID)')
+    Left = 112
+    Top = 56
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'PMS_PREMISES_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATETIMEINSERT'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATETIMEUPDATE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WHOINSERT_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'WHOUPDATE_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'SYNC_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'RECYLED'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'TYPEOPERATION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATEARRIVALS'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CONTACT'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'CLIENTINFO'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_REGION_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_STREET_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'HOUSENUMBER'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'COUNTFLOOR'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_TYPEHOUSE_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_PLANNING_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_COUNTROOM_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_TYPEPREMISES_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_BUILDER_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DELIVERY'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PRICE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_UNITPRICE_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'GENERALAREA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NOTE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_STATION_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'PMS_AGENT_ID'
+        ParamType = ptUnknown
+      end>
+  end
+  object Tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 152
+    Top = 56
+  end
+end
+fmGen 

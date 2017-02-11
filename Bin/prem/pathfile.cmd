@@ -1,0 +1,1 @@
+stbasis.exe /pathfile stbasis.pth

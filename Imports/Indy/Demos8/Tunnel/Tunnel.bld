@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+Demo.dpr
+Demo.res
+Main.dfm
+Main.pas

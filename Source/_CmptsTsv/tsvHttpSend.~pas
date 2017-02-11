@@ -1,0 +1,21 @@
+unit tsvHttpSend;
+
+interface
+
+uses Classes;
+
+type
+
+  TtsvHttpSend=class(TComponent)
+  public
+    procedure SendFile(const FileName: String);
+  end;
+
+implementation
+
+uses Wininet;
+
+{ TtsvHttpSend }
+
+
+end.

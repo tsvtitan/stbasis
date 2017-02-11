@@ -1,0 +1,224 @@
+unit StbasisSClientDataSet;
+
+interface
+
+uses DB, DbClient, Classes;
+
+type
+
+  TStbasisSTypeSort=(tsNone,tsAsc,tsDesc);
+
+  TStbasisSClientDataSetAddDescProc=procedure (Source,Dest: TDataSet) of object;
+
+  TStbasisSClientDataSetAddValueProc=procedure (Source,Dest: TDataSet) of object;
+
+  TStbasisSClientDataSet=class(TClientDataSet)
+  private
+    FDefaultIndexName: string;
+    function GetTypeSortStr(TypeSort: TStbasisSTypeSort): string;
+    function GetMasterFields: String;
+    procedure SetMasterFileds(Value: string);
+    procedure SaveOptParams;
+    procedure LoadOptParams;
+  public
+    procedure CreateDataSetBySource(Source: TDataSet; Proc: TStbasisSClientDataSetAddDescProc=nil);
+    procedure FieldValuesBySource(Source: TDataSet; Proc: TStbasisSClientDataSetAddValueProc=nil);
+    function CreateFieldBySource(const FieldName: string; Source: TDataSet; Required: Boolean=false): TField;
+    procedure SetIndexBySort(FieldName: string; TypeSort: TStbasisSTypeSort);
+    procedure InitDefaultIndexDefs;
+    function AddIndexDef(const FieldName: string; TypeSort: TStbasisSTypeSort): TIndexDef;
+    procedure LoadFromFile(const FileName: string = '');
+    procedure LoadFromStream(Stream: TStream);
+    procedure SaveToFile(const FileName: string = ''; Format: TDataPacketFormat = dfBinary);
+    procedure SaveToStream(Stream: TStream; Format: TDataPacketFormat = dfBinary);
+
+
+    property DefaultIndexName: string read FDefaultIndexName;
+    property MasterFields: string read GetMasterFields write SetMasterFileds;
+  end;
+
+implementation
+
+uses SysUtils,
+     StbasisSUtils;
+
+const
+  SSortIndexName='SORT_%s_%s';
+  SMasterIndexName='MASTER_';
+  SFieldOptParam='FIELD_%s';
+
+{ TStbasisSClientDataSet }
+
+procedure TStbasisSClientDataSet.CreateDataSetBySource(Source: TDataSet; Proc: TStbasisSClientDataSetAddDescProc=nil);
+var
+  i: Integer;
+begin
+  if Active then
+    Close;
+  FieldDefs.Clear;
+  for i:=0 to Source.Fields.Count-1 do begin
+    with FieldDefs.AddFieldDef do begin
+      Name:=Source.Fields[i].FieldName;
+      DataType:=Source.Fields[i].DataType;
+      Size:=Source.Fields[i].Size;
+    end;
+  end;
+  if Assigned(Proc) then
+    Proc(Source,Self);
+  CreateDataSet;
+end;
+
+procedure TStbasisSClientDataSet.FieldValuesBySource(Source: TDataSet; Proc: TStbasisSClientDataSetAddValueProc=nil);
+var
+  i: Integer;
+  Field: TField;
+begin
+  CheckBrowseMode;
+  Append;
+  try
+    for i:=0 to Source.Fields.Count-1 do begin
+      with Source.Fields[i] do begin
+        Field:=FindField(FieldName);
+        if Assigned(Field) then
+           Field.Value:=Value;
+      end;  
+    end;
+    if Assigned(Proc) then
+      Proc(Source,Self);
+  finally
+    Post;
+  end;
+end;
+
+function TStbasisSClientDataSet.CreateFieldBySource(const FieldName: string; Source: TDataSet; Required: Boolean): TField;
+var
+  FieldDef: TFieldDef;
+begin
+  FieldDef:=FieldDefs.AddFieldDef;
+  FieldDef.Name:=FieldName;
+  FieldDef.DataType:=Source.FieldByName(FieldName).DataType;
+  FieldDef.Size:=Source.FieldByName(FieldName).Size;
+  FieldDef.Required:=Required;
+  Result:=FieldDef.CreateField(nil);
+end;
+
+procedure TStbasisSClientDataSet.SetIndexBySort(FieldName: string; TypeSort: TStbasisSTypeSort);
+begin
+  CheckActive;
+  if TypeSort<>tsNone then
+    IndexName:=Format(SSortIndexName,[FieldName,GetTypeSortStr(TypeSort)])
+  else IndexName:=DefaultIndexName;
+end;
+
+function TStbasisSClientDataSet.GetTypeSortStr(TypeSort: TStbasisSTypeSort): string;
+var
+  S: string;
+begin
+  S:='';
+  case TypeSort of
+    tsNone: S:='';
+    tsAsc: S:='ASC';
+    tsDesc: S:='DESC';
+  end;
+  Result:=S;
+end;
+
+procedure TStbasisSClientDataSet.InitDefaultIndexDefs;
+var
+  val: Integer;
+begin
+  if Trim(MasterFields)<>'' then begin
+    val:=IndexDefs.IndexOf(FDefaultIndexName);
+    if val<>-1 then
+      IndexDefs.Delete(val);
+    with IndexDefs.AddIndexDef do begin
+      Fields:=MasterFields;
+      Name:=SMasterIndexName;
+      FDefaultIndexName:=Name;
+    end;
+    if not Active then
+      IndexName:=FDefaultIndexName;
+  end;
+end;
+
+function TStbasisSClientDataSet.AddIndexDef(const FieldName: string; TypeSort: TStbasisSTypeSort): TIndexDef;
+var
+  S: string;
+begin
+  Result:=nil;
+  if TypeSort<>tsNone then begin
+    S:=Format(SSortIndexName,[FieldName,GetTypeSortStr(TypeSort)]);
+    if IndexDefs.IndexOf(S)=-1 then begin
+      Result:=IndexDefs.AddIndexDef;
+      Result.Name:=S;
+      Result.Fields:=iff(Trim(MasterFields)<>'',MasterFields+';','')+FieldName;
+      if TypeSort=tsDesc then
+        Result.Options:=Result.Options+[ixDescending];
+    end;    
+  end;
+end;
+
+function TStbasisSClientDataSet.GetMasterFields: String;
+begin
+  Result:=inherited MasterFields;
+end;
+
+procedure TStbasisSClientDataSet.SetMasterFileds(Value: string);
+begin
+  inherited MasterFields:=Value;
+  InitDefaultIndexDefs;
+end;
+
+procedure TStbasisSClientDataSet.LoadFromFile(const FileName: string = '');
+begin
+  inherited LoadFromFile(FileName);
+  LoadOptParams;
+end;
+
+procedure TStbasisSClientDataSet.LoadFromStream(Stream: TStream);
+begin
+  inherited LoadFromStream(Stream);
+  LoadOptParams;
+end;
+
+procedure TStbasisSClientDataSet.SaveToFile(const FileName: string = ''; Format: TDataPacketFormat = dfBinary);
+begin
+  SaveOptParams;
+  inherited SaveToFile(FileName,Format);
+end;
+
+procedure TStbasisSClientDataSet.SaveToStream(Stream: TStream; Format: TDataPacketFormat = dfBinary);
+begin
+  SaveOptParams;
+  inherited SaveToStream(Stream,Format);
+end;
+
+procedure TStbasisSClientDataSet.SaveOptParams;
+var
+  i: Integer;
+begin
+  if Active then begin
+    for i:=0 to FieldCount-1 do begin
+      if not AnsiSameText(Fields[i].DisplayLabel,Fields[i].FieldName) then begin
+        SetOptionalParam(Format(SFieldOptParam,[Fields[i].FieldName]),Fields[i].DisplayLabel);
+      end;
+    end;
+  end;
+end;
+
+procedure TStbasisSClientDataSet.LoadOptParams;
+var
+  i: Integer;
+  S: String;
+begin
+  if Active then begin
+    for i:=0 to FieldCount-1 do begin
+      S:=GetOptionalParam(Format(SFieldOptParam,[Fields[i].FieldName]));
+      if Trim(S)<>'' then
+        Fields[i].DisplayLabel:=S;
+    end;
+  end;
+end;
+
+
+end.

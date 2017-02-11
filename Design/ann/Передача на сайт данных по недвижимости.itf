@@ -1,0 +1,755 @@
+'Передача на сайт данных по недвижимости'Передача на сайт данных по недвижимости&{0921F68E-E564-4172-A84A-5D6237FC32D5}№)unit Main;
+
+interface
+
+procedure fmClose(Sender: TObject; var Action: TCloseAction);
+procedure fmbtReleaseClick(Sender: TObject);
+procedure fmbtSendClick(Sender: TObject);
+procedure fmbtCloseClick(Sender: TObject);
+
+implementation
+
+var
+  NumRelease: Integer;
+
+procedure SetRelease;
+begin
+  fm.rbi.Visual.TypeView:=tviOnlyData;
+  fm.rbi.Condition.WhereStr.Clear;
+  fm.rbi.Condition.WhereStr.Add(' release_id='+fm.edRelease.Tag+' ');
+  if fm.rbi.View then begin
+    if not fm.memd.IsEmpty then begin
+      fm.ReleaseIDs.Strings.Clear;
+      fm.ReleaseIDs.Strings.Add(IntToStr(fm.edRelease.Tag));
+      NumRelease:=fm.memd.FieldByName('numrelease').AsInteger;
+      fm.edRelease.Text:=Trim(fm.memd.FieldByName('about').AsString+
+                         ' ('+fm.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fm.FormStyle<>fsMDIChild then begin
+    fm.edRelease.Tag:=ReadParam(GetInterfaceName,fm.edRelease.Name,fm.edRelease.Tag);
+    SetRelease;
+    fm.FormStyle:=fsMDIChild;
+  end else begin
+    fm.WindowState:=wsNormal;
+    fm.BringToFront;
+    fm.Show;
+  end;
+end;
+
+procedure fmClose(Sender: TObject; var Action: TCloseAction);
+begin
+  WriteParam(GetInterfaceName,fm.edRelease.Name,fm.edRelease.Tag);
+  Action:=caFree;
+end;
+
+
+procedure fmbtReleaseClick(Sender: TObject);
+begin
+  fm.rbi.Visual.TypeView:=tvibvModal;
+  fm.rbi.Condition.WhereStr.Clear;
+  fm.rbi.Locate.KeyFields:='release_id';
+  fm.rbi.Locate.KeyValues:=fm.edRelease.Tag;
+  fm.rbi.InterfaceName:='Справочник выпусков';
+  if fm.rbi.View then begin
+    if not fm.memd.IsEmpty then begin
+      fm.edRelease.Tag:=fm.memd.FieldByName('release_id').AsInteger;
+      fm.ReleaseIDs.Strings.Clear;
+      fm.ReleaseIDs.Strings.Add(IntToStr(fm.edRelease.Tag));
+      NumRelease:=fm.memd.FieldByName('numrelease').AsInteger;
+      fm.edRelease.Text:=Trim(fm.memd.FieldByName('about').AsString+
+                         ' ('+fm.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure SendData(WithMessage: Boolean);
+var
+  qr: TiIBQuery;
+  i: Integer;
+  pb: THandle;
+  j: Integer;
+  Field: TField;
+  Str: TStringList;
+  Ms: TMemoryStream;
+  S: String;
+  TempDir: String;
+  XmlFile1: String;
+  XmlFile: String;
+  ZipFile: String;
+  PostStream: TIdMultiPartFormDataStream;
+  PremisesCount: Integer;
+begin
+  fm.Splash.View;
+  Screen.Cursor:=crHourGlass;
+  try
+    TempDir:=GetTempDir;
+    fm.Zip.BaseDirectory:=TempDir;
+    S:=FormatDateTime('ddmmyyhhmmzzz',Now);
+    ZipFile:=TempDir+'\'+S+'.zip';
+    fm.Zip.FileName:=ZipFile;
+
+    SetSplashStatus('Начало передачи данных ...');
+
+    Application.ProcessMessages;
+
+    fm.qrPremises.Active:=false;
+    fm.qrAgency.Active:=false;
+    fm.qrBuilder.Active:=false;
+    fm.qrRegionStreet.Active:=false;
+    fm.Tran.Active:=false;
+
+    S:='';
+    for i:=0 to fm.ReleaseIDs.Strings.Count-1 do begin
+      if i=0 then
+        S:=fm.ReleaseIDs.Strings.Strings[i]
+      else
+        S:=S+','+fm.ReleaseIDs.Strings.Strings[i];
+    end;
+
+    fm.qrPremises.SQL.Text:=fm.StringList.Strings.Text+
+                            ' WHERE RL.RELEASE_ID IN ('+S+') ';
+  
+    fm.Tran.Active:=true;
+    fm.qrPremises.Active:=true;
+    fm.qrAgency.Active:=true;
+    fm.qrBuilder.Active:=true;
+    fm.qrRegionStreet.Active:=true;
+
+    qr:=fm.qrPremises;
+    qr.FetchAll;
+    PremisesCount:=qr.RecordCount;
+
+    SetSplashStatus('Выгрузка недвижимости ('+IntToStr(PremisesCount)+') ...');
+
+    Str:=TStringList.Create;
+    Ms:=TMemoryStream.Create;
+    i:=0;
+    pb:=CreateProgressBar(0,qr.RecordCount,'',clBlack);
+    try
+      Str.Add('<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>');
+      Str.Add('<mysql>');
+      Str.Add('<database name="new-times">');
+      Str.Add('<table name="premises">');
+      qr.First;
+      while not qr.Eof do begin
+        Application.ProcessMessages;
+        inc(i);
+        SetProgressBarStatus(pb,i,qr.RecordCount,'');
+        Str.Add('<row>');
+        for j:=0 to qr.FieldCount-1 do begin
+          Field:=qr.Fields[j];
+          S:=Field.AsString;
+          if Field.FieldName='DELIVERY_DATE' then
+            S:=FormatDateTime('yyyy-mm-dd',Field.Value);
+          if Field.FieldName='RELEASE_ID' then
+            S:=fm.ReleaseIDs.Strings.Strings[fm.ReleaseIDs.Strings.Count-1];
+          Str.Add('<field name="'+Field.FieldName+'">'+S+'</field>');
+        end;
+        Str.Add('</row>');
+        qr.Next;
+      end;
+      Str.Add('</table>');
+      Str.Add('</database>');
+      Str.Add('</mysql>');
+
+      Str.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.xml.LoadFromStream(Ms);
+      Ms.Clear;
+      fm.xml.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.Zip.AddFromStream('premises.xml',Ms);
+
+    finally
+      FreeProgressBar(pb);
+      Ms.Free;
+      Str.Free;
+    end;
+
+    qr:=fm.qrAgency;
+    qr.FetchAll;
+
+    SetSplashStatus('Выгрузка агентств ('+qr.RecordCount+') ...');
+
+    Str:=TStringList.Create;
+    Ms:=TMemoryStream.Create;
+    i:=0;
+    pb:=CreateProgressBar(0,qr.RecordCount,'',clBlack);
+    try
+      Str.Add('<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>');
+      Str.Add('<mysql>');
+      Str.Add('<database name="new-times">');
+      Str.Add('<table name="agency">');
+      qr.First;
+      while not qr.Eof do begin
+        Application.ProcessMessages;
+        inc(i);
+        SetProgressBarStatus(pb,i,qr.RecordCount,'');
+        Str.Add('<row>');
+        for j:=0 to qr.FieldCount-1 do begin
+          Field:=qr.Fields[j];
+          S:=Field.AsString;
+          Str.Add('<field name="'+Field.FieldName+'">'+S+'</field>');
+        end;
+        Str.Add('</row>');
+        qr.Next;
+      end;
+      Str.Add('</table>');
+      Str.Add('</database>');
+      Str.Add('</mysql>');
+
+      Str.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.xml.LoadFromStream(Ms);
+      Ms.Clear;
+      fm.xml.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.Zip.AddFromStream('agency.xml',Ms);
+
+    finally
+      FreeProgressBar(pb);
+      Ms.Free;
+      Str.Free;
+    end;
+
+    qr:=fm.qrBuilder;
+    qr.FetchAll;
+
+    SetSplashStatus('Выгрузка застройщиков ('+qr.RecordCount+') ...');
+
+    Str:=TStringList.Create;
+    Ms:=TMemoryStream.Create;
+    i:=0;
+    pb:=CreateProgressBar(0,qr.RecordCount,'',clBlack);
+    try
+      Str.Add('<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>');
+      Str.Add('<mysql>');
+      Str.Add('<database name="new-times">');
+      Str.Add('<table name="builder">');
+      qr.First;
+      while not qr.Eof do begin
+        Application.ProcessMessages;
+        inc(i);
+        SetProgressBarStatus(pb,i,qr.RecordCount,'');
+        Str.Add('<row>');
+        for j:=0 to qr.FieldCount-1 do begin
+          Field:=qr.Fields[j];
+          S:=Field.AsString;
+          Str.Add('<field name="'+Field.FieldName+'">'+S+'</field>');
+        end;
+        Str.Add('</row>');
+        qr.Next;
+      end;
+      Str.Add('</table>');
+      Str.Add('</database>');
+      Str.Add('</mysql>');
+
+      Str.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.xml.LoadFromStream(Ms);
+      Ms.Clear;
+      fm.xml.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.Zip.AddFromStream('builder.xml',Ms);
+
+    finally
+      FreeProgressBar(pb);
+      Ms.Free;
+      Str.Free;
+    end;
+
+    qr:=fm.qrRegionStreet;
+    qr.FetchAll;
+
+    SetSplashStatus('Выгрузка улиц и районов ('+qr.RecordCount+') ...');
+
+    Str:=TStringList.Create;
+    Ms:=TMemoryStream.Create;
+    i:=0;
+    pb:=CreateProgressBar(0,qr.RecordCount,'',clBlack);
+    try
+      Str.Add('<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>');
+      Str.Add('<mysql>');
+      Str.Add('<database name="new-times">');
+      Str.Add('<table name="region_street">');
+      qr.First;
+      while not qr.Eof do begin
+        Application.ProcessMessages;
+        inc(i);
+        SetProgressBarStatus(pb,i,qr.RecordCount,'');
+        Str.Add('<row>');
+        for j:=0 to qr.FieldCount-1 do begin
+          Field:=qr.Fields[j];
+          S:=Field.AsString;
+          Str.Add('<field name="'+Field.FieldName+'">'+S+'</field>');
+        end;
+        Str.Add('</row>');
+        qr.Next;
+      end;
+      Str.Add('</table>');
+      Str.Add('</database>');
+      Str.Add('</mysql>');
+
+      Str.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.xml.LoadFromStream(Ms);
+      Ms.Clear;
+      fm.xml.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.Zip.AddFromStream('region_street.xml',Ms);
+
+    finally
+      FreeProgressBar(pb);
+      Ms.Free;
+      Str.Free;
+    end;
+
+    try
+      fm.Zip.Save;
+      CreateLogItem('Запаковка данных в файл: '+ZipFile+' успешно выполнена.',tliInformation);
+    except
+      on E: Exception do begin
+        CreateLogItem('Запаковка данных в файл: '+ZipFile+' прошла с ошибкой: '+E.Message,tliError);
+      end;
+    end;
+
+    PostStream:=TIdMultiPartFormDataStream.Create;
+    try
+      PostStream.AddFormField('upload','');
+      PostStream.AddFile('myfile',ZipFile,'application/x-zip-compressed');
+      try
+        S:=Trim(fm.http.Post('/load.php',PostStream));
+        CreateLogItem('Передача данных на сервер: '+fm.http.Host+' выполнена с ответом: '+S,tliInformation);
+      except
+        on E: Exception do begin
+          CreateLogItem('Передача данных на сервер: '+fm.http.Host+' прошла с ошибкой: '+E.Message,tliError);
+        end;
+      end;
+    finally
+      PostStream.Free;
+    end;
+
+    SetSplashStatus('Конец передачи данных ...');
+
+  finally
+    Screen.Cursor:=crDefault;
+    fm.Splash.Close;
+  end;
+
+  if WithMessage then
+    ShowInfoEx('Экспортировано: '+IntToStr(PremisesCount)+' записи(ей).');
+end;
+
+procedure fmbtSendClick(Sender: TObject);
+begin
+  if Trim(fm.edRelease.Text)='' then begin
+    ShowErrorEx('Выберите выпуск.');
+    exit;
+  end;
+  SendData(true);
+end;
+
+procedure fmbtCloseClick(Sender: TObject);
+begin
+  fm.Close;
+end;
+
+procedure SendDataByCurrentRelease;
+begin
+  fm.qrDate.Active:=false;
+  fm.Tran.Active:=false;
+  fm.qrDate.Params.ParamByName('DATERELEASE').Value:=Date;
+  fm.Tran.Active:=true;
+  fm.qrDate.Active:=true;
+  if not fm.qrDate.IsEmpty then begin
+    fm.ReleaseIDs.Strings.Clear;
+    fm.qrDate.First;
+    while not fm.qrDate.Eof do begin
+      fm.ReleaseIDs.Strings.Add(fm.qrDate.FieldByName('RELEASE_ID').AsString);
+      fm.qrDate.Next;
+    end;
+    SendData(false);
+  end;
+  fm.Free;
+end;
+
+end.
+O*object fm: Tfm
+  Left = 65
+  Top = 47
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Передача на сайт недвижимости'
+  ClientHeight = 78
+  ClientWidth = 272
+  Color = clBtnFace
+  Constraints.MaxHeight = 105
+  Constraints.MaxWidth = 280
+  Constraints.MinHeight = 105
+  Constraints.MinWidth = 280
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    F000FFFFF80007FF00F00FFFF80007FFFFF00FFFF80007FFFF000FFFF80007FF
+    F000FFFFF80007FF000FFFFFF80007FF00FFFFFFF80007FF00F00FF0000007FF
+    F000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  OnClose = fmClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbRelease: TiLabel
+    Left = 17
+    Top = 16
+    Width = 41
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Выпуск:'
+    FocusControl = edRelease
+  end
+  object iPanel1: TiPanel
+    Left = 0
+    Top = 42
+    Width = 272
+    Height = 36
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 0
+    object btClose: TiButton
+      Left = 192
+      Top = 6
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = 'Закрыть'
+      TabOrder = 1
+      OnClick = fmbtCloseClick
+    end
+    object btSend: TiButton
+      Left = 110
+      Top = 6
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = 'Передать'
+      Default = True
+      TabOrder = 0
+      OnClick = fmbtSendClick
+    end
+  end
+  object edRelease: TiEdit
+    Left = 68
+    Top = 13
+    Width = 169
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 1
+  end
+  object btRelease: TiButton
+    Left = 243
+    Top = 13
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 2
+    OnClick = fmbtReleaseClick
+  end
+  object rbi: TiRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    ReturnData = memd
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    InterfaceName = 'Справочник выпусков'
+    Left = 105
+    Top = 8
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 73
+    Top = 8
+  end
+  object qrPremises: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    Left = 136
+    Top = 8
+  end
+  object Tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 40
+    Top = 8
+  end
+  object Splash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 8
+    Top = 40
+  end
+  object qrDate: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'SELECT MAX(R.DATERELEASE) AS DATERELEASE,'
+      '       MAX(R.RELEASE_ID) AS RELEASE_ID'
+      'FROM RELEASE R'
+      'WHERE R.DATERELEASE<=:DATERELEASE'
+      '  AND R.PUBLISHING_ID=2'
+      'UNION ALL'
+      'SELECT MAX(R.DATERELEASE) AS DATERELEASE,'
+      '       MAX(R.RELEASE_ID) AS RELEASE_ID'
+      'FROM RELEASE R'
+      'WHERE R.DATERELEASE<=:DATERELEASE'
+      '  AND R.PUBLISHING_ID=2'
+      '  AND R.RELEASE_ID NOT IN (SELECT RELEASE_ID'
+      
+        '                             FROM get_max_release_id(:DATERELEAS' +
+        'E,R.PUBLISHING_ID))'
+      'UNION ALL'
+      'SELECT MAX(R.DATERELEASE) AS DATERELEASE,'
+      '       MAX(R.RELEASE_ID) AS RELEASE_ID'
+      'FROM RELEASE R'
+      'WHERE R.DATERELEASE<=:DATERELEASE'
+      '  AND R.PUBLISHING_ID=1'
+      'ORDER BY 2')
+    Left = 136
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'DATERELEASE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATERELEASE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATERELEASE'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DATERELEASE'
+        ParamType = ptUnknown
+      end>
+  end
+  object xml: TitsvXMLDocument
+    Left = 40
+    Top = 40
+    DOMVendorDesc = 'MSXML'
+  end
+  object http: TiIdHttp
+    MaxLineAction = maException
+    Host = '192.168.1.111'
+    AllowCookies = True
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.ContentRangeEnd = 0
+    Request.ContentRangeStart = 0
+    Request.Accept = 'text/html, */*'
+    Request.BasicAuthentication = False
+    Request.UserAgent = 'Mozilla/3.0 (compatible)'
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 8
+    Top = 8
+  end
+  object qrAgency: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'SELECT * FROM AP_AGENCY')
+    Left = 168
+    Top = 8
+  end
+  object qrBuilder: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'SELECT * FROM AP_BUILDER')
+    Left = 200
+    Top = 8
+  end
+  object Zip: TiAbZipper
+    AutoSave = False
+    DOSMode = False
+    StoreOptions = [soStripDrive, soStripPath, soRemoveDots]
+    Left = 72
+    Top = 40
+  end
+  object qrRegionStreet: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'SELECT RS.*, R.NAME AS REGION_NAME, S.NAME AS STREET_NAME'
+      ' FROM AP_REGION_STREET RS'
+      'JOIN AP_REGION R ON R.AP_REGION_ID=RS.AP_REGION_ID'
+      'JOIN AP_STREET S ON S.AP_STREET_ID=RS.AP_STREET_ID')
+    Left = 168
+    Top = 40
+  end
+  object StringList: TitsvStringList
+    Strings.Strings = (
+      'SELECT'
+      'P.AP_PREMISES_ID,'
+      'P.AP_OPERATION_ID,'
+      'P.RELEASE_ID,'
+      'P.AP_AGENCY_ID,'
+      'P.AP_BUILDER_ID,'
+      'P.DELIVERY_DATE,'
+      'P.NN,'
+      'P.PHONES AS PREMISES_PHONES,'
+      'P.NAME AS PREMISES_NAME,'
+      'P.HOUSE,'
+      'P.APARTMENT,'
+      'P.FLOOR,'
+      'P.FLOOR_COUNT,'
+      'P.GENERAL_AREA,'
+      'P.DWELLING_AREA,'
+      'P.KITCHEN_AREA,'
+      'P.GROUND_AREA,'
+      'P.NOTE,'
+      'P.PRICE,'
+      'P.PERIOD,'
+      'P.PAYMENT_FOR,'
+      'P.DELIVERY,'
+      'RL.ABOUT AS RELEASE_ABOUT,'
+      'A.NAME AS AGENCY_NAME,'
+      'B.NAME AS BUILDER_NAME,'
+      'T.NAME AS TOWN_NAME,'
+      'S.NAME AS STREET_NAME,'
+      'R.NAME AS REGION_NAME,'
+      'LM.NAME AS LANDMARK_NAME,'
+      'CR.NAME AS COUNTROOM_NAME,'
+      'TB.NAME AS TYPE_BUILDING_NAME,'
+      'UP.NAME AS UNIT_PRICE_NAME,'
+      'TI.NAME AS TYPE_INTERNET_NAME,'
+      'TP.NAME AS TYPE_PREMISES_NAME,'
+      'TD.NAME AS TYPE_DOOR_NAME,'
+      'HT.NAME AS HOME_TECH_NAME,'
+      'TF.NAME AS TYPE_FURNITURE_NAME,'
+      'TG.NAME AS TYPE_GARAGE_NAME,'
+      'TA.NAME AS TYPE_BATH_NAME,'
+      'TS.NAME AS TYPE_SEWERAGE_NAME,'
+      'TC.NAME AS TYPE_CONDITION_NAME,'
+      'TL.NAME AS TYPE_PLATE_NAME,'
+      'TW.NAME AS TYPE_WATER_NAME,'
+      'TH.NAME AS TYPE_HEAT_NAME,'
+      'TN.NAME AS TYPE_PHONE_NAME,'
+      'TY.NAME AS TYPE_BALCONY_NAME,'
+      'PL.NAME AS PLANNING_NAME,'
+      'TT.NAME AS TYPE_APARTMENT_NAME,'
+      'TR.NAME AS TYPE_SANITARY_NAME,'
+      'P.AP_REGION_ID,'
+      'P.AP_STREET_ID'
+      'FROM AP_PREMISES P'
+      'JOIN RELEASE RL ON P.RELEASE_ID=RL.RELEASE_ID'
+      'LEFT JOIN AP_AGENCY A ON P.AP_AGENCY_ID=A.AP_AGENCY_ID'
+      'LEFT JOIN AP_BUILDER B ON P.AP_BUILDER_ID=B.AP_BUILDER_ID'
+      'LEFT JOIN AP_TOWN T ON P.AP_TOWN_ID=T.AP_TOWN_ID'
+      'LEFT JOIN AP_STREET S ON P.AP_STREET_ID=S.AP_STREET_ID'
+      'LEFT JOIN AP_REGION R ON P.AP_REGION_ID=R.AP_REGION_ID'
+      'LEFT JOIN AP_LANDMARK LM ON P.AP_LANDMARK_ID=LM.AP_LANDMARK_ID'
+      
+        'LEFT JOIN AP_COUNTROOM CR ON P.AP_COUNTROOM_ID=CR.AP_COUNTROOM_I' +
+        'D'
+      
+        'LEFT JOIN AP_TYPE_BUILDING TB ON P.AP_TYPE_BUILDING_ID=TB.AP_TYP' +
+        'E_BUILDING_ID'
+      
+        'LEFT JOIN AP_UNIT_PRICE UP ON P.AP_UNIT_PRICE_ID=UP.AP_UNIT_PRIC' +
+        'E_ID'
+      
+        'LEFT JOIN AP_TYPE_INTERNET TI ON P.AP_TYPE_INTERNET_ID=TI.AP_TYP' +
+        'E_INTERNET_ID'
+      
+        'LEFT JOIN AP_TYPE_PREMISES TP ON P.AP_TYPE_PREMISES_ID=TP.AP_TYP' +
+        'E_PREMISES_ID'
+      
+        'LEFT JOIN AP_TYPE_DOOR TD ON P.AP_TYPE_DOOR_ID=TD.AP_TYPE_DOOR_I' +
+        'D'
+      
+        'LEFT JOIN AP_HOME_TECH HT ON P.AP_HOME_TECH_ID=HT.AP_HOME_TECH_I' +
+        'D'
+      
+        'LEFT JOIN AP_TYPE_FURNITURE TF ON P.AP_TYPE_FURNITURE_ID=TF.AP_T' +
+        'YPE_FURNITURE_ID'
+      
+        'LEFT JOIN AP_TYPE_GARAGE TG ON P.AP_TYPE_GARAGE_ID=TG.AP_TYPE_GA' +
+        'RAGE_ID'
+      
+        'LEFT JOIN AP_TYPE_BATH TA ON P.AP_TYPE_BATH_ID=TA.AP_TYPE_BATH_I' +
+        'D'
+      
+        'LEFT JOIN AP_TYPE_SEWERAGE TS ON P.AP_TYPE_SEWERAGE_ID=TS.AP_TYP' +
+        'E_SEWERAGE_ID'
+      
+        'LEFT JOIN AP_TYPE_CONDITION TC ON P.AP_TYPE_CONDITION_ID=TC.AP_T' +
+        'YPE_CONDITION_ID'
+      
+        'LEFT JOIN AP_TYPE_PLATE TL ON P.AP_TYPE_PLATE_ID=TL.AP_TYPE_PLAT' +
+        'E_ID'
+      
+        'LEFT JOIN AP_TYPE_WATER TW ON P.AP_TYPE_WATER_ID=TW.AP_TYPE_WATE' +
+        'R_ID'
+      
+        'LEFT JOIN AP_TYPE_HEAT TH ON P.AP_TYPE_HEAT_ID=TH.AP_TYPE_HEAT_I' +
+        'D'
+      
+        'LEFT JOIN AP_TYPE_PHONE TN ON P.AP_TYPE_PHONE_ID=TN.AP_TYPE_PHON' +
+        'E_ID'
+      
+        'LEFT JOIN AP_TYPE_BALCONY TY ON P.AP_TYPE_BALCONY_ID=TY.AP_TYPE_' +
+        'BALCONY_ID'
+      'LEFT JOIN AP_PLANNING PL ON P.AP_PLANNING_ID=PL.AP_PLANNING_ID'
+      
+        'LEFT JOIN AP_TYPE_APARTMENT TT ON P.AP_TYPE_APARTMENT_ID=TT.AP_T' +
+        'YPE_APARTMENT_ID'
+      
+        'LEFT JOIN AP_TYPE_SANITARY TR ON P.AP_TYPE_SANITARY_ID=TR.AP_TYP' +
+        'E_SANITARY_ID'
+      '')
+    Left = 200
+    Top = 40
+  end
+  object ReleaseIDs: TitsvStringList
+    Left = 232
+    Top = 40
+  end
+end
+fm 

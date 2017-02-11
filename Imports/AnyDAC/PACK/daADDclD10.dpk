@@ -1,0 +1,57 @@
+package daADDclD10;
+{$R *.res}
+{$R 'daADDcl.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'da-soft AnyDAC design time Package for Delphi 2006'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  designide,
+  rtl,
+  vcl,
+  dbrtl,
+  vclactnband,
+  vclx,
+  dcldb,
+  vcldesigner,
+  dclstd,
+  vcldb,
+  daADCompD10,
+  daADComID10,
+  daADGUIxFormsD10,
+  daADPhysD10,
+  daADPhysODBCD10,
+  daADPhysMSAccD10,
+  daADPhysMSSQLD10,
+  daADPhysDB2D10,
+  daADPhysMySQLD10,
+  daADPhysOraclD10,
+  daADPhysASAD10,
+  daADPhysADSD10,
+  daADPhysDbExpD10;
+
+contains
+  daADCompReg;
+
+end.

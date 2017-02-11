@@ -1,0 +1,376 @@
+
+СтатистикаВся статистика&{0921F68E-E564-4172-A84A-5D6237FC32D5}?unit Main;
+{ модуль разработан ФИО }
+
+interface
+
+procedure fmStatbtRunClick(Sender: TObject);
+procedure fmStatbtCloseClick(Sender: TObject);
+procedure fmStatClose(Sender: TObject; var Action: TCloseAction);
+procedure fmStatbtReleaseClick(Sender: TObject);
+procedure fmStatrptGetValue(const ParName: String; var ParValue: Variant);
+
+implementation
+
+var
+  NumRelease: Integer;
+
+procedure SetRelease;
+begin
+  fmStat.rbi.Visual.TypeView:=tviOnlyData;
+  fmStat.rbi.Condition.WhereStr.Clear;
+  fmStat.rbi.Condition.WhereStr.Add(' release_id='+fmStat.edRelease.Tag+' ');
+  if fmStat.rbi.View then begin
+    if not fmStat.memd.IsEmpty then begin
+      NumRelease:=fmStat.memd.FieldByName('numrelease').AsInteger;
+      fmStat.edRelease.Text:=Trim(fmStat.memd.FieldByName('about').AsString+
+                             ' ('+fmStat.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fmStat.FormStyle<>fsMDIChild then begin
+    fmStat.edRelease.Tag:=ReadParam(GetInterfaceName,fmStat.edRelease.Name,fmStat.edRelease.Tag);
+    SetRelease;
+    fmStat.FormStyle:=fsMDIChild;
+  end else begin
+    fmStat.WindowState:=wsNormal;
+    fmStat.BringToFront;
+    fmStat.Show;
+  end;
+end;
+
+procedure ShowReport;
+begin
+  fmStat.siSplash.View;
+  Screen.Cursor:=crHourGlass;
+  try
+    Application.ProcessMessages;
+
+    fmStat.qrStat.Active:=false;
+    Application.ProcessMessages;
+    fmStat.qrPrev.Active:=false;
+    Application.ProcessMessages;
+    fmStat.tran.Active:=false;
+  
+    fmStat.qrStat.Params.ParamByName('release_id').Value:=fmStat.edRelease.Tag;
+    fmStat.qrPrev.Params.ParamByName('numrelease').Value:=NumRelease;
+  
+    fmStat.tran.Active:=true;
+    Application.ProcessMessages;
+    fmStat.qrStat.Active:=true;
+    Application.ProcessMessages;
+    fmStat.qrPrev.Active:=true;
+    Application.ProcessMessages;
+
+    fmStat.rpt.ShowReport;
+  finally
+    Screen.Cursor:=crDefault;
+    fmStat.siSplash.Close;
+  end;
+end;
+
+procedure fmStatbtRunClick(Sender: TObject);
+begin
+  if Trim(fmStat.edRelease.Text)='' then begin
+    ShowInfoEx('Выберите выпуск');
+    fmStat.btRelease.SetFocus;
+    exit;
+  end;
+  fmStat.rpt.Title:='Выпуск: '+Trim(fmStat.edRelease.Text);
+  ShowReport;
+end;
+
+procedure fmStatbtCloseClick(Sender: TObject);
+begin
+  fmStat.Close;
+end;
+
+procedure fmStatClose(Sender: TObject; var Action: TCloseAction);
+begin
+  WriteParam(GetInterfaceName,fmStat.edRelease.Name,fmStat.edRelease.Tag);
+  Action:=caFree;
+end;
+
+procedure fmStatbtReleaseClick(Sender: TObject);
+begin
+  fmStat.rbi.Visual.TypeView:=tvibvModal;
+  fmStat.rbi.Condition.WhereStr.Clear;
+  fmStat.rbi.Locate.KeyFields:='release_id';
+  fmStat.rbi.Locate.KeyValues:=fmStat.edRelease.Tag;
+  if fmStat.rbi.View then begin
+    if not fmStat.memd.IsEmpty then begin
+      fmStat.edRelease.Tag:=fmStat.memd.FieldByName('release_id').AsInteger;
+      NumRelease:=fmStat.memd.FieldByName('numrelease').AsInteger;
+      fmStat.edRelease.Text:=Trim(fmStat.memd.FieldByName('about').AsString+
+                             ' ('+fmStat.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure fmStatrptGetValue(const ParName: String; var ParValue: Variant);
+begin
+  if AnsiSameText(ParName,'Выпуск') then ParValue:=fmStat.edRelease.Text;
+end;
+
+end.
+Є&object fmStat: TfmStat
+  Left = 27
+  Top = 25
+  ActiveControl = btRun
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Статистика'
+  ClientHeight = 79
+  ClientWidth = 229
+  Color = clBtnFace
+  Constraints.MaxHeight = 106
+  Constraints.MaxWidth = 237
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    00FF00FFF80007FF00F00FFFF80007FF0000FFFFF80007FF000FFFFFF80007FF
+    0000FFFFF80007FF00FF0FFFF80007FF00FF0FFFF80007FF00FF0FF0000007FF
+    0000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = fmStatClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbRelease: TiLabel
+    Left = 22
+    Top = 16
+    Width = 41
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Выпуск:'
+  end
+  object edRelease: TiEdit
+    Left = 73
+    Top = 13
+    Width = 121
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object btRelease: TiButton
+    Left = 200
+    Top = 13
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 1
+    OnClick = fmStatbtReleaseClick
+  end
+  object btRun: TiButton
+    Left = 31
+    Top = 48
+    Width = 107
+    Height = 25
+    Hint = 'Сформировать отчет'
+    Anchors = [akRight, akBottom]
+    Caption = 'Сформировать'
+    Default = True
+    TabOrder = 2
+    OnClick = fmStatbtRunClick
+  end
+  object btClose: TiButton
+    Left = 147
+    Top = 48
+    Width = 75
+    Height = 25
+    Hint = 'Закрыть'
+    Anchors = [akRight, akBottom]
+    Caption = 'Закрыть'
+    TabOrder = 3
+    OnClick = fmStatbtCloseClick
+  end
+  object rbi: TiRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    ReturnData = memd
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    InterfaceName = 'Справочник номер выпусков'
+    Left = 145
+    Top = 40
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 177
+    Top = 40
+  end
+  object rpt: TifrReport
+    InitialZoom = pzDefault
+    MDIPreview = True
+    ModalPreview = False
+    ModifyPrepared = False
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbExit, pbPageSetup]
+    ShowProgress = False
+    StoreInDFM = True
+    OnGetValue = fmStatrptGetValue
+    Left = 113
+    Top = 40
+    ReportForm = {
+      18000000EA080000180000000001000100FFFFFFFFFF090000009A0B00003408
+      00002400000024000000240000002400000001FFFF0000FFFFFFFF0000000000
+      00000000000000030400466F726D000F000080DC000000780000007C0100002C
+      010000040000000200CB0000000C005265706F72745469746C65310002010000
+      0000200000002F040000220000003000000001000000000000000000FFFFFF1F
+      00000000000000000000000000FFFF0000000000020000000100000000000000
+      01000000C800000014000000010000000000000200390100000E005265706F72
+      7453756D6D6172793100020100000000DC0000002F0400002A00000030000100
+      01000000000000000000FFFFFF1F00000000000000000000000000FFFF000000
+      000002000000010000000000000001000000C800000014000000010000000000
+      000000CC01000005004D656D6F310002003C01000024000000E8000000120000
+      000300000001000000000000000000FFFFFF1F2C02000000000001001500D1F2
+      E0F2E8F1F2E8EAE020E7E020E2FBEFF3F1EA3A00000000FFFF00000000000200
+      000001000000000500417269616C000C00000002000000000001000000CC0002
+      0000000000FFFFFF0000000002000000000000000A0C0054667243726F737356
+      696577000057020000060043726F7373310002002C000000480000005C010000
+      5E00000001600F0001000000000000000000FFFFFF1F2C020000000000040006
+      007172537461740D070057484F494E2B3B0D0D00494E444154453B464C41472B
+      3B0D040043542B3B000000000000110000000002000000010000000601010000
+      00EC0200001600436F6C756D6E4865616465724D656D6F43726F737331000200
+      8800000050000000500000001200000003000F0001000000000000000000FFFF
+      FF1F2C0200000000000100060048656164657200000000000070000000000200
+      000001000000000500417269616C00080000000200000000000A000000CC0002
+      0000000000FFFFFF00000000020000000000000000007F0300001500436F6C75
+      6D6E546F74616C4D656D6F43726F737331000200DC0000005000000050000000
+      1200000003000F0001000000000000000000F5F5F5002C020000000000010005
+      00546F74616C0000000000007000000000020000000100000000050041726961
+      6C00080000000200000000000A000000CC00020000000000FFFFFF0000000002
+      000000000000000000170400001A004772616E64436F6C756D6E546F74616C4D
+      656D6F43726F7373310002003001000050000000500000001200000003000F00
+      01000000000000000000C0C0C0002C02000000000001000500C2F1E5E3EE0000
+      0000000070000000000200000001000000000500417269616C00080000000200
+      0000000012000000CC00020000000000FFFFFF00000000020000000000000000
+      00A90400001300526F774865616465724D656D6F43726F737331000200340000
+      0064000000500000001200000003000F0001000000000000000000FFFFFF1F2C
+      0200000000000100060048656164657200000000000070000000000200000001
+      000000000500417269616C000800000002000000000008000000CC0002000000
+      0000FFFFFF0000000002000000000000000000340500000E0043656C6C4D656D
+      6F43726F7373310002008800000064000000500000001200000003000F000100
+      0000000000000000FFFFFF1F2C0200000000000100040043656C6C0000000000
+      0070000000000200000001000000000500417269616C00080000000000000000
+      0001000000CC00020000000000FFFFFF0000000002000000000000000000C405
+      00001200526F77546F74616C4D656D6F43726F73733100020034000000780000
+      00500000001200000003000F0001000000000000000000F5F5F5002C02000000
+      000001000500546F74616C000000000000700000000002000000010000000005
+      00417269616C000800000002000000000009000000CC00020000000000FFFFFF
+      00000000020000000000000000005906000017004772616E64526F77546F7461
+      6C4D656D6F43726F737331000200340000008C00000050000000120000000300
+      0F0001000000000000000000C0C0C0002C02000000000001000500C8F2EEE3EE
+      00000000000070000000000200000001000000000500417269616C0008000000
+      02000000000009000000CC00020000000000FFFFFF0000000002000000000000
+      000000DF06000005004D656D6F320002002C0200002400000080000000120000
+      000300000001000000000000000000FFFFFF1F2C020000000000010008005BC2
+      FBEFF3F1EA5D00000000FFFF0000000000020000000100000000050041726961
+      6C000C00000002000000000000000000CC00020000000000FFFFFF0000000002
+      0000000000000000008B07000005004D656D6F3300020028000000E80000003C
+      010000120000001900000001000000000000000000FFFFFF1F2C020000000000
+      01002E00CAEEEBE8F7E5F1F2E2EE20EFE5F0E5F5EEE4FFF9E8F520E8E720EFF0
+      E5E4FBE4F3F9E8F520E2FBEFF3F1EAEEE23A00000000FFFF0000000000020000
+      0001000000000500417269616C000800000002000000000001000000CC000200
+      00000000FFFFFF00000000020000000000000000001508000005004D656D6F34
+      0002006C010000E8000000600000001200000003000000010000000000000000
+      00FFFFFF1F2C02000000000001000C005BCAEEEBE8F7E5F1F2E2EE5D00000000
+      FFFF00000000000200000001000000000500417269616C000800000002000000
+      000000000000CC00020000000000FFFFFF0000000002000000000000000000A0
+      08000005004D656D6F3500020024000000240000007C00000012000000030000
+      0001000000000000000000FFFFFF1F2C02000000000001000D005B54494D455D
+      205B444154455D00000000FFFF00000000000200000001000000000500417269
+      616C000600000000000000000000000000CC00020000000000FFFFFF00000000
+      0200000000000000FEFEFF03000000040020C2F1E5000000000600C2FBEFF3F1
+      EA000000000A00CAEEEBE8F7E5F1F2E2EE000E007172507265762E22434F554E
+      5422000000000000000000FDFF0100000000}
+  end
+  object qrStat: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'select outwhoin as whoin,'
+      '          outdate as indate,'
+      '          outflag as flag,'
+      '          outcount as ct'
+      'from getannouncementstatistic(:release_id);')
+    Left = 8
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'release_id'
+        ParamType = ptUnknown
+      end>
+  end
+  object tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 40
+    Top = 40
+  end
+  object dsRpt: TifrDBDataset
+    DataSet = qrStat
+    Left = 80
+    Top = 40
+  end
+  object qrPrev: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'select count(*) from announcement a join release r'
+      'on a.release_id=r.release_id'
+      
+        'where (r.numrelease<:numrelease and (r.numrelease+a.copyprint)>:' +
+        'numrelease )')
+    Left = 8
+    Top = 8
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'numrelease'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'numrelease'
+        ParamType = ptUnknown
+      end>
+  end
+  object siSplash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 40
+    Top = 8
+  end
+  object ifrHTMExport1: TifrHTMExport
+    ScaleX = 1
+    ScaleY = 1
+    Left = 112
+    Top = 8
+  end
+end
+fmStat 

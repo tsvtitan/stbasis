@@ -1,0 +1,3 @@
+This conversion is dependent on the LanManager conversion also available from the Project JEDI website.
+
+If you are using a Delphi version prior to Delphi 5 you will get an error stating that the Contnrs unit could not be found when compiling the demos. In this case rename the D4ONLY_Contnrs unit to Contnrs. This is a not a complete clone of the Delphi 5 Contnrs unit, only a partial implementation of the TObjectList class.

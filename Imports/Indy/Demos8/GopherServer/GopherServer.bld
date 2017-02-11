@@ -1,0 +1,9 @@
+[Options]
+Windows
+
+[Files]
+GophServ.dpr
+GophServ.res
+main.dfm
+main.pas
+

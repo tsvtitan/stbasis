@@ -1,0 +1,74 @@
+object Form1: TForm1
+  Left = 290
+  Height = 389
+  Top = 149
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 388
+  Caption = 'Form1'
+  object Label1: TLabel
+    Left = 9
+    Height = 14
+    Top = 42
+    Width = 87
+    Caption = 'Records to insert:'
+    Color = clNone
+    ParentColor = False
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 9
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Connect'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 88
+    Height = 25
+    Top = 9
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Run'
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Console: TMemo
+    Left = 8
+    Height = 282
+    Top = 72
+    Width = 384
+    TabOrder = 2
+  end
+  object StatusBar1: TStatusBar
+    Height = 23
+    Top = 366
+    Width = 400
+    Panels = <    
+      item
+        Width = 150
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object edtRecordsToInsert: TEdit
+    Left = 103
+    Height = 23
+    Top = 39
+    Width = 80
+    TabOrder = 3
+    Text = '10000'
+  end
+  object chbBlobs: TCheckBox
+    Left = 208
+    Height = 13
+    Top = 42
+    Width = 74
+    Caption = 'Insert blobs'
+    TabOrder = 4
+  end
+end

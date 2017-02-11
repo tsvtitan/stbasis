@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="daADPhysC6.bpl"/>
+    <OBJFILES value="daADPhysC6.obj daADPhysADSMeta.obj daADPhysASAMeta.obj 
+      daADPhysOraclMeta.obj daADPhysCmdGenerator.obj 
+      daADPhysCmdPreprocessor.obj daADPhysConnMeta.obj 
+      daADPhysDb2Meta.obj daADPhysManager.obj 
+      daADPhysMSAccMeta.obj daADPhysMSSQLMeta.obj 
+      daADPhysMySQLMeta.obj daADDAptmanager.obj 
+      daADPhysScript.obj daADPhysScriptCommands.obj $(DAADMONITOR)"/>
+    <RESFILES value="sourceforcompile\daADPhysC6.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value=""/>
+    <PACKAGES value="rtl.bpi dbrtl.bpi daADComIC6.bpi $(INDY_BPI)"/>
+    <PATHCPP value=".;sourceforcompile"/>
+    <PATHPAS value=".;sourceforcompile"/>
+    <PATHRC value=".;sourceforcompile"/>
+    <PATHASM value=".;sourceforcompile"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="daADPhysC6.cpp"/>
+    <INCLUDEPATH value="sourceforcompile;PACK;Lib\C6;$(BCB)\include;$(BCB)\include\vcl;&quot;$(INDY_DCU)&quot;"/>
+    <LIBPATH value="sourceforcompile;PACK;$(BCB)\lib\obj;$(BCB)\lib\release;$(BCB)\lib;Lib\C6;&quot;$(DEF_DCP)&quot;;&quot;$(INDY_DCP)&quot;"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-Isourceforcompile
+      -IPACK
+       -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpp -Gpr -x -Gn -Gl -Gi -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="daADPhysC6.res" FORMNAME="" UNITNAME="daADPhysC6.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysC6.cpp" FORMNAME="" UNITNAME="daADPhysC6" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysADSMeta.pas" FORMNAME="" UNITNAME="daADPhysADSMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="dbrtl.bpi" FORMNAME="" UNITNAME="dbrtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysASAMeta.pas" FORMNAME="" UNITNAME="daADPhysASAMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADComIC6.bpi" FORMNAME="" UNITNAME="daADComIC6" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysOraclMeta.pas" FORMNAME="" UNITNAME="daADPhysOraclMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysCmdGenerator.pas" FORMNAME="" UNITNAME="daADPhysCmdGenerator" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysCmdPreprocessor.pas" FORMNAME="" UNITNAME="daADPhysCmdPreprocessor" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysConnMeta.pas" FORMNAME="" UNITNAME="daADPhysConnMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysDb2Meta.pas" FORMNAME="" UNITNAME="daADPhysDb2Meta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysManager.pas" FORMNAME="" UNITNAME="daADPhysManager" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysMSAccMeta.pas" FORMNAME="" UNITNAME="daADPhysMSAccMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysMSSQLMeta.pas" FORMNAME="" UNITNAME="daADPhysMSSQLMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysMySQLMeta.pas" FORMNAME="" UNITNAME="daADPhysMySQLMeta" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADDAptmanager.pas" FORMNAME="" UNITNAME="daADDAptmanager" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysScript.pas" FORMNAME="" UNITNAME="daADPhysScript" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysScriptCommands.pas" FORMNAME="" UNITNAME="daADPhysScriptCommands" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+    </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=1
+MinorVer=12
+Release=2
+Build=225
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.12.2.225
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.12.2.0
+Comments=
+
+[Excluded Packages]
+
+[HistoryLists\hlIncludePath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\lib\obj;$(BCB)\lib;Lib\C6
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hIBPIOutputDir]
+Count=1
+Item0=
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+
+  </IDEOPTIONS>
+</PROJECT>

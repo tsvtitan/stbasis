@@ -1,0 +1,30 @@
+LazarusResources.Add('TForm1','FORMDATA',[
+  'TPF0'#6'TForm1'#5'Form1'#4'Left'#3#2#1#6'Height'#3#200#1#3'Top'#3#168#0#5'Wi'
+  +'dth'#3'8'#2#18'HorzScrollBar.Page'#3'7'#2#18'VertScrollBar.Page'#3#199#1#13
+  +'ActiveControl'#7#10'btnConnect'#7'Caption'#6#5'Form1'#8'OnCreate'#7#10'Form'
+  +'Create'#9'OnDestroy'#7#11'FormDestroy'#0#7'TButton'#10'btnConnect'#4'Left'#2
+  +#6#6'Height'#2#25#3'Top'#2#7#5'Width'#2'K'#25'BorderSpacing.InnerBorder'#2#4
+  +#7'Caption'#6#7'Connect'#7'OnClick'#7#15'btnConnectClick'#8'TabOrder'#2#0#0#0
+  +#7'TButton'#7'btnOpen'#4'Left'#2'X'#6'Height'#2#25#3'Top'#2#7#5'Width'#2'K'
+  +#25'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#4'Open'#7'OnClick'#7#12'btnO'
+  +'penClick'#8'TabOrder'#2#1#0#0#7'TDBGrid'#7'DBGrid1'#4'Left'#2#7#6'Height'#3
+  +#204#0#3'Top'#2'('#5'Width'#3')'#2#10'DataSource'#7#8'dsOrders'#10'FixedColo'
+  +'r'#7#9'clBtnFace'#7'Options'#11#9'dgEditing'#8'dgTitles'#11'dgIndicator'#14
+  +'dgColumnResize'#12'dgColumnMove'#10'dgColLines'#10'dgRowLines'#6'dgTabs'#21
+  +'dgAlwaysShowSelection'#15'dgConfirmDelete'#14'dgCancelOnExit'#0#12'OptionsE'
+  +'xtra'#11#14'dgeAutoColumns'#17'dgeCheckboxColumn'#0#11'ParentColor'#8#8'Tab'
+  +'Order'#2#2#7'TabStop'#9#0#0#7'TDBGrid'#7'DBGrid2'#4'Left'#2#7#6'Height'#3
+  +#197#0#3'Top'#3#251#0#5'Width'#3')'#2#10'DataSource'#7#14'dsOrderDetails'#10
+  +'FixedColor'#7#9'clBtnFace'#7'Options'#11#9'dgEditing'#8'dgTitles'#11'dgIndi'
+  +'cator'#14'dgColumnResize'#12'dgColumnMove'#10'dgColLines'#10'dgRowLines'#6
+  +'dgTabs'#21'dgAlwaysShowSelection'#15'dgConfirmDelete'#14'dgCancelOnExit'#0
+  +#12'OptionsExtra'#11#14'dgeAutoColumns'#17'dgeCheckboxColumn'#0#11'ParentCol'
+  +'or'#8#8'TabOrder'#2#3#7'TabStop'#9#0#0#7'TButton'#7'Button1'#4'Left'#3#169#0
+  +#6'Height'#2#25#3'Top'#2#7#5'Width'#2'w'#25'BorderSpacing.InnerBorder'#2#4#7
+  +'Caption'#6#14'Refresh Master'#7'OnClick'#7#12'Button1Click'#8'TabOrder'#2#4
+  +#0#0#9'TCheckBox'#15'cbxCacheDetails'#4'Left'#3'('#1#6'Height'#2#13#3'Top'#2
+  +#16#5'Width'#2'T'#7'Anchors'#11#6'akLeft'#8'akBottom'#0#7'Caption'#6#13'Cach'
+  +'e details'#8'OnChange'#7#21'cbxCacheDetailsChange'#8'TabOrder'#2#5#0#0#11'T'
+  +'Datasource'#8'dsOrders'#4'left'#2'f'#3'top'#3#201#0#0#0#11'TDatasource'#14
+  +'dsOrderDetails'#4'left'#2'd'#3'top'#3#234#0#0#0#0
+]);

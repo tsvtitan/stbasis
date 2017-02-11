@@ -1,0 +1,4 @@
+http://localhost:1024/EchoService_WAD.EchoService/soap/IEchoService
+http://localhost/test/EchoService_CGI.exe/soap/IEchoService
+http://<your-web-server>/cgi-bin/EchoService_CGI.exe/soap/IEchoService
+http://<your-web-server>/scripts/EchoService_CGI.exe/soap/IEchoService

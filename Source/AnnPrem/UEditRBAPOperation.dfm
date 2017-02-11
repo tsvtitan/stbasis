@@ -1,0 +1,188 @@
+inherited fmEditRBAPOperation: TfmEditRBAPOperation
+  Left = 626
+  Top = 298
+  Caption = 'fmEditRBAPOperation'
+  ClientHeight = 298
+  ClientWidth = 600
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbName: TLabel [0]
+    Left = 11
+    Top = 13
+    Width = 79
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Наименование:'
+    FocusControl = edName
+  end
+  object lbParent: TLabel [1]
+    Left = 39
+    Top = 39
+    Width = 51
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Родитель:'
+    FocusControl = edParent
+  end
+  object lbFullName: TLabel [2]
+    Left = 49
+    Top = 64
+    Width = 41
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Полное:'
+    FocusControl = edFullName
+  end
+  object lbPriority: TLabel [3]
+    Left = 477
+    Top = 66
+    Width = 47
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Порядок:'
+    FocusControl = edPriority
+  end
+  object lbFieldViewName: TLabel [4]
+    Left = 304
+    Top = 14
+    Width = 82
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Представление:'
+    FocusControl = edFieldViewName
+  end
+  object LabelLink: TLabel [5]
+    Left = 344
+    Top = 40
+    Width = 42
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Ссылка:'
+    FocusControl = edLink
+  end
+  object lbFormat: TLabel [6]
+    Left = 17
+    Top = 86
+    Width = 45
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Формат:'
+    FocusControl = edFullName
+  end
+  inherited pnBut: TPanel
+    Top = 260
+    Width = 600
+    TabOrder = 11
+    inherited Panel2: TPanel
+      Left = 415
+    end
+  end
+  inherited cbInString: TCheckBox
+    Left = 16
+    Top = 238
+    TabOrder = 10
+  end
+  object edName: TEdit [9]
+    Left = 97
+    Top = 9
+    Width = 198
+    Height = 21
+    MaxLength = 100
+    TabOrder = 0
+    OnChange = edNameChange
+  end
+  object edParent: TEdit [10]
+    Left = 97
+    Top = 35
+    Width = 173
+    Height = 21
+    Color = clBtnFace
+    MaxLength = 100
+    ReadOnly = True
+    TabOrder = 1
+    OnChange = edNameChange
+    OnKeyDown = edParentKeyDown
+  end
+  object bibParent: TButton [11]
+    Left = 274
+    Top = 35
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 2
+    OnClick = bibParentClick
+  end
+  object edPriority: TEdit [12]
+    Left = 530
+    Top = 63
+    Width = 46
+    Height = 21
+    TabOrder = 7
+    Text = '1'
+    OnChange = edNameChange
+  end
+  object udPriority: TUpDown [13]
+    Left = 576
+    Top = 63
+    Width = 15
+    Height = 21
+    Associate = edPriority
+    Min = 1
+    Position = 1
+    TabOrder = 8
+    Wrap = False
+    OnChanging = udPriorityChanging
+  end
+  object edFullName: TEdit [14]
+    Left = 97
+    Top = 61
+    Width = 198
+    Height = 21
+    MaxLength = 100
+    TabOrder = 3
+    OnChange = edNameChange
+  end
+  object edFieldViewName: TEdit [15]
+    Left = 393
+    Top = 10
+    Width = 173
+    Height = 21
+    Color = clBtnFace
+    MaxLength = 100
+    ReadOnly = True
+    TabOrder = 4
+    OnChange = edNameChange
+    OnKeyDown = edFieldViewNameKeyDown
+  end
+  object btFieldViewName: TButton [16]
+    Left = 570
+    Top = 10
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 5
+    OnClick = btFieldViewNameClick
+  end
+  object edLink: TEdit [17]
+    Left = 393
+    Top = 37
+    Width = 198
+    Height = 21
+    MaxLength = 100
+    TabOrder = 6
+    OnChange = edNameChange
+  end
+  object meFormat: TMemo [18]
+    Left = 15
+    Top = 106
+    Width = 578
+    Height = 125
+    ScrollBars = ssVertical
+    TabOrder = 9
+    OnChange = edNameChange
+  end
+  inherited IBTran: TIBTransaction
+    Left = 12
+    Top = 33
+  end
+end

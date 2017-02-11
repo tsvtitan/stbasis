@@ -1,0 +1,485 @@
+================= Logging started at 7/17/2003 04:19:56 ==================
+Created release folders
+InstallShield (R) Script Compiler
+Version 7.3.0.131
+Copyright (C) 1990-2001 InstallShield Software Corporation
+
+Compiling...
+Setup.rul
+Linking...
+Setup.inx - 0 error(s), 0 warning(s)
+AdminExecuteSequence table successfully built
+AdminUISequence table successfully built
+AdvtExecuteSequence table successfully built
+AdvtUISequence table successfully built
+InstallExecuteSequence table successfully built
+InstallUISequence table successfully built
+Directory table successfully built
+Feature table successfully built
+FeatureComponents table successfully built
+Component table successfully built
+Loading File table
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\isc4.gdb"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHARECLIENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREAGENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEINSPECTOR.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALECLIENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\ibserver.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEAGENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR2.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR1.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASECLIENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\udf\stbasisudf.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEAGENT.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util_ms.lib"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\help\license.rtf"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\isql.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\help\help.doc"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\instsvc.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\data\stbasis.pth"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\ibconfig"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\IPLicense.txt"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\readme.txt"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\intl\gdsintl.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\help\HELP.GDB"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\iblockpr.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\data\STBASIS.GDB"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\ib_util.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gstat.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gpre.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32.lib"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32_ms.lib"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util.lib"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\include\gds.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\include\ibase.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\include\iberror.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\include\perf.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gfix.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\udf\ib_udf.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gbak.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\udf\fbudf.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\fbudf.txt"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedBugs.html"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedFeatures.html"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenBugs.html"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenFeatures.html"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ReleaseNotes.pdf"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\align.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api1.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api10.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api11.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api12.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api13.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api14.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api15.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api16.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api16t.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api2.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api3.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api4.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api5.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api6.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api7.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api8.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.def"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.sql"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\apifull.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn1.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn2.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn3.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn4.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn5.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\dynfull.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\employe2.sql"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\employee.gbk"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\EMPLOYEE.GDB"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\example.h"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\fbudf.sql"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\ib_udf.sql"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\intlemp.gbk"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\INTLEMP.GDB"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.bc"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.msc"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\README"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat1.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat10.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat11.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12t.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat2.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat3.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat4.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat5.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat6.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat7.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat8.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat9.e"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\udf.sql"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.c"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.def"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\interbase.msg"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gdef.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\gsec.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\ibguard.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\instreg.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\server\bin\qli.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREINSPECTOR.xls"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\midas.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\premisestsv.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\stbasis.exe"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\systsv.dll"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vcl50.bpl"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vcl50.rus"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.bpl"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.rus"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vclib50.bpl"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\program\vclib50.rus"
+	** Error: -6103: Could not find file "E:\Install\Недвижимость\Недвижимость\files\client\gds32.dll"
+Building File table
+File table successfully built
+Building MsiFileHash table
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\EMPLOYEE.GDB not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedBugs.html not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedFeatures.html not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenBugs.html not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenFeatures.html not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ReleaseNotes.pdf not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\help\HELP.GDB not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\INTLEMP.GDB not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\IPLicense.txt not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.bc not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.msc not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEAGENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASECLIENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR1.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR2.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEAGENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALECLIENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEINSPECTOR.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREAGENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHARECLIENT.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREINSPECTOR.xls not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\README not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\data\STBASIS.GDB not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\align.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api1.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api10.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api11.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api12.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api13.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api14.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api15.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api16.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api16t.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api2.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api3.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api4.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api5.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api6.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api7.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api8.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api9.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.def not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.sql not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\apifull.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn1.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn2.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn3.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn4.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn5.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\dynfull.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\employe2.sql not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\employee.gbk not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\example.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\udf\fbudf.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\fbudf.sql not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\doc\fbudf.txt not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gbak.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gdef.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\include\gds.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\client\gds32.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32.lib not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32_ms.lib not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\intl\gdsintl.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gfix.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gpre.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gsec.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\gstat.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\help\help.doc not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\udf\ib_udf.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\ib_udf.sql not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\ib_util.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util.lib not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util_ms.lib not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\include\ibase.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\ibconfig not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\include\iberror.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\ibguard.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\iblockpr.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\ibserver.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\instreg.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\instsvc.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\interbase.msg not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\intlemp.gbk not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\isc4.gdb not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\isql.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\help\license.rtf not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\midas.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\include\perf.h not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\premisestsv.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\bin\qli.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\readme.txt not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat1.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat10.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat11.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12t.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat2.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat3.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat4.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat5.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat6.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat7.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat8.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\stat9.e not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\stbasis.exe not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\data\stbasis.pth not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\udf\stbasisudf.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\systsv.dll not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\udf.sql not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.c not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.def not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vcl50.bpl not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vcl50.rus not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.bpl not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.rus not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vclib50.bpl not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+	** Error: -6271: File E:\Install\Недвижимость\Недвижимость\files\program\vclib50.rus not found. An error occurred building the MsiFileHash table record for this file. Verify that the file exists in the specified location.
+MsiFileHash table successfully built
+Class table successfully built
+Extension table successfully built
+ODBCDataSource table successfully built
+ODBCDriver table successfully built
+ActionText table successfully built
+AppSearch table successfully built
+BindImage table successfully built
+CCPSearch table successfully built
+Condition table successfully built
+AppId table successfully built
+Property table successfully built
+BBControl table successfully built
+Billboard table successfully built
+Binary table successfully built
+CompLocator table successfully built
+Complus table successfully built
+ControlCondition table successfully built
+ControlEvent table successfully built
+CreateFolder table successfully built
+CustomAction table successfully built
+Error table successfully built
+DrLocator table successfully built
+DuplicateFile table successfully built
+Environment table successfully built
+EventMapping table successfully built
+FileSFPCatalog table successfully built
+Font table successfully built
+IniFile table successfully built
+IniLocator table successfully built
+IsolatedComponent table successfully built
+ISSelfReg table successfully built
+LaunchCondition table successfully built
+LockPermissions table successfully built
+Media table successfully built
+MIME table successfully built
+MoveFile table successfully built
+MsiAssembly table successfully built
+MsiAssemblyName table successfully built
+MsiDigitalCertificate table successfully built
+MsiDigitalSignature table successfully built
+ODBCAttribute table successfully built
+ODBCSourceAttribute table successfully built
+ODBCTranslator table successfully built
+Patch table successfully built
+PatchPackage table successfully built
+ProgId table successfully built
+PublishComponent table successfully built
+Registry table successfully built
+RegLocator table successfully built
+RemoveFile table successfully built
+RemoveIniFile table successfully built
+RemoveRegistry table successfully built
+ReserveCost table successfully built
+SelfReg table successfully built
+ServiceControl table successfully built
+ServiceInstall table successfully built
+SFPCatalog table successfully built
+Shortcut table successfully built
+Signature table successfully built
+TextStyle table successfully built
+TypeLib table successfully built
+UIText table successfully built
+Upgrade table successfully built
+Verb table successfully built
+_Validation table successfully built
+Searching project for extract-at-build components...
+Dialog AdminChangeFolder for language Russian built
+Dialog AdminNetworkLocation for language Russian built
+Dialog AdminWelcome for language Russian built
+Dialog CancelSetup for language Russian built
+Dialog CustomSetup for language Russian built
+Dialog CustomSetupTips for language Russian built
+Dialog CustomerInformation for language Russian built
+Dialog DatabaseFolder for language Russian built
+Dialog DestinationFolder for language Russian built
+Dialog DiskSpaceRequirements for language Russian built
+Dialog FilesInUse for language Russian built
+Dialog InstallChangeFolder for language Russian built
+Dialog InstallWelcome for language Russian built
+	** Error: -6090: The scrollable text file:'E:\Install\Недвижимость\Недвижимость\files\help\license.rtf' specified for the Control:'Memo' does not exist.
+Dialog LicenseAgreement for language Russian built
+Dialog MaintenanceType for language Russian built
+Dialog MaintenanceWelcome for language Russian built
+Dialog OutOfSpace for language Russian built
+Dialog PatchWelcome for language Russian built
+Dialog ReadyToInstall for language Russian built
+Dialog ReadyToRemove for language Russian built
+Dialog RunAllDialog for language Russian built
+Dialog SetupCompleteError for language Russian built
+Dialog SetupCompleteSuccess for language Russian built
+Dialog SetupError for language Russian built
+Dialog SetupInitialization for language Russian built
+Dialog SetupInterrupted for language Russian built
+Dialog SetupProgress for language Russian built
+Dialog SetupResume for language Russian built
+Dialog SetupType for language Russian built
+Dialog SplashBitmap for language Russian built
+Resolving strings...
+Language Russian built
+Building CAB files...
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\data\stbasis.pth" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\data\STBASIS.GDB" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\help\license.rtf" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\help\help.doc" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHARECLIENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREAGENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEINSPECTOR.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALECLIENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SALEAGENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR2.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEINSPECTOR1.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASECLIENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_LEASEAGENT.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\prices\PMS_PRICE_SHAREINSPECTOR.xls" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\ibconfig" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\IPLicense.txt" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\readme.txt" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\udf\stbasisudf.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\udf\ib_udf.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\udf\fbudf.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\intl\gdsintl.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\ibserver.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\isql.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\instsvc.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\iblockpr.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\ib_util.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gstat.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gpre.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gfix.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gbak.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gdef.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\gsec.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\ibguard.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\instreg.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\bin\qli.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\interbase.msg" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\isc4.gdb" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\help\HELP.GDB" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util_ms.lib" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32.lib" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\lib\gds32_ms.lib" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\lib\ib_util.lib" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\include\gds.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\include\ibase.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\include\iberror.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\include\perf.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\fbudf.txt" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedBugs.html" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ClosedFeatures.html" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenBugs.html" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_OpenFeatures.html" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\doc\Firebird_v1_ReleaseNotes.pdf" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\align.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api1.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api10.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api11.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api12.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api13.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api14.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api15.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api16.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api16t.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api2.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api3.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api4.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api5.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api6.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api7.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api8.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.def" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\api9f.sql" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\apifull.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn1.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn2.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn3.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn4.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dyn5.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\dynfull.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\employe2.sql" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\employee.gbk" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\EMPLOYEE.GDB" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\example.h" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\fbudf.sql" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\ib_udf.sql" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\intlemp.gbk" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\INTLEMP.GDB" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.bc" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\Makefile.msc" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\README" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat1.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat10.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat11.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat12t.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat2.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat3.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat4.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat5.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat6.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat7.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat8.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\stat9.e" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\udf.sql" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.c" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\server\examples\udflib.def" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\client\gds32.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\midas.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\premisestsv.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\stbasis.exe" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\systsv.dll" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vcl50.bpl" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vcl50.rus" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.bpl" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vcldb50.rus" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vclib50.bpl" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+	** Error: -1501: Could not compress "E:\Install\Недвижимость\Недвижимость\files\program\vclib50.rus" into "E:\Install\Недвижимость\Недвижимость\Product Configuration 1\Release 1\DiskImages\DISK1\Data1.cab"
+Data1.cab built
+Files built
+Media table successfully built
+Setup.exe created
+Product Configuration 1\Release 1 build completed with 355 errors, 0 warnings
+================= Logging stopped at 7/17/2003 04:20:12 ==================

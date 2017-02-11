@@ -1,0 +1,151 @@
+object Form1: TForm1
+  Left = 389
+  Top = 255
+  Width = 294
+  Height = 185
+  Caption = 'Form1'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Button1: TButton
+    Left = 24
+    Top = 24
+    Width = 75
+    Height = 25
+    Caption = 'DBF'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object IBDatabase1: TIBDatabase
+    Connected = True
+    DatabaseName = 'E:\Base\'#1053#1077#1076#1074#1080#1078#1080#1084#1086#1089#1090#1100'\'#1048#1089#1087#1086#1083#1080#1085'\STBASIS.GDB'
+    Params.Strings = (
+      'user_name=sysdba'
+      'lc_ctype=WIN1251'
+      'password=sysmaster')
+    LoginPrompt = False
+    DefaultTransaction = IBTransaction1
+    IdleTimer = 0
+    SQLDialect = 3
+    TraceFlags = []
+    Left = 152
+    Top = 24
+  end
+  object IBQuery1: TIBQuery
+    Database = IBDatabase1
+    Transaction = IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'Select r.name as regionname,'
+      '       s.name as streetname,'
+      '       cr.name as countroomname,'
+      '       a.name as agentname,'
+      '       b.name as balconyname,'
+      '       c.name as conditionname,'
+      '       sn.name as sanitarynodename,'
+      '       h.name as heatname,'
+      '       w.name as watername,'
+      '       sl.name as stylename,'
+      '       sl.style as stylestyle,'
+      '       d.name as doorname,'
+      '       tr.name as typeroomname,'
+      '       pl.name as planningname,'
+      '       st.name as stationname,'
+      '       th.name as typehousename,'
+      '       sv.name as stovename,'
+      '       f.name as furniturename,'
+      '       ph.name as phonename,'
+      '       ss.name as salestatusname,'
+      '       sf.name as selfformname,'
+      '       tp.name as typepremisesname,'
+      '       u.name as unitpricename,'
+      '       dc.name as documentname,'
+      '       bl.name as buildername,'
+      '       price,'
+      '       price2,'
+      '       decoration,'
+      '       glassy,'
+      '       block_section,'
+      '       P.GENERALAREA,'
+      '       P.DWELLINGAREA,'
+      '       P.KITCHENAREA,'
+      '       P.GROUNDAREA,'
+      '       so.name'
+      'from Pms_Premises p'
+      'join Pms_Region r on p.pms_region_id=r.pms_region_id'
+      'join pms_street s on p.pms_street_id=s.pms_street_id'
+      'join Pms_CountRoom cr on p.pms_countroom_id=cr.pms_countroom_id'
+      'join users u1 on p.whoinsert_id=u1.user_id'
+      'join users u2 on p.whoupdate_id=u2.user_id'
+      'join Pms_Agent a on p.pms_agent_id=a.pms_agent_id'
+      'left join Pms_Balcony b on p.pms_balcony_id=b.pms_balcony_id'
+      
+        'left join Pms_Condition c on p.pms_condition_id=c.pms_condition_' +
+        'id'
+      
+        'left join Pms_SanitaryNode sn on p.pms_sanitarynode_id=sn.pms_sa' +
+        'nitarynode_id'
+      'left join Pms_Door d on p.pms_door_id=d.pms_door_id'
+      
+        'left join Pms_TypeRoom tr on p.pms_typeroom_id=tr.pms_typeroom_i' +
+        'd'
+      
+        'left join Pms_Planning pl on p.pms_planning_id=pl.pms_planning_i' +
+        'd'
+      'left join Pms_Station st on p.pms_station_id=st.pms_station_id'
+      
+        'left join Pms_TypeHouse th on p.pms_typehouse_id=th.pms_typehous' +
+        'e_id'
+      'left join Pms_Stove sv on p.pms_stove_id=sv.pms_stove_id'
+      'left join Pms_Phone ph on p.pms_phone_id=ph.pms_phone_id'
+      
+        'left join Pms_Document dc on p.pms_document_id=dc.pms_document_i' +
+        'd'
+      
+        'left join Pms_SaleStatus ss on p.pms_salestatus_id=ss.pms_salest' +
+        'atus_id'
+      
+        'left join Pms_SelfForm sf on p.pms_selfform_id=sf.pms_selfform_i' +
+        'd'
+      
+        'left join Pms_TypePremises tp on p.pms_typepremises_id=tp.pms_ty' +
+        'pepremises_id'
+      
+        'left join Pms_Furniture f on p.pms_furniture_id=f.pms_furniture_' +
+        'id'
+      
+        'left join Pms_UnitPrice u on p.pms_unitprice_id=u.pms_unitprice_' +
+        'id'
+      'left join Pms_Water w on p.pms_water_id=w.pms_water_id'
+      'left join Pms_Builder bl on p.pms_builder_id=bl.pms_builder_id'
+      'left join Pms_Style sl on p.pms_style_id=sl.pms_style_id'
+      'left join Pms_Heat h on p.pms_heat_id=h.pms_heat_id'
+      'left join sync_office so on a.sync_office_id=so.sync_office_id'
+      'where recyled=0'
+      
+        'order by cr.sortnumber asc,r.sortnumber asc,s.name asc,p.housenu' +
+        'mber asc,p.apartmentnumber asc')
+    Left = 192
+    Top = 24
+  end
+  object IBTransaction1: TIBTransaction
+    Active = False
+    DefaultDatabase = IBDatabase1
+    AutoStopAction = saNone
+    Left = 232
+    Top = 24
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '*.dbf'
+    Filter = 'dbf (*.dbf)|*.dbf'
+    Left = 112
+    Top = 24
+  end
+end

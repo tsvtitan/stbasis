@@ -1,0 +1,91 @@
+inherited fmEditRBAPFieldView: TfmEditRBAPFieldView
+  Left = 582
+  Top = 179
+  Caption = 'fmEditRBAPFieldView'
+  ClientHeight = 433
+  ClientWidth = 369
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited lbLink: TLabel [0]
+  end
+  inherited lbName: TLabel [1]
+  end
+  inherited lbFullName: TLabel [2]
+  end
+  inherited lbPriority: TLabel [3]
+    Top = 151
+  end
+  object lbFields: TLabel [4]
+    Left = 62
+    Top = 178
+    Width = 29
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Поля:'
+    FocusControl = meFields
+  end
+  object lbCondition: TLabel [5]
+    Left = 44
+    Top = 320
+    Width = 47
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Условие:'
+    FocusControl = meCondition
+  end
+  inherited lbVariant: TLabel [6]
+  end
+  inherited edLink: TEdit [7]
+    TabOrder = 5
+    Visible = False
+  end
+  inherited pnBut: TPanel [8]
+    Top = 395
+    Width = 369
+    TabOrder = 9
+    inherited Panel2: TPanel
+      Left = 184
+    end
+  end
+  inherited cbInString: TCheckBox [9]
+    Top = 371
+    TabOrder = 8
+  end
+  inherited edName: TEdit [10]
+    Width = 260
+  end
+  inherited edFullName: TEdit [11]
+    Width = 260
+  end
+  inherited edPriority: TEdit [12]
+    Top = 148
+    TabOrder = 3
+  end
+  object meFields: TMemo [13]
+    Left = 97
+    Top = 176
+    Width = 260
+    Height = 135
+    Lines.Strings = (
+      '[Колонки]')
+    ScrollBars = ssVertical
+    TabOrder = 6
+    OnChange = edNameChange
+  end
+  object meCondition: TMemo [14]
+    Left = 97
+    Top = 318
+    Width = 260
+    Height = 49
+    ScrollBars = ssVertical
+    TabOrder = 7
+    OnChange = edNameChange
+  end
+  inherited udPriority: TUpDown [15]
+    Top = 148
+    TabOrder = 4
+  end
+  inherited meVariant: TMemo [16]
+    Height = 72
+  end
+end

@@ -1,0 +1,64 @@
+unit tsvInterpreterRTFStream;
+
+interface
+
+uses Classes, Graphics,
+     tsvRTFStream,
+     tsvInterpreterCore;
+
+// TtsvRTFStream
+procedure TtsvRTFStream_Create(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_SaveToStream(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_SaveToFile(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_Clear(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_Open(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_Close(var Value: Variant; Args: TArguments);
+procedure TtsvRTFStream_CreateString(var Value: Variant; Args: TArguments);
+
+implementation
+
+{ TtsvRTFStream }
+
+// constructor Create
+procedure TtsvRTFStream_Create(var Value: Variant; Args: TArguments);
+begin
+  Value := O2V(TtsvRTFStream.Create);
+end;
+
+// procedure SaveToStream(Stream: TStream);
+procedure TtsvRTFStream_SaveToStream(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).SaveToStream(V2O(Args.Values[0]) as TStream);
+end;
+
+// procedure SaveToFile(const FileName: string);
+procedure TtsvRTFStream_SaveToFile(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).SaveToFile(Args.Values[0]);
+end;
+
+// procedure Clear;
+procedure TtsvRTFStream_Clear(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).Clear;
+end;
+
+// procedure Open;
+procedure TtsvRTFStream_Open(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).Open;
+end;
+
+// procedure Close;
+procedure TtsvRTFStream_Close(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).Close;
+end;
+
+// procedure CreateString(S: String; Font: TFont; NewLine: Boolean=false);
+procedure TtsvRTFStream_CreateString(var Value: Variant; Args: TArguments);
+begin
+  TtsvRTFStream(Args.Obj).CreateString(Args.Values[0],TFont(V2O(Args.Values[1])),Args.Values[3]);
+end;
+
+end.

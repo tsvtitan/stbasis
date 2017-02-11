@@ -1,0 +1,11 @@
+//      WINVER < 0x400 = Windows NT 3.5, Windows NT 3.51
+//      WINVER = 0x400 = Windows 95, Windows98, Windows NT4 (default)
+//      WINVER > 0x400 = Windows NT4 enhancements
+//      WINVER = 0x500 = Windows 2000
+
+{$DEFINE WINVER_0x400_OR_GREATER}
+{.$DEFINE WINVER_0x401_OR_GREATER}
+{.$DEFINE WINVER_0x500_OR_GREATER}
+
+{.$DEFINE RAS_DYNAMIC_LINK}
+{.$DEFINE RAS_DYNAMIC_LINK_EXPLICIT}

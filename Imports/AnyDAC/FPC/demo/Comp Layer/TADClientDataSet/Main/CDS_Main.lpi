@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="5"/>
+    <General>
+      <MainUnit Value="0"/>
+      <IconPath Value="./"/>
+      <TargetFileExt Value=".exe"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="11">
+      <Unit0>
+        <Filename Value="CDS_Main.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="60" Y="11"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="20"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="fProperties.pas"/>
+        <ComponentName Value="frmProperties"/>
+        <HasResources Value="True"/>
+        <ResourceFilename Value="fProperties.lrs"/>
+        <UnitName Value="fProperties"/>
+        <CursorPos X="54" Y="555"/>
+        <TopLine Value="538"/>
+        <UsageCount Value="10"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADCompClient.pas"/>
+        <UnitName Value="daADCompClient"/>
+        <CursorPos X="13" Y="1497"/>
+        <TopLine Value="1480"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\fcl\db\db.pp"/>
+        <UnitName Value="db"/>
+        <CursorPos X="17" Y="1367"/>
+        <TopLine Value="1318"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\fcl\db\database.inc"/>
+        <CursorPos X="1" Y="265"/>
+        <TopLine Value="245"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADCompDataSet.pas"/>
+        <UnitName Value="daADCompDataSet"/>
+        <CursorPos X="57" Y="6391"/>
+        <TopLine Value="6376"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="fProperties.lrs"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\lcl\include\customlistbox.inc"/>
+        <CursorPos X="1" Y="481"/>
+        <TopLine Value="463"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanFactory.pas"/>
+        <UnitName Value="daADStanFactory"/>
+        <CursorPos X="1" Y="128"/>
+        <TopLine Value="110"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADDatSManager.pas"/>
+        <UnitName Value="daADDatSManager"/>
+        <CursorPos X="1" Y="1888"/>
+        <TopLine Value="1870"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="fProperties.lfm"/>
+        <CursorPos X="1" Y="19"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+        <SyntaxHighlighter Value="LFM"/>
+      </Unit10>
+    </Units>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="5"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="..\..\..\..\..\SOURCE\"/>
+      <OtherUnitFiles Value="..\..\..\..\..\SOURCE\"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+        <AllowLabel Value="False"/>
+        <CPPInline Value="False"/>
+        <DelphiCompat Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+      <Generate Value="Faster"/>
+    </CodeGeneration>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Source Value="..\..\..\..\..\..\SOURCE\daADStanFactory.pas"/>
+        <Line Value="270"/>
+      </Item1>
+    </BreakPoints>
+    <Exceptions Count="2">
+      <Item1>
+        <Name Value="ECodetoolError"/>
+      </Item1>
+      <Item2>
+        <Name Value="EFOpenError"/>
+      </Item2>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

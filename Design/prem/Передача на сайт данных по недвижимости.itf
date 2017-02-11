@@ -1,0 +1,425 @@
+'Передача на сайт данных по недвижимости'Передача на сайт данных по недвижимости&{0921F68E-E564-4172-A84A-5D6237FC32D5}xunit Main;
+
+interface
+
+procedure fmClose(Sender: TObject; var Action: TCloseAction);
+procedure fmbtSendClick(Sender: TObject);
+procedure fmbtCloseClick(Sender: TObject);
+
+implementation
+
+procedure ViewInterface;
+begin
+  if fm.FormStyle<>fsMDIChild then begin
+    fm.FormStyle:=fsMDIChild;
+  end else begin
+    fm.WindowState:=wsNormal;
+    fm.BringToFront;
+    fm.Show;
+  end;
+end;
+
+procedure fmClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action:=caFree;
+end;
+
+procedure SendData(WithMessage: Boolean);
+var
+  qr: TiIBQuery;
+  i: Integer;
+  pb: THandle;
+  j: Integer;
+  Field: TField;
+  Str: TStringList;
+  Ms: TMemoryStream;
+  S: String;
+  TempDir: String;
+  XmlFile: String;
+  ZipFile: String;
+  PostStream: TIdMultiPartFormDataStream;
+  PremisesCount: Integer;
+  Operation: Integer;
+begin
+  fm.Splash.View;
+  Screen.Cursor:=crHourGlass;
+  try
+    TempDir:=GetTempDir;
+    fm.Zip.BaseDirectory:=TempDir;
+    S:=FormatDateTime('ddmmyyhhmmsss',Now);
+    ZipFile:=TempDir+'\'+S+'.zip';
+    fm.Zip.FileName:=ZipFile;
+
+    SetSplashStatus('Начало передачи данных ...');
+
+    Application.ProcessMessages;
+
+    fm.qrPremises.Active:=false;
+    fm.Tran.Active:=false;
+  
+    fm.Tran.Active:=true;
+    fm.qrPremises.Active:=true;
+
+    qr:=fm.qrPremises;
+    qr.FetchAll;
+    PremisesCount:=qr.RecordCount;
+    Str:=TStringList.Create;
+    Ms:=TMemoryStream.Create;
+    i:=0;
+    pb:=CreateProgressBar(0,qr.RecordCount,'',clBlack);
+    try
+      Str.Add('<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>');
+      Str.Add('<mysql>');
+      Str.Add('<database name="ispolin">');
+      Str.Add('<table name="premises">');
+      qr.First;
+      while not qr.Eof do begin
+        Application.ProcessMessages;
+        inc(i);
+        SetProgressBarStatus(pb,i,qr.RecordCount,'');
+        Operation:=qr.FieldByName('TYPEOPERATION').AsInteger;
+        Str.Add('<row>');
+        for j:=0 to qr.FieldCount-1 do begin
+          Field:=qr.Fields[j];
+          S:=Field.AsString;
+          if Field.FieldName='DATEARRIVALS' then
+            S:=FormatDateTime('yyyy-mm-dd',Field.Value);
+          if Field.FieldName='DATETIMEUPDATE' then
+            S:=FormatDateTime('yyyy-mm-dd',Field.Value);
+          if (Operation=0) or (Operation=1) then begin
+            if Field.FieldName='CONTACT' then S:='';
+            if Field.FieldName='CLIENTINFO' then S:='';
+            if Field.FieldName='HOUSENUMBER' then S:='';
+            if Field.FieldName='APARTTAMENTNUMBER' then S:='';
+          end;
+          Str.Add('<field name="'+Field.FieldName+'">'+S+'</field>');
+        end;
+        Str.Add('</row>');
+        qr.Next;
+      end;
+      Str.Add('</table>');
+      Str.Add('</database>');
+      Str.Add('</mysql>');
+
+      Str.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.xml.LoadFromStream(Ms);
+      Ms.Clear;
+      fm.xml.SaveToStream(Ms);
+      Ms.Position:=0;
+      fm.Zip.AddFromStream('premises.xml',Ms);
+
+    finally
+      FreeProgressBar(pb);
+      Ms.Free;
+      Str.Free;
+    end;
+
+    try
+      fm.Zip.Save;
+      CreateLogItem('Запаковка данных в файл: '+ZipFile+' успешно выполнена.',tliInformation);
+    except
+      on E: Exception do begin
+        CreateLogItem('Запаковка данных в файл: '+ZipFile+' прошла с ошибкой: '+E.Message,tliError);
+      end;
+    end;
+
+    PostStream:=TIdMultiPartFormDataStream.Create;
+    try
+      PostStream.AddFormField('upload','');
+      PostStream.AddFile('myfile',ZipFile,'application/x-zip-compressed');
+      try
+        S:=Trim(fm.http.Post('/load.php',PostStream));
+        CreateLogItem('Передача данных на сервер: '+fm.http.Host+' выполнена с ответом: '+S,tliInformation);
+      except
+        on E: Exception do begin
+          CreateLogItem('Передача данных на сервер: '+fm.http.Host+' прошла с ошибкой: '+E.Message,tliError);
+        end;
+      end;
+    finally
+      PostStream.Free;
+    end;
+
+    SetSplashStatus('Конец передачи данных ...');
+
+  finally
+    Screen.Cursor:=crDefault;
+    fm.Splash.Close;
+  end;
+
+  if WithMessage then
+    ShowInfoEx('Экспортировано: '+IntToStr(PremisesCount)+' записи(ей).');
+end;
+
+procedure fmbtSendClick(Sender: TObject);
+begin
+  SendData(true);
+end;
+
+procedure fmbtCloseClick(Sender: TObject);
+begin
+  fm.Close;
+end;
+
+procedure SendDataAllData;
+begin
+  SendData(false);
+  fm.Free;
+end;
+
+end.
+robject fm: Tfm
+  Left = 65
+  Top = 47
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Передача на сайт недвижимости'
+  ClientHeight = 78
+  ClientWidth = 277
+  Color = clBtnFace
+  Constraints.MaxHeight = 105
+  Constraints.MaxWidth = 285
+  Constraints.MinHeight = 105
+  Constraints.MinWidth = 285
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    F000FFFFF80007FF00F00FFFF80007FFFFF00FFFF80007FFFF000FFFF80007FF
+    F000FFFFF80007FF000FFFFFF80007FF00FFFFFFF80007FF00F00FF0000007FF
+    F000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  OnClose = fmClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object iLabel1: TiLabel
+    Left = 5
+    Top = 7
+    Width = 265
+    Height = 26
+    Caption = 
+      'Данные передается на сайт за весь период,'#13#10'кроме тех вариантов к' +
+      'оторые находятся в корзине.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -1
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    WordWrap = True
+  end
+  object iPanel1: TiPanel
+    Left = 0
+    Top = 42
+    Width = 277
+    Height = 36
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 0
+    object btClose: TiButton
+      Left = 197
+      Top = 6
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Cancel = True
+      Caption = 'Закрыть'
+      TabOrder = 1
+      OnClick = fmbtCloseClick
+    end
+    object btSend: TiButton
+      Left = 115
+      Top = 6
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = 'Передать'
+      Default = True
+      TabOrder = 0
+      OnClick = fmbtSendClick
+    end
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 201
+    Top = 16
+  end
+  object siSplash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 168
+    Top = 16
+  end
+  object qrPremises: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = Tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'SELECT'
+      'P.PMS_PREMISES_ID,'
+      'P.PMS_AGENT_ID,'
+      'P.DATEARRIVALS,'
+      'P.HOUSENUMBER,'
+      'P.APARTMENTNUMBER,'
+      'P.CONTACT,'
+      'P.CLIENTINFO,'
+      'P.FLOOR,'
+      'P.COUNTFLOOR,'
+      'P.GENERALAREA,'
+      'P.DWELLINGAREA,'
+      'P.KITCHENAREA,'
+      'P.TYPEOPERATION,'
+      'P.PRICE,'
+      'P.TERM,'
+      'P.PAYMENT,'
+      'P.NOTE,'
+      'P.DATETIMEUPDATE,'
+      'P.SYNC_ID,'
+      'P.NN,'
+      'P.GROUNDAREA,'
+      'P.DELIVERY,'
+      'P.PMS_BUILDER_ID,'
+      'P.DECORATION,'
+      'P.GLASSY,'
+      'P.BLOCK_SECTION,'
+      'P.PRICE2,'
+      'R.NAME AS REGIONNAME,'
+      'S.NAME AS STREETNAME,'
+      'CR.NAME AS COUNTROOMNAME,'
+      'A.NAME AS AGENTNAME,'
+      'SO.NAME AS SYNC_OFFICE_NAME,'
+      'B.NAME AS BALCONYNAME,'
+      'C.NAME AS CONDITIONNAME,'
+      'SN.NAME AS SANITARYNODENAME,'
+      'H.NAME AS HEATNAME,'
+      'W.NAME AS WATERNAME,'
+      'SL.NAME AS STYLENAME,'
+      'SL.STYLE AS STYLESTYLE,'
+      'D.NAME AS DOORNAME,'
+      'TR.NAME AS TYPEROOMNAME,'
+      'PL.NAME AS PLANNINGNAME,'
+      'ST.NAME AS STATIONNAME,'
+      'TH.NAME AS TYPEHOUSENAME,'
+      'SV.NAME AS STOVENAME,'
+      'F.NAME AS FURNITURENAME,'
+      'PH.NAME AS PHONENAME,'
+      'SS.NAME AS SALESTATUSNAME,'
+      'SF.NAME AS SELFFORMNAME,'
+      'TP.NAME AS TYPEPREMISESNAME,'
+      'U.NAME AS UNITPRICENAME,'
+      'DC.NAME AS DOCUMENTNAME,'
+      'BL.NAME AS BUILDERNAME,'
+      'P.ADVERTISMENT_NOTE,'
+      'PH.NAME AS PHONENAME,'
+      'F.NAME AS FURNITURENAME,'
+      'R.SORTNUMBER AS REGION_SORTNUMBER'
+      'FROM PMS_PREMISES P'
+      'JOIN PMS_REGION R ON P.PMS_REGION_ID=R.PMS_REGION_ID'
+      'JOIN PMS_STREET S ON P.PMS_STREET_ID=S.PMS_STREET_ID'
+      'JOIN PMS_COUNTROOM CR ON P.PMS_COUNTROOM_ID=CR.PMS_COUNTROOM_ID'
+      'JOIN PMS_AGENT A ON P.PMS_AGENT_ID=A.PMS_AGENT_ID'
+      'JOIN SYNC_OFFICE SO ON SO.SYNC_OFFICE_ID=A.SYNC_OFFICE_ID'
+      'LEFT JOIN PMS_BALCONY B ON P.PMS_BALCONY_ID=B.PMS_BALCONY_ID'
+      
+        'LEFT JOIN PMS_CONDITION C ON P.PMS_CONDITION_ID=C.PMS_CONDITION_' +
+        'ID'
+      
+        'LEFT JOIN PMS_SANITARYNODE SN ON P.PMS_SANITARYNODE_ID=SN.PMS_SA' +
+        'NITARYNODE_ID'
+      'LEFT JOIN PMS_DOOR D ON P.PMS_DOOR_ID=D.PMS_DOOR_ID'
+      
+        'LEFT JOIN PMS_TYPEROOM TR ON P.PMS_TYPEROOM_ID=TR.PMS_TYPEROOM_I' +
+        'D'
+      
+        'LEFT JOIN PMS_PLANNING PL ON P.PMS_PLANNING_ID=PL.PMS_PLANNING_I' +
+        'D'
+      'LEFT JOIN PMS_STATION ST ON P.PMS_STATION_ID=ST.PMS_STATION_ID'
+      
+        'LEFT JOIN PMS_TYPEHOUSE TH ON P.PMS_TYPEHOUSE_ID=TH.PMS_TYPEHOUS' +
+        'E_ID'
+      'LEFT JOIN PMS_STOVE SV ON P.PMS_STOVE_ID=SV.PMS_STOVE_ID'
+      'LEFT JOIN PMS_PHONE PH ON P.PMS_PHONE_ID=PH.PMS_PHONE_ID'
+      
+        'LEFT JOIN PMS_DOCUMENT DC ON P.PMS_DOCUMENT_ID=DC.PMS_DOCUMENT_I' +
+        'D'
+      
+        'LEFT JOIN PMS_SALESTATUS SS ON P.PMS_SALESTATUS_ID=SS.PMS_SALEST' +
+        'ATUS_ID'
+      
+        'LEFT JOIN PMS_SELFFORM SF ON P.PMS_SELFFORM_ID=SF.PMS_SELFFORM_I' +
+        'D'
+      
+        'LEFT JOIN PMS_TYPEPREMISES TP ON P.PMS_TYPEPREMISES_ID=TP.PMS_TY' +
+        'PEPREMISES_ID'
+      
+        'LEFT JOIN PMS_FURNITURE F ON P.PMS_FURNITURE_ID=F.PMS_FURNITURE_' +
+        'ID'
+      
+        'LEFT JOIN PMS_UNITPRICE U ON P.PMS_UNITPRICE_ID=U.PMS_UNITPRICE_' +
+        'ID'
+      'LEFT JOIN PMS_WATER W ON P.PMS_WATER_ID=W.PMS_WATER_ID'
+      'LEFT JOIN PMS_BUILDER BL ON P.PMS_BUILDER_ID=BL.PMS_BUILDER_ID'
+      'LEFT JOIN PMS_STYLE SL ON P.PMS_STYLE_ID=SL.PMS_STYLE_ID'
+      'LEFT JOIN PMS_HEAT H ON P.PMS_HEAT_ID=H.PMS_HEAT_ID'
+      'WHERE RECYLED=0 '
+      'AND P.PMS_STATION_ID IN (11,3,4,5,21,22,25,29,30,20,23,24,26)'
+      'ORDER BY ST.SORTNUMBER ASC, CR.SORTNUMBER ASC,'
+      'R.SORTNUMBER ASC,S.NAME ASC,P.HOUSENUMBER ASC,'
+      'P.APARTMENTNUMBER ASC')
+    Left = 232
+    Top = 16
+  end
+  object Tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    AutoStopAction = saNone
+    Left = 104
+    Top = 16
+  end
+  object Splash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 8
+    Top = 16
+  end
+  object xml: TitsvXMLDocument
+    Left = 40
+    Top = 16
+    DOMVendorDesc = 'MSXML'
+  end
+  object http: TiIdHttp
+    MaxLineAction = maException
+    Host = 'ispolin-kras.ru'
+    AllowCookies = True
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.ContentRangeEnd = 0
+    Request.ContentRangeStart = 0
+    Request.Accept = 'text/html, */*'
+    Request.BasicAuthentication = False
+    Request.UserAgent = 'Mozilla/3.0 (compatible)'
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 136
+    Top = 16
+  end
+  object Zip: TiAbZipper
+    AutoSave = False
+    DOSMode = False
+    StoreOptions = [soStripDrive, soStripPath, soRemoveDots]
+    Left = 72
+    Top = 16
+  end
+end
+fm 

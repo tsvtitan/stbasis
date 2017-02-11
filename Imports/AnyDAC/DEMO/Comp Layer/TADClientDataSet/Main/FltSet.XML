@@ -1,0 +1,47 @@
+<?xml version="1.0" standalone="yes"?>
+
+<ProgramGS ID="TAPRProgramGS">
+	<Version Int="20"/>
+	<StreamFlags Int="0"/>
+	<Enabled Bool="True"/>
+	<Comment Str=""/>
+
+	<VariableListGS ID="">
+		<Enabled Bool="True"/>
+	</VariableListGS>
+
+	<InstructionListGS ID="">
+		<Enabled Bool="True"/>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1"/>
+			<ContentType Int="1"/>
+			<Value Str="Filter"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet3.N:edtFltExp&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet3.N:edtFltExp"/>
+			<ContentType Int="1"/>
+			<Value Str="zip like &apos;%2%&apos;"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet3.N:cbxFltActive&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet3.N:cbxFltActive"/>
+			<ContentType Int="1"/>
+			<Value Str="Checked"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+	</InstructionListGS>
+
+	<ModuleListGS ID="">
+		<Enabled Bool="True"/>
+	</ModuleListGS>
+</ProgramGS>

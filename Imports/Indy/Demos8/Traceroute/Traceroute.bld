@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+fmTraceRouteMainU.dfm
+fmTraceRouteMainU.pas
+Traceroute.dpr
+Traceroute.res

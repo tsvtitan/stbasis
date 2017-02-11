@@ -1,0 +1,1 @@
+stbasis.exe /packfile stbasis.pck

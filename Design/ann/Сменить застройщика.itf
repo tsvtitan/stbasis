@@ -1,0 +1,314 @@
+Сменить застройщикаСменить застройщика&{0921F68E-E564-4172-A84A-5D6237FC32D5}5unit Main;
+{ модуль разработан ФИО }
+
+interface
+procedure fmChangeStreetbtRunClick(Sender: TObject);
+procedure fmChangeStreetbtCloseClick(Sender: TObject);
+procedure fmChangeStreetClose(Sender: TObject; var Action: TCloseAction);
+procedure fmChangeStreetbtStreet1Click(Sender: TObject);
+procedure fmChangeStreetbtStreet2Click(Sender: TObject);
+
+implementation
+
+procedure SetName1;
+begin
+  fmChange.rbi.Visual.TypeView:=tviOnlyData;
+  fmChange.rbi.Condition.WhereStr.Clear;
+  fmChange.rbi.Condition.WhereStr.Add(' AP_BUILDER_ID='+fmChange.edName1.Tag+' ');
+  if fmChange.rbi.View then begin
+    if not fmChange.memd.IsEmpty then begin
+      fmChange.edName1.Text:=fmChange.memd.FieldByName('NAME').AsString;
+      fmChange.edName1.Tag:=fmChange.memd.FieldByName('AP_BUILDER_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure SetName2;
+begin
+  fmChange.rbi.Visual.TypeView:=tviOnlyData;
+  fmChange.rbi.Condition.WhereStr.Clear;
+  fmChange.rbi.Condition.WhereStr.Add(' AP_BUILDER_ID='+fmChange.edName2.Tag+' ');
+  if fmChange.rbi.View then begin
+    if not fmChange.memd.IsEmpty then begin
+      fmChange.edName2.Text:=fmChange.memd.FieldByName('NAME').AsString;
+      fmChange.edName2.Tag:=fmChange.memd.FieldByName('AP_BUILDER_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fmChange.FormStyle<>fsMDIChild then begin
+  {  fmChange.edName1.Tag:=ReadParam(GetInterfaceName,fmChange.edName1.Name,fmChange.edName1.Tag);
+    fmChange.edName2.Tag:=ReadParam(GetInterfaceName,fmChange.edName2.Name,fmChange.edName2.Tag); }
+    SetName1;
+    SetName2;
+    fmChange.FormStyle:=fsMDIChild;
+  end else begin
+    fmChange.WindowState:=wsNormal;
+    fmChange.BringToFront;
+    fmChange.Show;
+  end;
+end;
+
+procedure Change;
+begin
+  Screen.Cursor:=crHourGlass;
+  try
+
+    fmChange.Query.Active:=false;
+    fmChange.tran.Active:=false;
+  
+    fmChange.Query.Params.ParamByName('OLD_BUILDER_ID').Value:=fmChange.edName1.Tag;
+    fmChange.Query.Params.ParamByName('NEW_BUILDER_ID').Value:=fmChange.edName2.Tag;
+  
+    fmChange.tran.Active:=true;
+    fmChange.Query.ExecSQL;
+
+  finally
+    Screen.Cursor:=crDefault;
+  end;
+end;
+
+procedure fmChangeStreetbtRunClick(Sender: TObject);
+var
+  S: String;
+begin
+  if Trim(fmChange.edName1.Text)='' then begin
+    ShowErrorEx('Выберите какого застройщика.');
+    fmChange.edName1.SetFocus;
+    exit;
+  end;
+  if Trim(fmChange.edName2.Text)='' then begin
+    ShowErrorEx('Выберите на какого застройщика.');
+    fmChange.edName2.SetFocus;
+    exit;
+  end;
+  S:='Вы действительно хотите сменить застройщика: '+fmChange.edName1.Text+' на застройщика: '+fmChange.edName2.Text+'?';
+  if ShowQuestionEx(S)=mrYes then begin
+    Change;
+    if fmChange.CheckBoxDel.Checked then begin
+      ExecSQL(MainDataBase,'DELETE FROM AP_BUILDER WHERE AP_BUILDER_ID='+fmChange.edName1.Tag);
+    end;
+    ShowInfoEx('Операция по смене застройщика успешно завершена.');
+  end;
+end;
+
+procedure fmChangeStreetbtCloseClick(Sender: TObject);
+begin
+  fmChange.Close;
+end;
+
+procedure fmChangeStreetClose(Sender: TObject; var Action: TCloseAction);
+begin
+{  WriteParam(GetInterfaceName,fmChange.edName1.Name,fmChange.edName1.Tag);
+  WriteParam(GetInterfaceName,fmChange.edName2.Name,fmChange.edName2.Tag);}
+  Action:=caFree;
+end;
+
+procedure fmChangeStreetbtStreet1Click(Sender: TObject);
+begin
+  fmChange.rbi.Visual.TypeView:=tvibvModal;
+  fmChange.rbi.Condition.WhereStr.Clear;
+  fmChange.rbi.Locate.KeyFields:='AP_BUILDER_ID';
+  fmChange.rbi.Locate.KeyValues:=fmChange.edName1.Tag;
+  if fmChange.rbi.View then begin
+    if not fmChange.memd.IsEmpty then begin
+      fmChange.edName1.Text:=fmChange.memd.FieldByName('NAME').AsString;
+      fmChange.edName1.Tag:=fmChange.memd.FieldByName('AP_BUILDER_ID').AsInteger;
+    end;
+  end;
+end;
+
+procedure fmChangeStreetbtStreet2Click(Sender: TObject);
+begin
+  fmChange.rbi.Visual.TypeView:=tvibvModal;
+  fmChange.rbi.Condition.WhereStr.Clear;
+  fmChange.rbi.Locate.KeyFields:='AP_BUILDER_ID';
+  fmChange.rbi.Locate.KeyValues:=fmChange.edName2.Tag;
+  if fmChange.rbi.View then begin
+    if not fmChange.memd.IsEmpty then begin
+      fmChange.edName2.Text:=fmChange.memd.FieldByName('NAME').AsString;
+      fmChange.edName2.Tag:=fmChange.memd.FieldByName('AP_BUILDER_ID').AsInteger;
+    end;
+  end;
+end;
+
+end.
+Xobject fmChange: TfmChange
+  Left = 27
+  Top = 25
+  ActiveControl = btRun
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Сменить застройщика'
+  ClientHeight = 118
+  ClientWidth = 312
+  Color = clBtnFace
+  Constraints.MaxHeight = 145
+  Constraints.MaxWidth = 320
+  Constraints.MinHeight = 145
+  Constraints.MinWidth = 320
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    00FF00FFF80007FF00F00FFFF80007FF0000FFFFF80007FF000FFFFFF80007FF
+    0000FFFFF80007FF00FF0FFFF80007FF00FF0FFFF80007FF00FF0FF0000007FF
+    0000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = fmChangeStreetClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbName1: TiLabel
+    Left = 12
+    Top = 16
+    Width = 110
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Какого застройщика:'
+  end
+  object lbName2: TiLabel
+    Left = 67
+    Top = 58
+    Width = 55
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'На какого:'
+  end
+  object edName1: TiEdit
+    Left = 132
+    Top = 13
+    Width = 143
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object btName1: TiButton
+    Left = 281
+    Top = 13
+    Width = 21
+    Height = 21
+    Hint = 'Выбрать агентство'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    OnClick = fmChangeStreetbtStreet1Click
+  end
+  object btRun: TiButton
+    Left = 114
+    Top = 87
+    Width = 107
+    Height = 25
+    Hint = 'Сменить агентство'
+    Anchors = [akRight, akBottom]
+    Caption = 'Сменить'
+    Default = True
+    TabOrder = 5
+    OnClick = fmChangeStreetbtRunClick
+  end
+  object btClose: TiButton
+    Left = 230
+    Top = 87
+    Width = 75
+    Height = 25
+    Hint = 'Закрыть'
+    Anchors = [akRight, akBottom]
+    Caption = 'Закрыть'
+    TabOrder = 6
+    OnClick = fmChangeStreetbtCloseClick
+  end
+  object edName2: TiEdit
+    Left = 132
+    Top = 55
+    Width = 143
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 3
+  end
+  object btName2: TiButton
+    Left = 281
+    Top = 55
+    Width = 21
+    Height = 21
+    Hint = 'Выбрать агентство'
+    Caption = '...'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 4
+    OnClick = fmChangeStreetbtStreet2Click
+  end
+  object CheckBoxDel: TiCheckBox
+    Left = 132
+    Top = 36
+    Width = 145
+    Height = 17
+    Caption = 'и удалить после смены'
+    TabOrder = 2
+  end
+  object rbi: TiRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    ReturnData = memd
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    InterfaceName = 'Справочник застройщиков'
+    Left = 212
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 244
+  end
+  object tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 115
+  end
+  object Query: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'UPDATE AP_PREMISES'
+      'SET AP_BUILDER_ID=:NEW_BUILDER_ID'
+      'WHERE AP_BUILDER_ID=:OLD_BUILDER_ID')
+    Left = 179
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'NEW_BUILDER_ID'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'OLD_BUILDER_ID'
+        ParamType = ptUnknown
+      end>
+  end
+  object siSplash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = 'Заставка'
+    Left = 147
+  end
+end
+fmChange 

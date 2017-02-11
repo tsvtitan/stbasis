@@ -1,0 +1,62 @@
+package daADGUIxFormsD5;
+
+{$R *.RES}
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'da-soft AnyDAC GUIx Forms Package for Delphi 5'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+{$I daAD.inc}
+
+requires
+  vcl50,
+  vcldb50,
+  vclx50,
+{$IFDEF AnyDAC_SynEdit}
+  SynEdit_D5,
+{$ENDIF}
+  daADComID5,
+  daADCompD5;
+
+contains
+  daADGUIxFormsfAsync,
+  daADGUIxFormsfError,
+  daADGUIxFormsfFetchOptions,
+  daADGUIxFormsfFormatOptions,
+  daADGUIxFormsfLogin,
+  daADGUIxFormsfOptsBase,
+  daADGUIxFormsfQBldr,
+  daADGUIxFormsfQBldrConn,
+  daADGUIxFormsfQBldrLink,
+  daADGUIxFormsfUpdateOptions,
+  daADGUIxFormsQBldr,
+  daADGUIxFormsQBldrCtrls,
+  daADGUIxFormsUtil,
+  daADGUIxFormsfAbout,
+  daADGUIxFormsfConnEdit,
+  daADGUIxFormsfQEdit,
+  daADGUIxFormsfUSEdit,
+  daADGUIxFormsfResourceOptions,
+  daADGUIxFormsControls;
+
+end.

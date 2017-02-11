@@ -1,0 +1,299 @@
+{******************************************************************}
+{                                                                  }
+{ Borland Delphi Runtime Library                                   }
+{ RAS functions interface unit                                     }
+{                                                                  }
+{ Portions created by Microsoft are                                }
+{ Copyright (C) 1995-1999 Microsoft Corporation.                   }
+{ All Rights Reserved.                                             }
+{                                                                  }
+{ The original file is: rasdlg.h, released 24 Apr 1998.            }
+{ The original Pascal code is: RasDlg.pas, released 31 Dec 1999.   }
+{ The initial developer of the Pascal code is Petr Vones           }
+{ (petr.v@mujmail.cz).                                             }
+{                                                                  }
+{ Portions created by Petr Vones are                               }
+{ Copyright (C) 1999 Petr Vones                                    }
+{                                                                  }
+{ Obtained through:                                                }
+{                                                                  }
+{ Joint Endeavour of Delphi Innovators (Project JEDI)              }
+{                                                                  }
+{ You may retrieve the latest version of this file at the Project  }
+{ JEDI home page, located at http://delphi-jedi.org                }
+{                                                                  }
+{ The contents of this file are used with permission, subject to   }
+{ the Mozilla Public License Version 1.1 (the "License"); you may  }
+{ not use this file except in compliance with the License. You may }
+{ obtain a copy of the License at                                  }
+{ http://www.mozilla.org/MPL/MPL-1.1.html                          }
+{                                                                  }
+{ Software distributed under the License is distributed on an      }
+{ "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or   }
+{ implied. See the License for the specific language governing     }
+{ rights and limitations under the License.                        }
+{                                                                  }
+{******************************************************************}
+
+unit RasDlg;
+
+{$I RAS.INC}
+
+{$ALIGN ON}
+{$MINENUMSIZE 4}
+{$WEAKPACKAGEUNIT}
+
+interface
+
+uses
+  Windows, Ras, LmCons;
+
+(*$HPPEMIT '#include <pshpack4.h>'*)
+(*$HPPEMIT '#include <ras.h>'*)
+(*$HPPEMIT '#include <rasdlg.h>'*)
+
+type
+{#BEGIN}
+  TRasPbdDlgFunc{$} = procedure (dwCallbackId: DWORD; dwEvent: DWORD;
+    pszText: LPTSTR; pData: Pointer); stdcall;
+  {$EXTERNALSYM TRasPbdDlgFunc{$}}
+{#END}
+
+const
+  RASPBDEVENT_AddEntry    = 1;
+  {$EXTERNALSYM RASPBDEVENT_AddEntry}
+  RASPBDEVENT_EditEntry   = 2;
+  {$EXTERNALSYM RASPBDEVENT_EditEntry}
+  RASPBDEVENT_RemoveEntry = 3;
+  {$EXTERNALSYM RASPBDEVENT_RemoveEntry}
+  RASPBDEVENT_DialEntry   = 4;
+  {$EXTERNALSYM RASPBDEVENT_DialEntry}
+  RASPBDEVENT_EditGlobals = 5;
+  {$EXTERNALSYM RASPBDEVENT_EditGlobals}
+  RASPBDEVENT_NoUser      = 6;
+  {$EXTERNALSYM RASPBDEVENT_NoUser}
+  RASPBDEVENT_NoUserEdit  = 7;
+  {$EXTERNALSYM RASPBDEVENT_NoUserEdit}
+
+  RASNOUSER_SmartCard     = $00000001;
+  {$EXTERNALSYM RASNOUSER_SmartCard}
+  
+// Defines the information passed in the 4th argument of RASPBDLGFUNC on
+// "NoUser" and "NoUserEdit" events.  Usage shown is for "NoUser".  For
+// "NoUserEdit", the timeout is ignored and the three strings are INs.
+
+type
+{#BEGIN}
+  PRasNoUser{$} = ^TRasNoUser{$};
+{#END}
+{#BEGIN}
+  tagRASNOUSER{$} = record
+    dwSize: DWORD;
+    dwFlags: DWORD;
+    dwTimeoutMs: DWORD;
+    szUserName: packed array[0..UNLEN] of TCHAR;
+    szPassword: packed array[0..PWLEN] of TCHAR;
+    szDomain: packed array[0..DNLEN] of TCHAR;
+  end;
+  {$EXTERNALSYM tagRASNOUSER{$}}
+{#END}
+{#BEGIN}
+  TRasNoUser{$} = tagRASNOUSER{$};
+{#END}
+{#BEGIN}
+  RASNOUSER{$} = tagRASNOUSER{$};
+  {$EXTERNALSYM RASNOUSER{$}}
+{#END}
+  
+// RasPhonebookDlg API parameters.
+
+const
+  RASPBDFLAG_PositionDlg      = $00000001;
+  {$EXTERNALSYM RASPBDFLAG_PositionDlg}
+  RASPBDFLAG_ForceCloseOnDial = $00000002;
+  {$EXTERNALSYM RASPBDFLAG_ForceCloseOnDial}
+  RASPBDFLAG_NoUser           = $00000010;
+  {$EXTERNALSYM RASPBDFLAG_NoUser}
+  RASPBDFLAG_UpdateDefaults   = $80000000;
+  {$EXTERNALSYM RASPBDFLAG_UpdateDefaults}
+
+type
+{#BEGIN}
+  PRasPbdDlg{$} = ^TRasPbdDlg{$};
+{#END}
+{#BEGIN}
+  tagRASPBDLG{$} = record
+    dwSize: DWORD;
+    hwndOwner: HWND;
+    dwFlags: DWORD;
+    xDlg: LongInt;
+    yDlg: LongInt;
+    dwCallbackId: DWORD;
+    pCallback: TRasPbdDlgFunc{$};
+    dwError: DWORD;
+    reserved: DWORD;
+    reserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASPBDLG{$}}
+{#END}
+{#BEGIN}
+  TRasPbdDlg{$} = tagRASPBDLG{$};
+{#END}
+{#BEGIN}
+  RASPBDLG{$} = tagRASPBDLG{$};
+  {$EXTERNALSYM RASPBDLG{$}}
+{#END}
+
+// RasEntryDlg API parameters.
+
+const
+  RASEDFLAG_PositionDlg = $00000001;
+  {$EXTERNALSYM RASEDFLAG_PositionDlg}
+  RASEDFLAG_NewEntry    = $00000002;
+  {$EXTERNALSYM RASEDFLAG_NewEntry}
+  RASEDFLAG_CloneEntry  = $00000004;
+  {$EXTERNALSYM RASEDFLAG_CloneEntry}
+  RASEDFLAG_NoRename    = $00000008;
+  {$EXTERNALSYM RASEDFLAG_NoRename}
+  RASEDFLAG_ShellOwned  = $40000000;
+  {$EXTERNALSYM RASEDFLAG_ShellOwned}
+
+type
+{#BEGIN}
+  PRasEntryDlg{$} = ^TRasEntryDlg{$};
+{#END}
+{#BEGIN}
+  tagRASENTRYDLG{$} = record
+    dwSize: DWORD;
+    hwndOwner: HWND;
+    dwFlags: DWORD;
+    xDlg: LongInt;
+    yDlg: LongInt;
+    szEntry: packed array[0..RAS_MaxEntryName] of TCHAR;
+    dwError: DWORD;
+    reserved: DWORD;
+    reserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASENTRYDLG{$}}
+{#END}
+{#BEGIN}
+  TRasEntryDlg{$} = tagRASENTRYDLG{$};
+{#END}
+{#BEGIN}
+  RASENTRYDLG_{$} = tagRASENTRYDLG{$};
+  {$EXTERNALSYM RASENTRYDLG{$}}
+{#END}
+
+// RasDialDlg API parameters.
+
+const
+  RASDDFLAG_PositionDlg = $00000001;
+  {$EXTERNALSYM RASDDFLAG_PositionDlg}
+  RASDDFLAG_NoPrompt    = $00000002;
+  {$EXTERNALSYM RASDDFLAG_NoPrompt}
+  RASDDFLAG_LinkFailure = $80000000;
+  {$EXTERNALSYM RASDDFLAG_LinkFailure}
+
+type
+  PRasDialDlg = ^TRasDialDlg;
+  tagRASDIALDLG = record
+    dwSize: DWORD;
+    hwndOwner: HWND;
+    dwFlags: DWORD;
+    xDlg: LongInt;
+    yDlg: LongInt;
+    dwSubEntry: DWORD;
+    dwError: DWORD;
+    reserved: DWORD;
+    reserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASDIALDLG}
+  TRasDialDlg = tagRASDIALDLG;
+  RASDIALDLG_ = tagRASDIALDLG;
+  {$EXTERNALSYM RASDIALDLG}
+
+// RasMonitorDlg API parameters.
+
+const
+  RASMDPAGE_Status            = 0;
+  {$EXTERNALSYM RASMDPAGE_Status}
+  RASMDPAGE_Summary           = 1;
+  {$EXTERNALSYM RASMDPAGE_Summary}
+  RASMDPAGE_Preferences       = 2;
+  {$EXTERNALSYM RASMDPAGE_Preferences}
+
+  RASMDFLAG_PositionDlg       = $00000001;
+  {$EXTERNALSYM RASMDFLAG_PositionDlg}
+  RASMDFLAG_UpdateDefaults    = $80000000;
+  {$EXTERNALSYM RASMDFLAG_UpdateDefaults}
+
+type
+  PRasMonitorDlg = ^TRasMonitorDlg;
+  tagRASMONITORDLG = record
+    dwSize: DWORD;
+    hwndOwner: HWND;
+    dwFlags: DWORD;
+    dwStartPage: DWORD;
+    xDlg: LongInt;
+    yDlg: LongInt;
+    dwError: DWORD;
+    reserved: DWORD;
+    reserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASMONITORDLG}
+  TRasMonitorDlg = tagRASMONITORDLG;
+  RASMONITORDLG_ = tagRASMONITORDLG;
+  {$EXTERNALSYM RASMONITORDLG}
+
+{$IFDEF WINVER_0x500_OR_GREATER}
+type
+{#BEGIN}
+  RasCustomDialDlgFn{$} = function(hInstDll: THandle; dwFlags: DWORD;
+    lpszPhonebook, lpszEntry, lpszPhoneNumber: LPTSTR; lpInfo: PRasDialDlg;
+    pvInfo: Pointer): BOOL; stdcall;
+{#END}
+{#BEGIN}
+  RasCustomEntryDlgFn{$} = function(InstDll: THandle; lpszPhonebook,
+    lpszEntry: LPTSTR; lpInfo: PRasDialDlg; dwFlags: DWORD): BOOL; stdcall;
+{#END}
+{$ENDIF}
+
+// RAS common dialog API prototypes.
+
+{#BEGIN}
+function RasPhonebookDlg{$}(lpszPhonebook: LPTSTR; lpszEntry: LPTSTR;
+  var lpInfo: TRasPbdDlg{$}): BOOL; stdcall;
+{$EXTERNALSYM RasPhonebookDlg{$}}
+{#END}
+
+{#BEGIN}
+function RasEntryDlg{$}(lpszPhonebook: LPTSTR; lpszEntry: LPTSTR;
+  var lpInfo : TRasEntryDlg{$}): BOOL; stdcall;
+{$EXTERNALSYM RasEntryDlg{$}}
+{#END}
+
+{#BEGIN}
+function RasDialDlg{$}(lpszPhonebook: LPTSTR; lpszEntry: LPTSTR;
+  lpszPhoneNumbe: LPTSTR; var lpInfo: TRasDialDlg): BOOL; stdcall;
+{$EXTERNALSYM RasDialDlg{$}}
+{#END}
+
+{#BEGIN}
+function RasMonitorDlg{$}(lpszDeviceName: LPTSTR; var lpInfo: TRasMonitorDlg): BOOL; stdcall;
+{$EXTERNALSYM RasMonitorDlg{$}}
+{#END}
+
+implementation
+
+const
+  rasdlglib = 'rasdlg.dll';
+
+{#BEGIN}
+function RasPhonebookDlg{$}; external rasdlglib name 'RasPhonebookDlg{%}';
+function RasEntryDlg{$}; external rasdlglib name 'RasEntryDlg{%}';
+function RasDialDlg{$}; external rasdlglib name 'RasDialDlg{%}';
+function RasMonitorDlg{$}; external rasdlglib name 'RasMonitorDlg{%}';
+{#END}
+
+end.
+

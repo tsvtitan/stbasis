@@ -1,0 +1,13 @@
+[OS]
+Windows
+
+[Files]
+UDPClientServer.bpg
+UDPClient.dpr
+UDPClient.res
+UDPClientMain.dfm
+UDPClientMain.pas
+UDPServer.dpr
+UDPServer.res
+UDPServerMain.dfm
+UDPServerMain.pas

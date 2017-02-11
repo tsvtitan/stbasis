@@ -1,0 +1,377 @@
+unit UEditRBApp;
+
+interface
+
+{$I stbasis.inc}
+{$R 'tsv.res'}
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  UEditRB, StdCtrls, Buttons, ExtCtrls, IBServices, IBQuery, db, IBDatabase,
+  IB, Menus, OleCtnrs, ComCtrls, ExtDlgs, clipbrd, IBTable;
+
+type
+  TfmEditRBApp = class(TfmEditRB)
+    lbName: TLabel;
+    edName: TEdit;
+    lbRole: TLabel;
+    edRole: TEdit;
+    lbImage: TLabel;
+    srlbxImage: TScrollBox;
+    imImage: TImage;
+    bibImageLoad: TBitBtn;
+    bibImageSave: TBitBtn;
+    bibImageCopy: TBitBtn;
+    bibImagePaste: TBitBtn;
+    chbImageStretch: TCheckBox;
+    OD: TOpenPictureDialog;
+    SD: TSavePictureDialog;
+    bibImageClear: TBitBtn;
+    procedure edNameChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure chbImageStretchClick(Sender: TObject);
+    procedure bibImageLoadClick(Sender: TObject);
+    procedure bibImageSaveClick(Sender: TObject);
+    procedure bibImageCopyClick(Sender: TObject);
+    procedure bibImagePasteClick(Sender: TObject);
+    procedure bibImageClearClick(Sender: TObject);
+    procedure imImageMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imImageMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure imImageMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormDestroy(Sender: TObject);
+    procedure edRoleKeyPress(Sender: TObject; var Key: Char);
+  private
+    PointClicked: TPoint;
+    FoldPosX, FoldPosY: Integer;
+  protected
+    function AddToRBooks: Boolean; override;
+    function UpdateRBooks: Boolean; override;
+    function CheckFieldsFill: Boolean; override;
+  public
+    app_id: Integer; 
+    procedure AddClick(Sender: TObject); override;
+    procedure ChangeClick(Sender: TObject); override;
+    procedure FilterClick(Sender: TObject); override;
+  end;
+
+var
+  fmEditRBApp: TfmEditRBApp;
+
+  function DropRole(SqlRole: string): Boolean;
+  function CreateRole(SqlRole: string): Boolean;
+  function ExistsRole(SqlRole: string): Boolean;
+  
+implementation
+
+uses USysTsvCode, USysTsvData, UMainUnited, tsvPicture, tsvInterbase;
+
+var
+  AData: THandle;
+  APalette: HPALETTE;
+
+
+function DropRole(SqlRole: string): Boolean;
+begin
+ result:=false;
+ try
+  ExecSql(IBDB,'Drop role '+SqlRole);
+  result:=true;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+function CreateRole(SqlRole: string): Boolean;
+begin
+ result:=false;
+ try
+  ExecSql(IBDB,'Create role '+SqlRole);
+  result:=true;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+function ExistsRole(SqlRole: string): Boolean;
+var
+  TPRBI: TParamRBookInterface;
+begin
+  Result:=false;
+  FillChar(TPRBI,SizeOf(TParamRBookInterface),0);
+  TPRBI.Visual.TypeView:=tviOnlyData;
+  TPRBI.SQL.Select:=PChar('Select * from '+tbSysRoles+' ');
+  TPRBI.Condition.WhereStr:=PChar(' rdb$role_name='+QuotedStr(AnsiUpperCase(SqlRole))+' ');
+  if _ViewInterfaceFromName(NameRbkQuery,@TPRBI) then begin
+    Result:=ifExistsDataInParamRBookInterface(@TPRBI);
+  end;
+end;
+
+{$R *.DFM}
+
+procedure TfmEditRBApp.FilterClick(Sender: TObject);
+begin
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBApp.AddToRBooks: Boolean;
+var
+  tb: TIBTable;
+  id: string;
+  ms: TMemoryStream;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  tb:=TIBTable.Create(nil);
+  ms:=TMemoryStream.Create;
+  try
+    tb.Database:=IBDB;
+    tb.Transaction:=ibtran;
+    tb.Transaction.Active:=true;
+    id:=inttostr(GetGenId(IBDB,tbApp,1));
+    tb.TableName:=AnsiUpperCase(tbApp);
+    tb.Filter:=' app_id='+id;
+    tb.Filtered:=true;
+    tb.Active:=true;
+    tb.Append;
+    tb.FieldByName('app_id').AsString:=id;
+    tb.FieldByName('name').AsString:=Trim(edName.Text);
+    tb.FieldByName('sqlrole').AsString:=Trim(edRole.Text);
+    TTsvPicture(imImage.Picture).SaveToStream(ms);
+    ms.Position:=0;
+    TBlobField(tb.FieldByName('image')).LoadFromStream(ms);
+    tb.Post;
+    
+    if not ExistsRole(Trim(edRole.Text)) then
+     if not CreateRole(Trim(edRole.Text)) then exit;
+     
+    tb.Transaction.Commit;
+    app_id:=strtoint(id);
+
+    Result:=true;
+  finally
+    ms.Free;
+    tb.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBApp.AddClick(Sender: TObject);
+begin
+  if not CheckFieldsFill then exit;
+  if not AddToRBooks then exit;
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBApp.UpdateRBooks: Boolean;
+var
+  tb: TIBTable;
+  id: string;
+  ms: TMemoryStream;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  tb:=TIBTable.Create(nil);
+  ms:=TMemoryStream.Create;
+  try
+    tb.Database:=IBDB;
+    tb.Transaction:=ibtran;
+    tb.Transaction.Active:=true;
+    id:=inttostr(app_id);
+    tb.TableName:=AnsiUpperCase(tbApp);
+    tb.Filter:=' app_id='+id;
+    tb.Filtered:=true;
+    tb.Active:=true;
+    tb.Locate('app_id',id,[LocaseInsensitive]);
+    tb.Edit;
+    tb.FieldByName('app_id').AsString:=id;
+    tb.FieldByName('name').AsString:=Trim(edName.Text);
+    tb.FieldByName('sqlrole').AsString:=Trim(edRole.Text);
+    TTsvPicture(imImage.Picture).SaveToStream(ms);
+    ms.Position:=0;
+    TBlobField(tb.FieldByName('image')).LoadFromStream(ms);
+    tb.Post;
+
+    if not ExistsRole(Trim(edRole.Text)) then
+     if not CreateRole(Trim(edRole.Text)) then exit;
+
+    tb.Transaction.Commit;
+
+    Result:=true;
+  finally
+    ms.Free;
+    tb.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBApp.ChangeClick(Sender: TObject);
+begin
+  if ChangeFlag then begin
+   if not CheckFieldsFill then exit;
+   if not UpdateRBooks then exit;
+  end; 
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBApp.CheckFieldsFill: Boolean;
+begin
+  Result:=true;
+  if trim(edName.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbName.Caption]));
+    edName.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if trim(edRole.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbRole.Caption]));
+    edRole.SetFocus;
+    Result:=false;
+    exit;
+  end;
+end;
+
+procedure TfmEditRBApp.edNameChange(Sender: TObject);
+begin
+  inherited;
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBApp.FormCreate(Sender: TObject);
+begin
+  inherited;
+
+  imImage.Cursor:=crImageMove;
+  
+  Screen.Cursors[crImageMove] := LoadCursor(HINSTANCE,CursorMove);
+  Screen.Cursors[crImageDown] := LoadCursor(HINSTANCE,CursorDown);
+  
+  IBTran.AddDatabase(IBDB);
+  IBDB.AddTransaction(IBTran);
+
+  edName.MaxLength:=DomainNameLength;
+  edRole.MaxLength:=DomainSmallNameLength;
+
+  chbImageStretchClick(nil);
+end;
+
+procedure TfmEditRBApp.chbImageStretchClick(Sender: TObject);
+begin
+  imImage.AutoSize:=not chbImageStretch.Checked;
+  imImage.Stretch:=chbImageStretch.Checked;
+  if imImage.Stretch then begin
+   srlbxImage.HorzScrollBar.Range:=0;
+   srlbxImage.VertScrollBar.Range:=0;
+   imImage.Align:=alClient;
+  end else begin
+   imImage.Align:=alNone;
+   if (imImage.Picture.Height>srlbxImage.Height-4)or
+      (imImage.Picture.Width>srlbxImage.Width-4) then begin
+    imImage.Height:=imImage.Picture.Height;
+    imImage.Width:=imImage.Picture.Width;
+   end else begin
+    imImage.AutoSize:=false;
+    imImage.Height:=srlbxImage.Height-4;
+    imImage.Width:=srlbxImage.Width-4;
+   end;
+   srlbxImage.HorzScrollBar.Range:=imImage.Width;
+   srlbxImage.VertScrollBar.Range:=imImage.Height;
+  end;
+end;
+
+procedure TfmEditRBApp.bibImageLoadClick(Sender: TObject);
+begin
+  if not Od.Execute then exit;
+  imImage.Picture.LoadFromFile(od.FileName);
+  chbImageStretchClick(nil);
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBApp.bibImageSaveClick(Sender: TObject);
+begin
+  if not Sd.Execute then exit;
+  imImage.Picture.SaveToFile(sd.FileName);
+  chbImageStretchClick(nil);
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBApp.bibImageCopyClick(Sender: TObject);
+begin
+  imImage.Picture.SaveToClipboardFormat(CF_PICTURE,AData,APalette);
+end;
+
+procedure TfmEditRBApp.bibImagePasteClick(Sender: TObject);
+begin
+  imImage.Picture.LoadFromClipBoardFormat(CF_PICTURE,AData,0);
+  chbImageStretchClick(nil);
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBApp.bibImageClearClick(Sender: TObject);
+begin
+  imImage.Picture.Assign(nil);
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBApp.imImageMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  SetCursor(Screen.Cursors[crImageDown]);
+  PointClicked:=imImage.ClientToScreen(Point(X,Y));
+  FoldPosX:=(imImage.Parent as TScrollBox).HorzScrollBar.Position;
+  FoldPosY:=(imImage.Parent as TScrollBox).VertScrollBar.Position;
+end;
+
+procedure TfmEditRBApp.imImageMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
+var
+ CurPoint: TPoint;
+begin
+  if (imImage.Parent is TScrollBox) and (ssLeft in Shift) then begin
+   CurPoint:=imImage.ClientToScreen(Point(X,Y));
+   (imImage.Parent as TScrollBox).HorzScrollBar.Position:=FOldPosX-CurPoint.X+PointClicked.X;
+   (imImage.Parent as TScrollBox).VertScrollBar.Position:=FOldPosY-CurPoint.Y+PointClicked.Y;
+  end;
+end;
+
+procedure TfmEditRBApp.imImageMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  imImage.Cursor:=crImageMove;
+end;
+
+procedure TfmEditRBApp.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  DestroyCursor(Screen.Cursors[crImageMove]);
+  DestroyCursor(Screen.Cursors[crImageDown]);
+  Screen.Cursors[crImageMove] := 0;
+  Screen.Cursors[crImageDown] := 0;
+end;
+
+procedure TfmEditRBApp.edRoleKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Byte(Key) in [Byte('0')..Byte('9')] then Key:=#0;
+end;
+
+end.

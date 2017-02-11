@@ -1,0 +1,144 @@
+inherited fmEditRBPms_Image: TfmEditRBPms_Image
+  Left = 635
+  Top = 242
+  Caption = 'fmEditRBPms_Image'
+  ClientHeight = 273
+  ClientWidth = 280
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbHouseNumber: TLabel [0]
+    Left = 109
+    Top = 43
+    Width = 66
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Номер дома:'
+  end
+  object lbImage: TLabel [1]
+    Left = 11
+    Top = 52
+    Width = 51
+    Height = 13
+    Caption = 'Картинка:'
+  end
+  object lbStreet: TLabel [2]
+    Left = 12
+    Top = 15
+    Width = 35
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Улица:'
+    FocusControl = edStreet
+  end
+  inherited pnBut: TPanel
+    Top = 235
+    Width = 280
+    TabOrder = 8
+    inherited Panel2: TPanel
+      Left = 95
+    end
+  end
+  inherited cbInString: TCheckBox
+    Left = 8
+    Top = 220
+    TabOrder = 7
+  end
+  object edHouseNumber: TEdit [5]
+    Left = 185
+    Top = 39
+    Width = 88
+    Height = 21
+    MaxLength = 100
+    TabOrder = 2
+    OnChange = edNameChange
+  end
+  object bibImageLoad: TButton [6]
+    Left = 48
+    Top = 198
+    Width = 70
+    Height = 20
+    Hint = 'Загрузить'
+    Cancel = True
+    Caption = 'Загрузить'
+    TabOrder = 4
+    OnClick = bibImageLoadClick
+  end
+  object bibImageSave: TButton [7]
+    Left = 126
+    Top = 198
+    Width = 70
+    Height = 20
+    Hint = 'Сохранить'
+    Caption = 'Сохранить'
+    TabOrder = 5
+    OnClick = bibImageSaveClick
+  end
+  object pnImage: TPanel [8]
+    Left = 11
+    Top = 70
+    Width = 262
+    Height = 121
+    BevelOuter = bvNone
+    TabOrder = 3
+    object ScrollBox1: TScrollBox
+      Left = 0
+      Top = 0
+      Width = 262
+      Height = 121
+      Align = alClient
+      TabOrder = 0
+      object imImage: TImage
+        Left = 0
+        Top = 0
+        Width = 258
+        Height = 117
+        AutoSize = True
+        Center = True
+      end
+    end
+  end
+  object bibClearImage: TButton [9]
+    Left = 204
+    Top = 198
+    Width = 70
+    Height = 20
+    Hint = 'Очистить'
+    Caption = 'Очистить'
+    TabOrder = 6
+    OnClick = bibClearImageClick
+  end
+  object edStreet: TEdit [10]
+    Left = 57
+    Top = 11
+    Width = 188
+    Height = 21
+    Color = clBtnFace
+    MaxLength = 100
+    ReadOnly = True
+    TabOrder = 0
+    OnChange = edNameChange
+  end
+  object btStreet: TButton [11]
+    Left = 251
+    Top = 11
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 1
+    OnClick = btStreetClick
+  end
+  inherited IBTran: TIBTransaction
+    Left = 144
+    Top = 100
+  end
+  object OD: TOpenPictureDialog
+    Options = [ofEnableSizing]
+    Left = 75
+    Top = 102
+  end
+  object SD: TSavePictureDialog
+    Options = [ofEnableSizing]
+    Left = 107
+    Top = 102
+  end
+end

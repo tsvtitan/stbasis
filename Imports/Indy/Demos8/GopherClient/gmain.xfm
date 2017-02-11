@@ -1,0 +1,108 @@
+object frmGopher: TfrmGopher
+  Left = 253
+  Top = 242
+  Width = 522
+  Height = 331
+  ActiveControl = lvGopherMenu
+  Caption = 'Gopher Demo'
+  Color = clButton
+  Font.CharSet = fcsAnyCharSet
+  Font.Color = clText
+  Font.Height = 13
+  Font.Name = 'MS Sans Serif'
+  Font.Pitch = fpVariable
+  Font.Style = []
+  ParentFont = False
+  PixelsPerInch = 75
+  TextHeight = 15
+  TextWidth = 7
+  object lvGopherMenu: TListView
+    Left = 0
+    Top = 73
+    Width = 522
+    Height = 258
+    Align = alClient
+    Columns = <
+      item
+        AllowClick = True
+        AllowResize = True
+        AutoSize = False
+        Caption = 'Title'
+        Width = 250
+      end
+      item
+        AllowClick = True
+        AllowResize = True
+        AutoSize = False
+        Caption = 'Type'
+        Width = 150
+      end>
+    RowSelect = True
+    ReadOnly = True
+    TabOrder = 0
+    ViewStyle = vsReport
+    OnDblClick = lvGopherMenuDblClick
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 522
+    Height = 73
+    Align = alTop
+    TabOrder = 1
+    object lblGopherServer: TLabel
+      Left = 24
+      Top = 12
+      Width = 85
+      Height = 15
+      Caption = '&Gopher Server:'
+      FocusControl = edtGopherServer
+      Layout = tlCenter
+    end
+    object lblSelector: TLabel
+      Left = 56
+      Top = 44
+      Width = 49
+      Height = 15
+      Caption = '&Selector:'
+      FocusControl = edtSelector
+      Layout = tlCenter
+    end
+    object edtGopherServer: TEdit
+      Left = 120
+      Top = 8
+      Width = 185
+      Height = 23
+      MaxLength = 32767
+      TabOrder = 0
+    end
+    object edtSelector: TEdit
+      Left = 120
+      Top = 40
+      Width = 185
+      Height = 23
+      MaxLength = 32767
+      TabOrder = 1
+    end
+    object Button1: TButton
+      Left = 328
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Go'
+      Default = True
+      TabOrder = 2
+      OnClick = Button1Click
+    end
+  end
+  object idDemoGopher: TIdGopher
+    ASCIIFilter = False
+    RecvBufferSize = 1024
+    Port = 70
+    SocksInfo.Authentication = saNoAuthentication
+    SocksInfo.Port = 0
+    SocksInfo.Version = svNoSocks
+    Left = 8
+    Top = 8
+  end
+end

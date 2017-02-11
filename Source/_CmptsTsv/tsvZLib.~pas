@@ -1,0 +1,64 @@
+unit tsvZLib;
+
+interface
+
+uses Classes;
+
+type
+
+  TtsvZIP=class(TComponent)
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    procedure FileToFile(SourceFile: String; DestFile: string);
+    procedure StringsToFile(Strings: TStrings; DestFile: string);
+  published
+  end;
+
+implementation
+
+uses SysUtils, FileTools;
+
+const
+  BufferSize=1024*1024;
+
+{ TtsvZIP }
+
+constructor TtsvZIP.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+end;
+
+destructor TtsvZIP.Destroy;
+begin
+  inherited Destroy;
+end;
+
+procedure TtsvZIP.FileToFile(SourceFile: String; DestFile: string);
+var
+  Zip: TZip;
+begin
+  Zip:=TZip.Create(DestFile,SourceFile,BufferSize);
+  try
+    Zip.Add(SourceFile);
+  finally
+    Zip.Free;
+  end;
+end;
+
+procedure TtsvZIP.StringsToFile(Strings: TStrings; DestFile: string);
+var
+  Zip: TZip;
+  i: Integer;
+begin
+  Zip:=TZip.Create(DestFile,ExtractFilePath(DestFile),BufferSize);
+  try
+    for i:=0 to Strings.Count-1 do
+      Zip.Add(Strings[i]);
+  finally
+    Zip.Free;
+  end;
+end;
+
+end.
+

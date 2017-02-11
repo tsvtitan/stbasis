@@ -1,0 +1,47 @@
+// Package file for Delphi 5
+
+package frxAD5;
+
+{$I frx.inc}
+
+{$ALIGN ON}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $00400000}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  VCL50,
+  VCLDB50,
+  daADDclD750,
+  frx5,
+  frxDB5,
+{$IFDEF QBUILDER}
+  fqb50,
+{$ENDIF}
+  fs5;
+
+contains
+  frxADComponents in 'frxADComponents.pas',
+  frxADEditor in 'frxADEditor.pas',
+  frxADRTTI in 'frxADRTTI.pas';
+
+end.

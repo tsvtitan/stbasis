@@ -1,0 +1,29 @@
+[General]
+baseFolder=W:\source\Indy81\Demos\Delphi\Rexec\
+
+[Demo]
+Demo=Rexec Demo
+
+[Date]
+Build Date=17 Feb 2001
+
+[Author]
+Author=J. Peter Mugaas
+Email=oma00215@mail.wvnet.edu
+
+[OS]
+Windows=1
+Linux=0
+
+[Tested]
+D4=0
+D5=1
+Kylix=0
+BCB4=0
+BCB5=0
+
+[Files]
+Rexec.dpr=0
+execmain.pas=1
+execmain.dfm=2
+Rexec.res=3

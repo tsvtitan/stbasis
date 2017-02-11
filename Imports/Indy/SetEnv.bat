@@ -1,0 +1,2 @@
+SET NDD7=E:\PROGRA~1\Borland\Delphi7
+SET NDWINSYS=E:\WIN2KS\System32

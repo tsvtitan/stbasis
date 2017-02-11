@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">Default.Personality</Option>
+			<Option Name="ProjectType"></Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{A2DA344B-A700-4787-8BA9-0C19C5EEF63F}</Option>
+		</Option>
+	</PersonalityInfo>
+	<Default.Personality>  <Projects>
+      <Projects Name="daADComID9.bpl">daADComID9.bdsproj</Projects>
+      <Projects Name="daADPhysD9.bpl">daADPhysD9.bdsproj</Projects>
+      <Projects Name="daADPhysODBCD9.bpl">daADPhysODBCD9.bdsproj</Projects>
+      <Projects Name="daADPhysMSAccD9.bpl">daADPhysMSAccD9.bdsproj</Projects>
+      <Projects Name="daADPhysMSSQLD9.bpl">daADPhysMSSQLD9.bdsproj</Projects>
+      <Projects Name="daADPhysDb2D9.bpl">daADPhysDb2D9.bdsproj</Projects>
+      <Projects Name="daADPhysASAD9.bpl">daADPhysASAD9.bdsproj</Projects>
+      <Projects Name="daADPhysADSD9.bpl">daADPhysADSD9.bdsproj</Projects>
+      <Projects Name="daADPhysMySQLD9.bpl">daADPhysMySQLD9.bdsproj</Projects>
+      <Projects Name="daADPhysOraclD9.bpl">daADPhysOraclD9.bdsproj</Projects>
+      <Projects Name="daADPhysDBExpD9.bpl">daADPhysDBExpD9.bdsproj</Projects>
+      <Projects Name="daADCompD9.bpl">daADCompD9.bdsproj</Projects>
+      <Projects Name="daADGUIxFormsD9.bpl">daADGUIxFormsD9.bdsproj</Projects>
+      <Projects Name="daADDclD9.bpl">daADDclD9.bdsproj</Projects>
+      <Projects Name="Targets">daADComID9.bpl daADPhysD9.bpl daADPhysODBCD9.bpl daADPhysMSAccD9.bpl daADPhysMSSQLD9.bpl daADPhysDb2D9.bpl daADPhysASAD9.bpl daADPhysADSD9.bpl daADPhysMySQLD9.bpl daADPhysOraclD9.bpl daADPhysDBExpD9.bpl daADCompD9.bpl daADGUIxFormsD9.bpl daADDclD9.bpl</Projects>
+    </Projects>
+    <Dependencies>
+      <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+      </Dependency>
+      <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+      </Dependency>
+      <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+      </Dependency>
+      <Dependency GUID="{84743534-3368-4352-91B1-4603EF2EE805}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}"/>
+      </Dependency>
+      <Dependency GUID="{10B36839-EF37-49F4-B299-AE01BD442D2B}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}"/>
+      </Dependency>
+      <Dependency GUID="{106756DF-6108-48DF-AC32-3A26CADF4950}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}"/>
+      </Dependency>
+      <Dependency GUID="{94118D77-CE32-4F99-936F-CD60EADE0D11}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}"/>
+      </Dependency>
+      <Dependency GUID="{B0587AE8-1186-44DB-BC3C-8F543BCC1EF4}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+      </Dependency>
+      <Dependency GUID="{FDB0CED2-B7D1-4C68-B89F-E99BC56313AA}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+      </Dependency>
+      <Dependency GUID="{3B67F99F-B476-4DDA-82D7-32CC3B67F55D}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+      </Dependency>
+      <Dependency GUID="{8111C52B-62DC-4875-9060-470AED2EB70E}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+      </Dependency>
+      <Dependency GUID="{D05F197D-CB75-4A8C-B3F4-BDE2A8EE9305}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{8111C52B-62DC-4875-9060-470AED2EB70E}"/>
+      </Dependency>
+      <Dependency GUID="{8235E54A-BEB1-470D-A838-D8813AF67A59}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{D05F197D-CB75-4A8C-B3F4-BDE2A8EE9305}"/>
+      </Dependency>
+      <Dependency GUID="{3FEC8808-DA9A-4DC3-B205-A45859608827}">
+        <Dependency GUID="{B5A772EC-25D9-4F5D-BFEC-1C4C14612AA1}"/>
+        <Dependency GUID="{75FFBA7A-B89D-4521-9F73-A610E7D89691}"/>
+        <Dependency GUID="{8E0DE5C8-A92A-4A0F-90D9-2D2D04D2E712}"/>
+        <Dependency GUID="{E9847FFF-9BA0-4BF0-A77C-66E2D29DB287}"/>
+        <Dependency GUID="{84743534-3368-4352-91B1-4603EF2EE805}"/>
+        <Dependency GUID="{10B36839-EF37-49F4-B299-AE01BD442D2B}"/>
+        <Dependency GUID="{106756DF-6108-48DF-AC32-3A26CADF4950}"/>
+        <Dependency GUID="{94118D77-CE32-4F99-936F-CD60EADE0D11}"/>
+        <Dependency GUID="{B0587AE8-1186-44DB-BC3C-8F543BCC1EF4}"/>
+        <Dependency GUID="{FDB0CED2-B7D1-4C68-B89F-E99BC56313AA}"/>
+        <Dependency GUID="{3B67F99F-B476-4DDA-82D7-32CC3B67F55D}"/>
+        <Dependency GUID="{8111C52B-62DC-4875-9060-470AED2EB70E}"/>
+        <Dependency GUID="{D05F197D-CB75-4A8C-B3F4-BDE2A8EE9305}"/>
+        <Dependency GUID="{8235E54A-BEB1-470D-A838-D8813AF67A59}"/>
+      </Dependency>
+    </Dependencies>
+  </Default.Personality>
+</BorlandProject>

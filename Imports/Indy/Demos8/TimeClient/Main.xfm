@@ -1,0 +1,84 @@
+object frmTimeDemo: TfrmTimeDemo
+  Left = 368
+  Top = 213
+  Width = 365
+  Height = 128
+  ActiveControl = edtTimeResult
+  Caption = 'Time Demo'
+  Color = clButton
+  Font.CharSet = fcsAnyCharSet
+  Font.Color = clText
+  Font.Height = 13
+  Font.Name = 'MS Sans Serif'
+  Font.Pitch = fpVariable
+  Font.Style = []
+  ParentFont = False
+  PixelsPerInch = 96
+  TextHeight = 15
+  TextWidth = 7
+  object lblTimeServer: TLabel
+    Left = 20
+    Top = 24
+    Width = 79
+    Height = 15
+    Caption = '&Time Server:'
+    Layout = tlCenter
+  end
+  object Label1: TLabel
+    Left = 4
+    Top = 56
+    Width = 102
+    Height = 15
+    Caption = 'Time &From Server:'
+    FocusControl = btnGetTime
+    Layout = tlCenter
+  end
+  object edtTimeResult: TEdit
+    Left = 112
+    Top = 56
+    Width = 121
+    Height = 23
+    MaxLength = 32767
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object btnGetTime: TButton
+    Left = 248
+    Top = 24
+    Width = 75
+    Height = 25
+    Caption = '&Get Time'
+    Default = True
+    TabOrder = 1
+    OnClick = btnGetTimeClick
+  end
+  object cmboTimeServer: TComboBox
+    Left = 112
+    Top = 24
+    Width = 121
+    Height = 23
+    ItemHeight = 17
+    Items.Strings = (
+      '127.0.0.1'
+      'ben.cs.wisc.edu'
+      'bigben.cac.washington.edu'
+      'bitsy.mit.edu'
+      'bonehed.lcs.mit.edu'
+      'canon.inria.fr'
+      'chronos.cru.fr')
+    Sorted = True
+    TabOrder = 4
+    Text = 'ben.cs.wisc.edu'
+  end
+  object IdDemoTime: TIdTime
+    ASCIIFilter = False
+    RecvBufferSize = 1024
+    Port = 37
+    SocksInfo.Authentication = saNoAuthentication
+    SocksInfo.Port = 0
+    SocksInfo.Version = svNoSocks
+    BaseDate = 2
+    Left = 264
+    Top = 64
+  end
+end

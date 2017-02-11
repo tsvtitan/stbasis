@@ -1,0 +1,8 @@
+[OS]
+Windows=1
+
+[Files]
+HTTPClient.dpr=0
+HTTPClient.res=1
+main.dfm=2
+main.pas=3

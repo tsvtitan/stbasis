@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+FTPDemo.dpr
+FTPDemo.res
+mainf.dfm
+mainf.pas

@@ -1,0 +1,35 @@
+object frmMain: TfrmMain
+  Left = 387
+  Top = 243
+  Width = 316
+  Height = 115
+  ActiveControl = btnAccept
+  Caption = 'Simple Server'
+  Color = clButton
+  Font.CharSet = fcsAnyCharSet
+  Font.Color = clText
+  Font.Height = 13
+  Font.Name = 'MS Sans Serif'
+  Font.Pitch = fpVariable
+  Font.Style = []
+  ParentFont = False
+  PixelsPerInch = 75
+  TextHeight = 15
+  TextWidth = 7
+  object btnAccept: TButton
+    Left = 92
+    Top = 24
+    Width = 157
+    Height = 25
+    Caption = '&Accept One Connection'
+    TabOrder = 0
+    OnClick = btnAcceptClick
+  end
+  object SServ: TIdSimpleServer
+    ASCIIFilter = False
+    RecvBufferSize = 1024
+    BoundPort = 1000
+    Left = 40
+    Top = 24
+  end
+end

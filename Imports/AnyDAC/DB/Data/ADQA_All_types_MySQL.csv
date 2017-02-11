@@ -1,0 +1,4 @@
+"ttinyint";"tbit";"tbool";"tsmallint";"tmediumint";"tint";"tinteger";"tbigint";"treal";"tdouble";"tfloat";"tdecimal";"tnumeric";"tchar";"tvarchar";"tdate";"ttime";"tyear";"ttimestamp";"tdatetime";"ttinyblob";"tblob";"tmediumblob";"tlongblob";"ttinytext";"ttext";"tmediumtext";"tlongtext"
+23;0;0;1;123456;-234567;-345678;123456789012345678;1.234567;-2.3456789;34.5679;-4567890123.456789;-123456;"ABCDE";"fghij";1756-12-31;00:00:00;0;1970-10-05 23:59:59;1970-10-05 23:59:59;6B6C6D6E6F;616263646531;4142434445;666768696A;"abcde1";"ABCDE";"vuwxy1";"fghij"
+44;;0;1;123456;-234567;-345678;123456789012345678;1.234567;-2.3456789;34.5679;-4567890123.456789;-123456;"AB
+CDE";"fghij";1756-12-31;00:00:00;0;1970-10-05 23:59:59;0000-00-00 00:00:00;6B6C6D6E6F;616263646531;4142434445;666768696A;"abcde1";"ABCDE";"vuwxy1";"fghij"

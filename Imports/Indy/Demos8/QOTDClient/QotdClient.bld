@@ -1,0 +1,8 @@
+[OS]
+Windows
+
+[Files]
+QotdClient.dpr
+QotdClient.res
+main.dfm
+main.pas

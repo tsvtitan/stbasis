@@ -1,0 +1,9 @@
+[Options]
+Windows
+
+[Files]
+IdDateTimeTest.dpr
+IdDateTimeTest.res
+main.dfm
+main.pas
+

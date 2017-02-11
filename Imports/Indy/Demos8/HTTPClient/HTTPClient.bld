@@ -1,0 +1,9 @@
+[Options]
+Windows
+
+[Files]
+HTTPClient.dpr
+HTTPClient.res
+main.dfm
+main.pas
+

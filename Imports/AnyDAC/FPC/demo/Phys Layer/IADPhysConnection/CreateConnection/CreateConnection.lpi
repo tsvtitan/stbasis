@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="5"/>
+    <General>
+      <MainUnit Value="0"/>
+      <IconPath Value="./"/>
+      <TargetFileExt Value=".exe"/>
+      <ActiveEditorIndexAtStart Value="1"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+      <Language Value=""/>
+      <CharSet Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="CreateConnection.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="56" Y="11"/>
+        <TopLine Value="1"/>
+        <EditorIndex Value="0"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <ComponentName Value="Form1"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="unit1.lrs"/>
+        <UnitName Value="Unit1"/>
+        <CursorPos X="3" Y="10"/>
+        <TopLine Value="29"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <UnitName Value="daADPhysODBCWrapper"/>
+        <CursorPos X="20" Y="1722"/>
+        <TopLine Value="1703"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysMSAccMeta.pas"/>
+        <UnitName Value="daADPhysMSAccMeta"/>
+        <CursorPos X="1" Y="218"/>
+        <TopLine Value="199"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCBase.pas"/>
+        <UnitName Value="daADPhysODBCBase"/>
+        <CursorPos X="24" Y="1873"/>
+        <TopLine Value="1854"/>
+        <EditorIndex Value="6"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCCli.pas"/>
+        <UnitName Value="daADPhysODBCCli"/>
+        <CursorPos X="25" Y="78"/>
+        <TopLine Value="78"/>
+        <EditorIndex Value="4"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\..\SOURCE\daADStanError.pas"/>
+        <UnitName Value="daADStanError"/>
+        <CursorPos X="1" Y="137"/>
+        <TopLine Value="118"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit6>
+    </Units>
+    <JumpHistory Count="25" HistoryIndex="24">
+      <Position1>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="56" Column="51" TopLine="33"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="10" Column="3" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="1220" Column="23" TopLine="1201"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="1214" Column="23" TopLine="1195"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="1220" Column="23" TopLine="1201"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="208" Column="7" TopLine="189"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2856" Column="10" TopLine="2837"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2864" Column="46" TopLine="2845"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2868" Column="43" TopLine="2849"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2858" Column="3" TopLine="2839"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2911" Column="85" TopLine="2890"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="3576" Column="55" TopLine="3557"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysMSAccMeta.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysMSAccMeta.pas"/>
+        <Caret Line="189" Column="14" TopLine="170"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysMSAccMeta.pas"/>
+        <Caret Line="180" Column="8" TopLine="161"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysMSAccMeta.pas"/>
+        <Caret Line="189" Column="7" TopLine="170"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCBase.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCBase.pas"/>
+        <Caret Line="138" Column="26" TopLine="119"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="3632" Column="3" TopLine="3613"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="2909" Column="27" TopLine="2890"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="432" Column="30" TopLine="413"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCCli.pas"/>
+        <Caret Line="86" Column="22" TopLine="67"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\..\..\..\SOURCE\daADPhysODBCWrapper.pas"/>
+        <Caret Line="432" Column="30" TopLine="413"/>
+      </Position24>
+      <Position25>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="10" Column="3" TopLine="57"/>
+      </Position25>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="5"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <OtherUnitFiles Value="..\..\..\..\..\SOURCE\"/>
+      <SrcPath Value="$(LazarusDir)\lcl\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+      <Generate Value="Faster"/>
+    </CodeGeneration>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Source Value="..\..\..\..\..\..\SOURCE\daADStanFactory.pas"/>
+        <Line Value="270"/>
+      </Item1>
+    </BreakPoints>
+    <Exceptions Count="2">
+      <Item1>
+        <Name Value="ECodetoolError"/>
+      </Item1>
+      <Item2>
+        <Name Value="EFOpenError"/>
+      </Item2>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

@@ -1,0 +1,221 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = CDS_CachedUpdates.exe CloneCursor.exe CDS_Main.exe \
+  CDS_MasterDetail.exe ConnectionDefinitions.exe GetFieldNames.exe Pooling.exe \
+  Transactions.exe Main.exe LoginDialog.exe MetaInfo.exe Aggregates.exe Blobs.exe \
+  Qry_CachedUpdates.exe Async.exe Batch.exe Filter.exe Indices.exe \
+  Macros.exe Qry_MasterDetail.exe NestedCursors.exe NextRecordSet.exe \
+  UpdateSQL.exe TableAdapter.exe SchemaAdapter.exe UPD_CachedUpdates.exe \
+  AutoInc.exe Commands.exe GettingStarted.exe MappingColumns.exe \
+  Ora_StoredProc.exe AddRelation.exe AddTable.exe AggregatesInView.exe \
+  DatS_AutoInc.exe CalcColSimple.exe CalcColumnFuncs.exe ChildRelations.exe \
+  CompareRows.exe CreateRows.exe CreateTable.exe CreateView.exe \
+  GetChanges.exe DatS_MasterDetail.exe MasterDetAutoInc.exe Mechanisms.exe \
+  RowFilter.exe AcceptChanges.exe Search.exe TableUpdates.exe Clients.exe \
+  Moni_Main.exe IADPhys_Batch.exe IADPhys_Async.exe EscapeFunctions.exe \
+  FetchTables.exe IADPhys_Macros.exe CreateConnection.exe IADPhys_Pooling.exe \
+  IADPhys_Transactions.exe Meta_Indices.exe Meta_StoredProc.exe Meta_Tables.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+
+CloneCursor.exe: Comp Layer\TADClientDataSet\CloneCursor\CloneCursor.dpr
+  $(DCC)
+
+CDS_Main.exe: Comp Layer\TADClientDataSet\Main\CDS_Main.dpr
+  $(DCC)
+
+GetFieldNames.exe: Comp Layer\TADConnection\GetFieldNames\GetFieldNames.dpr
+  $(DCC)
+
+Pooling.exe: Comp Layer\TADConnection\Pooling\Pooling.dpr
+  $(DCC)
+
+Transactions.exe: Comp Layer\TADConnection\Transactions\Transactions.dpr
+  $(DCC)
+
+LoginDialog.exe: Comp Layer\TADGUIxFormsLoginDialog\Main\LoginDialog.dpr
+  $(DCC)
+
+MetaInfo.exe: Comp Layer\TADMetaInfoQuery\Main\MetaInfo.dpr
+  $(DCC)
+
+Aggregates.exe: Comp Layer\TADQuery\Aggregates\Aggregates.dpr
+  $(DCC)
+
+Blobs.exe: Comp Layer\TADQuery\Blobs\Blobs.dpr
+  $(DCC)
+
+Async.exe: Comp Layer\TADQuery\ExecSQL\Async\Async.dpr
+  $(DCC)
+
+Batch.exe: Comp Layer\TADQuery\ExecSQL\Batch\Batch.dpr
+  $(DCC)
+
+Filter.exe: Comp Layer\TADQuery\Filter\Filter.dpr
+  $(DCC)
+
+Indices.exe: Comp Layer\TADQuery\Indices\Indices.dpr
+  $(DCC)
+
+Macros.exe: Comp Layer\TADQuery\Macros\Macros.dpr
+  $(DCC)
+
+NestedCursors.exe: Comp Layer\TADQuery\Oracl_NestedCursors\NestedCursors.dpr
+  $(DCC)
+
+NextRecordSet.exe: Comp Layer\TADStoredProc\Oracl_NextRecordSet\NextRecordSet.dpr
+  $(DCC)
+
+UpdateSQL.exe: Comp Layer\TADStoredProc\Oracl_UpdateSQL\UpdateSQL.dpr
+  $(DCC)
+
+TableAdapter.exe: Comp Layer\TADTableAdapter\Main\TableAdapter.dpr
+  $(DCC)
+
+SchemaAdapter.exe: Comp Layer\TADSchemaAdapter\Main\SchemaAdapter.dpr
+  $(DCC)
+
+UPD_CachedUpdates.exe: Comp Layer\TADUpdateSQL\Main\UPD_CachedUpdates.dpr
+  $(DCC)
+
+AutoInc.exe: DApt Layer\Autoinc fields\AutoInc.dpr
+  $(DCC)
+
+Commands.exe: DApt Layer\Commands\Commands.dpr
+  $(DCC)
+
+GettingStarted.exe: DApt Layer\GettingStarted\GettingStarted.dpr
+  $(DCC)
+
+MappingColumns.exe: DApt Layer\MappingColumns\MappingColumns.dpr
+  $(DCC)
+
+Ora_StoredProc.exe: DApt Layer\Oracl_StoredProc\Ora_StoredProc.dpr
+  $(DCC)
+
+AddRelation.exe: DatS Layer\AddRelation\AddRelation.dpr
+  $(DCC)
+
+AddTable.exe: DatS Layer\AddTableAndConstr\AddTable.dpr
+  $(DCC)
+
+AggregatesInView.exe: DatS Layer\AggregatesInView\AggregatesInView.dpr
+  $(DCC)
+
+DatS_AutoInc.exe: DatS Layer\AutoInc\DatS_AutoInc.dpr
+  $(DCC)
+
+CalcColSimple.exe: DatS Layer\CalcColumnSimple\CalcColSimple.dpr
+  $(DCC)
+
+CalcColumnFuncs.exe: DatS Layer\CalcColumnWithFuncs\CalcColumnFuncs.dpr
+  $(DCC)
+
+ChildRelations.exe: DatS Layer\ChildRelations\ChildRelations.dpr
+  $(DCC)
+
+CompareRows.exe: DatS Layer\CompareRows\CompareRows.dpr
+  $(DCC)
+
+CreateRows.exe: DatS Layer\CreateRows\CreateRows.dpr
+  $(DCC)
+
+CreateTable.exe: DatS Layer\CreateTable\CreateTable.dpr
+  $(DCC)
+
+CreateView.exe: DatS Layer\CreateView\CreateView.dpr
+  $(DCC)
+
+GetChanges.exe: DatS Layer\GetChanges\GetChanges.dpr
+  $(DCC)
+
+DatS_MasterDetail.exe: DatS Layer\MasterDetail\DatS_MasterDetail.dpr
+  $(DCC)
+
+Mechanisms.exe: DatS Layer\Mechanisms\Mechanisms.dpr
+  $(DCC)
+
+RowFilter.exe: DatS Layer\RowFilter\RowFilter.dpr
+  $(DCC)
+
+AcceptChanges.exe: DatS Layer\SchemaAcceptChanges\AcceptChanges.dpr
+  $(DCC)
+
+Search.exe: DatS Layer\SearchingInView\Search.dpr
+  $(DCC)
+
+TableUpdates.exe: DatS Layer\TableUpdates\TableUpdates.dpr
+  $(DCC)
+
+Moni_Main.exe: Moni Layer\Main\Moni_Main.dpr
+  $(DCC)
+
+IADPhys_Batch.exe: Phys Layer\IADPhysCommand\Batch\IADPhys_Batch.dpr
+  $(DCC)
+
+IADPhys_Async.exe: Phys Layer\IADPhysCommand\Async\IADPhys_Async.dpr
+  $(DCC)
+
+EscapeFunctions.exe: Phys Layer\IADPhysCommand\Escapefunctions\EscapeFunctions.dpr
+  $(DCC)
+
+FetchTables.exe: Phys Layer\IADPhysCommand\FetchTables\FetchTables.dpr
+  $(DCC)
+
+IADPhys_Macros.exe: Phys Layer\IADPhysCommand\Macros\IADPhys_Macros.dpr
+  $(DCC)
+
+Meta_Indices.exe: Phys Layer\IADPhysMetaInfoCommand\Indices\Meta_Indices.dpr
+  $(DCC)
+
+Meta_StoredProc.exe: Phys Layer\IADPhysMetaInfoCommand\StoredProc\Meta_StoredProc.dpr
+  $(DCC)
+
+Meta_Tables.exe: Phys Layer\IADPhysMetaInfoCommand\Tables\Meta_Tables.dpr
+  $(DCC)
+
+ConnectionDefinitions.exe: Comp Layer\TADConnection\ConnectionDefs\ConnectionDefinitions.dpr
+  $(DCC)
+
+Main.exe: Comp Layer\TADDataMove\Main\Main.dpr
+  $(DCC)
+
+Qry_CachedUpdates.exe: Comp Layer\TADQuery\CachedUpdates\OnUpdateRecord\Qry_CachedUpdates.dpr
+  $(DCC)
+
+Qry_MasterDetail.exe: Comp Layer\TADQuery\MasterDetail\Qry_MasterDetail.dpr
+  $(DCC)
+
+Clients.exe: Moni Layer\Clients\Clients.dpr
+  $(DCC)
+
+CDS_CachedUpdates.exe: Comp Layer\TADClientDataSet\CachedUpdates\CDS_CachedUpdates.dpr
+  $(DCC)
+
+CDS_MasterDetail.exe: Comp Layer\TADClientDataSet\MasterDetail\CDS_MasterDetail.dpr
+  $(DCC)
+
+MasterDetAutoInc.exe: DatS Layer\MasterDetAutoInc\MasterDetAutoInc.dpr
+  $(DCC)
+
+CreateConnection.exe: Phys Layer\IADPhysConnection\CreateConnection\CreateConnection.dpr
+  $(DCC)
+
+IADPhys_Pooling.exe: Phys Layer\IADPhysConnection\Pooling\IADPhys_Pooling.dpr
+  $(DCC)
+
+IADPhys_Transactions.exe: Phys Layer\IADPhysConnection\Transactions\IADPhys_Transactions.dpr
+  $(DCC)
+
+

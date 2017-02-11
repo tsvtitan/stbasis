@@ -1,0 +1,188 @@
+<?xml version="1.0" standalone="yes"?>
+
+<ProgramGS ID="TAPRProgramGS">
+	<Version Int="20"/>
+	<StreamFlags Int="0"/>
+	<Enabled Bool="True"/>
+	<Comment Str=""/>
+
+	<VariableListGS ID="">
+		<Enabled Bool="True"/>
+	</VariableListGS>
+
+	<InstructionListGS ID="">
+		<Enabled Bool="True"/>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1"/>
+			<ContentType Int="1"/>
+			<Value Str="Aggregates"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName"/>
+			<ContentType Int="1"/>
+			<Value Str="A_CNT"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggExp&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggExp"/>
+			<ContentType Int="1"/>
+			<Value Str="count(*)"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName"/>
+			<ContentType Int="1"/>
+			<Value Str="I_CN"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel"/>
+			<ContentType Int="1"/>
+			<Value Str="1"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:cbxAggActive&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:cbxAggActive"/>
+			<ContentType Int="1"/>
+			<Value Str="Checked"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2"/>
+			<ContentType Int="1"/>
+			<Value Str="A_CNT"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName"/>
+			<ContentType Int="1"/>
+			<Value Str="A_CNT2"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName"/>
+			<ContentType Int="1"/>
+			<Value Str=""/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel"/>
+			<ContentType Int="1"/>
+			<Value Str="0"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd&apos; control1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2"/>
+			<ContentType Int="1"/>
+			<Value Str="A_CNT2"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName&apos; control value2">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggName"/>
+			<ContentType Int="1"/>
+			<Value Str="A_MIN"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName&apos; control value2">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggIndexName"/>
+			<ContentType Int="1"/>
+			<Value Str="I_ST"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggExp&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggExp"/>
+			<ContentType Int="1"/>
+			<Value Str="min(CustNo)"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel&apos; control value2">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:edtAggGrpLevel"/>
+			<ContentType Int="1"/>
+			<Value Str="1"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd&apos; control2">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:btnAggAdd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2&apos; control value2">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet2.N:ListBox2"/>
+			<ContentType Int="1"/>
+			<Value Str="A_MIN"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+	</InstructionListGS>
+
+	<ModuleListGS ID="">
+		<Enabled Bool="True"/>
+	</ModuleListGS>
+</ProgramGS>

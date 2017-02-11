@@ -1,0 +1,53 @@
+inherited fmRBSync_Office: TfmRBSync_Office
+  Left = 550
+  Top = 232
+  Width = 500
+  Caption = ''
+  Constraints.MinWidth = 500
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnBackGrid: TPanel
+    Width = 492
+    inherited pnBut: TPanel
+      Left = 408
+      inherited pnModal: TPanel
+        inherited bibView: TButton
+          OnClick = bibViewClick
+        end
+      end
+      inherited pnSQL: TPanel
+        inherited bibAdd: TButton
+          OnClick = bibAddClick
+        end
+        inherited bibChange: TButton
+          OnClick = bibChangeClick
+        end
+        inherited bibDel: TButton
+          OnClick = bibDelClick
+        end
+      end
+    end
+    inherited pnGrid: TPanel
+      Width = 408
+    end
+  end
+  inherited pnFind: TPanel
+    Width = 492
+    inherited edSearch: TEdit
+      Anchors = [akLeft, akTop, akBottom]
+    end
+  end
+  inherited pnBottom: TPanel
+    Width = 492
+    inherited bibOk: TButton
+      Left = 329
+    end
+    inherited bibClose: TButton
+      Left = 411
+    end
+  end
+  inherited Mainqr: TIBQuery
+    CachedUpdates = True
+    UpdateObject = IBUpd
+  end
+end

@@ -1,0 +1,134 @@
+unit UPms_United;
+
+interface
+
+{$I stbasis.inc}
+
+uses Classes;
+
+var
+  cnppNN,cnppWaterName,cnppHeatName,cnppStyleName,
+  cnppDateArrivals,cnppRegionName,{}cnppCityRegion{},cnppStreetName,cnppHouseNumber,cnppApartmentNumber,
+  cnppCountRoomName,cnppTypeRoomName,cnppPlanningName,cnppPhoneName,cnppSaleStatusName,
+  cnppDocumentName,cnppFloor,cnppCountFloor,cnppTypeHouseName,cnppGeneralArea,
+  cnppDwellingArea,cnppgroundArea,
+  cnppKitchenArea,cnppBalconyName,cnppConditionName,cnppStoveName,cnppSanitaryNodeName,
+  cnppSelfFormName,cnppTypePremises,cnppPrice,cnppUnitPriceName,cnppNote,{by BART}
+  cnppAreaBuilding, cnppPopulatedPoint, cnppLandFeature, cnppExchangeFormula,
+  cnppLocationStatus, cnppLandMark, cnppCommunications, cnppEmail, cnppEmail2, cnppLeaseOrSale,
+  cnppAdvertismentNote, cnppTaxesName,{} cnppObject, cnppDirection, cnppAccessWays, cnppRemoteness {by BART},
+  cnppContact,cnppContact2,
+  cnppClientInfo,cnppClientInfo2,cnppAgentName,cnppStationName,cnppDateTimeInsert,cnppWhoInsertName,
+  cnppDateTimeUpdate,cnppWhoUpdateName,cnppDateRecyledOut,cnppFurnitureName,cnppTerm,
+  cnppPayment,cnppTypePremisesname,cnppDoorName,cnppPriceUnitPrice,cnppContactClientInfo,
+  cnppFloorCountFloorTypeHouseName,cnppGeneralDwellingKitchenArea,cnppPaymentTerm,
+  cnppBuilderName,cnppDelivery,cnppPrice2, cnppDecoration,cnppGlassy,cnppBlockSection
+
+
+  : Integer;
+
+  function GetColumnPremisesName(Index: Integer): string;
+
+
+implementation
+
+var
+  ColumnsPremises: TStringList;
+
+  function GetColumnPremisesName(Index: Integer): string;
+  begin
+    Result:='';
+    if (Index>=0)or(Index<=ColumnsPremises.Count-1) then
+      Result:=ColumnsPremises.Strings[Index];
+  end;
+
+  function AddToColumnsPremises(Name: String): Integer;
+  begin
+    Result:=ColumnsPremises.Add(Name);
+  end;
+
+
+initialization
+  ColumnsPremises:=TStringList.Create;
+  cnppDateArrivals:=AddToColumnsPremises('Дата поступления');
+  cnppRegionName:=AddToColumnsPremises('Район');
+ {by BART}
+  cnppCityRegion:=AddToColumnsPremises('Район города');
+  cnppTaxesName:=AddToColumnsPremises('Налог');
+  cnppAreaBuilding:=AddToColumnsPremises('Постройки');
+  cnppPopulatedPoint:=AddToColumnsPremises('Населенный пункт');
+  cnppLandFeature:=AddToColumnsPremises('Назначение');
+  cnppExchangeFormula:=AddToColumnsPremises('Формула обмена');
+  cnppLocationStatus:=AddToColumnsPremises('Статус расположения');
+  cnppLandMark:=AddToColumnsPremises('Ориентир');
+  cnppCommunications:=AddToColumnsPremises('Электричество');
+  cnppEmail:=AddToColumnsPremises('E@mail(1)');
+  cnppEmail2:=AddToColumnsPremises('E@mail(2)');
+  cnppLeaseOrSale:=AddToColumnsPremises('Ар/Пр');
+  cnppObject:=AddToColumnsPremises('Объект');
+  cnppDirection:=AddToColumnsPremises('Направление');
+  cnppAccessWays:=AddToColumnsPremises('Подъездные пути');
+  cnppRemoteness:=AddToColumnsPremises('Удаленность');
+ {byBaRT}
+  cnppStreetName:=AddToColumnsPremises('Улица');
+  cnppHouseNumber:=AddToColumnsPremises('Дом');
+  cnppApartmentNumber:=AddToColumnsPremises('Квартира');
+  cnppCountRoomName:=AddToColumnsPremises('Количество комнат');
+  cnppTypeRoomName:=AddToColumnsPremises('Тип комнат');
+  cnppPlanningName:=AddToColumnsPremises('Планировка');
+  cnppPhoneName:=AddToColumnsPremises('Телефон');
+  cnppSaleStatusName:=AddToColumnsPremises('Статус продажи');
+  cnppDocumentName:=AddToColumnsPremises('Документы');
+  cnppFloor:=AddToColumnsPremises('Этаж');
+  cnppCountFloor:=AddToColumnsPremises('Этажность');
+  cnppTypeHouseName:=AddToColumnsPremises('Тип дома');
+  cnppGeneralArea:=AddToColumnsPremises('Общая площадь');
+  cnppDwellingArea:=AddToColumnsPremises('Жилая площадь');
+  cnppKitchenArea:=AddToColumnsPremises('Площадь кухни');
+  cnppBalconyName:=AddToColumnsPremises('Балкон');
+  cnppConditionName:=AddToColumnsPremises('Ремонт');
+  cnppStoveName:=AddToColumnsPremises('Плита');
+  cnppSanitaryNodeName:=AddToColumnsPremises('Санузел');
+  cnppSelfFormName:=AddToColumnsPremises('Форма собственности');
+  cnppTypePremises:=AddToColumnsPremises('Тип недвижимости');
+  cnppPrice:=AddToColumnsPremises('Цена');
+  cnppUnitPriceName:=AddToColumnsPremises('Единица измерения цены');
+  cnppNote:=AddToColumnsPremises('Примечание');
+  cnppAdvertismentNote:=AddToColumnsPremises('Примечание для рекламы');
+  cnppContact:=AddToColumnsPremises('Контакт(1)');
+  cnppClientInfo:=AddToColumnsPremises('Клиент(1)');
+  cnppContact2:=AddToColumnsPremises('Контакт(2)');
+  cnppClientInfo2:=AddToColumnsPremises('Клиент(2)');
+  cnppAgentName:=AddToColumnsPremises('Агент');
+  cnppStationName:=AddToColumnsPremises('Статус временный');
+  cnppDateTimeInsert:=AddToColumnsPremises('Дата и время ввода');
+  cnppWhoInsertName:=AddToColumnsPremises('Кто ввел');
+  cnppDateTimeUpdate:=AddToColumnsPremises('Дата и время изменения');
+  cnppWhoUpdateName:=AddToColumnsPremises('Кто изменил');
+  cnppDateRecyledOut:=AddToColumnsPremises('Дата извлечения из корзины');
+  cnppFurnitureName:=AddToColumnsPremises('Мебель');
+  cnppTerm:=AddToColumnsPremises('Срок');
+  cnppPayment:=AddToColumnsPremises('Оплата за');
+  cnppTypePremisesname:=AddToColumnsPremises('Тип недвижимости');
+  cnppDoorName:=AddToColumnsPremises('Дверь');
+  cnppPriceUnitPrice:=AddToColumnsPremises('Цена и единица измерения');
+  cnppContactClientInfo:=AddToColumnsPremises('Контакт и клиент');
+  cnppFloorCountFloorTypeHouseName:=AddToColumnsPremises('Этаж/Этажность Тип дома');
+  cnppGeneralDwellingKitchenArea:=AddToColumnsPremises('Площадь Общая/Жилая/Кухни');
+  cnppPaymentTerm:=AddToColumnsPremises('Оплата за/Срок');
+  cnppNN:=AddToColumnsPremises('№№');
+  cnppgroundArea:=AddToColumnsPremises('Площадь зем.участка');
+  cnppWaterName:=AddToColumnsPremises('Водоснабжение');
+  cnppHeatName:=AddToColumnsPremises('Отопление');
+  cnppStyleName:=AddToColumnsPremises('Стиль');
+  cnppBuilderName:=AddToColumnsPremises('Застройщик');
+  cnppDelivery:=AddToColumnsPremises('Сдача');
+  cnppPrice2:=AddToColumnsPremises('Цена за м2');
+  cnppDecoration:=AddToColumnsPremises('Отделка');
+  cnppGlassy:=AddToColumnsPremises('Остекление');
+  cnppBlockSection:=AddToColumnsPremises('Блок секция');
+
+finalization
+  ColumnsPremises.Free;
+
+end.

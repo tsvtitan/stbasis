@@ -1,0 +1,13 @@
+[OS]
+Windows
+
+[Files]
+ClientMainForm.pas
+ServerMainForm.pas
+ClientMainForm.dfm
+ServerMainForm.dfm
+UDPClient.dpr
+UDPClient.res
+UDPDemo.bpg
+UDPServer.dpr
+UDPServer.res

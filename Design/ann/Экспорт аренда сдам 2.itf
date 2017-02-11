@@ -1,0 +1,431 @@
+Ёкспорт аренда сдам 2Ёкспорт аренда сдам 2&{0921F68E-E564-4172-A84A-5D6237FC32D5}ю)unit Main;
+
+interface
+
+implementation
+
+procedure ViewInterface;
+begin
+//  ViewByRelease(172);
+end;
+
+procedure FillRange(Sheet: Variant; CurrentRow: Integer; CountRoomName: String;
+                    qrPremises: TiIBQuery; List: TStringList);
+var
+  SRow: String;
+  S: String;
+  Note: String;
+  LandMark: String;
+  SanitaryNode: String;
+  Price: String;
+  TypePhone: String;
+  Str: TStringList;
+  i: Integer;
+begin
+  try
+    SRow:=IntToStr(CurrentRow);
+    Sheet.Range['A'+SRow].Value:=CountRoomName;
+    Sheet.Range['B'+SRow].Value:=qrPremises.FieldByName('STREET_NAME').AsString;
+
+    LandMark:=qrPremises.FieldByName('LANDMARK_NAME').AsString;
+    Note:=qrPremises.FieldByName('NOTE').AsString;
+    SanitaryNode:=qrPremises.FieldByName('TYPE_SANITARY_NAME').AsString;
+    Price:=qrPremises.FieldByName('PRICE').AsString;
+    TypePhone:=qrPremises.FieldByName('TYPE_PHONE_NAME').AsString;
+
+    S:='';
+    if (Trim(LandMark)<>'') then
+      S:=Trim(LandMark);
+    if (Trim(SanitaryNode)<>'') then
+      S:=Trim(S+iff(Trim(S)<>'',', ','')+Trim(SanitaryNode));
+  {  if (Trim(Price)<>'') then
+      S:=Trim(S+iff(Trim(S)<>'',', ','')+Trim(Price)); }
+    if (Trim(TypePhone)<>'') then
+      S:=Trim(S+iff(Trim(S)<>'',', ','')+Trim(TypePhone));
+    if (Trim(Note)<>'') then
+      S:=Trim(S+iff(Trim(S)<>'',', ','')+Trim(Note));
+
+    if Length(S)>30 then
+      S:=Copy(S,1,30);
+
+    Sheet.Range['C'+SRow].Value:=S;
+    S:=qrPremises.FieldByName('AGENCY_EXPORT').AsString;
+    Sheet.Range['D'+SRow].Value:=Price;
+  
+    Str:=TStringList.Create;
+    try
+      FillWordsByString(qrPremises.FieldByName('PREMISES_PHONES').AsString,Str);
+      if Str.Count>0 then begin
+        Sheet.Range['E'+SRow].Value:=Str.Strings[0];
+      end;
+    finally
+      Str.Free;
+    end;
+
+  except
+    on E: Exception do begin
+      S:=CountRoomName+'-'+
+         qrPremises.FieldByName('STREET_NAME').AsString+'-'+
+         qrPremises.FieldByName('PRICE').AsString+'-'+
+         qrPremises.FieldByName('PREMISES_PHONES').AsString+'-'+
+         qrPremises.FieldByName('AGENCY_NAME').AsString;
+      CreateLogItem(S,tliError);
+      ShowErrorEx(E.Message);
+    end;
+  end;
+end;
+
+procedure DeleteEmptyRows(Sheet: Variant; List: TStringList);
+var
+  Range: Variant;
+  Row: Integer;
+  SRow1: String;
+  SRowPrev1: String;
+  i: Integer;
+  Progress: THandle;
+begin
+  Progress:=CreateProgressBar(0,List.Count,'',clNavy);
+  try
+    for i:=0 to List.Count-1 do begin
+      Row:=StrToInt(List.Strings[i])-i;
+      SRow1:=IntToStr(Row);
+      SRowPrev1:=IntToStr(Row-1);
+      Range:=Sheet.Range['A'+SRowPrev1+':G'+SRowPrev1];
+      Range.Borders(9).LineStyle:=1;
+      Range:=Sheet.Rows(SRow1+':'+SRow1);
+      Range.Delete;
+      SetProgressBarStatus(Progress,i+1,List.Count,'');
+    end;
+  finally
+    FreeProgressBar(Progress);
+  end;
+end;
+
+procedure ViewByRelease(ReleaseId: Integer);
+var
+  Book: Variant;
+  Sheet: Variant;
+  Range: Variant;
+  Excel: Variant;
+  qrCountRoom: TiIBQuery;
+  trCountRoom: TiIBTransaction;
+  qrRegion: TiIBQuery;
+  trRegion: TiIBTransaction;
+  qrPremises: TiIBQuery;
+  trPremises: TiIBTransaction;
+  sqls: string;
+  SRange: String;
+  RegionName: String;
+  RegionId: String;
+  OldRegionId: String;
+  CountRoomName: String;
+  CountRoomId: String;
+  OldCountRoomId: String;
+  CountRoomProgress: THandle;
+  RegionProgress: THanlde;
+  CurrentRow: Integer;
+  CountRoomI: Integer;
+  RegionI: Integer;
+  PremisesI: Integer;
+  FirstRegionRange: Variant;
+  FirstPremisesRange: Variant;
+  FlagFirst: Boolean;
+  AllCount: Integer;
+  List: TStringList;
+const
+  SDefaultTranParams='read_committed'+#13+
+                     'rec_version'+#13+
+                     'nowait';
+  SOperationId=17; // јренда сдам
+begin
+  qrRegion:=TiIBQuery.Create(nil);
+  trRegion:=TiIBTransaction.Create(nil);
+  qrCountRoom:=TiIBQuery.Create(nil);
+  trCountRoom:=TiIBTransaction.Create(nil);
+  qrPremises:=TiIBQuery.Create(nil);
+  trPremises:=TiIBTransaction.Create(nil);
+  try
+
+    qrRegion.Database:=MainDataBase;
+    MainDataBase.AddTransaction(trRegion);
+    trRegion.AddDatabase(MainDataBase);
+    trRegion.Params.Text:=SDefaultTranParams;
+    qrRegion.Transaction:=trRegion;
+    trRegion.Active:=true;
+    sqls:='SELECT AP_REGION_ID, NAME FROM AP_REGION '+
+           'WHERE AP_REGION_ID IN '+
+           '(SELECT AP_REGION_ID FROM AP_PREMISES WHERE RELEASE_ID='+IntToStr(ReleaseId)+' '+
+                                                  'AND AP_OPERATION_ID='+SOperationId+') '+
+           'ORDER BY PRIORITY';
+    qrRegion.Sql.Add(sqls);
+    qrRegion.Active:=true;
+    qrRegion.FetchAll;
+
+    qrCountRoom.Database:=MainDataBase;
+    MainDataBase.AddTransaction(trCountRoom);
+    trCountRoom.AddDatabase(MainDataBase);
+    trCountRoom.Params.Text:=SDefaultTranParams;
+    qrCountRoom.Transaction:=trCountRoom;
+    trCountRoom.Active:=true;
+    sqls:='SELECT AP_COUNTROOM_ID, NAME FROM AP_COUNTROOM '+
+           'WHERE AP_COUNTROOM_ID IN (SELECT AP_COUNTROOM_ID FROM AP_PREMISES WHERE RELEASE_ID='+IntToStr(ReleaseId)+') '+
+           'ORDER BY PRIORITY';
+    qrCountRoom.Sql.Add(sqls);
+    qrCountRoom.Active:=true;
+    qrCountRoom.FetchAll;
+
+    qrPremises.Database:=MainDataBase;
+    MainDataBase.AddTransaction(trPremises);
+    trPremises.AddDatabase(MainDataBase);
+    trPremises.Params.Text:=SDefaultTranParams;
+    qrPremises.Transaction:=trPremises;
+    trPremises.Active:=true;
+
+    if not qrCountRoom.IsEmpty then begin
+      List:=TStringList.Create;
+      CountRoomProgress:=CreateProgressBar(0,qrCountRoom.RecordCount,'',clNavy);
+      Book:=CreateDocumentByName('јренда сдам',false);
+      try
+        Excel:=Book.Application;
+        Excel.Windows(Book.Name).Visible:=true;
+        Sheet:=Book.ActiveSheet;
+        FirstRegionRange:=Sheet.Rows('2:2');
+        FirstPremisesRange:=Sheet.Rows('3:3');
+        CurrentRow:=3;
+        CountRoomI:=1;
+        FlagFirst:=true;
+        AllCount:=0;
+
+        qrCountRoom.First;
+        while not qrCountRoom.Eof do begin
+          CountRoomName:=qrCountRoom.FieldByName('NAME').AsString;
+          CountRoomId:=qrCountRoom.FieldByName('AP_COUNTROOM_ID').AsString;
+          RegionI:=1;
+          qrRegion.First;
+          RegionProgress:=CreateProgressBar(0,qrRegion.RecordCount,'',clBlue);
+          try
+            while not qrRegion.Eof do begin
+              RegionName:=qrRegion.FieldByName('NAME').AsString;
+              RegionId:=qrRegion.FieldByName('AP_REGION_ID').AsString;
+
+              qrPremises.Active:=false;
+              trPremises.Active:=false;
+              sqls:='SELECT S.NAME AS STREET_NAME, '+
+                            'L.NAME AS LANDMARK_NAME, '+
+                            'TS.NAME AS TYPE_SANITARY_NAME, '+
+                            'TP.NAME AS TYPE_PHONE_NAME, '+
+                            'P.PRICE, '+
+                            'P.PHONES AS PREMISES_PHONES, '+
+                            'P.NOTE, '+
+                            'R.NAME AS REGION_NAME, '+
+                            'A.NAME AS AGENCY_NAME, '+
+                            'A.EXPORT AS AGENCY_EXPORT '+
+                      'FROM AP_PREMISES P LEFT JOIN '+
+                      'AP_STREET S ON P.AP_STREET_ID=S.AP_STREET_ID LEFT JOIN '+
+                      'AP_REGION R ON P.AP_REGION_ID=R.AP_REGION_ID LEFT JOIN '+
+                      'AP_LANDMARK L ON P.AP_LANDMARK_ID=L.AP_LANDMARK_ID LEFT JOIN '+
+                      'AP_TYPE_PHONE TP ON P.AP_TYPE_PHONE_ID=TP.AP_TYPE_PHONE_ID LEFT JOIN '+
+                      'AP_TYPE_SANITARY TS ON P.AP_TYPE_SANITARY_ID=TS.AP_TYPE_SANITARY_ID LEFT JOIN '+
+                      'AP_AGENCY A ON P.AP_AGENCY_ID=A.AP_AGENCY_ID '+
+                     'WHERE P.RELEASE_ID='+IntToStr(ReleaseId)+' '+
+                       'AND P.AP_OPERATION_ID='+SOperationId+' '+
+                       'AND P.AP_COUNTROOM_ID='+CountRoomId+' '+
+                       'AND P.AP_REGION_ID='+RegionId+' '+
+                     'ORDER BY S.NAME';
+              
+              qrPremises.Sql.Text:=sqls;
+              trPremises.Active:=true;
+              qrPremises.Active:=true;
+
+              PremisesI:=1;
+              qrPremises.First;
+              while not qrPremises.Eof do begin
+                
+                if FlagFirst then begin
+                  OldCountRoomId:=CountRoomId;
+                  FlagFirst:=false;
+                  FirstRegionRange.Value:=RegionName;
+                  FillRange(Sheet,CurrentRow,CountRoomName,qrPremises,List);
+                  Inc(CurrentRow,1);
+                end else begin
+                  if (OldCountRoomId<>CountRoomId) then begin
+                    OldCountRoomId:=CountRoomId;
+                    Inc(CurrentRow);
+                  end;
+
+                  if (OldRegionId<>RegionId) then begin
+                    OldRegionId:=RegionId;
+                    FirstRegionRange.Copy;
+                    SRange:=IntToStr(CurrentRow)+':'+IntToStr(CurrentRow);
+                    Range:=Sheet.Rows(SRange);
+                    Range.Select;
+                    Sheet.Paste;
+                    Range.ClearContents;
+                    Range.Value:=RegionName;
+                    Inc(CurrentRow);
+                  end;
+
+                  FirstPremisesRange.Copy;
+                  SRange:=IntToStr(CurrentRow)+':'+IntToStr(CurrentRow+1);
+                  Range:=Sheet.Rows(SRange);
+                  Range.Select;
+                  Sheet.Paste;
+                  Range.ClearContents;
+                  FillRange(Sheet,CurrentRow,CountRoomName,qrPremises,List);
+                  Inc(CurrentRow,1);
+                end;
+
+                qrPremises.Next;
+                Inc(PremisesI);
+                Inc(AllCount);
+              end;
+              SetProgressBarStatus(RegionProgress,RegionI,qrRegion.RecordCount,'');
+              qrRegion.Next;
+              Inc(RegionI);
+            end;
+          finally
+            FreeProgressBar(RegionProgress);
+          end;
+          SetProgressBarStatus(CountRoomProgress,CountRoomI,qrCountRoom.RecordCount,'');
+          qrCountRoom.Next;
+          Inc(CountRoomI);
+        end;
+      finally
+        FreeProgressBar(CountRoomProgress);
+        DeleteEmptyRows(Sheet,List);
+        ShowInfoEx('Ёкспортировано: '+AllCount);
+        Excel.Visible:=true;
+        Excel.WindowState:=3;
+        List.Free;
+      end;
+    end;
+  finally
+    trPremises.Free;
+    qrPremises.Free;
+    trCountRoom.Free;
+    qrCountRoom.Free;
+    trRegion.Free;
+    qrRegion.Free;
+  end;
+end;
+
+end.
+ (BDOC    (  –ѕа°±б                >  ю€	                               ю€€€        €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€э€€€   ю€€€               	   
+         ю€€€ю€€€            ю€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€R o o t   E n t r y                                               €€€€€€€€         ј      F            АlZg™°«   А       O l e                                                         
+ €€€€€€€€€€€€                                                C o m p O b j                                                        €€€€                                       a       W o r k b o o k                                                  €€€€€€€€€€€€                                       {      ю€€€   ю€€€               	   
+                                                                      !   "   #   $   %   ю€€€'   (   )   ю€€€+   ,   -   ю€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€                  р≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Ї ю€
+  €€€€      ј      F   Ћист Microsoft Excel    Biff8    Excel.Sheet.8 ф9≤q            р≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Ї€€€€         €€€€       p
+  g  d   	  2                      y f    	       €€€                '€€       '€€       €€€    	       '€€       €€€    	       x e        '€€       €€€    	       x e        '€€       €€€    	       x e   	   ЭЌЅА    б  ∞Ѕ    в   \ p   WWW                                                                                                          B  ∞a   ј  =  Ь   ё                   ѓ   Љ   =  ÷>?Б$8      X@    Н    "       Ј   Џ    1 " »   €Р    ћ 	A r i a l   C y r 1 " »   €Р    ћ 	A r i a l   C y r 1 " »   €Р    ћ 	A r i a l   C y r 1 " »   €Р    ћ 	A r i a l   C y r /   # , # # 0 " @. " ; \ - # , # # 0 " @. " 9   # , # # 0 " @. " ; [ R e d ] \ - # , # # 0 " @. " ;   # , # # 0 . 0 0 " @. " ; \ - # , # # 0 . 0 0 " @. " E    # , # # 0 . 0 0 " @. " ; [ R e d ] \ - # , # # 0 . 0 0 " @. " k * 3 _ - *   # , # # 0 " @. " _ - ; \ - *   # , # # 0 " @. " _ - ; _ - *   " - " " @. " _ - ; _ - @ _ - k ) 3 _ - *   # , # # 0 _ @_ . _ - ; \ - *   # , # # 0 _ @_ . _ - ; _ - *   " - " _ @_ . _ - ; _ - @ _ - { , ; _ - *   # , # # 0 . 0 0 " @. " _ - ; \ - *   # , # # 0 . 0 0 " @. " _ - ; _ - *   " - " ? ? " @. " _ - ; _ - @ _ - { + ; _ - *   # , # # 0 . 0 0 _ @_ . _ - ; \ - *   # , # # 0 . 0 0 _ @_ . _ - ; _ - *   " - " ? ? _ @_ . _ - ; _ - @ _ - а      х€            ј а     х€   ф        ј а     х€   ф        ј а     х€   ф        ј а     х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а      х€   ф        ј а                   ј а   , х€   ш        ј а   * х€   ш        ј а   	 х€   ш        ј а   + х€   ш        ј а   ) х€   ш        ј а           @ @   ј а       "  0@ @   ј У А€У А€У  А €У А€У А€У А€`   Е  Е    8AB1 М    Ѕ Ѕ  TН ь c        : C;8F0 >@85=B8@,   ?@8<5G0=85 D8@<0 B5;5D>=€ 
+       
+   	   ЭЌЅА         d          ь©с“MbP?_   *    +    В   А          %   € Б  Ѕ      Г    Д    ° "   €               а?      а?  U   }          }    I   }    m'   }    Т   }                            €            €            €       э 
+          э 
+        э 
+        э 
+        э 
+        Њ           Њ           „ 
+ ™   ( F  > ґ    @                    е 
+       п    7   
+      э 
+        э 
+        э 
+        Њ         ~
+       р?э 
+       э 
+       э 
+       ~
+    ю∆/ „ 
+ и   ( F   > ґ    @                    е 
+       п    7   
+     €               а?      а?  U   }          }    I   }    m'   }    Т   }                            €            €            €            €            €            €            €            €            €        	    €        
+    €            €            €            €            €       э 
+          э 
+        э 
+        э 
+        э 
+        э 
+        Њ         ~
+       р?э 
+       э 
+       э 
+       ~
+    ю∆/ ~
+       р?э 
+       э 
+    	   э 
+    
+   ~
+     ≈A~
+       р?э 
+       э 
+       э 
+       ~
+    ¶І/ ~
+       р?э 
+       э 
+       э 
+    
+   ~
+    јјA~
+       р?э 
+       э 
+       э 
+    
+   ~
+    |г'A~
+       р?э 
+       э 
+       э 
+       ~
+    ю∆/ ~
+       р?э 
+       э 
+    	   э 
+    
+   ~
+     ≈A~
+ 	      р?э 
+ 	      э 
+ 	      э 
+ 	      ~
+ 	   ¶І/ ~
+ 
+      р?э 
+ 
+      э 
+ 
+      э 
+ 
+   
+   ~
+ 
+   јјA~
+       р?э 
+       э 
+       э 
+    
+   ~
+    |г'A~
+       р?э 
+       э 
+       э 
+       ~
+    ю∆/ ~
+       р?э 
+       э 
+    	   э 
+    
+   ~
+     ≈A~
+       р?э 
+       э 
+       э 
+       ~
+    ¶І/ „ "    F   F F F F F F F F F F F F > ґ    @                    е 
+       п    7   
+   Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Ї O l e P r e s 0 0 0                                                   €€€€                                       ¶       S u m m a r y I n f o r m a t i o n                           ( €€€€   €€€€                                    &   »        D o c u m e n t S u m m a r y I n f o r m a t i o n           8  €€€€€€€€€€€€                                    *   м                                                                           €€€€€€€€€€€€                                                   ыу€      Р   ћ    Arial Cyr                          -          	   2
+     кЈ    2
+     улица         ы      Љ   ћ"System          х    г         -    '€€       -     €€€    	       " e              2
+         -    '€€       -     €€€    	       x e      -    '€€       -     €€€    	       x e        ь  јјј      -    	јјј    јјј            ъ      јјј    -                 ъ             -    @	! р                -               -    @	! р               -      d     d    -    @	! р           d    ь           -    	       €€€    р    ъ             -          4      -    @	! р       #        -    #     4     -    @	! р         #     -    # d    4 d    -    @	! р         # d    -    р    	јјј    јјј    р    ъ      јјј    -    4      y      -    @	! р       E  4      -    4     y     -    @	! р       E  4     -    4 d    y d    -    @	! р       E  4 d    -             f    -    @	! р        f        ь           -    	       €€€    р    ъ             -          f    -    @	! р        e      -    "     " f    -    @	! р        e "     -    3     3 f    -    @	! р        e 3     -    р    	јјј    јјј    р    ъ      јјј    -    D      D f    -    @	! р        f D      -    U      U f    -    @	! р        f U      -    f      f f    -    @	! р        f f      -    w      w f    -    @	! р        f w      ь           -    -    '€€       -     јјј    	јјј    x e      '€€                       NANI    ≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їю€                      аЕЯтщOhЂС +'≥ў0   Ш         @      H      T      `      x      Д      Р      г        WWW       WWW       Microsoft Excel @   АЗ_±сw«@   А’—тw«       р≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їю€                      ’Ќ’Ь.УЧ +,щЃ0   Љ   	      P      X      d      l      t      |      Д      М      Ю      г        WWW    A
+
+                                     Ћист1            Ћисты       р≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠Їр≠ЇT
+!јренда сдамјренда сдамExcel.Sheet.8

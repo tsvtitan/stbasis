@@ -1,0 +1,9 @@
+[Options]
+Windows
+
+[Files]
+main.dfm
+main.pas
+ParseURI.dpr
+ParseURI.res
+

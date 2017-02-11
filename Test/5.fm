@@ -1,0 +1,103 @@
+object fm: Tfm
+  Left = 0
+  Top = 0
+  Width = 301
+  Height = 240
+  Caption = 'Новая форма'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    00FF00FFF80007FF00FF00FFF80007FF00F000FFF80007FF00F000FFF80007FF
+    000F00FFF80007FF000F00FFF80007FF00FF00FFF80007FF00FF00F0000007FF
+    00FF00F7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  Visible = True
+  PixelsPerInch = 96
+  TextHeight = 13
+  object iButton1: TiButton
+    Left = 208
+    Top = 24
+    Width = 75
+    Height = 25
+    Caption = 'iButton1'
+    TabOrder = 0
+  end
+  object iTSVDBGrid1: TiTSVDBGrid
+    Left = 0
+    Top = 61
+    Width = 293
+    Height = 152
+    Align = alBottom
+    ColumnSortEnabled = True
+    DataSource = iDataSource1
+    DefaultDrawing = False
+    DefaultRowHeight = 17
+    MultiSelect = False
+    ReadOnly = True
+    RowSelected.Font.Charset = DEFAULT_CHARSET
+    RowSelected.Font.Color = clWindow
+    RowSelected.Font.Height = -11
+    RowSelected.Font.Name = 'MS Sans Serif'
+    RowSelected.Font.Style = []
+    RowSelected.Brush.Color = clBlack
+    RowSelected.Pen.Style = psClear
+    RowSelected.Visible = True
+    CellSelected.Font.Charset = DEFAULT_CHARSET
+    CellSelected.Font.Color = clHighlightText
+    CellSelected.Font.Height = -11
+    CellSelected.Font.Name = 'MS Sans Serif'
+    CellSelected.Font.Style = []
+    CellSelected.Brush.Color = clHighlight
+    CellSelected.Pen.Style = psClear
+    CellSelected.Visible = True
+    TitleCellMouseDown.Font.Charset = DEFAULT_CHARSET
+    TitleCellMouseDown.Font.Color = clWindowText
+    TitleCellMouseDown.Font.Height = -11
+    TitleCellMouseDown.Font.Name = 'MS Sans Serif'
+    TitleCellMouseDown.Font.Style = []
+    TitleCellMouseDown.Brush.Color = clBtnFace
+    TitleCellMouseDown.Visible = True
+    RowSizing = True
+    RowHeight = 0
+    SelectedCells = <>
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    VisibleRowNumber = True
+  end
+  object RBookInterface1: TRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    InterfaceName = 'Справочник контрагентов'
+    ReturnData = iRxMemoryData1
+    Locate.KeyFields = 'INN'
+    Locate.KeyValues = '1714001354'
+    Locate.Options = [loCaseInsensitive]
+    Left = 40
+    Top = 8
+  end
+  object iRxMemoryData1: TiRxMemoryData
+    FieldDefs = <>
+    Left = 72
+    Top = 8
+  end
+  object iDataSource1: TiDataSource
+    DataSet = iRxMemoryData1
+    Left = 8
+    Top = 8
+  end
+end

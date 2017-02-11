@@ -1,0 +1,130 @@
+================= Logging started at 7/11/2003 12:57:30 ==================
+Created release folders
+InstallShield (R) Script Compiler
+Version 7.3.0.131
+Copyright (C) 1990-2001 InstallShield Software Corporation
+
+Compiling...
+Setup.rul
+Linking...
+Setup.inx - 0 error(s), 0 warning(s)
+AdminExecuteSequence table successfully built
+AdminUISequence table successfully built
+AdvtExecuteSequence table successfully built
+AdvtUISequence table successfully built
+InstallExecuteSequence table successfully built
+InstallUISequence table successfully built
+Directory table successfully built
+Feature table successfully built
+FeatureComponents table successfully built
+Component table successfully built
+Loading File table
+Building File table
+File table successfully built
+Building MsiFileHash table
+MsiFileHash table successfully built
+Class table successfully built
+Extension table successfully built
+ODBCDataSource table successfully built
+ODBCDriver table successfully built
+ActionText table successfully built
+AppSearch table successfully built
+BindImage table successfully built
+CCPSearch table successfully built
+Condition table successfully built
+AppId table successfully built
+Property table successfully built
+BBControl table successfully built
+Billboard table successfully built
+Binary table successfully built
+CompLocator table successfully built
+Complus table successfully built
+ControlCondition table successfully built
+ControlEvent table successfully built
+CreateFolder table successfully built
+CustomAction table successfully built
+Error table successfully built
+DrLocator table successfully built
+DuplicateFile table successfully built
+Environment table successfully built
+EventMapping table successfully built
+FileSFPCatalog table successfully built
+Font table successfully built
+IniFile table successfully built
+IniLocator table successfully built
+IsolatedComponent table successfully built
+ISSelfReg table successfully built
+LaunchCondition table successfully built
+LockPermissions table successfully built
+Media table successfully built
+MIME table successfully built
+MoveFile table successfully built
+MsiAssembly table successfully built
+MsiAssemblyName table successfully built
+MsiDigitalCertificate table successfully built
+MsiDigitalSignature table successfully built
+ODBCAttribute table successfully built
+ODBCSourceAttribute table successfully built
+ODBCTranslator table successfully built
+Patch table successfully built
+PatchPackage table successfully built
+ProgId table successfully built
+PublishComponent table successfully built
+Registry table successfully built
+RegLocator table successfully built
+RemoveFile table successfully built
+RemoveIniFile table successfully built
+RemoveRegistry table successfully built
+ReserveCost table successfully built
+SelfReg table successfully built
+ServiceControl table successfully built
+ServiceInstall table successfully built
+SFPCatalog table successfully built
+Shortcut table successfully built
+Signature table successfully built
+TextStyle table successfully built
+TypeLib table successfully built
+UIText table successfully built
+Upgrade table successfully built
+Verb table successfully built
+_Validation table successfully built
+Searching project for extract-at-build components...
+Dialog AdminChangeFolder for language Russian built
+Dialog AdminNetworkLocation for language Russian built
+Dialog AdminWelcome for language Russian built
+Dialog CancelSetup for language Russian built
+Dialog CustomSetup for language Russian built
+Dialog CustomSetupTips for language Russian built
+Dialog CustomerInformation for language Russian built
+Dialog DatabaseFolder for language Russian built
+Dialog DestinationFolder for language Russian built
+Dialog DiskSpaceRequirements for language Russian built
+Dialog FilesInUse for language Russian built
+Dialog InstallChangeFolder for language Russian built
+Dialog InstallWelcome for language Russian built
+Dialog LicenseAgreement for language Russian built
+Dialog MaintenanceType for language Russian built
+Dialog MaintenanceWelcome for language Russian built
+Dialog OutOfSpace for language Russian built
+Dialog PatchWelcome for language Russian built
+Dialog ReadyToInstall for language Russian built
+Dialog ReadyToRemove for language Russian built
+Dialog RunAllDialog for language Russian built
+Dialog SetupCompleteError for language Russian built
+Dialog SetupCompleteSuccess for language Russian built
+Dialog SetupError for language Russian built
+Dialog SetupInitialization for language Russian built
+Dialog SetupInterrupted for language Russian built
+Dialog SetupProgress for language Russian built
+Dialog SetupResume for language Russian built
+Dialog SetupType for language Russian built
+Dialog SplashBitmap for language Russian built
+Resolving strings...
+Language Russian built
+Building CAB files...
+Data1.cab built
+Files built
+Media table successfully built
+Setup.exe created
+Product Configuration 1\Release 1 build completed with 0 errors, 0 warnings
+================= Logging stopped at 7/11/2003 12:59:40 ==================

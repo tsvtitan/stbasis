@@ -1,0 +1,22 @@
+if exist Build\_compileEnv.bat del Build\_compileEnv.bat
+set temp=%prevTemp%
+set tmp=%prevTmp%
+set cmp=
+set reg=
+set tool=
+set integr=
+set pack=
+set bpl=
+set dcp=
+set libd=
+set apppath=
+set appname=
+set def_bpl=
+set def_dcp=
+set SYNEDIT_DCU=
+set SYNEDIT_DCP=
+set SYNEDIT_BPI=
+set INDY_DCU=
+set INDY_DCP=
+set INDY_BPI=
+set DAADMONITOR=

@@ -1,0 +1,39 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = stbasis.exe sicktsv.dll cmptstsv.dll designtsv.dll systsv.dll \
+  intrprtsv.dll invalidtsv.dll
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+stbasis.exe: stbasis.dpr
+  $(DCC)
+
+sicktsv.dll: sicktsv.dpr
+  $(DCC)
+
+invalidtsv.dll: invalidtsv.dpr
+  $(DCC)
+
+cmptstsv.dll: cmptstsv.dpr
+  $(DCC)
+
+designtsv.dll: designtsv.dpr
+  $(DCC)
+
+intrprtsv.dll: intrprtsv.dpr
+  $(DCC)
+
+systsv.dll: systsv.dpr
+  $(DCC)
+
+

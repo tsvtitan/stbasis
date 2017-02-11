@@ -1,0 +1,295 @@
+Ёкспорт недвижимостиЁкспорт недвижимости в Excel&{0921F68E-E564-4172-A84A-5D6237FC32D5}Aunit Main;
+{ модуль разработан ‘»ќ }
+
+interface
+
+
+procedure fmStatClose(Sender: TObject; var Action: TCloseAction);
+procedure fmStatbtCloseClick(Sender: TObject);
+procedure fmStatbtReleaseClick(Sender: TObject);
+procedure fmStatbtRunClick(Sender: TObject);
+
+implementation
+
+var
+  NumRelease: Integer;
+
+procedure SetRelease;
+begin
+  fmStat.rbi.Visual.TypeView:=tviOnlyData;
+  fmStat.rbi.Condition.WhereStr.Clear;
+  fmStat.rbi.Condition.WhereStr.Add(' release_id='+fmStat.edRelease.Tag+' ');
+  if fmStat.rbi.View then begin
+    if not fmStat.memd.IsEmpty then begin
+      NumRelease:=fmStat.memd.FieldByName('numrelease').AsInteger;
+      fmStat.edRelease.Text:=Trim(fmStat.memd.FieldByName('about').AsString+
+                             ' ('+fmStat.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure ViewInterface;
+begin
+  if fmStat.FormStyle<>fsMDIChild then begin
+    fmStat.cmbReports.ItemIndex:=ReadParam(GetInterfaceName,fmStat.cmbReports.Name,fmStat.cmbReports.ItemIndex);
+    fmStat.edRelease.Tag:=ReadParam(GetInterfaceName,fmStat.edRelease.Name,fmStat.edRelease.Tag);
+    SetRelease;
+    fmStat.FormStyle:=fsMDIChild;
+  end else begin
+    fmStat.WindowState:=wsNormal;
+    fmStat.BringToFront;
+    fmStat.Show;
+  end;
+end;
+
+procedure fmStatClose(Sender: TObject; var Action: TCloseAction);
+begin
+  WriteParam(GetInterfaceName,fmStat.cmbReports.Name,fmStat.cmbReports.ItemIndex);
+  WriteParam(GetInterfaceName,fmStat.edRelease.Name,fmStat.edRelease.Tag);
+  Action:=caFree;
+end;
+
+procedure fmStatbtCloseClick(Sender: TObject);
+begin
+  fmStat.Close;
+end;
+
+procedure fmStatbtReleaseClick(Sender: TObject);
+begin
+  fmStat.rbi.Visual.TypeView:=tvibvModal;
+  fmStat.rbi.Condition.WhereStr.Clear;
+  fmStat.rbi.Locate.KeyFields:='release_id';
+  fmStat.rbi.Locate.KeyValues:=fmStat.edRelease.Tag;
+  fmStat.rbi.InterfaceName:='—правочник выпусков';
+  if fmStat.rbi.View then begin
+    if not fmStat.memd.IsEmpty then begin
+      fmStat.edRelease.Tag:=fmStat.memd.FieldByName('release_id').AsInteger;
+      NumRelease:=fmStat.memd.FieldByName('numrelease').AsInteger;
+      fmStat.edRelease.Text:=Trim(fmStat.memd.FieldByName('about').AsString+
+                             ' ('+fmStat.memd.FieldByName('numrelease').AsString+')');
+    end;
+  end;
+end;
+
+procedure ReportShow;
+begin
+  Screen.Cursor:=crHourGlass;
+  try
+    fmStat.siSplash.View;
+    Sleep(1000);
+    fmStat.rpt.InterfaceName:=fmStat.cmbReports.Text;
+    fmStat.rpt.ExecProcedure.Params.Items[0].Value:=fmStat.edRelease.Tag;
+    fmStat.rpt.ExecProc;
+  finally
+    fmStat.siSplash.Close;
+    Screen.Cursor:=crDefault;
+  end;
+end;
+
+procedure fmStatbtRunClick(Sender: TObject);
+begin
+  if fmStat.cmbReports.ItemIndex=-1 then begin
+    ShowErrorEx('¬ыберите отчет.');
+  end;
+  ReportShow;
+end;
+
+end.
+Рobject fmStat: TfmStat
+  Left = 67
+  Top = 100
+  ActiveControl = btRun
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Ёкспорт недвижимости'
+  ClientHeight = 99
+  ClientWidth = 342
+  Color = clBtnFace
+  Constraints.MaxHeight = 133
+  Constraints.MaxWidth = 350
+  Constraints.MinWidth = 350
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -1
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000000000000078888888888880007FFFFFFFFFFF80007FF
+    00FF00FFF80007FF00F00FFFF80007FF0000FFFFF80007FF000FFFFFF80007FF
+    0000FFFFF80007FF00FF0FFFF80007FF00FF0FFFF80007FF00FF0FF0000007FF
+    0000FFF7880007FFFFFFFFF7800007FFFFFFFFF700000777777777770000FFFF
+    0000800100008001000080010000800100008001000080010000800100008001
+    0000800100008001000080010000800100008003000080070000800F0000}
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnClose = fmStatClose
+  EnabledAdjust = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbRelease: TiLabel
+    Left = 22
+    Top = 16
+    Width = 41
+    Height = 13
+    Alignment = taRightJustify
+    Caption = '¬ыпуск:'
+    FocusControl = edRelease
+  end
+  object lbReports: TiLabel
+    Left = 26
+    Top = 44
+    Width = 37
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'ќтчеты'
+    FocusControl = cmbReports
+  end
+  object edRelease: TiEdit
+    Left = 73
+    Top = 13
+    Width = 145
+    Height = 21
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object btRelease: TiButton
+    Left = 224
+    Top = 13
+    Width = 21
+    Height = 21
+    Caption = '...'
+    TabOrder = 1
+    OnClick = fmStatbtReleaseClick
+  end
+  object btRun: TiButton
+    Left = 144
+    Top = 68
+    Width = 107
+    Height = 25
+    Hint = '—формировать отчет'
+    Anchors = [akRight, akBottom]
+    Caption = '—формировать'
+    Default = True
+    TabOrder = 3
+    OnClick = fmStatbtRunClick
+  end
+  object btClose: TiButton
+    Left = 260
+    Top = 68
+    Width = 75
+    Height = 25
+    Hint = '«акрыть'
+    Anchors = [akRight, akBottom]
+    Caption = '«акрыть'
+    TabOrder = 4
+    OnClick = fmStatbtCloseClick
+  end
+  object cmbReports: TiComboBox
+    Left = 72
+    Top = 39
+    Width = 260
+    Height = 21
+    Style = csDropDownList
+    ItemHeight = 13
+    TabOrder = 2
+    Items.Strings = (
+      'Ёкспорт готовое продам в RTF'
+      'Ёкспорт аренда сдам в RTF'
+      'Ёкспорт долевое продам в RTF')
+    EnabledDown = False
+    ItemIndex = -1
+  end
+  object rbi: TiRBookInterface
+    Visual.TypeView = tvibvModal
+    Visual.MultiSelect = False
+    ReturnData = memd
+    Locate.Options = []
+    ExecProcedure.Params = <>
+    InterfaceName = '—правочник выпусков'
+    Left = 153
+    Top = 24
+  end
+  object memd: TitsvMemoryData
+    FieldDefs = <>
+    Left = 121
+    Top = 24
+  end
+  object qrStat: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'select outwhoin as whoin,'
+      '          outdate as indate,'
+      '          outflag as flag,'
+      '          outcount as ct'
+      'from getannouncementstatistic(:release_id);')
+    Left = 48
+    Top = 64
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'release_id'
+        ParamType = ptUnknown
+      end>
+  end
+  object tran: TiIBTransaction
+    Active = False
+    DefaultDatabase = MainDataBase.Owner
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    AutoStopAction = saNone
+    Left = 88
+    Top = 64
+  end
+  object qrPrev: TiIBQuery
+    Database = MainDataBase.Owner
+    Transaction = tran
+    BufferChunks = 1000
+    CachedUpdates = False
+    SQL.Strings = (
+      'select count(*) from announcement a join release r'
+      'on a.release_id=r.release_id'
+      
+        'where (r.numrelease<:numrelease and (r.numrelease+a.copyprint)>:' +
+        'numrelease )')
+    Left = 8
+    Top = 64
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'numrelease'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'numrelease'
+        ParamType = ptUnknown
+      end>
+  end
+  object siSplash: TiServiceInterface
+    ExecProcedure.Params = <>
+    InterfaceName = '«аставка'
+    Left = 88
+    Top = 24
+  end
+  object rpt: TiReportInterface
+    ExecProcedure.Name = 'ViewByRelease'
+    ExecProcedure.Params = <
+      item
+        ParamName = 'ReleaseId'
+        Value = 0
+      end>
+    Left = 192
+    Top = 24
+  end
+end
+fmStat 

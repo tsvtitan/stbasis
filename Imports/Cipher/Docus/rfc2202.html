@@ -1,0 +1,403 @@
+<html><head><title>RFC 2202</title></head>
+<body><pre>
+Network Working Group                                          P. Cheng
+Request for Comments: 2202                                          IBM
+Category: Informational                                        R. Glenn
+                                                                   NIST
+                                                         September 1997
+</pre>
+<dt><em><a name="page-1">Page 1</a></em><dd><p>
+<h3>Test Cases for HMAC-MD5 and HMAC-SHA-1</h3>
+<dl>
+<p>
+<dt>Status of This Memo<dd>
+<p>
+   This memo provides information for the Internet community.  This memo
+   does not specify an Internet standard of any kind.  Distribution of
+   this memo is unlimited.
+<p>
+<dt>Abstract<dd>
+<p>
+   This document provides two sets of test cases for HMAC-MD5 and HMAC-
+   SHA-1, respectively. HMAC-MD5 and HMAC-SHA-1 are two constructs of
+   the HMAC [HMAC] message authentication function using the MD5 [MD5]
+   hash function and the SHA-1 [SHA] hash function. Both constructs are
+   used by IPSEC [OG,CG] and other protocols to authenticate messages.
+   The test cases and results provided in this document are meant to be
+   used as a conformance test for HMAC-MD5 and HMAC-SHA-1
+<br>
+   implementations.
+<p>
+<dt><strong><a name="sec-1.">1.</a> Introduction</strong><dd>
+<p>
+   The general method for constructing a HMAC message authentication
+   function using a particular hash function is described in section 2
+   of [HMAC]. We will not repeat the description here. Section 5 of
+   [HMAC] also discusses truncating the output of HMAC; the rule is that
+   we should keep the more significant bits (the bits in the left,
+   assuming a network byte order (big-endian)).
+<p>
+   In sections 2 and 3 we provide test cases for HMAC-MD5 and HMAC-SHA-
+   1, respectively. Each case includes the key, the data, and the
+   result.  The values of keys and data are either hexadecimal numbers
+   (prefixed by &quot;0x&quot;) or ASCII character strings in double quotes. If a
+   value is an ASCII character string, then the HMAC computation for the
+   corresponding test case DOES NOT include the trailing null character
+   ('\0') in the string.
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-2">Page 2</a></em><dd><p>
+   The C source code of the functions used to generate HMAC-SHA-1
+   results is listed in the Appendix. Note that these functions are
+   meant to be simple and easy to understand; they are not optimized in
+   any way. The C source code for computing HMAC-MD5 can be found in
+   [MD5]; or you can do a simple modification to HMAC-SHA-1 code to get
+   HMAC-MD5 code, as explained in the Appendix.
+<p>
+   The test cases in this document are cross-verified by three
+   independent implementations, one from NIST and two from IBM Research.
+   One IBM implementation uses optimized code that is very different
+   from the code in the Appendix. An implemenation that concurs with the
+   results provided in this document should be interoperable with other
+   similar implemenations.  We do not claim that such an implementation
+   is absolutely correct with respect to the HMAC definition in [HMAC].
+<p>
+<dt><strong><a name="sec-2.">2.</a> Test Cases for HMAC-MD5</strong><dd>
+<p>
+<dt>test_case =     1<dd>
+<dt>key =           0x0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b<dd>
+<dt>key_len =       16<dd>
+<dt>data =          &quot;Hi There&quot;<dd>
+<dt>data_len =      8<dd>
+<dt>digest =        0x9294727a3638bb1c13f48ef8158bfc9d<dd>
+<p>
+<dt>test_case =     2<dd>
+<dt>key =           &quot;Jefe&quot;<dd>
+<dt>key_len =       4<dd>
+<dt>data =          &quot;what do ya want for nothing?&quot;<dd>
+<dt>data_len =      28<dd>
+<dt>digest =        0x750c783e6ab0b503eaa86e310a5db738<dd>
+<p>
+<dt>test_case =     3<dd>
+<dt>key =           0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<dd>
+<dt>key_len         16<dd>
+<dt>data =          0xdd repeated 50 times<dd>
+<dt>data_len =      50<dd>
+<dt>digest =        0x56be34521d144c88dbb8c733f0e8b3f6<dd>
+<p>
+<dt>test_case =     4<dd>
+<dt>key =           0x0102030405060708090a0b0c0d0e0f10111213141516171819<dd>
+<dt>key_len         25<dd>
+<dt>data =          0xcd repeated 50 times<dd>
+<dt>data_len =      50<dd>
+<dt>digest =        0x697eaf0aca3a3aea3a75164746ffaa79<dd>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-3">Page 3</a></em><dd><p>
+<dt>test_case =     5<dd>
+<dt>key =           0x0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c<dd>
+<dt>key_len =       16<dd>
+<dt>data =          &quot;Test With Truncation&quot;<dd>
+<dt>data_len =      20<dd>
+<dt>digest =        0x56461ef2342edc00f9bab995690efd4c<dd>
+<dt>digest-96       0x56461ef2342edc00f9bab995<dd>
+<p>
+<dt>test_case =     6<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key - Hash Key First&quot;<dd>
+<dt>data_len =      54<dd>
+<dt>digest =        0x6b1ab7fe4bd7bf8f0b62e6ce61b9d0cd<dd>
+<p>
+<dt>test_case =     7<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key and Larger<dd>
+                Than One Block-Size Data&quot;
+<br>
+<dt>data_len =      73<dd>
+<dt>digest =        0x6f630fad67cda0ee1fb1f562db3aa53e<dd>
+<p>
+<dt><strong><a name="sec-3.">3.</a> Test Cases for HMAC-SHA-1</strong><dd>
+<p>
+<dt>test_case =     1<dd>
+<dt>key =           0x0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b<dd>
+<dt>key_len =       20<dd>
+<dt>data =          &quot;Hi There&quot;<dd>
+<dt>data_len =      8<dd>
+<dt>digest =        0xb617318655057264e28bc0b6fb378c8ef146be00<dd>
+<p>
+<dt>test_case =     2<dd>
+<dt>key =           &quot;Jefe&quot;<dd>
+<dt>key_len =       4<dd>
+<dt>data =          &quot;what do ya want for nothing?&quot;<dd>
+<dt>data_len =      28<dd>
+<dt>digest =        0xeffcdf6ae5eb2fa2d27416d5f184df9c259a7c79<dd>
+<p>
+<dt>test_case =     3<dd>
+<dt>key =           0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<dd>
+<dt>key_len =       20<dd>
+<dt>data =          0xdd repeated 50 times<dd>
+<dt>data_len =      50<dd>
+<dt>digest =        0x125d7342b9ac11cd91a39af48aa17b4f63f175d3<dd>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-4">Page 4</a></em><dd><p>
+<dt>test_case =     4<dd>
+<dt>key =           0x0102030405060708090a0b0c0d0e0f10111213141516171819<dd>
+<dt>key_len =       25<dd>
+<dt>data =          0xcd repeated 50 times<dd>
+<dt>data_len =      50<dd>
+<dt>digest =        0x4c9007f4026250c6bc8414f9bf50c86c2d7235da<dd>
+<p>
+<dt>test_case =     5<dd>
+<dt>key =           0x0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c<dd>
+<dt>key_len =       20<dd>
+<dt>data =          &quot;Test With Truncation&quot;<dd>
+<dt>data_len =      20<dd>
+<dt>digest =        0x4c1a03424b55e07fe7f27be1d58bb9324a9a5a04<dd>
+<dt>digest-96 =     0x4c1a03424b55e07fe7f27be1<dd>
+<p>
+<dt>test_case =     6<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key - Hash Key First&quot;<dd>
+<dt>data_len =      54<dd>
+<dt>digest =        0xaa4ae5e15272d00e95705637ce8a3b55ed402112<dd>
+<p>
+<dt>test_case =     7<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key and Larger<dd>
+                Than One Block-Size Data&quot;
+<br>
+<dt>data_len =      73<dd>
+<dt>digest =        0xe8e99d0f45237d786d6bbaa7965c7808bbff1a91<dd>
+<dt>data_len =      20<dd>
+<dt>digest =        0x4c1a03424b55e07fe7f27be1d58bb9324a9a5a04<dd>
+<dt>digest-96 =     0x4c1a03424b55e07fe7f27be1<dd>
+<p>
+<dt>test_case =     6<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key - Hash Key<dd>
+<dt>First&quot;<dd>
+<dt>data_len =      54<dd>
+<dt>digest =        0xaa4ae5e15272d00e95705637ce8a3b55ed402112<dd>
+<p>
+<dt>test_case =     7<dd>
+<dt>key =           0xaa repeated 80 times<dd>
+<dt>key_len =       80<dd>
+<dt>data =          &quot;Test Using Larger Than Block-Size Key and Larger<dd>
+                Than One Block-Size Data&quot;
+<br>
+<dt>data_len =      73<dd>
+<dt>digest =        0xe8e99d0f45237d786d6bbaa7965c7808bbff1a91<dd>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-5">Page 5</a></em><dd><p>
+<dt><strong><a name="sec-4.">4.</a> Security Considerations</strong><dd>
+<p>
+   This docuemnt raises no security issues. Discussion on the strength
+   of the HMAC construction can be found in [HMAC].
+<p>
+<dt>References<dd>
+<p>
+<pre>
+   [HMAC]    Krawczyk, H., Bellare, M., and R. Canetti,
+             &quot;HMAC: Keyed-Hashing for Message Authentication&quot;,
+             RFC 2104, February 1997.
+
+   [MD5]     Rivest, R., &quot;The MD5 Message-Digest Algorithm&quot;,
+             RFC 1321, April 1992.
+
+   [SHA]     NIST, FIPS PUB 180-1: Secure Hash Standard, April 1995.
+
+   [OG]      Oehler, M., and R. Glenn,
+             &quot;HMAC-MD5 IP Authentication with Replay Prevention&quot;,
+             RFC 2085, February 1997.
+
+   [CG]      Chang, S., and R. Glenn,
+             &quot;HMAC-SHA IP Authentication with Replay Prevention&quot;,
+             Work in Progress.
+</pre>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-6">Page 6</a></em><dd><p>
+<dt>Authors' Addresses<dd>
+<p>
+   Pau-Chen Cheng
+<br>
+   IBM T.J. Watson Research Center
+<br>
+<dt><strong><a name="sec-P.O.Box">P.O.Box</a> 704</strong><dd>
+   Yorktown Heights, NY 10598
+<p>
+   EMail: <a href="mailto:pau@watson.ibm.com">pau@watson.ibm.com</a>
+<p>
+   Robert Glenn
+<br>
+   NIST
+<br>
+   Building 820, Room 455
+<br>
+   Gaithersburg, MD 20899
+<p>
+   EMail: <a href="mailto:rob.glenn@nist.gov">rob.glenn@nist.gov</a>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-7">Page 7</a></em><dd><p>
+<dt>Appendix<dd>
+<p>
+   This appendix contains the C reference code which implements HMAC-
+   SHA-1 using an existing SHA-1 library.  It assumes that the SHA-1
+   library has similar API's as those of the MD5 code described in RFC
+   1321.  The code for HMAC-MD5 is similar, just replace the strings
+   &quot;SHA&quot; and &quot;sha&quot; with &quot;MD5&quot; and &quot;md5&quot;. HMAC-MD5 code is also listed in
+   <a href="rfc2104.html">RFC 2104</a>.
+<p>
+   #ifndef SHA_DIGESTSIZE
+<br>
+   #define SHA_DIGESTSIZE  20
+<br>
+   #endif
+<p>
+   #ifndef SHA_BLOCKSIZE
+<pre>
+   #define SHA_BLOCKSIZE   64
+   #endif
+</pre>
+<p>
+   #ifndef MD5_DIGESTSIZE
+<br>
+   #define MD5_DIGESTSIZE  16
+<br>
+   #endif
+<p>
+   #ifndef MD5_BLOCKSIZE
+<pre>
+   #define MD5_BLOCKSIZE   64
+   #endif
+
+   /* Function to print the digest */
+   void
+   pr_sha(FILE* fp, char* s, int t)
+   {
+           int     i ;
+</pre>
+<p>
+           fprintf(fp, &quot;0x&quot;) ;
+<br>
+           for (i = 0 ; i &lt; t ; i++)
+<br>
+                   fprintf(fp, &quot;%02x&quot;, s[i]) ;
+<br>
+           fprintf(fp, &quot;0) ;
+<br>
+   }
+<p>
+   void truncate
+<br>
+   (
+<pre>
+    char*   d1,   /* data to be truncated */
+    char*   d2,   /* truncated data */
+    int     len   /* length in bytes to keep */
+   )
+   {
+           int     i ;
+           for (i = 0 ; i &lt; len ; i++) d2[i] = d1[i];
+   }
+</pre>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-8">Page 8</a></em><dd><p>
+<pre>
+   /* Function to compute the digest */
+   void
+   hmac_sha
+   (
+    char*    k,     /* secret key */
+    int      lk,    /* length of the key in bytes */
+    char*    d,     /* data */
+    int      ld,    /* length of data in bytes */
+    char*    out,   /* output buffer, at least &quot;t&quot; bytes */
+    int      t
+   )
+   {
+           SHA_CTX ictx, octx ;
+           char    isha[SHA_DIGESTSIZE], osha[SHA_DIGESTSIZE] ;
+           char    key[SHA_DIGESTSIZE] ;
+           char    buf[SHA_BLOCKSIZE] ;
+           int     i ;
+</pre>
+<p>
+           if (lk &gt; SHA_BLOCKSIZE) {
+<p>
+<pre>
+                   SHA_CTX         tctx ;
+</pre>
+<p>
+                   SHAInit(&amp;tctx) ;
+<br>
+                   SHAUpdate(&amp;tctx, k, lk) ;
+<br>
+                   SHAFinal(key, &amp;tctx) ;
+<p>
+                   k = key ;
+<br>
+                   lk = SHA_DIGESTSIZE ;
+<br>
+           }
+<p>
+<pre>
+           /**** Inner Digest ****/
+</pre>
+<p>
+           SHAInit(&amp;ictx) ;
+<p>
+<pre>
+           /* Pad the key for inner digest */
+           for (i = 0 ; i &lt; lk ; ++i) buf[i] = k[i] ^ 0x36 ;
+           for (i = lk ; i &lt; SHA_BLOCKSIZE ; ++i) buf[i] = 0x36 ;
+</pre>
+<p>
+           SHAUpdate(&amp;ictx, buf, SHA_BLOCKSIZE) ;
+<br>
+           SHAUpdate(&amp;ictx, d, ld) ;
+<p>
+           SHAFinal(isha, &amp;ictx) ;
+<p>
+<pre>
+           /**** Outter Digest ****/
+</pre>
+<p>
+           SHAInit(&amp;octx) ;
+<p>
+<pre>
+           /* Pad the key for outter digest */
+</pre>
+<p>
+<dt><hr><dd>
+<dt><em><a name="page-9">Page 9</a></em><dd><p>
+           for (i = 0 ; i &lt; lk ; ++i) buf[i] = k[i] ^ 0x5C ;
+           for (i = lk ; i &lt; SHA_BLOCKSIZE ; ++i) buf[i] = 0x5C ;
+<p>
+           SHAUpdate(&amp;octx, buf, SHA_BLOCKSIZE) ;
+<br>
+           SHAUpdate(&amp;octx, isha, SHA_DIGESTSIZE) ;
+<p>
+           SHAFinal(osha, &amp;octx) ;
+<p>
+<pre>
+           /* truncate and print the results */
+           t = t &gt; SHA_DIGESTSIZE ? SHA_DIGESTSIZE : t ;
+           truncate(osha, out, t) ;
+           pr_sha(stdout, out, t) ;
+</pre>
+<p>
+   }
+<p>
+<dt><hr><dd>
+</dl>
+</body></html>

@@ -1,0 +1,36 @@
+inherited fmRBGroupmil: TfmRBGroupmil
+  Caption = 'Справочник групп воинского учета'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnBackGrid: TPanel
+    inherited pnBut: TPanel
+      inherited pnModal: TPanel
+        inherited bibView: TBitBtn
+          OnClick = bibViewClick
+        end
+        inherited bibRefresh: TBitBtn
+          OnClick = bibRefreshClick
+        end
+      end
+      inherited pnSQL: TPanel
+        inherited bibAdd: TBitBtn
+          OnClick = bibAddClick
+        end
+        inherited bibChange: TBitBtn
+          OnClick = bibChangeClick
+        end
+        inherited bibDel: TBitBtn
+          OnClick = bibDelClick
+        end
+      end
+    end
+  end
+  inherited pnFind: TPanel
+    inherited edSearch: TEdit
+      Anchors = [akLeft, akTop, akBottom]
+    end
+  end
+  inherited IBTran: TIBTransaction
+    Left = 168
+  end
+end

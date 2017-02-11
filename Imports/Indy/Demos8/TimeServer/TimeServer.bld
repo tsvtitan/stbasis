@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+TimeServer.dpr
+TimeServer.res
+main.dfm
+main.pas

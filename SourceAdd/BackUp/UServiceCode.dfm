@@ -1,0 +1,19 @@
+object StbasisName: TStbasisName
+  OldCreateOrder = False
+  OnCreate = ServiceCreate
+  OnDestroy = ServiceDestroy
+  DisplayName = 'StbasisBackUp'
+  Interactive = True
+  BeforeInstall = ServiceBeforeInstall
+  BeforeUninstall = ServiceBeforeUninstall
+  OnContinue = ServiceContinue
+  OnExecute = ServiceExecute
+  OnPause = ServicePause
+  OnShutdown = ServiceShutdown
+  OnStart = ServiceStart
+  OnStop = ServiceStop
+  Left = 262
+  Top = 189
+  Height = 540
+  Width = 783
+end

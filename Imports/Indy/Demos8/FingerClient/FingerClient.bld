@@ -1,0 +1,8 @@
+[OS]
+Windows
+
+[Files]
+fingerclient.dpr
+fingerclient.res
+main.dfm
+main.pas

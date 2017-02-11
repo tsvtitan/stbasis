@@ -1,0 +1,220 @@
+unit UEditRBPurpose;
+
+interface
+{$I stbasis.inc}
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  UEditRB, StdCtrls, Buttons, ExtCtrls, IBServices, IBQuery, db, IBDatabase, IB,
+  ComCtrls,tsvStdCtrls, tsvComCtrls;
+
+type
+  TfmEditRBPurpose = class(TfmEditRB)
+    lbName: TLabel;
+    edName: TEdit;
+    lbNote: TLabel;
+    edNote: TEdit;
+    lbAmount: TLabel;
+    edAmount: TEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure edNameChange(Sender: TObject);
+    procedure edNameKeyPress(Sender: TObject; var Key: Char);
+    procedure edAmountChange(Sender: TObject);
+    procedure edAmountKeyPress(Sender: TObject; var Key: Char);
+  protected
+    function AddToRBooks: Boolean; override;
+    function UpdateRBooks: Boolean; override;
+    function CheckFieldsFill: Boolean; override;
+  public
+    fmParent: TForm;
+    oldpurpose_id: Integer;
+    procedure AddClick(Sender: TObject); override;
+    procedure ChangeClick(Sender: TObject); override;
+    procedure FilterClick(Sender: TObject); override;
+  end;
+
+var
+  fmEditRBPurpose: TfmEditRBPurpose;
+
+implementation
+
+uses UPaymentCode, UPaymentData, UMainUnited, URBPurpose;
+
+{$R *.DFM}
+
+procedure TfmEditRBPurpose.FilterClick(Sender: TObject);
+begin
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBPurpose.AddToRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: string;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    qr.Database:=IBDB;
+    qr.Transaction:=ibtran;
+    qr.Transaction.Active:=true;
+    id:=inttostr(GetGenId(IBDB,tbPurpose,1));
+    sqls:='Insert into '+tbPurpose+
+          ' (purpose_id,name,note,amount) values '+
+          ' ('+id+','+Trim(edName.text)+','+
+          iff(Trim(edNote.Text)<>'',QuotedStr(Trim(edNote.text)),'null')+','+
+          iff(trim(edAmount.Text)<>'',QuotedStr(ChangeChar(edAmount.Text,',','.')),'null')+')';
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+    oldpurpose_id:=strtoint(id);
+
+    TfmRBPurpose(fmParent).IBUpd.InsertSQL.Clear;
+    TfmRBPurpose(fmParent).IBUpd.InsertSQL.Add(sqls);
+
+    with TfmRBPurpose(fmParent).MainQr do begin
+      Insert;
+      FieldByName('purpose_id').AsInteger:=oldpurpose_id;
+      FieldByName('name').AsString:=Trim(edName.text);
+      FieldByName('note').Value:=iff(Trim(edNote.Text)<>'',edNote.text,Null);
+      FieldByName('amount').Value:=iff(trim(edAmount.Text)<>'',edAmount.Text,Null);
+      Post;
+    end;
+
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBPurpose.AddClick(Sender: TObject);
+begin
+  if not CheckFieldsFill then exit;
+  if not AddToRBooks then exit;
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBPurpose.UpdateRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: String;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    id:=inttostr(oldpurpose_id);
+    qr.Database:=IBDB;
+    qr.Transaction:=IBTran;
+    qr.Transaction.Active:=true;
+    sqls:='Update '+tbPurpose+
+          ' set name='+QuotedStr(Trim(edName.text))+
+          ', note='+iff(Trim(edNote.Text)<>'',QuotedStr(Trim(edNote.text)),'null')+
+          ', amount='+iff(trim(edAmount.Text)<>'',QuotedStr(ChangeChar(edAmount.Text,',','.')),'null')+
+          ' where purpose_id='+id;
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+
+    TfmRBPurpose(fmParent).IBUpd.ModifySQL.Clear;
+    TfmRBPurpose(fmParent).IBUpd.ModifySQL.Add(sqls);
+
+    with TfmRBPurpose(fmParent).MainQr do begin
+      Edit;
+      FieldByName('purpose_id').AsInteger:=oldpurpose_id;
+      FieldByName('name').AsString:=Trim(edName.text);
+      FieldByName('note').Value:=iff(Trim(edNote.Text)<>'',edNote.text,Null);
+      FieldByName('amount').Value:=iff(trim(edAmount.Text)<>'',edAmount.Text,Null);
+      Post;
+    end;
+
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBPurpose.ChangeClick(Sender: TObject);
+begin
+  if ChangeFlag then begin
+   if not CheckFieldsFill then exit;
+   if not UpdateRBooks then exit;
+  end; 
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBPurpose.CheckFieldsFill: Boolean;
+begin
+  Result:=true;
+  if trim(edName.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbName.Caption]));
+    edName.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if trim(edAmount.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbAmount.Caption]));
+    edAmount.SetFocus;
+    Result:=false;
+    exit;
+  end;
+end;
+
+procedure TfmEditRBPurpose.FormCreate(Sender: TObject);
+begin
+  inherited;
+  IBTran.AddDatabase(IBDB);
+  IBDB.AddTransaction(IBTran);
+
+  edName.MaxLength:=DomainSmallNameLength;
+  edNote.MaxLength:=DomainNoteLength;
+end;
+
+procedure TfmEditRBPurpose.edNameChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBPurpose.edNameKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Byte(Key)=VK_SPACE then Key:=#0;
+end;
+
+procedure TfmEditRBPurpose.edAmountChange(Sender: TObject);
+begin
+  inherited;
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBPurpose.edAmountKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key in [',','.',DecimalSeparator] then Key:=DecimalSeparator;
+end;
+
+end.
+

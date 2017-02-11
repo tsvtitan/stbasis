@@ -1,0 +1,72 @@
+package daADPhysD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'da-soft AnyDAC Phys Package for Delphi 7'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+{$I daAD.inc}
+
+requires
+  rtl,
+  dbrtl,
+{$IFDEF AnyDAC_MONITOR}
+  {$IFDEF AnyDAC_INDY10}
+  IndyCore70,
+  {$ELSE}
+    {$IFDEF AnyDAC_INDY9}
+  Indy,
+    {$ELSE}
+  Indy70,
+    {$ENDIF}
+  {$ENDIF}
+{$ENDIF}
+  daADComID7;
+
+contains
+  daADPhysManager,
+  daADPhysCmdPreprocessor,
+  daADPhysCmdGenerator,
+  daADPhysConnMeta,
+  daADPhysDb2Meta,
+  daADPhysMSSQLMeta,
+  daADPhysMSAccMeta,
+  daADPhysMySQLMeta,
+  daADPhysOraclMeta,
+  daADPhysASAMeta,
+  daADPhysADSMeta,
+  daADDAptManager,
+{$IFDEF AnyDAC_MONITOR}
+  daADMoniBase,
+  daADMoniIndyBase,
+  daADMoniIndyClient,
+  daADMoniIndyServer,
+  daADMoniCustom,
+  daADStanTracer,
+  daADMoniFlatFile,
+{$ENDIF}
+  daADPhysScript,
+  daADPhysScriptCommands;
+
+end.

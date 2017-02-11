@@ -1,0 +1,14 @@
+[Options]
+Windows
+
+[Files]
+HTTPServer.dpr
+HTTPServer.res
+main.dfm
+main.pas
+web\index.html
+web\jedi.gif
+web\OSLogo.gif
+web\winshoes_logo.gif
+
+

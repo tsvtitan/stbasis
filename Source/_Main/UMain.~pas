@@ -1,0 +1,1277 @@
+unit UMain;
+
+interface
+{$I stbasis.inc}
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Menus, ComCtrls, contnrs, ImgList, ToolWin,
+  ExtCtrls, IBDatabase, Db, IBQuery, buttons,
+  tsvgauge, IB, XPMenu, IBSQLMonitor, XPMan, jpeg;
+
+type
+
+  TNewForm=class(TForm)
+  public
+    procedure SelectNext(CurControl: TWinControl; GoForward, CheckTabStop: Boolean);
+  end;
+
+  TTypeWindowOperationForAll=(twofaMinimize,twofaRestore,twofaClose);
+
+  TfmMain = class(TForm)
+    ilMM: TImageList;
+    mm: TMainMenu;
+    sd: TSaveDialog;
+    od: TOpenDialog;
+    tmBackUp: TTimer;
+    miFileNew: TMenuItem;
+    miExitNew: TMenuItem;
+    mihelpNew: TMenuItem;
+    miHelpAboutNew: TMenuItem;
+    miWindowNew: TMenuItem;
+    miWindowCascadeNew: TMenuItem;
+    miWindowVertNew: TMenuItem;
+    miWindowGorizNew: TMenuItem;
+    miWindowMinAllNew: TMenuItem;
+    miWindowResAllNew: TMenuItem;
+    pmCtrlEdit: TPopupMenu;
+    miCtrlPorydok: TMenuItem;
+    miBringToFront: TMenuItem;
+    miSendToBack: TMenuItem;
+    miCtrlTabOrder: TMenuItem;
+    miCtrlAlign: TMenuItem;
+    N1: TMenuItem;
+    miCtrlCreate: TMenuItem;
+    N3: TMenuItem;
+    miCtrlCut: TMenuItem;
+    miCtrlCopy: TMenuItem;
+    miInsertCtrl: TMenuItem;
+    miDelCtrl: TMenuItem;
+    miSelAllCtrl: TMenuItem;
+    MenuItem1: TMenuItem;
+    miPropCtrl: TMenuItem;
+    miNewTab: TMenuItem;
+    N2: TMenuItem;
+    miRefreshAll: TMenuItem;
+    N4: TMenuItem;
+    miLoginNew: TMenuItem;
+    miService: TMenuItem;
+    miInstrHelp: TMenuItem;
+    N6: TMenuItem;
+    miOptions: TMenuItem;
+    N5: TMenuItem;
+    N7: TMenuItem;
+    miChangePassword: TMenuItem;
+    ctrlBarTop: TControlBar;
+    ctrlBarBottom: TControlBar;
+    ToolBar1: TToolBar;
+    miView: TMenuItem;
+    miViewToolBar: TMenuItem;
+    pmViewToolBar: TPopupMenu;
+    stbStatus: TStatusBar;
+    miWindowCloseAll: TMenuItem;
+    tmClearHint: TTimer;
+    pnBottomDock: TPanel;
+    splBottom: TSplitter;
+    pnWorkDate: TPanel;
+    lbWorkDate: TLabel;
+    dtpWorkDate: TDateTimePicker;
+    PanelLogo: TPanel;
+    ImageLogo: TImage;
+    procedure FormCreate(Sender: TObject);
+    procedure miExitNewClick(Sender: TObject);
+    procedure miWindowsCascadeClick(Sender: TObject);
+    procedure miWindowsHorizontClick(Sender: TObject);
+    procedure miWindowsVerticalClick(Sender: TObject);
+    procedure miWindowsMinimizeAllClick(Sender: TObject);
+    procedure miWindowsRestoreAllClick(Sender: TObject);
+    procedure stbStatusDrawPanel(StatusBar: TStatusBar;
+      Panel: TStatusPanel; const Rect: TRect);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormActivate(Sender: TObject);
+    procedure miOperationsClick(Sender: TObject);
+    procedure miFileExitClick(Sender: TObject);
+    procedure miWindowCascadeNewClick(Sender: TObject);
+    procedure miWindowVertNewClick(Sender: TObject);
+    procedure miWindowGorizNewClick(Sender: TObject);
+    procedure miWindowMinAllNewClick(Sender: TObject);
+    procedure miWindowResAllNewClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure miHelpAboutNewClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure miRefreshAllClick(Sender: TObject);
+    procedure miLoginNewClick(Sender: TObject);
+    procedure tmBackUpTimer(Sender: TObject);
+    procedure miOptionsClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure miChangePasswordClick(Sender: TObject);
+    procedure ctrlBarTopBandMove(Sender: TObject; Control: TControl;
+      var ARect: TRect);
+    procedure ctrlBarBottomGetSiteInfo(Sender: TObject;
+      DockClient: TControl; var InfluenceRect: TRect; MousePos: TPoint;
+      var CanDock: Boolean);
+    procedure miWindowCloseAllClick(Sender: TObject);
+    procedure ctrlBarBottomUnDock(Sender: TObject; Client: TControl;
+      NewTarget: TWinControl; var Allow: Boolean);
+    procedure ctrlBarBottomDockDrop(Sender: TObject;
+      Source: TDragDockObject; X, Y: Integer);
+    procedure stbStatusClick(Sender: TObject);
+    procedure ctrlBarTopBandPaint(Sender: TObject; Control: TControl;
+      Canvas: TCanvas; var ARect: TRect; var Options: TBandPaintOptions);
+    procedure ctrlBarTopGetSiteInfo(Sender: TObject; DockClient: TControl;
+      var InfluenceRect: TRect; MousePos: TPoint; var CanDock: Boolean);
+    procedure ctrlBarTopDockOver(Sender: TObject; Source: TDragDockObject;
+      X, Y: Integer; State: TDragState; var Accept: Boolean);
+    procedure pmViewToolBarPopup(Sender: TObject);
+    procedure tmClearHintTimer(Sender: TObject);
+    procedure pnBottomDockDockDrop(Sender: TObject;
+      Source: TDragDockObject; X, Y: Integer);
+    procedure pnBottomDockDockOver(Sender: TObject;
+      Source: TDragDockObject; X, Y: Integer; State: TDragState;
+      var Accept: Boolean);
+    procedure pnBottomDockGetSiteInfo(Sender: TObject;
+      DockClient: TControl; var InfluenceRect: TRect; MousePos: TPoint;
+      var CanDock: Boolean);
+    procedure pnBottomDockUnDock(Sender: TObject; Client: TControl;
+      NewTarget: TWinControl; var Allow: Boolean);
+    procedure pnBottomDockCanResize(Sender: TObject; var NewWidth,
+      NewHeight: Integer; var Resize: Boolean);
+    procedure splBottomMoved(Sender: TObject);
+    procedure splBottomCanResize(Sender: TObject; var NewSize: Integer;
+      var Accept: Boolean);
+    procedure ImageLogoClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+  private
+    dragobj: TToolDockObject;
+    UseSetUndockBounds: Boolean;
+
+    procedure AppOnHint(Sender: TObject);
+    procedure AppOnIdle(Sender: TObject; var Done: Boolean);
+    procedure AppOnMess(var Msg: TMsg; var Handled: Boolean);
+    procedure AppOnExcept(Sender: TObject; E: Exception);
+    procedure SQLMonitorOnSQL(EventText: String; EventTime : TDateTime);
+
+    function GetClientWidth: Integer;
+    function GetClientHeight: Integer;
+
+  public
+    XpMenu: TXPMenu;
+    procedure CMDialogKey(var Message: TCMDialogKey); message CM_DIALOGKEY;
+    procedure CNKeyDown(var Message: TWMKeyDown); message CN_KEYDOWN;
+    procedure CNKeyUp(var Message: TWMKeyUp); message CN_KEYUP;
+//    procedure WndProc(var Message: TMessage);override;
+    procedure WMHotKey(var Message: TMessage);message WM_HOTKEY;
+
+    procedure MinimizeRestoreClose(twofa: TTypeWindowOperationForAll);
+    procedure PanelRedraw;
+    procedure MenuClick(Sender: TObject);
+    procedure ToolButtonClick(Sender: TObject);
+    procedure MenuClickToolBar(Sender: TObject);
+    procedure SetMdiChildIcon(bmp: TBitmap);
+    procedure SetPositionProgressBar;
+    procedure ProgressBarMenuClick(Sender: TObject);
+    procedure ProgressBarClick(Sender: TObject);
+    procedure ToolBarStartDock(Sender: TObject; var DragObject: TDragDockObject);
+    procedure ToolBarEndDock(Sender, Target: TObject; X, Y: Integer);
+    procedure ShowDockPanel(APanel: TPanel; MakeVisible: Boolean;
+                            Client: TControl);
+    procedure SetUndockBounds(wt: TWinControl; isSetTopStatus: Boolean);
+    procedure SetTopstbStatus;
+    procedure InitApplicationEvents;
+    procedure SetLogoPosition(Visible: Boolean);
+  end;
+
+var
+  fmMain: TfmMain;
+
+implementation
+
+uses UMainUnited, UMainData, UMainCode, UAbout, tsvHint, UOptions,
+  UChangePassword, ULog, UMainOptions, ShellApi;
+
+{$R *.DFM}
+
+procedure TNewForm.SelectNext(CurControl: TWinControl; GoForward, CheckTabStop: Boolean);
+begin
+  inherited;
+end;
+
+procedure TfmMain.FormCreate(Sender: TObject);
+begin
+  SQLMonitor.OnSQL:=SQLMonitorOnSQL;
+  dtpWorkDate.Date:=GetDateTimeFromServer_;
+
+  Caption:=MainCaption+' - '+UserName;
+  Application.Title:=MainCaption;
+  InitApplicationEvents;
+  tmClearHint.Interval:=ConstHintHidePause;
+  stbStatus.Panels.Items[3].Width:=300;
+  stbStatus.Panels.Items[4].Style:=psOwnerDraw;
+  stbStatus.Panels.Items[5].Style:=psOwnerDraw;
+  stbStatus.Panels.Items[6].Style:=psOwnerDraw;
+  stbStatus.Panels.Items[7].Style:=psOwnerDraw;
+
+  XpMenu:=TXPMenu.Create(nil);
+  XpMenu.Form:=Self;
+
+
+  ctrlBarBottom.Align:=alTop;
+  ctrlBarBottom.Align:=alBottom;
+
+  ImageLogo.Align:=alClient;
+  Windows.SetParent(PanelLogo.Handle,ClientHandle);
+  SetLogoPosition(false);
+end;
+
+procedure TfmMain.InitApplicationEvents;
+begin
+  Application.OnHint:=AppOnHint;
+  Application.OnIdle:=AppOnIdle;
+  Application.HintHidePause:=ConstHintHidePause;
+  Application.OnMessage:=AppOnMess;
+  Application.OnException:=AppOnExcept;
+end;
+
+procedure TfmMain.AppOnIdle(Sender: TObject; var Done: Boolean);
+begin
+  tmClearHint.Enabled:=true;
+end;
+
+procedure TfmMain.AppOnHint(Sender: TObject);
+begin
+  fmMain.stbStatus.Panels.Items[3].Text:=Application.Hint;
+//  SetSplashStatus_(PChar(Application.Hint));
+end;
+
+procedure TfmMain.miExitNewClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfmMain.miWindowsCascadeClick(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfmMain.miWindowsHorizontClick(Sender: TObject);
+begin
+//
+end;
+
+procedure TfmMain.miWindowsVerticalClick(Sender: TObject);
+begin
+//
+end;
+
+procedure TfmMain.miWindowsMinimizeAllClick(Sender: TObject);
+begin
+//
+end;
+
+procedure TfmMain.miWindowsRestoreAllClick(Sender: TObject);
+begin
+//
+end;
+
+procedure TfmMain.MinimizeRestoreClose(twofa: TTypeWindowOperationForAll);
+
+  function InMDIChildren(fm: TCustomForm): Boolean;
+  var
+    i: Integer;
+    fmCur: TCustomForm;
+  begin
+    Result:=false;
+    for i:=MDIChildCount-1 downto 0 do begin
+      fmCur:=MDIChildren[i];
+      if fmCur=fm then begin
+        Result:=true;
+        exit;
+      end;
+    end;  
+  end;
+
+var
+  i: Integer;
+  fm: TCustomForm;
+  List: Tlist;
+begin
+  List:=TList.Create;
+  try
+   for i:=MDIChildCount-1 downto 0 do begin
+    fm:=MDIChildren[i];
+    list.Add(fm);
+   end;
+   for i:=List.Count-1 downto 0 do begin
+    fm:=List.Items[i];
+    if InMDIChildren(fm) then begin
+      case twofa of
+        twofaMinimize: ShowWindow(fm.Handle,SW_MINIMIZE);
+        twofaRestore: ShowWindow(fm.Handle,SW_RESTORE);
+        twofaClose: fm.Close;
+      end;
+    end;  
+   end;
+  finally
+   List.Free;
+  end;
+end;
+
+
+procedure TfmMain.stbStatusDrawPanel(StatusBar: TStatusBar;
+  Panel: TStatusPanel; const Rect: TRect);
+
+  procedure DrawKeyBoardState;
+  var
+    tmps: string;
+    x: Integer;
+    y: Integer;
+  const
+    KeyStateStr: array[0..3] of string=('NUM','CAPS','SCROLL','INSERT');
+    ColorEnabled=clWindowText;
+    ColorDisable=clGrayText;
+  begin
+    with StatusBar.Canvas do begin
+      Font.Color:=ColorDisable;
+      tmps:=KeyStateStr[Panel.Index-4];
+      x:=Rect.Left+(Rect.Right-Rect.Left)div 2-TextWidth(tmps) div 2;
+      y:=Rect.Top+(Rect.Bottom-Rect.Top)div 2-TextHeight(tmps)div 2-1;
+      if (GetKeyState(VK_NUMLOCK)=1) and(Panel.Index=4) then begin
+       Font.Color:=ColorEnabled;
+      end;
+      if (GetKeyState(VK_CAPITAL)=1) and(Panel.Index=5) then begin
+       Font.Color:=ColorEnabled;
+      end;
+      if (GetKeyState(VK_SCROLL)=1) and(Panel.Index=6) then begin
+       Font.Color:=ColorEnabled;
+      end;
+      if (GetKeyState(VK_INSERT)=1) and(Panel.Index=7) then begin
+       Font.Color:=ColorEnabled;
+      end;
+      FillRect(Rect);
+      TextRect(Rect,x,y,tmps);
+    end;
+  end;
+
+
+begin
+  if Panel.Index in [4..7] then begin
+    DrawKeyBoardState;
+  end;
+end;
+
+procedure TfmMain.PanelRedraw;
+begin
+end;
+
+procedure TfmMain.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_NUMLOCK,VK_CAPITAL,VK_SCROLL,VK_INSERT: begin
+     stbStatus.Invalidate;
+    end;
+    VK_F10: begin
+     if not (ssShift in Shift) then
+    end;
+  end;
+{  if Shift=[ssAlt] then begin
+    tlbMain.TrackMenu(tbFile);
+  end;}
+end;
+
+procedure TfmMain.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    VK_NUMLOCK,VK_CAPITAL,VK_SCROLL,VK_INSERT: begin
+     stbStatus.Invalidate;
+    end;
+  end;
+end;
+
+procedure TfmMain.FormActivate(Sender: TObject);
+begin
+  stbStatus.Invalidate;
+end;
+
+procedure TfmMain.miOperationsClick(Sender: TObject);
+begin
+  exit;
+end;
+
+procedure TfmMain.miFileExitClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfmMain.miWindowCascadeNewClick(Sender: TObject);
+begin
+   Cascade;
+end;
+
+procedure TfmMain.miWindowVertNewClick(Sender: TObject);
+begin
+  TileMode:=tbVertical;
+  Tile;
+end;
+
+procedure TfmMain.miWindowGorizNewClick(Sender: TObject);
+begin
+  TileMode:=tbHorizontal;
+  Tile;
+end;
+
+procedure TfmMain.miWindowMinAllNewClick(Sender: TObject);
+begin
+  MinimizeRestoreClose(twofaMinimize);
+end;
+
+procedure TfmMain.miWindowResAllNewClick(Sender: TObject);
+begin
+  MinimizeRestoreClose(twofaRestore);
+end;
+
+procedure TfmMain.FormShow(Sender: TObject);
+begin
+ stbStatus.Invalidate;
+end;
+
+procedure TfmMain.miHelpAboutNewClick(Sender: TObject);
+begin
+  fmAbout:=nil;
+  try
+   fmAbout:=TfmAbout.Create(nil);
+   fmAbout.ShowModal;
+  finally
+   FreeAndNil(fmAbout);
+  end;
+end;
+
+procedure TfmMain.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ try
+  if fmMainOptions.chbClearTempDir.Checked then begin
+    SetSplashStatus_(ConstEmptyTemDir);
+    EmptyDir(MnOption.DirTemp);
+  end;  
+  fmLog.SaveToIni;
+  MainSaveToIni;
+  fmLog.Visible:=false;
+  Visible:=false;
+  IBDB.TraceFlags:=[];
+  IBDBLogin.TraceFlags:=[];
+  SQLMonitor.TraceFlags:=[];
+  SQLMonitor.OnSQL:=nil;
+  Application.OnMessage:=nil;
+  ctrlBarTop.OnBandMove:=nil;
+  ctrlBarBottom.OnBandMove:=nil;
+  ctrlBarTop.OnGetSiteInfo:=nil;
+  ctrlBarBottom.OnGetSiteInfo:=nil;
+  ctrlBarTop.Visible:=false;
+  ctrlBarBottom.Visible:=false;
+
+  SetSplashStatus_(ConstSaveDataIni);
+  ClearListToolBars;
+  ClearListMenus;
+  SaveConnectInfo;
+  FreeLibs;
+  SetSplashStatus_(ConstSplashStatusUnloading);
+  SaveDataIniToBase;
+  XpMenu.Free;
+
+ except
+ end;
+end;
+
+procedure TfmMain.MenuClick(Sender: TObject);
+var
+  mi: TNewMenuItem;
+begin
+ try
+  if not (Sender is TNewMenuItem) then exit;
+  mi:=TNewMenuItem(Sender);
+  if not isValidPointer(mi.P) then exit;
+  if not isValidPointer(@mi.P.MenuClickProc) then exit;
+  mi.P.MenuClickProc(THandle(mi.P));
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end; 
+end;
+
+procedure TfmMain.miRefreshAllClick(Sender: TObject);
+begin
+  RefreshFromBase;
+end;
+
+procedure TfmMain.CMDialogKey(var Message: TCMDialogKey);
+var
+  fm: TNewForm;
+  tmps: string;
+begin
+  if Self.FormStyle<>fsMDIForm then begin
+    fm:=TNewForm(Self);
+  end else begin
+    fm:=TNewForm(Screen.ActiveForm);
+    if fm=nil then exit;
+    if fm.FormStyle<>fsMDIChild then exit;
+  end;
+
+   if GetKeyState(VK_MENU) >= 0 then
+    with Message do
+      case CharCode of
+        VK_TAB:
+          if GetKeyState(VK_CONTROL) >= 0 then
+          begin
+            fm.SelectNext(fm.ActiveControl, GetKeyState(VK_SHIFT) >= 0, True);
+            Result := 1;
+            Exit;
+          end;
+        VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN:
+          begin
+            if fm.ActiveControl <> nil then begin
+
+              if not inListDialogClasses(fm.ActiveControl.ClassName) then exit;
+
+              TNewForm(fm.ActiveControl.Parent).SelectNext(fm.ActiveControl,
+                (CharCode = VK_RIGHT) or (CharCode = VK_DOWN), False);
+              Result := 1;
+
+            end;
+            Exit;
+          end;
+         VK_RETURN: begin
+
+           if fm.ActiveControl <> nil then begin
+             tmps:=fm.ActiveControl.ClassName;
+             if tmps='TButton' then begin
+              TButton(fm.ActiveControl).Click;
+              Result:=1;
+             end;
+             if tmps='TBitBtn' then begin
+              TBitbtn(fm.ActiveControl).Click;
+              result:=1;
+             end;
+
+             exit;
+           end;
+
+         end;
+      end;
+  inherited;
+end;
+
+procedure TfmMain.miLoginNewClick(Sender: TObject);
+begin
+  if LoginToProgram then begin
+   Caption:=MainCaption+' - '+UserName;
+   Application.Title:=MainCaption;
+   RefreshFromBase;
+  end;
+end;
+
+procedure TfmMain.SetMdiChildIcon(bmp: TBitmap);
+var
+  fm: TForm;
+  AndMask: TBitmap;
+  bmpNew: TBitmap;
+  piconinfo: TIconInfo;
+  ms: TMemoryStream;
+  clTran: TColor;
+//  rt: TRect;
+begin
+ try
+  fm:=TForm(Screen.ActiveForm);
+  if fm=nil then exit;
+  if not isValidPointer(bmp) then exit;
+  AndMask:=TBitmap.Create;
+  bmpNew:=TBitmap.Create;
+  ms:=TMemoryStream.Create;
+  try
+   bmp.SaveToStream(ms);
+   ms.Position:=0;
+   bmpNew.LoadFromStream(ms);
+   AndMask.Assign(bmpNew);
+   clTran:=AndMask.Canvas.Pixels[0,0];
+   AndMask.Mask(clTran);
+   bmpNew.Canvas.Brush.Color:=clBlack;
+   bmpNew.Canvas.FillRect(bmpNew.Canvas.ClipRect);
+   TransparentBmp(bmpNew.Canvas.Handle,bmp.Handle,0,0,clTran);
+   piconinfo.fIcon:=true;
+   piconinfo.xHotspot:=0;
+   piconinfo.yHotspot:=0;
+   piconinfo.hbmMask:=AndMask.Handle;
+   piconinfo.hbmColor:=bmpNew.Handle;
+   fm.Icon.Handle:=CreateIconIndirect(piconinfo);
+{   SendMessage(fm.Handle,WM_PAINT,fm.Canvas.Handle,0);
+   SendMessage(fm.Handle,WM_ERASEBKGND,fm.Canvas.Handle,0);   }
+
+
+  finally
+   ms.Free;
+   bmpNew.Free;
+   AndMask.Free;
+  end;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmMain.SetPositionProgressBar;
+var
+  i: Integer;
+  P: PInfoProgressBar;
+  h: Integer;
+  newH: Integer;
+begin
+  h:=stbStatus.Height-8;
+  for i:=0 to ListProgressBars.Count-1 do begin
+    P:=ListProgressBars.Items[i];
+    P.gag.Left:=stbStatus.Panels.Items[0].Width+6;
+    P.gag.Width:=stbStatus.Panels.Items[1].Width-10;
+    if ListProgressBars.Count=1 then begin
+     P.gag.ShowPercent:=P.gag.MinValue<>P.gag.MaxValue;
+     newH:=h;
+    end else begin
+     P.gag.ShowPercent:=false;
+     newH:=(h div ListProgressBars.Count)-1;
+    end;
+    if newH>2 then
+     P.gag.Height:=newH;
+    P.gag.Top:=5+(P.gag.Height+1)*i;
+    P.gag.Parent:=stbStatus;
+    P.gag.Repaint;
+    P.gag.Invalidate;
+    P.gag.Update;
+  end;
+  stbStatus.Invalidate;
+  stbStatus.Update;
+  Self.Invalidate;
+  Self.Update;
+end;
+
+procedure TfmMain.tmBackUpTimer(Sender: TObject);
+var
+  i: Integer;
+  P: PInfoProgressBar;
+begin
+  tmBackUp.Enabled:=false;
+  for i:=0 to ListProgressBars.Count-1 do begin
+    P:=ListProgressBars.Items[i];
+    P.Gag.Progress:=Random(100);
+  end;
+  tmBackUp.Enabled:=true;
+end;
+
+procedure TfmMain.miOptionsClick(Sender: TObject);
+begin
+  ViewOption_(hOptionLast);
+end;
+
+procedure TfmMain.CNKeyDown(var Message: TWMKeyDown);
+begin
+ if Message.CharCode=Word('G') then
+  showmessage('OK');
+ inherited;
+ FormKeyDown(Self,Message.CharCode,[]);
+end;
+
+procedure TfmMain.CNKeyUp(var Message: TWMKeyUp);
+begin
+  inherited;
+  FormKeyUp(Self,Message.CharCode,[]);
+end;
+
+procedure Clickmm(Index: Integer);stdcall;
+begin
+ ShowMessage(inttostr(Index));
+end;
+
+procedure TfmMain.Button1Click(Sender: TObject);
+{var
+  List: TList;}
+//  P: PInfoProgressBarMenu;
+begin
+//  ShowMessage(inttostr(GetClientRect.Bottom-GetClientRect.Top));
+{  List:=TList.Create;
+  New(P);
+  P.Name:='test';
+  P.Hint:='test';
+//  P.Proc:=Clickmm;
+  List.Add(P);
+  New(P);
+  P.Name:='-';
+  P.Hint:='-';
+//  P.Proc:=nil;
+  List.Add(P);
+  New(P);
+  P.Name:='test1';
+  P.Hint:='test1';
+//  P.Proc:=Clickmm;
+  List.Add(P);
+  CreateProgressBar_(0,100,'213',clNavy,LIst);}
+end;
+
+procedure TfmMain.ProgressBarMenuClick(Sender: TObject);
+{var
+  Mi: TMenuProgressBar;}
+begin
+  if not (Sender is TMenuProgressBar) then exit;
+//  Mi:=TMenuProgressBar(Sender);
+{  if Mi.P<>nil then
+   if isValidPointer(@Mi.P.Proc) then
+    Mi.P.Proc(Mi.MenuIndex);}
+end;
+
+procedure TfmMain.ProgressBarClick(Sender: TObject);
+var
+  pt: TPoint;
+  Gag: TNewtsvGauge;
+begin
+  if not (Sender is TNewtsvGauge) then exit;
+  Gag:=TNewtsvGauge(Sender);
+  pt.x:=Gag.Left;
+  pt.y:=Gag.Top+Gag.Height;
+  pt:=stbStatus.ClientToScreen(pt);
+  if isValidPointer(Gag.PopMenu) then
+   Gag.PopMenu.Popup(pt.x,pt.y);
+end;
+
+procedure TfmMain.AppOnMess(var Msg: TMsg; var Handled: Boolean);
+begin
+  if Msg.message=MessageID then begin
+    ShowWindow(Application.Handle,SW_Restore);
+    Handled:=true;
+  end;
+  if Msg.message=WM_HOTKEY then begin
+    case Msg.wParam of
+     ConstHotKeyUpperCase: TranslateText(tttUpper);
+     ConstHotKeyLowerCase: TranslateText(tttLower);
+     ConstHotKeyToRussian: TranslateText(tttRussian);
+     ConstHotKeyToEnglish: TranslateText(tttEnglish);
+     ConstHotKeyFirstUpperCase: TranslateText(tttFirstUpper);
+     ConstHotKeyTrimSpaceForOne: TranslateText(tttTrimSpaceForOne); 
+    end;
+  end;
+end;
+
+procedure TfmMain.WMHotKey(var Message: TMessage);
+begin
+  ShowMessage(Inttostr(Message.LParam));
+  inherited;
+end;
+
+procedure TfmMain.miChangePasswordClick(Sender: TObject);
+var
+  fm: TfmChangePass;
+begin
+ try
+  fm:=TfmChangePass.Create(nil);
+  try
+   fm.ShowModal;
+  finally
+    fm.Free;
+  end;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmMain.AppOnExcept(Sender: TObject; E: Exception);
+var
+  TCLI: TCreateLogItem;
+
+  procedure RegisterErrorMessage;
+  begin
+    AddErrorToJournal_(Pchar(E.Message),E.ClassType);
+    TCLI.Text:=Pchar(E.Message);
+    TCLI.TypeLogItem:=tliError;
+    TCLI.ViewLogItemProc:=nil;
+    if CreateLogItem_(@TCLI)<>LOGITEM_INVALID_HANDLE then
+      ViewLog_(true);               
+  end;
+
+var  
+  but: Integer;
+begin
+ try
+  if inListErrorClasses(E.ClassName) then begin
+    but:=ShowErrorQuestionEx(TranslateErrorMessage(E.Message));
+    if but=mrNo then begin
+     if not UnLoadDLLFromAddress(E) then begin
+      TIBDatabase(IBDB).Connected:=false;
+      IBDBLogin.Connected:=false;
+      TerminateProcess(GetCurrentProcess,PROCESS_TERMINATE);
+     end;
+    end else begin
+      RegisterErrorMessage;
+    end;
+  end else begin
+    RegisterErrorMessage;
+  end;
+ except
+   TerminateProcess(GetCurrentProcess,PROCESS_TERMINATE);
+ end; 
+end;
+
+procedure TfmMain.ToolButtonClick(Sender: TObject);
+var
+  tbut: TNewToolButton;
+begin
+ try
+  if not (Sender is TNewToolButton) then exit;
+  tbut:=TNewToolButton(Sender);
+  if not isValidPointer(tbut.P) then exit;
+  if not isValidPointer(@tbut.P.ToolButtonClickProc) then exit;
+  tbut.P.ToolButtonClickProc(THandle(tbut.P));
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmMain.ToolBarStartDock(Sender: TObject; var DragObject: TDragDockObject);
+begin
+  dragobj:=TToolDockObject.Create(TControl(Sender));
+  DragObject:=dragobj;
+end;
+
+procedure TfmMain.ToolBarEndDock(Sender, Target: TObject; X, Y: Integer);
+var
+  P: PInfoToolBar;
+  fm: TCustomForm;
+begin
+  if Sender is TNewToolBar then begin
+    P:=TNewToolBar(Sender).P;
+    if P<>nil then begin
+     fm:=GetParentForm(dragobj.Control);
+     if fm<>nil then begin
+      P.Width:=TNewToolBar(Sender).Width;
+      P.Height:=TNewToolBar(Sender).Height;
+      P.Left:=fm.Left;
+      P.Top:=fm.Top;
+      P.Position:=tbpFloat;
+      P.RowCount:=TNewToolBar(Sender).RowCount;
+     end; 
+    end;
+  end;
+  dragobj.Free;
+end;
+
+procedure TfmMain.ctrlBarTopBandMove(Sender: TObject; Control: TControl;
+  var ARect: TRect);
+var
+  P: PInfoToolBar;  
+begin
+  if Control is TNewToolBar then begin
+    P:=TNewToolBar(Control).P;
+    if P<>nil then begin
+      P.Width:=Control.Width;
+      P.Height:=Control.Height;
+      P.Left:=Control.Left;
+      P.Top:=Control.Top;
+      P.RowCount:=TNewToolBar(Sender).RowCount;
+      if Control.Parent=ctrlBarTop then
+       P.Position:=tbpTop;
+      if Control.Parent=ctrlBarBottom then
+       P.Position:=tbpBottom;
+    end;
+  end;
+end;
+
+procedure TfmMain.MenuClickToolBar(Sender: TObject);
+var
+  mi: TTBMenuItem;
+  view: Boolean;
+begin
+  if hMenuViewToolBars=MENU_INVALID_HANDLE then exit;
+  if Sender is TTBMenuItem then begin
+    mi:=TTBMenuItem(Sender);
+    mi.OnClick:=nil;
+    if mi.tb<>nil then begin
+      view:=not mi.Checked;
+      mi.tb.Visible:=view;
+      if (view) and (mi.tb.P.Position=tbpFloat)then begin
+{       mi.tb.ManualFloat(Rect(mi.tb.P.Left,
+                              mi.tb.P.Top,
+                              mi.tb.P.Left+mi.tb.P.Width,
+                              mi.tb.P.Top+mi.tb.P.Height));}
+      end; 
+      mi.Checked:=view;
+      mi.tb.P.Visible:=view;
+      if mi.Parent=PInfoMenu(hMenuViewToolBars).MenuItem then begin
+        if pmViewToolBar.Items.Count>mi.MenuIndex then
+         pmViewToolBar.Items[mi.MenuIndex].Checked:=mi.tb.Visible;
+      end else begin
+        if PInfoMenu(hMenuViewToolBars).MenuItem.Count>mi.MenuIndex then
+         PInfoMenu(hMenuViewToolBars).MenuItem.Items[mi.MenuIndex].Checked:=mi.tb.Visible;
+      end;
+    end;
+    mi.OnClick:=MenuClickToolBar;
+  end;
+end;
+
+procedure TfmMain.ctrlBarBottomGetSiteInfo(Sender: TObject;
+  DockClient: TControl; var InfluenceRect: TRect; MousePos: TPoint;
+  var CanDock: Boolean);
+begin
+//  Canvas.Rectangle(InfluenceRect);
+end;
+
+procedure TfmMain.miWindowCloseAllClick(Sender: TObject);
+begin
+  MinimizeRestoreClose(twofaClose);
+end;
+
+procedure TfmMain.ctrlBarBottomUnDock(Sender: TObject; Client: TControl;
+  NewTarget: TWinControl; var Allow: Boolean);
+begin
+  VisibleLog:=false;
+  SetLogoPosition(false);
+  SetTopstbStatus;
+  SetLogoPosition(true);
+end;
+
+procedure TfmMain.ctrlBarBottomDockDrop(Sender: TObject;
+  Source: TDragDockObject; X, Y: Integer);
+begin
+  VisibleLog:=true;
+  SetLogoPosition(false);
+  SetTopstbStatus;
+  SetLogoPosition(true);
+end;
+
+procedure TfmMain.stbStatusClick(Sender: TObject);
+
+  function GetStatusPanel(x: integer): TStatusPanel;
+  var
+    i: Integer;
+    incx: Integer;
+    sp: TStatusPanel;
+  begin
+    Result:=nil;
+    incx:=0;
+    for i:=0 to stbStatus.Panels.Count-1 do begin
+      sp:=stbStatus.Panels[i];
+      incx:=incx+sp.Width;
+      if (incx>x)and(incx-sp.Width<x) then begin
+        Result:=sp;
+        exit;
+      end;
+    end;
+  end;
+
+var
+  pt: TPoint;
+  sp: TStatusPanel;
+begin
+  GetCursorPos(pt);
+  pt:=stbStatus.ScreenToClient(pt);
+  sp:=GetStatusPanel(pt.x);
+  if sp<>nil then begin
+    if Sp=stbStatus.Panels[4] then
+      keybd_event(VK_NUMLOCK,0,0,0);
+    if Sp=stbStatus.Panels[5] then
+      keybd_event(VK_CAPITAL,0,0,0);
+    if Sp=stbStatus.Panels[6] then
+      keybd_event(VK_SCROLL,0,0,0);
+    if Sp=stbStatus.Panels[7] then
+      keybd_event(VK_INSERT,0,0,0);
+
+  end;
+end;
+
+procedure TfmMain.ctrlBarTopBandPaint(Sender: TObject; Control: TControl;
+  Canvas: TCanvas; var ARect: TRect; var Options: TBandPaintOptions);
+begin
+  Options:=[bpoGrabber];
+end;
+
+procedure TfmMain.ctrlBarTopGetSiteInfo(Sender: TObject;
+  DockClient: TControl; var InfluenceRect: TRect; MousePos: TPoint;
+  var CanDock: Boolean);
+begin
+  CanDock:=DockClient is TNewToolBar;
+end;
+
+procedure TfmMain.ctrlBarTopDockOver(Sender: TObject;
+  Source: TDragDockObject; X, Y: Integer; State: TDragState;
+  var Accept: Boolean);
+begin
+  Accept := Source.Control is TNewToolBar;
+end;
+
+procedure TfmMain.pmViewToolBarPopup(Sender: TObject);
+var
+  i: Integer;
+  mi,miNew: TTBMenuItem;
+begin
+  pmViewToolBar.Items.Clear;
+  for i:=0 to PInfoMenu(hMenuViewToolBars).MenuItem.Count-1 do begin
+    mi:=TTBMenuItem(PInfoMenu(hMenuViewToolBars).MenuItem.Items[i]);
+    miNew:=TTBMenuItem.Create(nil);
+    miNew.Tb:=mi.tb;
+    miNew.ShortCut:=mi.ShortCut;
+    miNew.Caption:=mi.Caption;
+    miNew.Hint:=mi.Hint;
+    miNew.Checked:=mi.Checked;
+    miNew.OnClick:=mi.OnClick;
+    pmViewToolBar.Items.Add(miNew);
+  end;
+end;
+
+procedure TfmMain.tmClearHintTimer(Sender: TObject);
+begin
+  SetSplashStatus_('');
+  tmClearHint.Enabled:=false;
+end;
+
+procedure TfmMain.pnBottomDockDockDrop(Sender: TObject;
+  Source: TDragDockObject; X, Y: Integer);
+begin
+  if (Sender as TPanel).DockClientCount = 1 then
+    ShowDockPanel(Sender as TPanel, True, Source.Control);
+  (Sender as TPanel).DockManager.ResetBounds(True);
+end;
+
+procedure TfmMain.pnBottomDockDockOver(Sender: TObject;
+  Source: TDragDockObject; X, Y: Integer; State: TDragState;
+  var Accept: Boolean);
+var
+  ARect: TRect;
+begin
+  Accept := Source.Control is TfmLog;
+  if Accept then begin
+    if Sender=pnBottomDock then begin
+     ARect.TopLeft := TPanel(Sender).ClientToScreen(Point(0, -Source.Control.Height));
+     ARect.BottomRight := TPanel(Sender).ClientToScreen(
+        Point(TPanel(Sender).Width,0));
+    end;
+    Source.DockRect := ARect;
+  end;
+end;
+
+procedure TfmMain.pnBottomDockGetSiteInfo(Sender: TObject;
+  DockClient: TControl; var InfluenceRect: TRect; MousePos: TPoint;
+  var CanDock: Boolean);
+begin
+  CanDock := DockClient is TfmLog;
+end;
+
+procedure TfmMain.pnBottomDockUnDock(Sender: TObject; Client: TControl;
+  NewTarget: TWinControl; var Allow: Boolean);
+begin
+  if (Sender as TPanel).DockClientCount = 1 then
+    ShowDockPanel(Sender as TPanel, False, Client);
+end;
+
+procedure TfmMain.ShowDockPanel(APanel: TPanel; MakeVisible: Boolean;
+            Client: TControl);
+var
+  fm: TCustomForm;            
+begin
+  SetLogoPosition(false);
+  try
+    if Client=nil then exit;
+    if not MakeVisible and (APanel.VisibleDockClientCount > 1) then
+      Exit;
+    if MakeVisible=splBottom.Visible then exit;
+
+    if APanel = pnBottomDock then
+      splBottom.Visible := MakeVisible;
+
+      if MakeVisible then begin
+        if APanel = pnBottomDock then
+        begin
+          UseSetUndockBounds:=true;
+          APanel.Height :=Client.UndockHeight;
+          APanel.Constraints.MinHeight:=Client.Constraints.MinHeight;
+          APanel.Constraints.MaxHeight:=Client.Constraints.MaxHeight;
+          splBottom.Top := pnBottomDock.Top - splBottom.Height+1;
+        end;
+      end else begin
+        if APanel = pnBottomDock then begin
+          UseSetUndockBounds:=false;
+          APanel.Constraints.MinHeight:=0;
+          APanel.Constraints.MaxHeight:=0;
+          APanel.Height := 0;
+        end;
+      end;
+
+    if MakeVisible and (Client <> nil) then Client.Show
+    else begin
+      fm:=Screen.ActiveCustomForm;
+      if fm<>nil then Windows.SetFocus(fm.Handle);
+    end;
+
+    SetTopstbStatus;
+  finally
+    SetLogoPosition(true);
+  end;
+end;
+
+
+procedure TfmMain.SetUndockBounds(wt: TWinControl; isSetTopStatus: Boolean);
+begin
+  if not UseSetUndockBounds then exit;
+  fmLog.LRDockWidth:=wt.Width;
+  fmLog.TBDockHeight:=wt.Height;
+  fmLog.UndockWidth:=wt.Width;
+  fmLog.UndockHeight:=wt.Height;
+  if isSetTopStatus then
+   SetTopstbStatus;
+end;
+
+procedure TfmMain.pnBottomDockCanResize(Sender: TObject; var NewWidth,
+  NewHeight: Integer; var Resize: Boolean);
+begin
+  if NewHeight<>TPanel(Sender).Height then
+   SetUndockBounds(TPanel(Sender),true);
+end;
+
+procedure TfmMain.SetTopstbStatus;
+var
+  hMax: Integer;
+begin
+  hMax:=ctrlBarBottom.Top+ctrlBarBottom.Height;
+  if (pnBottomDock.Top+pnBottomDock.Height)>hMax then
+    hMax:=pnBottomDock.Top+pnBottomDock.Height;
+  stbStatus.Top:=hMax+1;
+  splBottom.Top := pnBottomDock.Top - splBottom.Height+1;
+end;
+
+procedure TfmMain.splBottomMoved(Sender: TObject);
+begin
+  SetUndockBounds(pnBottomDock,true);
+end;
+
+procedure TfmMain.SQLMonitorOnSQL(EventText: String; EventTime: TDateTime);
+var
+  TCALI: TCreateAdditionalLogItem;
+  CommandCALIC: PCreateAdditionalLogItemCaption;
+  TextCALIC: PCreateAdditionalLogItemCaption;
+  str: TStringList;
+  i: Integer;
+  Command: string;
+  Text: string;
+  APos: Integer;
+begin
+  str:=TStringList.Create;
+  try
+   str.Text:=trim(EventText);
+   if str.Count>1 then
+    EventText:=Copy(str.Text,Length(str.Strings[0])+1,Length(str.Text)-Length(str.Strings[0]));
+   str.Text:=EventText;
+   EventText:='';
+   for i:=0 to str.Count-1 do begin
+     if trim(str.Strings[i])<>'' then begin
+       EventText:=EventText+#13#10+trim(str.Strings[i]);
+     end;
+   end;
+   EventText:=Trim(EventText);
+   if EventText<>'' then begin
+    Command:=ConstSQLMonitorCommandUnknown;
+    Text:=EventText;
+    APos:=AnsiPos('[',EventText);
+    if Apos>0 then begin
+      Command:=Copy(EventText,Apos+1,Length(EventText)-APos);
+      APos:=ANsiPos(']',Command);
+      if APos>0 then begin
+        Text:=Trim(Copy(Command,APos+1,Length(Command)-APos));
+        Command:=Copy(Command,1,APos-1);
+      end;
+    end;  
+    FillChar(TCALI,Sizeof(TCreateAdditionalLogItem),0);
+    TCALI.MaxRow:=4;
+    TCALI.TypeAdditionalLogItem:=taliSQL;
+    SetLength(TCALI.ArrPCALIC,2);
+    New(CommandCALIC);
+    New(TextCALIC);
+    try
+     FillChar(CommandCALIC^,SizeOf(TCreateAdditionalLogItemCaption),0);
+     TCALI.ArrPCALIC[0]:=CommandCALIC;
+     CommandCALIC.Caption:=PChar(command);
+     CommandCALIC.Font:=TFont.Create;
+     CommandCALIC.Font.Color:=clRed;
+     CommandCALIC.AutoWidth:=true;
+     CommandCALIC.Visible:=true;
+
+     FillChar(TextCALIC^,SizeOf(TCreateAdditionalLogItemCaption),0);
+     TCALI.ArrPCALIC[1]:=TextCALIC;
+     TextCALIC.Caption:=PChar(Text);
+     TextCALIC.Font:=TFont.Create;
+     TextCALIC.Font.Color:=clBlue;
+     TextCALIC.AutoWidth:=true;
+     TextCALIC.Visible:=true;
+
+     CreateAdditionalLogItem_(hAdditionalLogSqlMonitor,@TCALI);
+    finally
+      TextCALIC.Font.Free;
+      Dispose(TextCALIC);
+      CommandCALIC.Font.Free;
+      Dispose(CommandCALIC);
+    end;
+   end;
+  finally
+   str.Free;
+  end;
+end;
+
+
+procedure TfmMain.splBottomCanResize(Sender: TObject; var NewSize: Integer;
+  var Accept: Boolean);
+{var
+  fm: TForm;}
+begin
+  Accept:=true;
+{  fm:=Screen.ActiveForm;
+  if fm=nil then exit;
+  if fm.WindowState<>wsMaximized then exit;
+  if (ClientHeight-NewSize)>fm.Constraints.MinHeight then exit;
+  Accept:=false;}
+end;
+
+procedure TfmMain.ImageLogoClick(Sender: TObject);
+begin
+  ShellExecute(0,'open',PChar(CompanyWeb),nil,nil,SW_SHOW);
+end;
+
+function TfmMain.GetClientWidth: Integer;
+begin
+  Result:=ClientWidth;
+end;
+
+function TfmMain.GetClientHeight: Integer;
+begin
+  if Assigned(fmLog) and
+     Assigned(fmLog.HostDockSite) and
+     VisibleLog then
+    Result:=ClientHeight-fmLog.HostDockSite.Height-8
+  else
+    Result:=ClientHeight-5;  
+end;
+
+procedure TfmMain.SetLogoPosition(Visible: Boolean);
+begin
+  PanelLogo.Anchors:=[];
+  if Visible then begin
+    PanelLogo.Left:=GetClientWidth-PanelLogo.Width-10;
+    PanelLogo.Top:=GetClientHeight-PanelLogo.Height-50;
+    PanelLogo.Anchors:=[akRight,akBottom];
+    PanelLogo.Visible:=true;
+  end else begin
+    PanelLogo.Visible:=false;
+    PanelLogo.Anchors:=[akLeft,akTop];
+    PanelLogo.Top:=50;
+    PanelLogo.Top:=50;
+  end;
+end;
+
+procedure TfmMain.FormResize(Sender: TObject);
+begin
+  SetLogoPosition(false);
+  SetLogoPosition(true);
+end;
+
+end.
+

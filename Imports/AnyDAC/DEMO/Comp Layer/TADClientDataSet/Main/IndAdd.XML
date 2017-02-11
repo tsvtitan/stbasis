@@ -1,0 +1,116 @@
+<?xml version="1.0" standalone="yes"?>
+
+<ProgramGS ID="TAPRProgramGS">
+	<Version Int="20"/>
+	<StreamFlags Int="0"/>
+	<Enabled Bool="True"/>
+	<Comment Str=""/>
+
+	<VariableListGS ID="">
+		<Enabled Bool="True"/>
+	</VariableListGS>
+
+	<InstructionListGS ID="">
+		<Enabled Bool="True"/>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1"/>
+			<ContentType Int="1"/>
+			<Value Str="Indexes"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtName&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtName"/>
+			<ContentType Int="1"/>
+			<Value Str="I_CN"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtExpression&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtExpression"/>
+			<ContentType Int="1"/>
+			<Value Str="substr(to_char(CustNo), 4, 1)"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:btnIndAdd&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:btnIndAdd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1"/>
+			<ContentType Int="1"/>
+			<Value Str="I_CN"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="1"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtName&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtName"/>
+			<ContentType Int="1"/>
+			<Value Str="I_ST"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtExpression&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtExpression"/>
+			<ContentType Int="1"/>
+			<Value Str=""/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtFields&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:edtFields"/>
+			<ContentType Int="1"/>
+			<Value Str="State"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:btnIndAdd&apos; control1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:btnIndAdd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1"/>
+			<ContentType Int="1"/>
+			<Value Str="I_COMP"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+	</InstructionListGS>
+
+	<ModuleListGS ID="">
+		<Enabled Bool="True"/>
+	</ModuleListGS>
+</ProgramGS>

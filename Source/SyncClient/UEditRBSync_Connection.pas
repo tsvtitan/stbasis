@@ -1,0 +1,403 @@
+unit UEditRBSync_Connection;
+
+interface
+
+{$I stbasis.inc}
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  UEditRB, StdCtrls, Buttons, ExtCtrls, IBServices, IBQuery, db, IBDatabase, IB,
+  ComCtrls,tsvStdCtrls, tsvComCtrls,
+  Ras, RasHelperClasses;
+
+type
+  TfmEditRBSync_Connection = class(TfmEditRB)
+    lbDisplayName: TLabel;
+    edDisplayName: TEdit;
+    chbUsed: TCheckBox;
+    lbConnectionType: TLabel;
+    cmbConnectionType: TComboBox;
+    lbServerName: TLabel;
+    edServerName: TEdit;
+    lbServerPort: TLabel;
+    edServerPort: TEdit;
+    lbOfficeName: TLabel;
+    edOfficeName: TEdit;
+    lbOfficeKey: TLabel;
+    edOfficeKey: TEdit;
+    grbConnection: TGroupBox;
+    pnConnection: TPanel;
+    pcConnection: TPageControl;
+    tsDirect: TTabSheet;
+    tsRemote: TTabSheet;
+    tsModem: TTabSheet;
+    chbInetAuto: TCheckBox;
+    lbRemoteName: TLabel;
+    cmbRemoteName: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Bevel1: TBevel;
+    lbProxyName: TLabel;
+    edProxyName: TEdit;
+    lbProxyPort: TLabel;
+    edProxyPort: TEdit;
+    lbProxyUserName: TLabel;
+    edProxyUserName: TEdit;
+    lbProxyUserPass: TLabel;
+    edProxyUserPass: TEdit;
+    lbProxyByPass: TLabel;
+    edProxyByPass: TEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    lbModemUserName: TLabel;
+    lbModemUserPass: TLabel;
+    edModemUserName: TEdit;
+    edModemUserPass: TEdit;
+    lbModemDomain: TLabel;
+    edModemDomain: TEdit;
+    lbModemPhone: TLabel;
+    edModemPhone: TEdit;
+    edRetryCount: TEdit;
+    udRetryCount: TUpDown;
+    lbRetryCount: TLabel;
+    lbPriority: TLabel;
+    edPriority: TEdit;
+    udPriority: TUpDown;
+    procedure FormCreate(Sender: TObject);
+    procedure edDisplayNameChange(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure chbInetAutoClick(Sender: TObject);
+    procedure cmbConnectionTypeChange(Sender: TObject);
+    procedure chbUsedClick(Sender: TObject);
+  private
+    FPhoneBook: TRasPhonebook;
+    procedure FillRemoteName;    
+  protected
+    function AddToRBooks: Boolean; override;
+    function UpdateRBooks: Boolean; override;
+    function CheckFieldsFill: Boolean; override;
+  public
+    fmParent: TForm;
+    oldSync_Connection_id: Integer;
+    procedure AddClick(Sender: TObject); override;
+    procedure ChangeClick(Sender: TObject); override;
+    procedure FilterClick(Sender: TObject); override;
+  end;
+
+var
+  fmEditRBSync_Connection: TfmEditRBSync_Connection;
+
+implementation
+
+uses USyncClientCode, USyncClientData, UMainUnited, URBSync_Connection;
+
+{$R *.DFM}
+
+procedure TfmEditRBSync_Connection.FilterClick(Sender: TObject);
+begin
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBSync_Connection.AddToRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: string;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    qr.Database:=IBDB;
+    qr.Transaction:=ibtran;
+    qr.Transaction.Active:=true;
+    id:=inttostr(GetGenId(IBDB,tbSync_Connection,1));
+    sqls:='Insert into '+tbSync_Connection+
+          ' (sync_connection_id,connection_type,used,retry_count,display_name,server_name,server_port,'+
+          'office_name,office_key,inet_auto,remote_name,modem_user_name,modem_user_pass,'+
+          'modem_domain,modem_phone,proxy_name,proxy_port,proxy_user_name,proxy_user_pass,proxy_by_pass,priority) values '+
+          ' ('+id+
+          ','+IntToStr(cmbConnectionType.ItemIndex)+
+          ','+IntToStr(Integer(chbUsed.Checked))+
+          ','+Trim(edRetryCount.text)+
+          ','+QuotedStr(Trim(edDisplayName.text))+
+          ','+QuotedStr(Trim(edServerName.text))+
+          ','+Trim(edServerPort.text)+
+          ','+QuotedStr(Trim(edOfficeName.text))+
+          ','+iff(Trim(edOfficeKey.Text)<>'',QuotedStr(Trim(edOfficeKey.text)),'null')+
+          ','+IntToStr(Integer(chbInetAuto.Checked))+
+          ','+iff(Trim(cmbRemoteName.Text)<>'',QuotedStr(Trim(cmbRemoteName.text)),'null')+
+          ','+iff(Trim(edModemUserName.Text)<>'',QuotedStr(Trim(edModemUserName.text)),'null')+
+          ','+iff(Trim(edModemUserPass.Text)<>'',QuotedStr(Trim(edModemUserPass.text)),'null')+
+          ','+iff(Trim(edModemDomain.Text)<>'',QuotedStr(Trim(edModemDomain.text)),'null')+
+          ','+iff(Trim(edModemPhone.Text)<>'',QuotedStr(Trim(edModemPhone.text)),'null')+
+          ','+iff(Trim(edProxyName.Text)<>'',QuotedStr(Trim(edProxyName.text)),'null')+
+          ','+iff(Trim(edProxyPort.Text)<>'',Trim(edProxyPort.text),'null')+
+          ','+iff(Trim(edProxyUserName.Text)<>'',QuotedStr(Trim(edProxyUserName.text)),'null')+
+          ','+iff(Trim(edProxyUserPass.Text)<>'',QuotedStr(Trim(edProxyUserPass.text)),'null')+
+          ','+iff(Trim(edProxyByPass.Text)<>'',QuotedStr(Trim(edProxyByPass.text)),'null')+
+          ','+Trim(edPriority.text)+')';
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+    oldSync_Connection_id:=strtoint(id);
+
+    TfmRBSync_Connection(fmParent).IBUpd.InsertSQL.Clear;
+    TfmRBSync_Connection(fmParent).IBUpd.InsertSQL.Add(sqls);
+
+    with TfmRBSync_Connection(fmParent).MainQr do begin
+      Insert;
+      FieldByName('sync_connection_id').AsInteger:=oldsync_connection_id;
+      FieldByName('connection_type').AsInteger:=cmbConnectionType.ItemIndex;
+      FieldByName('used').AsInteger:=Integer(chbUsed.Checked);
+      FieldByName('retry_count').AsInteger:=StrToInt(edRetryCount.text);
+      FieldByName('display_name').AsString:=Trim(edDisplayName.text);
+      FieldByName('server_name').AsString:=Trim(edServerName.text);
+      FieldByName('server_port').AsInteger:=StrToInt(edServerPort.text);
+      FieldByName('office_name').AsString:=Trim(edOfficeName.text);
+      FieldByName('office_key').Value:=iff(Trim(edOfficeKey.Text)<>'',Trim(edOfficeKey.text),NULL);
+      FieldByName('inet_auto').AsInteger:=Integer(chbInetAuto.Checked);
+      FieldByName('remote_name').Value:=iff(Trim(cmbRemoteName.Text)<>'',Trim(cmbRemoteName.text),NULL);
+      FieldByName('modem_user_name').Value:=iff(Trim(edModemUserName.Text)<>'',Trim(edModemUserName.text),NULL);
+      FieldByName('modem_user_pass').Value:=iff(Trim(edModemUserPass.Text)<>'',Trim(edModemUserPass.text),NULL);
+      FieldByName('modem_domain').Value:=iff(Trim(edModemDomain.Text)<>'',Trim(edModemDomain.text),NULL);
+      FieldByName('modem_phone').Value:=iff(Trim(edModemPhone.Text)<>'',Trim(edModemPhone.text),NULL);
+      FieldByName('proxy_name').Value:=iff(Trim(edProxyName.Text)<>'',Trim(edProxyName.text),NULL);
+      FieldByName('proxy_port').Value:=iff(Trim(edProxyPort.Text)<>'',Trim(edProxyPort.text),NULL);
+      FieldByName('proxy_user_name').Value:=iff(Trim(edProxyUserName.Text)<>'',Trim(edProxyUserName.text),NULL);
+      FieldByName('proxy_user_pass').Value:=iff(Trim(edProxyUserPass.Text)<>'',Trim(edProxyUserPass.text),NULL);
+      FieldByName('proxy_by_pass').Value:=iff(Trim(edProxyByPass.Text)<>'',Trim(edProxyByPass.text),NULL);
+      FieldByName('priority').AsInteger:=StrToInt(edPriority.Text);
+      Post;
+    end;
+ 
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBSync_Connection.AddClick(Sender: TObject);
+begin
+  if not CheckFieldsFill then exit;
+  if not AddToRBooks then exit;
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBSync_Connection.UpdateRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: String;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    id:=inttostr(oldsync_connection_id);
+    qr.Database:=IBDB;
+    qr.Transaction:=IBTran;
+    qr.Transaction.Active:=true;
+    sqls:='Update '+tbSync_Connection+
+          ' set connection_type='+IntToStr(cmbConnectionType.ItemIndex)+
+          ', used='+IntToStr(Integer(chbUsed.Checked))+
+          ', retry_count='+Trim(edRetryCount.text)+
+          ', display_name='+QuotedStr(Trim(edDisplayName.text))+
+          ', server_name='+QuotedStr(Trim(edServerName.text))+
+          ', server_port='+Trim(edServerPort.text)+
+          ', office_name='+QuotedStr(Trim(edOfficeName.text))+
+          ', office_key='+iff(Trim(edOfficeKey.Text)<>'',QuotedStr(Trim(edOfficeKey.text)),'null')+
+          ', inet_auto='+IntToStr(Integer(chbInetAuto.Checked))+
+          ', remote_name='+iff(Trim(cmbRemoteName.Text)<>'',QuotedStr(Trim(cmbRemoteName.text)),'null')+
+          ', modem_user_name='+iff(Trim(edModemUserName.Text)<>'',QuotedStr(Trim(edModemUserName.text)),'null')+
+          ', modem_user_pass='+iff(Trim(edModemUserPass.Text)<>'',QuotedStr(Trim(edModemUserPass.text)),'null')+
+          ', modem_domain='+iff(Trim(edModemDomain.Text)<>'',QuotedStr(Trim(edModemDomain.text)),'null')+
+          ', modem_phone='+iff(Trim(edModemPhone.Text)<>'',QuotedStr(Trim(edModemPhone.text)),'null')+
+          ', proxy_name='+iff(Trim(edProxyName.Text)<>'',QuotedStr(Trim(edProxyName.text)),'null')+
+          ', proxy_port='+iff(Trim(edProxyPort.Text)<>'',Trim(edProxyPort.text),'null')+
+          ', proxy_user_name='+iff(Trim(edProxyUserName.Text)<>'',QuotedStr(Trim(edProxyUserName.text)),'null')+
+          ', proxy_user_pass='+iff(Trim(edProxyUserPass.Text)<>'',QuotedStr(Trim(edProxyUserPass.text)),'null')+
+          ', proxy_by_pass='+iff(Trim(edProxyByPass.Text)<>'',QuotedStr(Trim(edProxyByPass.text)),'null')+
+          ', priority='+Trim(edPriority.text)+
+          ' where sync_connection_id='+id;
+
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+
+    TfmRBSync_Connection(fmParent).IBUpd.ModifySQL.Clear;
+    TfmRBSync_Connection(fmParent).IBUpd.ModifySQL.Add(sqls);
+
+    with TfmRBSync_Connection(fmParent).MainQr do begin
+      Edit;
+      FieldByName('sync_connection_id').AsInteger:=oldsync_connection_id;
+      FieldByName('connection_type').AsInteger:=cmbConnectionType.ItemIndex;
+      FieldByName('used').AsInteger:=Integer(chbUsed.Checked);
+      FieldByName('retry_count').AsInteger:=StrToInt(edRetryCount.text);
+      FieldByName('display_name').AsString:=Trim(edDisplayName.text);
+      FieldByName('server_name').AsString:=Trim(edServerName.text);
+      FieldByName('server_port').AsInteger:=StrToInt(edServerPort.text);
+      FieldByName('office_name').AsString:=Trim(edOfficeName.text);
+      FieldByName('office_key').Value:=iff(Trim(edOfficeKey.Text)<>'',Trim(edOfficeKey.text),NULL);
+      FieldByName('inet_auto').AsInteger:=Integer(chbInetAuto.Checked);
+      FieldByName('remote_name').Value:=iff(Trim(cmbRemoteName.Text)<>'',Trim(cmbRemoteName.text),NULL);
+      FieldByName('modem_user_name').Value:=iff(Trim(edModemUserName.Text)<>'',Trim(edModemUserName.text),NULL);
+      FieldByName('modem_user_pass').Value:=iff(Trim(edModemUserPass.Text)<>'',Trim(edModemUserPass.text),NULL);
+      FieldByName('modem_domain').Value:=iff(Trim(edModemDomain.Text)<>'',Trim(edModemDomain.text),NULL);
+      FieldByName('modem_phone').Value:=iff(Trim(edModemPhone.Text)<>'',Trim(edModemPhone.text),NULL);
+      FieldByName('proxy_name').Value:=iff(Trim(edProxyName.Text)<>'',Trim(edProxyName.text),NULL);
+      FieldByName('proxy_port').Value:=iff(Trim(edProxyPort.Text)<>'',Trim(edProxyPort.text),NULL);
+      FieldByName('proxy_user_name').Value:=iff(Trim(edProxyUserName.Text)<>'',Trim(edProxyUserName.text),NULL);
+      FieldByName('proxy_user_pass').Value:=iff(Trim(edProxyUserPass.Text)<>'',Trim(edProxyUserPass.text),NULL);
+      FieldByName('proxy_by_pass').Value:=iff(Trim(edProxyByPass.Text)<>'',Trim(edProxyByPass.text),NULL);
+      FieldByName('priority').AsInteger:=StrToInt(edPriority.Text);
+      Post;
+    end;
+ 
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBSync_Connection.ChangeClick(Sender: TObject);
+begin
+  if ChangeFlag then begin
+   if not CheckFieldsFill then exit;
+   if not UpdateRBooks then exit;
+  end; 
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBSync_Connection.CheckFieldsFill: Boolean;
+begin
+  Result:=true;
+  if trim(edDisplayName.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbDisplayName.Caption]));
+    edDisplayName.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if trim(edServerName.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbServerName.Caption]));
+    edServerName.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if trim(edServerPort.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbServerPort.Caption]));
+    edServerPort.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if trim(edOfficeName.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbOfficeName.Caption]));
+    edOfficeName.SetFocus;
+    Result:=false;
+    exit;
+  end;
+end;
+
+procedure TfmEditRBSync_Connection.FormCreate(Sender: TObject);
+begin
+  inherited;
+  IBTran.AddDatabase(IBDB);
+  IBDB.AddTransaction(IBTran);
+
+  FPhoneBook:=TRasPhonebook.Create;
+
+  edDisplayName.MaxLength:=DomainNameLength;
+  cmbConnectionType.ItemIndex:=0;
+  edServerName.MaxLength:=DomainNameLength;
+  edServerPort.MaxLength:=5;
+  edOfficeName.MaxLength:=DomainNameLength;
+  edOfficeKey.MaxLength:=DomainNoteLength;
+  edProxyName.MaxLength:=DomainNameLength;
+  edProxyPort.MaxLength:=6;
+  edProxyUserName.MaxLength:=DomainNameLength;
+  edProxyUserPass.MaxLength:=DomainNoteLength;
+  edProxyByPass.MaxLength:=DomainNoteLength;
+  cmbRemoteName.MaxLength:=DomainNameLength;
+  FillRemoteName;
+  edModemUserName.MaxLength:=DomainNameLength;
+  edModemUserPass.MaxLength:=DomainNoteLength;
+  edModemDomain.MaxLength:=DomainNameLength;
+  edModemPhone.MaxLength:=DomainNameLength;
+
+  cmbConnectionTypeChange(nil);
+end;
+
+procedure TfmEditRBSync_Connection.FillRemoteName;
+var
+  i: Integer;
+begin
+  cmbRemoteName.Items.BeginUpdate;
+  try
+    cmbRemoteName.Clear;
+    for i:=0 to FPhoneBook.Count-1 do begin
+      cmbRemoteName.Items.AddObject(FPhoneBook.Items[i].Name,FPhoneBook.Items[i]);
+    end;
+    if cmbRemoteName.Items.Count>0 then
+      cmbRemoteName.ItemIndex:=0;
+  finally
+    cmbRemoteName.Items.EndUpdate;
+  end;
+end;
+
+procedure TfmEditRBSync_Connection.edDisplayNameChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBSync_Connection.FormDestroy(Sender: TObject);
+begin
+  FPhoneBook.Free;
+  inherited;
+end;
+
+procedure TfmEditRBSync_Connection.chbInetAutoClick(Sender: TObject);
+begin
+  ChangeFlag:=true;
+  lbRemoteName.Enabled:=not chbInetAuto.Checked;
+  cmbRemoteName.Enabled:=lbRemoteName.Enabled;
+  cmbRemoteName.Color:=iff(lbRemoteName.Enabled,clWindow,clBtnFace);
+end;
+
+procedure TfmEditRBSync_Connection.cmbConnectionTypeChange(
+  Sender: TObject);
+begin
+  ChangeFlag:=true;
+  pcConnection.ActivePageIndex:=cmbConnectionType.ItemIndex;
+  grbConnection.Caption:=' '+cmbConnectionType.Text+' ';
+end;
+
+procedure TfmEditRBSync_Connection.chbUsedClick(Sender: TObject);
+begin
+  ChangeFlag:=true;
+
+end;
+
+end.
+

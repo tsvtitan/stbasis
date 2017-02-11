@@ -1,0 +1,13 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=help.chm
+Default topic=help.htm
+Display compile progress=Yes
+Language=0x419 Русский
+
+
+[FILES]
+help.files\header.htm
+
+[INFOTYPES]
+

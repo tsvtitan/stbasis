@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="daADComIC6.bpl"/>
+    <OBJFILES value="daADComIC6.obj 
+      daADStanResStrs.obj 
+      daADDAptColumn.obj 
+      daADDAptIntf.obj 
+      daADDatSManager.obj 
+      daADGUIxIntf.obj 
+      daADPhysIntf.obj 
+      daADStanConst.obj
+      daADStanError.obj 
+      daADStanFactory.obj 
+      daADStanFCCompareTextShaUnit.obj 
+      daADStanFCCPUID.obj 
+      daADStanFCFillCharDKCUnit.obj 
+      daADStanFCFillCharUnit.obj 
+      daADStanFCMoveJOHUnit4.obj 
+      daADStanIntf.obj 
+      daADStanOption.obj 
+      daADStanParam.obj daADStanUtil.obj daADStanAsync.obj daADStanDef.obj
+      daADStanExpr.obj daADStanPool.obj daADStanRegExpr.obj daADCompDataSet.obj 
+      daADGUIxFormsWait.obj "/>
+    <RESFILES value="sourceforcompile\daADComIC6.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value=""/>
+    <PACKAGES value="rtl.bpi dbrtl.bpi vcl.bpi"/>
+    <PATHCPP value=".;sourceforcompile"/>
+    <PATHPAS value=".;sourceforcompile"/>
+    <PATHRC value=".;sourceforcompile"/>
+    <PATHASM value=".;sourceforcompile"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="daADComIC6.cpp"/>
+    <INCLUDEPATH value="sourceforcompile;PACK;..\sourceforcompile;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="sourceforcompile;PACK;$(BCB)\lib\obj;$(BCB)\lib;Lib\C6;&quot;$(DEF_DCP)&quot;"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-Isourceforcompil 
+      -IPACK
+       -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpp -Gpr -x -Gn -Gl -Gi -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="daADComIC6.res" FORMNAME="" UNITNAME="daADComIC6.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADComIC6.cpp" FORMNAME="" UNITNAME="daADComIC6" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanResStrs.pas" FORMNAME="" UNITNAME="daADStanResStrs" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADDAptColumn.pas" FORMNAME="" UNITNAME="daADDAptColumn" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADDAptIntf.pas" FORMNAME="" UNITNAME="daADDAptIntf" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADDatSManager.pas" FORMNAME="" UNITNAME="daADDatSManager" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxIntf.pas" FORMNAME="" UNITNAME="daADGUIxIntf" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADPhysIntf.pas" FORMNAME="" UNITNAME="daADPhysIntf" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanConst.pas" FORMNAME="" UNITNAME="daADStanConst" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanError.pas" FORMNAME="" UNITNAME="daADStanError" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFactory.pas" FORMNAME="" UNITNAME="daADStanFactory" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFCCompareTextShaUnit.pas" FORMNAME="" UNITNAME="daADStanFCCompareTextShaUnit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFCCPUID.pas" FORMNAME="" UNITNAME="daADStanFCCPUID" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFCFillCharDKCUnit.pas" FORMNAME="" UNITNAME="daADStanFCFillCharDKCUnit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFCFillCharUnit.pas" FORMNAME="" UNITNAME="daADStanFCFillCharUnit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanFCMoveJOHUnit4.pas" FORMNAME="" UNITNAME="daADStanFCMoveJOHUnit4" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanIntf.pas" FORMNAME="" UNITNAME="daADStanIntf" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanOption.pas" FORMNAME="" UNITNAME="daADStanOption" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanParam.pas" FORMNAME="" UNITNAME="daADStanParam" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="dbrtl.bpi" FORMNAME="" UNITNAME="dbrtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanUtil.pas" FORMNAME="" UNITNAME="daADStanUtil" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanAsync.pas" FORMNAME="" UNITNAME="daADStanUtil" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanDef.pas" FORMNAME="" UNITNAME="daADStanDef" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanExpr.pas" FORMNAME="" UNITNAME="daADStanExpr" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanPool.pas" FORMNAME="" UNITNAME="daADStanPool" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADStanRegExpr.pas" FORMNAME="" UNITNAME="daADStanRegExpr" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADCompDataSet.pas" FORMNAME="" UNITNAME="daADCompDataSet" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsWait.pas" FORMNAME="" UNITNAME="daADGUIxFormsWait" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=1
+MinorVer=12
+Release=2
+Build=225
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.12.2.225
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.12.2.0
+Comments=
+
+[Excluded Packages]
+
+[HistoryLists\hlIncludePath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\lib\obj;$(BCB)\lib;Lib\C6
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hIBPIOutputDir]
+Count=1
+Item0=
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+
+  </IDEOPTIONS>
+</PROJECT>

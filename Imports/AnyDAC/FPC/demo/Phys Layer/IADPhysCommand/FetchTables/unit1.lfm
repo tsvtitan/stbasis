@@ -1,0 +1,39 @@
+object Form1: TForm1
+  Left = 290
+  Height = 300
+  Top = 149
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 299
+  ActiveControl = btnConnect
+  Caption = 'Form1'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object btnConnect: TButton
+    Left = 9
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Connect'
+    OnClick = btnConnectClick
+    TabOrder = 0
+  end
+  object btnFetch: TButton
+    Left = 88
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Fetch'
+    OnClick = btnFetchClick
+    TabOrder = 1
+  end
+  object Console: TMemo
+    Left = 11
+    Height = 251
+    Top = 37
+    Width = 379
+    TabOrder = 2
+  end
+end

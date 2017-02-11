@@ -1,0 +1,50 @@
+24.03.08 10:33:24.562 [Info]: Start ...
+24.03.08 10:33:24.609 [Info]: Primary Db connect success
+24.03.08 10:33:24.609 [Info]: TCP Server started: 0.0.0.0:60000 success
+24.03.08 10:33:24.609 [Info]: Started success
+24.03.08 10:34:47.796 [Info]: Remote client 348 KeyOutHash: 5F27FA6E4600A983506226AD36016C72
+24.03.08 10:34:47.796 [Info]: Remote client 348 127.0.0.1:2110 connect to 127.0.0.1:60000
+24.03.08 10:34:47.796 [Info]: CheckOffice OfficeName: 1
+24.03.08 10:34:47.828 [Error]: CheckOffice OfficeName: 1 failed
+24.03.08 10:34:47.859 [Error]: Remote client 348 exception: Connection Closed Gracefully.
+24.03.08 10:34:47.859 [Info]: Remote client 348 disconnect
+24.03.08 10:34:53.937 [Info]: Remote client 348 KeyOutHash: 5F27FA6E4600A983506226AD36016C72
+24.03.08 10:34:53.937 [Info]: Remote client 348 127.0.0.1:2111 connect to 127.0.0.1:60000
+24.03.08 10:34:53.937 [Info]: CheckOffice OfficeName: 1
+24.03.08 10:34:53.937 [Error]: CheckOffice OfficeName: 1 failed
+24.03.08 10:34:53.984 [Error]: Remote client 348 exception: Connection Closed Gracefully.
+24.03.08 10:34:53.984 [Info]: Remote client 348 disconnect
+24.03.08 10:35:07.265 [Info]: Remote client 348 KeyOutHash: 5F27FA6E4600A983506226AD36016C72
+24.03.08 10:35:07.265 [Info]: Remote client 348 127.0.0.1:2112 connect to 127.0.0.1:60000
+24.03.08 10:35:07.265 [Info]: CheckOffice OfficeName: 1
+24.03.08 10:35:07.281 [Error]: CheckOffice OfficeName: 1 failed
+24.03.08 10:35:07.312 [Error]: Remote client 348 exception: Connection Closed Gracefully.
+24.03.08 10:35:07.312 [Info]: Remote client 348 disconnect
+24.03.08 10:35:31.687 [Info]: Remote client 348 KeyOutHash: 5F27FA6E4600A983506226AD36016C72
+24.03.08 10:35:31.687 [Info]: Remote client 348 127.0.0.1:2113 connect to 127.0.0.1:60000
+24.03.08 10:35:31.687 [Info]: CheckOffice OfficeName: Семафорная
+24.03.08 10:35:31.687 [Info]: CheckOffice OfficeName: Семафорная successed
+24.03.08 10:35:31.687 [Info]: CommandInit OfficeKeyHash: D41D8CD98F00B204E9800998ECF8427E success
+24.03.08 10:35:31.812 [Info]: GetOutDataDesc success
+24.03.08 10:35:31.812 [Info]: GetOutDataDesc StreamHash: A41ABE20DE7325E516A639680A216BF4
+24.03.08 10:35:31.906 [Info]: SetNewData StreamHash: 8392C261F49C89764AEE7066C8607E96
+24.03.08 10:35:31.906 [Info]: SetNewData success
+24.03.08 10:35:31.921 [Info]: GetOutData success
+24.03.08 10:35:31.921 [Info]: GetOutData StreamHash: BE85CC98A2EF6EFAD4A50EDF9A5D0073
+24.03.08 10:35:32.031 [Info]: Remote client 348 disconnect
+24.03.08 10:35:45.140 [Info]: Remote client 348 KeyOutHash: 5F27FA6E4600A983506226AD36016C72
+24.03.08 10:35:45.140 [Info]: Remote client 348 127.0.0.1:2114 connect to 127.0.0.1:60000
+24.03.08 10:35:45.140 [Info]: CheckOffice OfficeName: Семафорная
+24.03.08 10:35:45.156 [Info]: CheckOffice OfficeName: Семафорная successed
+24.03.08 10:35:45.156 [Info]: CommandInit OfficeKeyHash: D41D8CD98F00B204E9800998ECF8427E success
+24.03.08 10:35:45.203 [Info]: GetOutDataDesc success
+24.03.08 10:35:45.203 [Info]: GetOutDataDesc StreamHash: A41ABE20DE7325E516A639680A216BF4
+24.03.08 10:35:45.265 [Info]: SetNewData StreamHash: 8392C261F49C89764AEE7066C8607E96
+24.03.08 10:35:45.265 [Info]: SetNewData success
+24.03.08 10:35:45.281 [Info]: GetOutData success
+24.03.08 10:35:45.281 [Info]: GetOutData StreamHash: BE85CC98A2EF6EFAD4A50EDF9A5D0073
+24.03.08 10:35:45.437 [Info]: Remote client 348 disconnect
+24.03.08 10:35:49.484 [Info]: Stop ...
+24.03.08 10:35:49.484 [Info]: TCP Server stopped success
+24.03.08 10:35:49.484 [Info]: Primary Db disconnect success
+24.03.08 10:35:49.484 [Info]: Stopped success

@@ -1,0 +1,105 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{e54227e7-1ae8-44d0-92bf-df0e3fd15864}</ProjectGuid>
+    <MainSource>daADDclD11.dpk</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl\daADDclD11.bpl</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_Optimize>False</DCC_Optimize>
+    <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
+    <DCC_RangeChecking>True</DCC_RangeChecking>
+    <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_CBuilderOutput>All</DCC_CBuilderOutput>
+    <DCC_UnitSearchPath>$(DELPHI)\Lib\Debug;..\;C:\Programme\da-soft\AnyDAC\SOURCE</DCC_UnitSearchPath>
+    <DCC_ResourcePath>$(DELPHI)\Lib\Debug;..\;C:\Programme\da-soft\AnyDAC\SOURCE</DCC_ResourcePath>
+    <DCC_ObjPath>$(DELPHI)\Lib\Debug;..\;C:\Programme\da-soft\AnyDAC\SOURCE</DCC_ObjPath>
+    <DCC_IncludePath>$(DELPHI)\Lib\Debug;..\;C:\Programme\da-soft\AnyDAC\SOURCE</DCC_IncludePath>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Optimize>False</DCC_Optimize>
+    <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
+    <DCC_RangeChecking>True</DCC_RangeChecking>
+    <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
+    <DCC_UnitSearchPath>$(DELPHI)\Lib\Debug</DCC_UnitSearchPath>
+    <DCC_ResourcePath>$(DELPHI)\Lib\Debug</DCC_ResourcePath>
+    <DCC_ObjPath>$(DELPHI)\Lib\Debug</DCC_ObjPath>
+    <DCC_IncludePath>$(DELPHI)\Lib\Debug</DCC_IncludePath>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>Package</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Compiler><Compiler Name="UsePackages">False</Compiler><Compiler Name="Packages"></Compiler></Compiler><Parameters><Parameters Name="HostApplication">C:\Program Files\Borland\Delphi7\Bin\delphi32.exe</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">da-soft AnyDAC design time Package for Delphi 2007</Package_Options><Package_Options Name="ImplicitBuild">False</Package_Options><Package_Options Name="DesigntimeOnly">True</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><Language><Language Name="RootDir">C:\Program Files\Borland\Delphi7\Bin\</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">True</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">12</VersionInfo><VersionInfo Name="Release">2</VersionInfo><VersionInfo Name="Build">225</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">da-soft</VersionInfoKeys><VersionInfoKeys Name="FileDescription">AnyDAC for Delphi 2007</VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.12.2.225</VersionInfoKeys><VersionInfoKeys Name="InternalName">Dcl</VersionInfoKeys><VersionInfoKeys Name="LegalCopyright">(c) 2004-2007, Dmitry Arefiev</VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName">AnyDAC</VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.12.2.0</VersionInfoKeys><VersionInfoKeys Name="Comments">http://www.da-soft.com</VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">daADDclD11.dpk</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="daADDclD11.dpk">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADComID11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADCompD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADCompReg" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADGUIxFormsD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysADSD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysASAD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysDB2D11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysMSAccD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysMSSQLD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysMySQLD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysODBCD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysOraclD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\daADPhysTDBXD11.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\dbrtl.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\dcldb.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\dclstd.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\designide.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\rtl.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\vcl.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\vclactnband.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\vcldb.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\vcldesigner.dcp" />
+    <DCCReference Include="C:\Documents and Settings\Administrator\Desktop\vclx.dcp" />
+    <DCCReference Include="daADComID1.dcp" />
+    <DCCReference Include="daADComID10.dcp" />
+    <DCCReference Include="daADCompD1.dcp" />
+    <DCCReference Include="daADCompD10.dcp" />
+    <DCCReference Include="daADDcl.dcr" />
+    <DCCReference Include="daADDcl.dcr" />
+    <DCCReference Include="daADGUIxFormsD1.dcp" />
+    <DCCReference Include="daADGUIxFormsD10.dcp" />
+    <DCCReference Include="daADPhysADSD1.dcp" />
+    <DCCReference Include="daADPhysADSD10.dcp" />
+    <DCCReference Include="daADPhysASAD1.dcp" />
+    <DCCReference Include="daADPhysASAD10.dcp" />
+    <DCCReference Include="daADPhysD1.dcp" />
+    <DCCReference Include="daADPhysD10.dcp" />
+    <DCCReference Include="daADPhysDB2D1.dcp" />
+    <DCCReference Include="daADPhysDB2D10.dcp" />
+    <DCCReference Include="daADPhysDbExpD1.dcp" />
+    <DCCReference Include="daADPhysDbExpD10.dcp" />
+    <DCCReference Include="daADPhysDbExpD11.dcp" />
+    <DCCReference Include="daADPhysMSAccD1.dcp" />
+    <DCCReference Include="daADPhysMSAccD10.dcp" />
+    <DCCReference Include="daADPhysMSSQLD1.dcp" />
+    <DCCReference Include="daADPhysMSSQLD10.dcp" />
+    <DCCReference Include="daADPhysMySQLD1.dcp" />
+    <DCCReference Include="daADPhysMySQLD10.dcp" />
+    <DCCReference Include="daADPhysODBCD1.dcp" />
+    <DCCReference Include="daADPhysODBCD10.dcp" />
+    <DCCReference Include="daADPhysOraclD1.dcp" />
+    <DCCReference Include="daADPhysOraclD10.dcp" />
+    <DCCReference Include="daADPhysTD11.dcp" />
+    <DCCReference Include="daADPhysTDBD11.dcp" />
+    <DCCReference Include="daADPhysTDD11.dcp" />
+  </ItemGroup>
+</Project>

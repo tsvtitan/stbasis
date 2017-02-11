@@ -1,0 +1,690 @@
+unit USrvPermission;
+
+interface
+{$I stbasis.inc}
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  USrvMain, rxRichEd, StdCtrls, ExtCtrls, Buttons, tsvDbGrid, Db, dbgrids, Grids,
+  RxMemDS, IBDatabase, IBCustomDataSet, IBQuery, comctrls, IBUpdateSQL, UMainUnited,
+  Menus, ImgList;
+
+type
+  TfmSrvPermission = class(TfmSrvMain)
+    pnBut: TPanel;
+    bibClose: TButton;
+    pnTop: TPanel;
+    grbApp: TGroupBox;
+    cmbApp: TComboBox;
+    grbSqlObject: TGroupBox;
+    chbTable: TCheckBox;
+    chbView: TCheckBox;
+    chbProcedure: TCheckBox;
+    pnGrid: TPanel;
+    ds: TDataSource;
+    pm: TPopupMenu;
+    miGrantAlltoRow: TMenuItem;
+    miRevokeAllFromRow: TMenuItem;
+    imL: TImageList;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure bibCloseClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cmbAppChange(Sender: TObject);
+    procedure chbTableClick(Sender: TObject);
+    procedure pmPopup(Sender: TObject);
+    procedure miGrantAlltoRowClick(Sender: TObject);
+    procedure miRevokeAllFromRowClick(Sender: TObject);
+  private
+    LastKey: Word;
+    OldIndex: Integer;
+    procedure GridDblClick(Sender: TObject);
+    procedure ClearApplications;
+    procedure FillApplications;
+    function GetSql: string;
+    procedure GridDrawColumnCell(Sender: TObject; const Rect: TRect;
+                                 DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure MemTableAfterScroll(DataSet: TDataSet);
+    procedure GrantOrRevoke(Column: TColumn; isGrant: Boolean);
+  public
+    app_id: Integer;
+    LastLocateName: string;
+    Grid: TNewDBgrid;
+    MemTable: TRxMemoryData;
+    procedure SaveToIni;override;
+    procedure LoadFromIni;override;
+    procedure InitMdiChildParams(hInterface: THandle; Param: PParamServiceInterface);override;
+    procedure ActiveQuery(CheckPerm: Boolean);
+  end;
+
+var
+  fmSrvPermission: TfmSrvPermission;
+
+implementation
+
+uses USystsvData, USystsvCode, StrUtils, tsvInterbase;
+
+{$R *.DFM}
+
+type
+  PInfoApp=^TInfoApp;
+  TInfoApp=packed record
+    app_id: Integer;
+    sqlrole: string;
+  end;
+
+{ TfmSrvImport }
+
+procedure TfmSrvPermission.FormCreate(Sender: TObject);
+var
+  cl: TColumn;
+begin
+ inherited;
+ try
+  Caption:=NameSrvPermission;
+
+  MemTable:=TRxMemoryData.Create(nil);
+  MemTable.AfterScroll:=MemTableAfterScroll;
+  ds.DataSet:=MemTable;
+
+  Grid:=TNewdbGrid.Create(self);
+  Grid.Parent:=pnGrid;
+  Grid.Align:=alClient;
+  Grid.DataSource:=ds;
+  Grid.Name:='Grid';
+  Grid.RowSelected.Visible:=true;
+  Grid.VisibleRowNumber:=_GetOptions.VisibleRowNumber;
+  AssignFont(_GetOptions.RBTableFont,Grid.Font);
+  Grid.TitleFont.Assign(Grid.Font);
+  Grid.RowSelected.Font.Assign(Grid.Font);
+  Grid.RowSelected.Brush.Style:=bsClear;
+  Grid.RowSelected.Brush.Color:=_GetOptions.RBTableRecordColor;
+  Grid.RowSelected.Font.Color:=clWhite;
+  Grid.RowSelected.Pen.Style:=psClear;
+  Grid.CellSelected.Visible:=true;
+  Grid.CellSelected.Brush.Color:=_GetOptions.RBTableCursorColor;
+  Grid.CellSelected.Font.Assign(Grid.Font);
+  Grid.CellSelected.Font.Color:=clHighlightText;
+  Grid.TitleCellMouseDown.Font.Assign(Grid.Font);
+  Grid.Options:=Grid.Options-[dgEditing]-[dgTabs];
+  Grid.RowSizing:=false;
+  Grid.ReadOnly:=true;
+  Grid.OnKeyDown:=FormKeyDown;
+  Grid.ColumnSortEnabled:=false;
+  Grid.OnDblClick:=GridDblClick;
+  Grid.OnDrawColumnCell:=GridDrawColumnCell;
+  Grid.PopupMenu:=pm;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='obj';
+  MemTable.FieldDefs.Add('obj',ftString,40);
+  cl.Title.Caption:='Объект';
+  cl.Width:=100;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='spermplus';
+  MemTable.FieldDefs.Add('sperm',ftInteger);
+  cl.Title.Caption:='Выбор';
+  cl.Title.Alignment:=taCenter;
+  cl.Width:=60;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='upermplus';
+  MemTable.FieldDefs.Add('uperm',ftInteger);
+  cl.Title.Caption:='Изменение';
+  cl.Title.Alignment:=taCenter;
+  cl.Width:=70;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='dpermplus';
+  MemTable.FieldDefs.Add('dperm',ftInteger);
+  cl.Title.Caption:='Удаление';
+  cl.Title.Alignment:=taCenter;
+  cl.Width:=70;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='ipermplus';
+  MemTable.FieldDefs.Add('iperm',ftInteger);
+  cl.Title.Caption:='Вставка';
+  cl.Title.Alignment:=taCenter;
+  cl.Width:=70;
+
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='xpermplus';
+  MemTable.FieldDefs.Add('xperm',ftInteger);
+  cl.Title.Caption:='Выполнение';
+  cl.Title.Alignment:=taCenter;
+  cl.Width:=75;
+  
+  cl:=Grid.Columns.Add;
+  cl.FieldName:='hint';
+  MemTable.FieldDefs.Add(cl.FieldName,ftString,500);
+  cl.Title.Caption:='Описание';
+  cl.Width:=150;
+
+  MemTable.FieldDefs.Add('istable',ftInteger);
+
+  MemTable.Active:=true;
+  
+  OldIndex:=-1;
+  
+  FillApplications;
+  if cmbApp.Items.Count>0 then cmbApp.ItemIndex:=0;
+
+  LoadFromIni;
+
+  chbTable.OnClick:=chbTableClick;
+  chbView.OnClick:=chbTableClick;
+  chbProcedure.OnClick:=chbTableClick;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmSrvPermission.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  ClearApplications;
+  Grid.Free;
+  MemTable.Free;
+  if FormState=[fsCreatedMDIChild] then
+   fmSrvPermission:=nil;
+end;
+
+procedure TfmSrvPermission.SaveToIni;
+
+  procedure SaveGridProp;
+  var
+   i: Integer;
+   cl: TColumn;
+  begin
+   for i:=0 to Grid.Columns.Count-1 do begin
+    cl:=Grid.Columns.Items[i];
+    WriteParam(ClassName,'clmnID'+Grid.Name+inttostr(i),cl.ID);
+    WriteParam(ClassName,'clmnIndex'+Grid.Name+inttostr(i),cl.Index);
+    WriteParam(ClassName,'clmnWidth'+Grid.Name+inttostr(i),cl.Width);
+    WriteParam(ClassName,'clmnVisible'+Grid.Name+inttostr(i),cl.Visible);
+   end;
+  end;
+
+begin
+  inherited;
+  SaveGridProp;
+  WriteParam(ClassName,chbTable.Name,chbTable.Checked);
+  WriteParam(ClassName,chbView.Name,chbView.Checked);
+  WriteParam(ClassName,chbProcedure.Name,chbProcedure.Checked);
+  WriteParam(ClassName,'app_id',app_id);
+  WriteParam(ClassName,'LastLocateName',LastLocateName);
+end;
+
+procedure TfmSrvPermission.LoadFromIni;
+
+  procedure LoadGridProp;
+  var
+   i: Integer;
+   cl: TColumn;
+   id: Integer;
+  begin
+   for i:=0 to Grid.Columns.Count-1 do begin
+    id:=ReadParam(ClassName,'clmnID'+Grid.Name+inttostr(i),i);
+    cl:=TColumn(Grid.Columns.FindItemID(id));
+    if cl<>nil then begin
+     cl.Index:=ReadParam(ClassName,'clmnIndex'+Grid.Name+inttostr(i),cl.Index);
+     cl.Width:=ReadParam(ClassName,'clmnWidth'+Grid.Name+inttostr(i),cl.Width);
+     cl.Visible:=ReadParam(ClassName,'clmnVisible'+Grid.Name+inttostr(i),cl.Visible);
+    end;
+   end;
+  end;
+
+  procedure SetApp;
+  var
+    TPRBI: TParamRBookInterface;
+    val: Integer;
+    s: string;
+  begin
+    FillChar(TPRBI,SizeOf(TPRBI),0);
+    TPRBI.Visual.TypeView:=tviOnlyData;
+    TPRBI.Condition.WhereStr:=PChar(' app_id='+inttostr(app_id)+' ');
+    if _ViewInterfaceFromName(NameRbkApp,@TPRBI) then begin
+      if ifExistsDataInParamRBookInterface(@TPRBI) then begin
+       s:=GetFirstValueFromParamRBookInterface(@TPRBI,'name');
+       val:=cmbApp.Items.IndexOf(s);
+       if val<>-1 then
+         cmbApp.ItemIndex:=val;
+      end;
+    end;
+  end; 
+
+begin
+  inherited;
+  LoadGridProp;
+  chbTable.Checked:=ReadParam(ClassName,chbTable.Name,chbTable.Checked);
+  chbView.Checked:=ReadParam(ClassName,chbView.Name,chbView.Checked);
+  chbProcedure.Checked:=ReadParam(ClassName,chbProcedure.Name,chbProcedure.Checked);
+  app_id:=ReadParam(ClassName,'app_id',app_id);
+  LastLocateName:=ReadParam(ClassName,'LastLocateName',LastLocateName);
+  SetApp;
+end;
+
+procedure TfmSrvPermission.bibCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfmSrvPermission.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key=LastKey then begin
+   LastKey:=0;
+   exit;
+  end;
+  if Shift=[] then begin
+   case Key of
+    VK_F2: begin
+    end;
+    VK_F3: begin
+    end;
+    VK_F4: begin
+    end;
+    VK_F5: begin
+    end; 
+    VK_F6: begin
+    end;
+    VK_F7: begin
+    end;
+    VK_F8: begin
+    end;
+    VK_UP,VK_DOWN: begin
+    end;
+    VK_F9: begin
+    end;
+   end;
+  end;
+  if Key=VK_SPACE then begin
+    GridDblClick(nil);
+  end;
+  _MainFormKeyDown(Key,Shift);
+  LastKey:=Key;
+end;
+
+procedure TfmSrvPermission.ClearApplications;
+var
+  i: Integer;
+  P: PInfoApp;
+begin
+  for i:=0 to cmbApp.Items.Count-1 do begin
+    P:=PInfoApp(cmbApp.Items.Objects[i]);
+    Dispose(P);
+  end;
+  cmbApp.Items.Clear;
+end;
+
+procedure TfmSrvPermission.FillApplications;
+var
+  TPRBI: TParamRBookInterface;
+  S,E: Integer;
+  i: Integer;
+  P: PInfoApp;
+  tmps: string;
+begin
+ cmbApp.Items.BeginUpdate;
+ try
+  ClearApplications;
+  FillChar(TPRBI,SizeOf(TPRBI),0);
+  TPRBI.Visual.TypeView:=tviOnlyData;
+  TPRBI.Condition.OrderStr:=PChar(' name ');
+  if _ViewInterfaceFromName(NameRbkApp,@TPRBI) then begin
+    GetStartAndEndByParamRBookInterface(@TPRBI,S,E);
+    for i:=S to E do begin
+      New(P);
+      P.app_id:=GetValueByParamRBookInterface(@TPRBI,I,'app_id',vtInteger);
+      P.sqlrole:=GetValueByParamRBookInterface(@TPRBI,I,'sqlrole',vtString);
+      tmps:=GetValueByParamRBookInterface(@TPRBI,I,'name',vtString);
+      cmbApp.Items.AddObject(tmps,TObject(P));
+    end;
+  end;
+ finally
+   cmbApp.Items.EndUpdate;
+ end;
+end;
+
+procedure TfmSrvPermission.cmbAppChange(Sender: TObject);
+begin
+  if OldIndex<>cmbApp.ItemIndex then begin
+    if cmbApp.ItemIndex<>-1 then begin
+     app_id:=PInfoApp(cmbApp.Items.Objects[cmbApp.ItemIndex]).app_id;
+     ActiveQuery(true);
+    end; 
+  end;  
+  OldIndex:=cmbApp.ItemIndex;
+end;
+
+procedure TfmSrvPermission.ActiveQuery(CheckPerm: Boolean);
+
+  procedure SetPermissionToMemTable(Perm: String);
+  begin
+    MemTable.Edit;
+    if Perm=SelConst then MemTable.FieldByName('sperm').AsInteger:=1;
+    if Perm=DelConst then MemTable.FieldByName('dperm').AsInteger:=1;
+    if Perm=UpdConst then MemTable.FieldByName('uperm').AsInteger:=1;
+    if Perm=InsConst then MemTable.FieldByName('iperm').AsInteger:=1;
+    if Perm=ExecConst then MemTable.FieldByName('xperm').AsInteger:=1;
+    MemTable.Post;
+  end;
+
+var
+ TPRBI: TParamRBookInterface;
+ StartValue,EndValue: Integer;
+ i: Integer;
+ sqls: string;
+ P: PInfoApp;
+ isLocateOk: Boolean;
+ OldName,NewName,Perm: string;
+begin
+ if cmbApp.ItemIndex=-1 then exit;
+ P:=PInfoApp(cmbApp.Items.Objects[cmbApp.ItemIndex]);
+ try
+  Screen.Cursor:=crHourGlass;
+  MemTable.DisableControls;
+  MemTable.AfterScroll:=nil;
+  try
+   if not MemTable.IsEmpty then
+    LastLocateName:=MemTable.FieldByName('obj').AsString;
+   MemTable.EmptyTable;
+   sqls:=GetSql;
+   if Trim(sqls)='' then exit;
+   FillChar(TPRBI,SizeOf(TPRBI),0);
+   TPRBI.Visual.TypeView:=tviOnlyData;
+   TPRBI.SQL.Select:=PChar(sqls);
+   TPRBI.Condition.OrderStr:=PChar(' 1 ');
+   if _ViewInterfaceFromName(NameRbkQuery,@TPRBI) then begin
+      StartValue:=0;
+      EndValue:=0;
+      GetStartAndEndByParamRBookInterface(@TPRBI,StartValue,EndValue);
+      try
+       for i:=StartValue to EndValue do begin
+        MemTable.Append;
+        MemTable.FieldByName('obj').AsString:=Trim(GetValueByParamRBookInterface(@TPRBI,i,'name',vtString));
+        MemTable.FieldByName('hint').AsString:=Trim(GetValueByParamRBookInterface(@TPRBI,i,'descr',vtString));
+        MemTable.FieldByName('istable').AsString:=GetValueByParamRBookInterface(@TPRBI,i,'istable',vtInteger);
+        MemTable.FieldByName('sperm').AsInteger:=0;
+        MemTable.FieldByName('uperm').AsInteger:=0;
+        MemTable.FieldByName('dperm').AsInteger:=0;
+        MemTable.FieldByName('iperm').AsInteger:=0;
+        MemTable.FieldByName('xperm').AsInteger:=0;
+        MemTable.Post;
+       end;
+
+       FillChar(TPRBI,SizeOf(TPRBI),0);
+       TPRBI.Visual.TypeView:=tviOnlyData;
+       TPRBI.SQL.Select:=SQLSrvPermission;
+       TPRBI.Condition.WhereStr:=PChar(' rdb$user='+QuotedStr(AnsiUpperCase(P.sqlrole))+' and'+
+                                       ' rdb$user_type='+inttostr(ConstRDBUserTypeRole)+' ');
+       TPRBI.Condition.OrderStr:=PChar(' rdb$relation_name ');
+       if _ViewInterfaceFromName(NameRbkQuery,@TPRBI) then begin
+         StartValue:=0;
+         EndValue:=0;
+         GetStartAndEndByParamRBookInterface(@TPRBI,StartValue,EndValue);
+         isLocateOk:=false;
+         for i:=StartValue to EndValue do begin
+           NewName:=Trim(GetValueByParamRBookInterface(@TPRBI,i,'rdb$relation_name',vtString));
+           Perm:=Trim(GetValueByParamRBookInterface(@TPRBI,i,'rdb$privilege',vtString));
+           if OldName<>NewName then begin
+             isLocateOk:=false;
+             if MemTable.Locate('obj',NewName,[]) then begin
+               SetPermissionToMemTable(Perm);
+               isLocateOk:=true;
+             end;
+           end else begin
+             if isLocateOk then SetPermissionToMemTable(Perm);
+           end;
+           OldName:=NewName;
+         end;
+       end;
+      finally
+        MemTable.First;
+      end;
+   end;
+  finally
+   MemTable.Locate('obj',LastLocateName,[]);
+   MemTable.AfterScroll:=MemTableAfterScroll;
+   MemTable.EnableControls;
+   Screen.Cursor:=crDefault;
+  end;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+ end;
+end;
+
+procedure TfmSrvPermission.chbTableClick(Sender: TObject);
+begin
+  ActiveQuery(true);
+end;
+
+procedure TfmSrvPermission.InitMdiChildParams(hInterface: THandle; Param: PParamServiceInterface);
+begin
+  ActiveQuery(true);
+  inherited;
+end;
+
+procedure TfmSrvPermission.GridDrawColumnCell(Sender: TObject; const Rect: TRect;
+               DataCol: Integer; Column: TColumn; State: TGridDrawState);
+
+   procedure DrawChecked(rt: TRect; isCheck: Boolean);
+   begin
+    if not isCheck then Begin
+     DrawFrameControl(Grid.Canvas.Handle,Rt,DFC_BUTTON,DFCS_BUTTONCHECK);
+    end else begin
+     DrawFrameControl(Grid.Canvas.Handle,Rt,DFC_BUTTON,DFCS_CHECKED);
+    end;
+   end;
+
+var
+  rt: TRect;
+begin
+  if not MemTable.Active then exit;
+  if MemTable.isEmpty then exit;
+  rt.Right:=rect.Right;
+  rt.Left:=rect.Left;
+  rt.Top:=rect.Top+2;
+  rt.Bottom:=rect.Bottom-2;
+  if Boolean(MemTable.FieldByName('istable').AsInteger) then begin
+   if Column.Title.Caption='Выбор' then DrawChecked(rt,Boolean(MemTable.FieldByName('sperm').AsInteger));
+   if Column.Title.Caption='Изменение' then DrawChecked(rt,Boolean(MemTable.FieldByName('uperm').AsInteger));
+   if Column.Title.Caption='Удаление' then DrawChecked(rt,Boolean(MemTable.FieldByName('dperm').AsInteger));
+   if Column.Title.Caption='Вставка' then DrawChecked(rt,Boolean(MemTable.FieldByName('iperm').AsInteger));
+  end else begin
+    if Column.Title.Caption='Выполнение' then DrawChecked(rt,Boolean(MemTable.FieldByName('xperm').AsInteger));
+  end;  
+end;
+
+function TfmSrvPermission.GetSql: string;
+var
+  addstr1,addstr2,addstr3: string;
+  union1,union2: string;
+begin
+  if chbTable.Checked then begin
+    addstr1:=SQLSrvPermissionTable;
+  end;
+  if chbView.Checked then begin
+    addstr2:=SQLSrvPermissionView;
+  end;
+  if chbProcedure.Checked then begin
+    addstr3:=SQLSrvPermissionProcedure;
+  end;
+  if (chbTable.Checked and chbView.Checked) or
+     (chbTable.Checked and chbProcedure.Checked) then union1:=' union ';
+  if (chbView.Checked and chbProcedure.Checked) then union2:=' union ';
+  Result:=addstr1+union1+addstr2+union2+addstr3;
+end;
+
+procedure TfmSrvPermission.GridDblClick(Sender: TObject);
+var
+  sqls: string;
+  perm,obj: string;
+  cl: TColumn;
+  isGrant: Boolean;
+  isTable: Boolean;
+  P: PInfoApp;
+begin
+  if cmbApp.ItemIndex=-1 then exit;
+  P:=PInfoApp(cmbApp.Items.Objects[cmbApp.ItemIndex]);
+  if not MemTable.Active then exit;
+  if MemTable.IsEmpty then exit;
+  try
+    if Grid.SelectedField<>nil then exit;
+    if Grid.SelectedIndex=-1 then exit;
+    cl:=Grid.Columns.Items[Grid.SelectedIndex];
+    isTable:=MemTable.FieldByName('istable').AsInteger=1;
+    obj:=MemTable.FieldByName('obj').AsString;
+    isGrant:=true;
+    perm:='';
+    MemTable.Edit;
+    try
+     if isTable then begin
+      if cl.FieldName='spermplus' then begin
+       isGrant:=MemTable.FieldByName('sperm').AsInteger=0;
+       MemTable.FieldByName('sperm').AsInteger:=Ord(isGrant);
+       perm:='select on '+obj;
+      end;
+      if cl.FieldName='upermplus' then begin
+       isGrant:=MemTable.FieldByName('uperm').AsInteger=0;
+       MemTable.FieldByName('uperm').AsInteger:=Ord(isGrant);
+       perm:='update on '+obj;
+      end;
+      if cl.FieldName='dpermplus' then begin
+       isGrant:=MemTable.FieldByName('dperm').AsInteger=0;
+       MemTable.FieldByName('dperm').AsInteger:=Ord(isGrant);
+       perm:='delete on '+obj;
+      end;
+      if cl.FieldName='ipermplus' then begin
+       isGrant:=MemTable.FieldByName('iperm').AsInteger=0;
+       MemTable.FieldByName('iperm').AsInteger:=Ord(isGrant);
+       perm:='insert on '+obj;
+      end;
+     end else begin
+      if cl.FieldName='xpermplus' then begin
+       isGrant:=MemTable.FieldByName('xperm').AsInteger=0;
+       MemTable.FieldByName('xperm').AsInteger:=Ord(isGrant);
+       perm:='execute on procedure '+obj;
+      end;
+     end;
+
+     if Trim(perm)<>'' then begin
+      if isGrant then sqls:='Grant '+perm+' to '+P.sqlrole+' '
+      else sqls:='Revoke '+perm+' from '+P.sqlrole+' ';
+
+      ExecSql(IBDB,sqls);
+      MemTable.Post;
+     end;
+    finally
+     MemTable.Cancel;
+    end;
+  except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+  end;
+end;
+
+procedure TfmSrvPermission.GrantOrRevoke(Column: TColumn; isGrant: Boolean);
+var
+  sqls: string;
+  perm,obj: string;
+  cl: TColumn;
+  isTable: Boolean;
+  P: PInfoApp;
+begin
+  if cmbApp.ItemIndex=-1 then exit;
+  P:=PInfoApp(cmbApp.Items.Objects[cmbApp.ItemIndex]);
+  if not MemTable.Active then exit;
+  if MemTable.IsEmpty then exit;
+  try
+    cl:=Column;
+    isTable:=MemTable.FieldByName('istable').AsInteger=1;
+    obj:=MemTable.FieldByName('obj').AsString;
+    perm:='';
+    MemTable.Edit;
+    try
+     if isTable then begin
+      if cl.FieldName='spermplus' then begin
+       MemTable.FieldByName('sperm').AsInteger:=Ord(isGrant);
+       perm:='select on '+obj;
+      end;
+      if cl.FieldName='upermplus' then begin
+       MemTable.FieldByName('uperm').AsInteger:=Ord(isGrant);
+       perm:='update on '+obj;
+      end;
+      if cl.FieldName='dpermplus' then begin
+       MemTable.FieldByName('dperm').AsInteger:=Ord(isGrant);
+       perm:='delete on '+obj;
+      end;
+      if cl.FieldName='ipermplus' then begin
+       MemTable.FieldByName('iperm').AsInteger:=Ord(isGrant);
+       perm:='insert on '+obj;
+      end;
+     end else begin
+      if cl.FieldName='xpermplus' then begin
+       MemTable.FieldByName('xperm').AsInteger:=Ord(isGrant);
+       perm:='execute on procedure '+obj;
+      end;
+     end;
+
+     if Trim(perm)<>'' then begin
+      if isGrant then sqls:='Grant '+perm+' to '+P.sqlrole+' with grant option '
+      else sqls:='Revoke '+perm+' from '+P.sqlrole+' ';
+
+      ExecSql(IBDB,sqls);
+      MemTable.Post;
+     end;
+    finally
+     MemTable.Cancel;
+    end;
+  except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message); {$ENDIF}
+  end;
+end;
+
+procedure TfmSrvPermission.MemTableAfterScroll(DataSet: TDataSet);
+begin
+  if not MemTable.Active then exit;
+  if MemTable.isEmpty then exit;
+  LastLocateName:=MemTable.FieldByName('obj').AsString;
+end;
+
+procedure TfmSrvPermission.pmPopup(Sender: TObject);
+var
+  gc: TGridCoord;
+  pt: TPoint;
+begin
+  miGrantAlltoRow.Enabled:=false;
+  miRevokeAllFromRow.Enabled:=false;
+  if cmbApp.ItemIndex=-1 then exit;
+  if not MemTable.Active then exit;
+  if MemTable.IsEmpty then exit;
+  if Grid.SelectedIndex=-1 then exit;
+  GetCursorPos(pt);
+  pt:=Grid.ScreenToClient(pt);
+  gc:=Grid.MouseCoord(pt.x,pt.y);
+  if (gc.X<=0) or (gc.Y<=0) then exit;
+  miGrantAlltoRow.Enabled:=true;
+  miRevokeAllFromRow.Enabled:=true;
+end;
+
+procedure TfmSrvPermission.miGrantAlltoRowClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=0 to Grid.Columns.Count-1 do
+   GrantOrRevoke(Grid.Columns.Items[i],true);
+end;
+
+procedure TfmSrvPermission.miRevokeAllFromRowClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  for i:=0 to Grid.Columns.Count-1 do
+   GrantOrRevoke(Grid.Columns.Items[i],false);
+end;
+
+end.
+

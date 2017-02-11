@@ -1,0 +1,19 @@
+{$IFNDEF VER80}
+ {$IFNDEF VER90}
+  {$IFNDEF VER93}
+    {$DEFINE DELPHI3_0} { Delphi 3.0 or higher }
+  {$ENDIF}
+ {$ENDIF}
+{$ENDIF}
+
+{$IFDEF VER110} { Borland C++Builder 3.0 }
+  {$DEFINE CBUILDER3}
+  {$ObjExportAll On}
+{$ENDIF}
+
+{$IFDEF DELPHI3_0}
+  {$DEFINE QUICKREPORT2}
+{$ENDIF}
+
+
+{DEFINE UNREGISTEREDDBTREEVIEW}

@@ -1,0 +1,433 @@
+unit UAPPremisesDefs;
+
+interface
+
+uses Classes, Contnrs;
+
+type
+
+
+  TAPPremisesDefLinks=class;
+
+  TAPPremisesDefValues=class;
+
+  TAPPremisesDefValue=class(TObject)
+  private
+    FVariants: TStringList;
+    FName: string;
+    FValue: Integer;
+    FDefValues: TAPPremisesDefValues;
+  public
+    constructor Create; overload;
+    destructor Destroy; override;
+
+    property Variants: TStringList read FVariants;
+    property Name: String read FName write FName;
+    property Value: Integer read FValue write FValue;
+
+    property DefValues: TAPPremisesDefValues read FDefValues write FDefValues;
+  end;
+
+  TAPPremisesDef=class;
+
+  TAPPremisesDefValues=class(TObjectList)
+  private
+    FDef: TAPPremisesDef;
+    function GetItem(Index: Integer): TAPPremisesDefValue;
+    procedure SetItem(Index: Integer; AObject: TAPPremisesDefValue);
+  public
+    function Add(AName: String; AValue: Integer; AVariants: String): TAPPremisesDefValue;
+
+    property Items[Index: Integer]: TAPPremisesDefValue read GetItem write SetItem;
+    property Def: TAPPremisesDef read FDef write FDef;
+  end;
+
+  TAPPremisesDef=class(TObject)
+  private
+    FFieldName: String;
+    FAliasName: String;
+    FColumnName: String;
+    FTableName: string;
+    FFieldName2: String;
+    FFieldName3: string;
+    FInterfaceName: String;
+    FLinks: TAPPremisesDefLinks;
+    FValues: TAPPremisesDefValues;
+    FFieldOrder: String;
+  public
+    constructor Create; overload;
+    destructor Destroy; override;
+    procedure FillValues;
+    function GetValueId(ValueName: String; var Name: String): Integer;
+
+    property FieldName: String read FFieldName write FFieldName;
+    property AliasName: String read FAliasName write FAliasName;
+    property ColumnName: String read FColumnName write FColumnName;
+    property TableName: String read FTableName write FTableName;
+    property FieldName2: String read FFieldName2 write FFieldName2;
+    property FieldName3: String read FFieldName3 write FFieldName3;
+    property InterfaceName: String read FInterfaceName write FInterfaceName;
+    property Links: TAPPremisesDefLinks read FLinks write FLinks;
+    property Values: TAPPremisesDefValues read FValues;
+    property FieldOrder: String read FFieldOrder write FFieldOrder; 
+  end;
+
+  TAPPremisesDefLink=class(TObject)
+  private
+    FDef: TAPPremisesDef;
+    FDelim: String;
+  public
+    property Def: TAPPremisesDef read FDef;
+    property Delim: String read FDelim;
+  end;
+
+  TAPPremisesDefLinks=class(TObjectList)
+  public
+    function GetValueByIndex(Value: Variant; Index: Integer): Variant;
+    function Add(ADef: TAPPremisesDef; ADelim: String): TAPPremisesDefLink;
+  end;
+
+  TAPPremisesDefs=class(TObjectList)
+  public
+    constructor Create; overload;
+    function Add(FieldName,AliasName,ColumnName: string; TableName: string=''; InterfaceName: String=''): TAPPremisesDef;
+    procedure FillColumns(Strings: TStrings);
+    function FindDefByColumn(AColumn: String): TAPPremisesDef;
+    procedure FillDefValues;
+  end;
+
+var
+  APPremisesDefs: TAPPremisesDefs;
+
+implementation
+
+uses SysUtils, IbQuery, IbDatabase,
+     UAnnPremData, tsvInterbase, UMainUnited;
+
+{ TAPPremisesDefValue }
+
+constructor TAPPremisesDefValue.Create;
+begin
+  inherited Create;
+  FVariants:=TStringList.Create;
+end;
+
+destructor TAPPremisesDefValue.Destroy;
+begin
+  FVariants.Free;
+  inherited Destroy;
+end;
+
+{ TAPPremisesDefValues }
+
+function TAPPremisesDefValues.GetItem(Index: Integer): TAPPremisesDefValue;
+begin
+  Result:=TAPPremisesDefValue(inherited Items[Index]);
+end;
+
+procedure TAPPremisesDefValues.SetItem(Index: Integer; AObject: TAPPremisesDefValue);
+begin
+  inherited Items[Index]:=AObject;
+end;
+
+function TAPPremisesDefValues.Add(AName: String; AValue: Integer; AVariants: String): TAPPremisesDefValue;
+begin
+  Result:=TAPPremisesDefValue.Create;
+  Result.Name:=AName;
+  Result.Value:=AValue;
+  Result.Variants.Text:=AVariants;
+  Result.DefValues:=Self;
+  inherited Add(Result);
+end;
+
+{ TAPPremisesDef }
+
+constructor TAPPremisesDef.Create;
+begin
+  inherited Create;
+  FLinks:=TAPPremisesDefLinks.Create;
+  FValues:=TAPPremisesDefValues.Create;
+  FValues.Def:=Self;
+end;
+
+destructor TAPPremisesDef.Destroy;
+begin
+  FValues.Free;
+  FLinks.FRee;
+  inherited Destroy;
+end;
+
+procedure TAPPremisesDef.FillValues;
+var
+  ASQL: String;
+  AFieldId, AFieldValue, AFieldVariant: String;
+  qr: TIBQuery;
+  tran: TIBTransaction;
+  NewTableName: String;
+begin
+  if Trim(FTableName)<>'' then begin
+    NewTableName:=ChangeString(FTableName,'"','');
+    AFieldId:=NewTableName+'_ID';
+    AFieldValue:=FFieldName2;
+    AFieldVariant:=FFieldName3;
+    if Trim(AFieldVariant)='' then begin
+      ASQL:=Format('SELECT %s, %s FROM %s%s',[AFieldId,AFieldValue,FTableName,iff(Trim(FFieldOrder)<>'',' ORDER BY '+FFieldOrder,'')]);
+    end else begin
+      ASQL:=Format('SELECT %s, %s, %s FROM %s%s',[AFieldId,AFieldValue,AFieldVariant,FTableName,iff(Trim(FFieldOrder)<>'',' ORDER BY '+FFieldOrder,'')]);
+    end;
+
+    qr:=TIBQuery.Create(nil);
+    tran:=TIBTransaction.Create(nil);
+    try
+      FValues.Clear;
+      tran.AddDatabase(IBDB);
+      IBDB.AddTransaction(tran);
+      tran.Params.Text:=DefaultTransactionParamsTwo;
+      qr.Database:=IBDB;
+      qr.Transaction:=tran;
+      qr.Transaction.Active:=true;
+      qr.SQL.Add(ASQL);
+      qr.Active:=true;
+      qr.First;
+      if not qr.IsEmpty then begin
+        while not qr.Eof do begin
+          if Trim(AFieldVariant)='' then begin
+            FValues.Add(qr.FieldByName(AFieldValue).AsString,qr.FieldByName(AFieldId).AsInteger,'');
+          end else begin
+            FValues.Add(qr.FieldByName(AFieldValue).AsString,qr.FieldByName(AFieldId).AsInteger,qr.FieldByName(AFieldVariant).AsString);
+          end;  
+          qr.Next;
+        end;
+      end;
+    finally
+      tran.Free;
+      qr.Free;
+    end;
+  end;
+end;
+
+function TAPPremisesDef.GetValueId(ValueName: String; var Name: String): Integer;
+var
+  i,j: Integer;
+  AValue: TAPPremisesDefValue;
+begin
+  Result:=0;
+  Name:='';
+  for i:=0 to FValues.Count-1 do begin
+    AValue:=FValues.Items[i];
+    for j:=0 to AValue.Variants.Count-1 do begin
+      if AnsiSameText(AValue.Variants.Strings[j],Trim(ValueName)) then begin
+        Result:=AValue.Value;
+        Name:=AValue.Name;
+        exit;
+      end;
+    end;
+  end;
+end;
+
+{ TAPPremisesDefLinks }
+
+function TAPPremisesDefLinks.Add(ADef: TAPPremisesDef; ADelim: String): TAPPremisesDefLink;
+begin
+  Result:=TAPPremisesDefLink.Create;
+  Result.FDef:=ADef;
+  Result.FDelim:=ADelim;
+  inherited Add(Result);
+end;
+
+function TAPPremisesDefLinks.GetValueByIndex(Value: Variant; Index: Integer): Variant;
+var
+  ALink: TAPPremisesDefLink;
+  S: String;
+  APos: Integer;
+  i: Integer;
+  NewS: String;
+begin
+  Result:=Null;
+  S:=VarToStr(Value);
+  for i:=0 to Count-1 do begin
+    ALink:=TAPPremisesDefLink(Items[i]);
+    APos:=AnsiPos(ALink.Delim,S);
+    NewS:=Copy(S,1,APos-1);
+    if (Index=i) then begin
+      if APos=0 then
+        NewS:=S;
+      Result:=Trim(NewS);
+      break;
+    end;
+    if Apos>0 then
+      S:=Trim(Copy(S,APos+Length(ALink.Delim),Length(S)))
+    else S:='';  
+  end;
+  if Count>0 then
+    if Result='' then
+      Result:=Null;
+end;
+
+{ TAPPremisesDefs }
+
+constructor TAPPremisesDefs.Create;
+begin
+  inherited Create(true);
+end;
+
+function TAPPremisesDefs.Add(FieldName,AliasName,ColumnName: string; TableName: string=''; InterfaceName: String=''): TAPPremisesDef;
+begin
+  Result:=TAPPremisesDef.Create;
+  Result.FieldName:=FieldName;
+  Result.AliasName:=AliasName;
+  Result.ColumnName:=ColumnName;
+  Result.TableName:=TableName;
+  Result.InterfaceName:=InterfaceName;
+  if Trim(TableName)<>'' then begin
+    Result.FieldName2:='NAME';
+    Result.FieldName3:='VARIANT';
+    Result.FieldOrder:='PRIORITY';
+  end;  
+  inherited Add(Result);
+end;
+
+procedure TAPPremisesDefs.FillColumns(Strings: TStrings);
+var
+  i: Integer;
+  Def: TAPPremisesDef;
+begin
+  Strings.BeginUpdate;
+  try
+    Strings.Clear;
+    for i:=0 to Count-1 do begin
+      Def:=TAPPremisesDef(Items[i]);
+      Strings.AddObject(Def.ColumnName,Def);
+    end;
+  finally
+    Strings.EndUpdate;
+  end;
+end;
+
+function TAPPremisesDefs.FindDefByColumn(AColumn: String): TAPPremisesDef;
+var
+  i: Integer;
+  Def: TAPPremisesDef;
+begin
+  Result:=nil;
+  for i:=0 to Count-1 do begin
+    Def:=TAPPremisesDef(Items[i]);
+    if AnsiSameText(Def.ColumnName,AColumn) then begin
+      Result:=Def;
+      exit;
+    end;
+  end;
+end;
+
+procedure TAPPremisesDefs.FillDefValues;
+var
+  i: Integer;
+  Def: TAPPremisesDef;
+begin
+  for i:=0 to Count-1 do begin
+    Def:=TAPPremisesDef(Items[i]);
+    Def.FillValues;
+  end;
+end;
+
+var
+  FDefFloor: TAPPremisesDef;
+  FDefFloorCount: TAPPremisesDef;
+  FDefGeneralArea: TAPPremisesDef;
+  FDefDwellingArea: TAPPremisesDef;
+  FDefKitchenArea: TAPPremisesDef;
+  FDefStreet: TAPPremisesDef;
+  FDefHouse: TAPPremisesDef;
+  FDefApartment: TAPPremisesDef;
+  FDefPrice: TAPPremisesDef;
+  FDefPeriod: TAPPremisesDef;
+  FDefUnitPrice: TAPPremisesDef;
+  FDefTypeBuilding: TAPPremisesDef;
+
+initialization
+  APPremisesDefs:=TAPPremisesDefs.Create;
+  with APPremisesDefs do begin
+    with Add('AP_OPERATION_ID','OPERATION_NAME','Операция',tbAPOperation,NameRbkAPOperation) do
+      FieldName3:='';
+    Add('NN','','Номер');
+    Add('DELIVERY_DATE','','Дата поступления');
+    Add('PHONES','PREMISES_PHONES','Телефоны');
+    Add('NAME','PREMISES_NAME','Имя');
+    Add('AP_AGENCY_ID','AGENCY_NAME','Агенство',tbAPAgency,NameRbkAPAgency);
+    Add('AP_DIRECTION_ID','DIRECTION_NAME','Направление',tbAPDirection,NameRbkAPDirection);
+    Add('AP_TOWN_ID','TOWN_NAME','Город',tbAPTown,NameRbkAPTown);
+    Add('AP_REGION_ID','REGION_NAME','Район',tbAPRegion,NameRbkAPRegion);
+    with Add('AP_LANDMARK_ID','LANDMARK_NAME','Ориентир',tbAPLandMark,NameRbkAPLandMark) do
+      FieldOrder:='NAME';
+    FDefStreet:=Add('AP_STREET_ID','STREET_NAME','Улица',tbAPStreet,NameRbkAPStreet);
+    FDefStreet.FieldOrder:='NAME';
+    FDefHouse:=Add('HOUSE','','Дом');
+    FDefApartment:=Add('APARTMENT','','Квартира');
+    Add('AP_TYPE_PREMISES_ID','TYPE_PREMISES_NAME','Тип недвижимости',tbAPTypePremises,NameRbkAPTypePremises);
+    FDefFloorCount:=Add('FLOOR_COUNT','','Этажность');
+    FDefTypeBuilding:=Add('AP_TYPE_BUILDING_ID','TYPE_BUILDING_NAME','Тип дома',tbAPTypeBuilding,NameRbkAPTypeBuilding);
+    Add('AP_TYPE_WATER_ID','TYPE_WATER_NAME','Водоснабжение',tbAPTypeWater,NameRbkAPTypeWater);
+    Add('AP_TYPE_HEAT_ID','TYPE_HEAT_NAME','Отопление',tbAPTypeHeat,NameRbkAPTypeHeat);
+    Add('AP_TYPE_SEWERAGE_ID','TYPE_SEWERAGE_NAME','Канализация',tbAPTypeSewerage,NameRbkAPTypeSewerage);
+    Add('DELIVERY','','Сдача');
+    Add('AP_BUILDER_ID','BUILDER_NAME','Застройщик',tbAPBuilder,NameRbkAPBuilder);
+    Add('AP_TYPE_GARAGE_ID','TYPE_GARAGE_NAME','Гараж',tbAPTypeGarage,NameRbkAPTypeGarage);
+    Add('AP_TYPE_BATH_ID','TYPE_BATH_NAME','Баня',tbAPTypeBath,NameRbkAPTypeBath);
+    FDefFloor:=Add('FLOOR','','Этаж');
+    Add('AP_COUNTROOM_ID','COUNTROOM_NAME','Комнатность',tbAPCountRoom,NameRbkAPCountRoom);
+    Add('AP_PLANNING_ID','PLANNING_NAME','Планировка',tbAPPlanning,NameRbkAPPlanning);
+    Add('AP_TYPE_APARTMENT_ID','TYPE_APARTMENT_NAME','Тип квартиры',tbAPTypeApartment,NameRbkAPTypeApartment);
+    Add('AP_TYPE_CONDITION_ID','TYPE_CONDITION_NAME','Состояние',tbAPTypeCondition,NameRbkAPTypeCondition);
+    Add('AP_TYPE_PHONE_ID','TYPE_PHONE_NAME','Вид телефона',tbAPTypePhone,NameRbkAPTypePhone);
+    Add('AP_TYPE_BALCONY_ID','TYPE_BALCONY_NAME','Балкон',tbAPTypeBalcony,NameRbkAPTypeBalcony);
+    Add('AP_TYPE_DOOR_ID','TYPE_DOOR_NAME','Двери',tbAPTypeDoor,NameRbkAPTypeDoor);
+    Add('AP_TYPE_SANITARY_ID','TYPE_SANITARY_NAME','Сан.узел',tbAPTypeSanitary,NameRbkAPTypeSanitary);
+    Add('AP_TYPE_FURNITURE_ID','TYPE_FURNITURE_NAME','Мебель',tbAPTypeFurniture,NameRbkAPTypeFurniture);
+    Add('AP_HOME_TECH_ID','HOME_TECH_NAME','Бытовая техника',tbAPHomeTech,NameRbkAPHomeTech);
+    Add('AP_TYPE_PLATE_ID','TYPE_PLATE_NAME','Плита',tbAPTypePLate,NameRbkAPTypePLate);
+    Add('AP_TYPE_INTERNET_ID','TYPE_INTERNET_NAME','Вид интернета',tbAPTypeInternet,NameRbkAPTypeInternet);
+    FDefGeneralArea:=Add('GENERAL_AREA','','Общая площадь');
+    FDefDwellingArea:=Add('DWELLING_AREA','','Жилая пложадь');
+    FDefKitchenArea:=Add('KITCHEN_AREA','','Площадь кухни');
+    Add('GROUND_AREA','','Площадь земельного участка');
+    FDefPrice:=Add('PRICE','','Цена');
+    FDefUnitPrice:=Add('AP_UNIT_PRICE_ID','UNIT_PRICE_NAME','Единица измерения цены',tbAPUnitPrice,NameRbkAPUnitPrice);
+    FDefPeriod:=Add('PERIOD','','Срок');
+    Add('PAYMENT_FOR','','Оплата за');
+    Add('NOTE','','Примечание');
+    Add('AP_STYLE_ID','STYLE_NAME','Стиль',tbAPStyle,NameRbkAPStyle);
+    with Add('RELEASE_ID','RELEASE_ABOUT','Выпуск',tbRelease,NameRbkRelease) do begin
+      FieldName2:='ABOUT';
+      FieldName3:='';
+      FieldOrder:='';
+    end;
+    with Add('FLOOR/FLOOR_COUNT','','Этаж/Этажность') do begin
+      Links.Add(FDefFloor,'/');
+      Links.Add(FDefFloorCount,'');
+    end;
+    with Add('GENERAL_AREA/DWELLING_AREA/KITCHEN_AREA','','Общая/Жилая/Кухня') do begin
+      Links.Add(FDefGeneralArea,'/');
+      Links.Add(FDefDwellingArea,'/');
+      Links.Add(FDefKitchenArea,'');
+    end;
+    with Add('AP_STREET_ID,HOUSE,APARTMENT','','Улица,Дом,Квартира') do begin
+      Links.Add(FDefStreet,',');
+      Links.Add(FDefHouse,',');
+      Links.Add(FDefApartment,'');
+    end;
+    with Add('PRICE AP_UNIT_PRICE_ID/PERIOD','','Цена Единица измерения/Срок') do begin
+      Links.Add(FDefPrice,' ');
+      Links.Add(FDefUnitPrice,'/');
+      Links.Add(FDefPeriod,'');
+    end;
+    with Add('FLOOR/FLOOR_COUNT AP_TYPE_BUILDING_ID','','Этаж/Этажность Тип дома') do begin
+      Links.Add(FDefFloor,'/');
+      Links.Add(FDefFloorCount,' ');
+      Links.Add(FDefTypeBuilding,'');
+    end;
+  end;
+
+finalization
+  APPremisesDefs.Free;
+
+end.

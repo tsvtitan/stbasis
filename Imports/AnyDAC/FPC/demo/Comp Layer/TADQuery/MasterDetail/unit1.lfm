@@ -1,0 +1,86 @@
+object Form1: TForm1
+  Left = 258
+  Height = 456
+  Top = 168
+  Width = 568
+  HorzScrollBar.Page = 567
+  VertScrollBar.Page = 455
+  ActiveControl = btnConnect
+  Caption = 'Form1'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object btnConnect: TButton
+    Left = 6
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Connect'
+    OnClick = btnConnectClick
+    TabOrder = 0
+  end
+  object btnOpen: TButton
+    Left = 88
+    Height = 25
+    Top = 7
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Open'
+    OnClick = btnOpenClick
+    TabOrder = 1
+  end
+  object DBGrid1: TDBGrid
+    Left = 7
+    Height = 204
+    Top = 40
+    Width = 553
+    DataSource = dsOrders
+    FixedColor = clBtnFace
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    OptionsExtra = [dgeAutoColumns, dgeCheckboxColumn]
+    ParentColor = False
+    TabOrder = 2
+    TabStop = True
+  end
+  object DBGrid2: TDBGrid
+    Left = 7
+    Height = 197
+    Top = 251
+    Width = 553
+    DataSource = dsOrderDetails
+    FixedColor = clBtnFace
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+    OptionsExtra = [dgeAutoColumns, dgeCheckboxColumn]
+    ParentColor = False
+    TabOrder = 3
+    TabStop = True
+  end
+  object Button1: TButton
+    Left = 169
+    Height = 25
+    Top = 7
+    Width = 119
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Refresh Master'
+    OnClick = Button1Click
+    TabOrder = 4
+  end
+  object cbxCacheDetails: TCheckBox
+    Left = 296
+    Height = 13
+    Top = 16
+    Width = 84
+    Anchors = [akLeft, akBottom]
+    Caption = 'Cache details'
+    OnChange = cbxCacheDetailsChange
+    TabOrder = 5
+  end
+  object dsOrders: TDatasource
+    left = 102
+    top = 201
+  end
+  object dsOrderDetails: TDatasource
+    left = 100
+    top = 234
+  end
+end

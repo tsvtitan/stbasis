@@ -1,0 +1,561 @@
+object fmAdjust: TfmAdjust
+  Left = 622
+  Top = 332
+  Width = 310
+  Height = 336
+  BorderIcons = [biSystemMenu]
+  Caption = 'Настройка'
+  Color = clBtnFace
+  Constraints.MinHeight = 290
+  Constraints.MinWidth = 310
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
+  OnKeyUp = FormKeyUp
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnBottom: TPanel
+    Left = 0
+    Top = 268
+    Width = 302
+    Height = 41
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 1
+    object Panel3: TPanel
+      Left = 117
+      Top = 0
+      Width = 185
+      Height = 41
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 0
+      object bibOk: TButton
+        Left = 21
+        Top = 10
+        Width = 75
+        Height = 25
+        Hint = 'Подтвердить'
+        Caption = 'OK'
+        Default = True
+        ModalResult = 1
+        TabOrder = 0
+      end
+      object bibCancel: TButton
+        Left = 104
+        Top = 10
+        Width = 75
+        Height = 25
+        Hint = 'Отменить'
+        Cancel = True
+        Caption = 'Отмена'
+        ModalResult = 2
+        TabOrder = 1
+      end
+    end
+  end
+  object pcMain: TPageControl
+    Left = 0
+    Top = 0
+    Width = 302
+    Height = 268
+    ActivePage = tsColumns
+    Align = alClient
+    HotTrack = True
+    TabOrder = 0
+    object tsColumns: TTabSheet
+      Caption = 'Колонки'
+      object pnColumns: TPanel
+        Left = 0
+        Top = 0
+        Width = 294
+        Height = 240
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 5
+        TabOrder = 0
+        object gbColumns: TGroupBox
+          Left = 5
+          Top = 5
+          Width = 284
+          Height = 230
+          Align = alClient
+          Caption = ' Порядок  '
+          TabOrder = 0
+          object pnListColumns: TPanel
+            Left = 2
+            Top = 15
+            Width = 280
+            Height = 146
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 5
+            TabOrder = 0
+            object pnButColumns: TPanel
+              Left = 232
+              Top = 5
+              Width = 43
+              Height = 136
+              Align = alRight
+              BevelOuter = bvNone
+              TabOrder = 1
+              object btUpColumns: TBitBtn
+                Left = 1
+                Top = 4
+                Width = 40
+                Height = 25
+                Hint = 'Вверх'
+                TabOrder = 0
+                OnClick = btUpColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  0400000000008000000000000000000000001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  8888888888888888888888888888888888888888888888888888888880000088
+                  8888888880666088888888888066608888888888806660888888880000666000
+                  0888888066666660888888880666660888888888806660888888888888060888
+                  8888888888808888888888888888888888888888888888888888}
+              end
+              object btDownColumns: TBitBtn
+                Left = 1
+                Top = 36
+                Width = 40
+                Height = 25
+                Hint = 'Вниз'
+                TabOrder = 1
+                OnClick = btDownColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  0400000000008000000000000000000000001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  8888888888888888888888888888888888888888888888888888888888808888
+                  8888888888060888888888888066608888888888066666088888888066666660
+                  8888880000666000088888888066608888888888806660888888888880666088
+                  8888888880000088888888888888888888888888888888888888}
+              end
+              object bibCheckAllColumns: TBitBtn
+                Left = 1
+                Top = 68
+                Width = 40
+                Height = 25
+                Hint = 'Выбрать все'
+                TabOrder = 2
+                OnClick = bibCheckAllColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  04000000000080000000120B0000120B00001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF00C0C0C00000FFFF00FF000000C0C0C000FFFF0000FFFFFF00DADADADADADA
+                  DADAADADADADADADADADDFFFFFFFFFFFFFDAA788888888888FADD70FFFFFFFFF
+                  8FDAA70FFF0FFFFF8FADD70FF000FFFF8FDAA70F00000FFF8FADD70F00F000FF
+                  8FDAA70F0FFF000F8FADD70FFFFFF00F8FDAA70FFFFFFF0F8FADD70FFFFFFFFF
+                  8FDAA700000000008FADD777777777777FDAADADADADADADADAD}
+              end
+              object bibUnCheckAllColumns: TBitBtn
+                Left = 1
+                Top = 100
+                Width = 40
+                Height = 25
+                Hint = 'Убрать выбор всех'
+                TabOrder = 3
+                OnClick = bibUnCheckAllColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  04000000000080000000120B0000120B00001000000000000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  888888888888888888888FFFFFFFFFFFFF888788888888888F88870FFFFFFFFF
+                  8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF
+                  8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF
+                  8F888700000000008F888777777777777F888888888888888888}
+              end
+            end
+            object Panel1: TPanel
+              Left = 5
+              Top = 5
+              Width = 227
+              Height = 136
+              Align = alClient
+              BevelOuter = bvNone
+              BorderWidth = 5
+              TabOrder = 0
+              object clbListColumns: TCheckListBox
+                Left = 5
+                Top = 5
+                Width = 217
+                Height = 126
+                OnClickCheck = clbListColumnsClickCheck
+                Align = alClient
+                Flat = False
+                ItemHeight = 13
+                TabOrder = 0
+                OnClick = clbListColumnsClick
+                OnDragDrop = clbListColumnsDragDrop
+                OnDragOver = clbListColumnsDragOver
+                OnMouseMove = clbListColumnsMouseMove
+              end
+            end
+          end
+          object pnFontColumns: TPanel
+            Left = 2
+            Top = 161
+            Width = 280
+            Height = 67
+            Align = alBottom
+            BevelOuter = bvNone
+            TabOrder = 1
+            object lbFont: TLabel
+              Left = 11
+              Top = 5
+              Width = 82
+              Height = 13
+              Caption = 'Шрифт колонки:'
+              Enabled = False
+            end
+            object edFont: TEdit
+              Left = 103
+              Top = 2
+              Width = 140
+              Height = 21
+              Color = clBtnFace
+              Enabled = False
+              Font.Charset = RUSSIAN_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              Text = 'АаБбВв'
+            end
+            object bibFont: TButton
+              Left = 249
+              Top = 2
+              Width = 21
+              Height = 21
+              Caption = '...'
+              Constraints.MaxHeight = 21
+              Constraints.MaxWidth = 21
+              Enabled = False
+              TabOrder = 1
+              OnClick = bibFontClick
+            end
+            object ButtonColumnsDefault: TButton
+              Left = 11
+              Top = 34
+              Width = 100
+              Height = 25
+              Cancel = True
+              Caption = 'По умолчанию'
+              TabOrder = 2
+              OnClick = ButtonColumnsDefaultClick
+            end
+          end
+        end
+      end
+    end
+    object tsDbOrders: TTabSheet
+      Caption = 'Сортировка'
+      ImageIndex = 1
+      object pnDbOrders: TPanel
+        Left = 0
+        Top = 0
+        Width = 294
+        Height = 240
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 5
+        TabOrder = 0
+        object grbDbOrders: TGroupBox
+          Left = 5
+          Top = 5
+          Width = 284
+          Height = 230
+          Align = alClient
+          Caption = ' Порядок  '
+          TabOrder = 0
+          object pnListDbOrders: TPanel
+            Left = 2
+            Top = 15
+            Width = 280
+            Height = 185
+            Align = alClient
+            BevelOuter = bvNone
+            BorderWidth = 5
+            TabOrder = 0
+            object pnButDbOrders: TPanel
+              Left = 232
+              Top = 5
+              Width = 43
+              Height = 175
+              Align = alRight
+              BevelOuter = bvNone
+              TabOrder = 1
+              object bibUpDbOrders: TBitBtn
+                Left = 1
+                Top = 4
+                Width = 40
+                Height = 25
+                Hint = 'Вверх'
+                TabOrder = 0
+                OnClick = btUpColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  0400000000008000000000000000000000001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  8888888888888888888888888888888888888888888888888888888880000088
+                  8888888880666088888888888066608888888888806660888888880000666000
+                  0888888066666660888888880666660888888888806660888888888888060888
+                  8888888888808888888888888888888888888888888888888888}
+              end
+              object bibDownDbOrders: TBitBtn
+                Left = 1
+                Top = 36
+                Width = 40
+                Height = 25
+                Hint = 'Вниз'
+                TabOrder = 1
+                OnClick = btDownColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  0400000000008000000000000000000000001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  8888888888888888888888888888888888888888888888888888888888808888
+                  8888888888060888888888888066608888888888066666088888888066666660
+                  8888880000666000088888888066608888888888806660888888888880666088
+                  8888888880000088888888888888888888888888888888888888}
+              end
+              object bibCheckAllDbOrders: TBitBtn
+                Left = 1
+                Top = 68
+                Width = 40
+                Height = 25
+                Hint = 'Выбрать все'
+                TabOrder = 2
+                OnClick = bibCheckAllColumnsClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  04000000000080000000120B0000120B00001000000010000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF00C0C0C00000FFFF00FF000000C0C0C000FFFF0000FFFFFF00DADADADADADA
+                  DADAADADADADADADADADDFFFFFFFFFFFFFDAA788888888888FADD70FFFFFFFFF
+                  8FDAA70FFF0FFFFF8FADD70FF000FFFF8FDAA70F00000FFF8FADD70F00F000FF
+                  8FDAA70F0FFF000F8FADD70FFFFFF00F8FDAA70FFFFFFF0F8FADD70FFFFFFFFF
+                  8FDAA700000000008FADD777777777777FDAADADADADADADADAD}
+              end
+              object bibUncheckAllDbOrders: TBitBtn
+                Left = 1
+                Top = 100
+                Width = 40
+                Height = 25
+                Hint = 'Убрать выбор всех'
+                TabOrder = 3
+                OnClick = bibUncheckAllDbOrdersClick
+                Glyph.Data = {
+                  F6000000424DF600000000000000760000002800000010000000100000000100
+                  04000000000080000000120B0000120B00001000000000000000000000000000
+                  8000008000000080800080000000800080008080000080808000C0C0C0000000
+                  FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888
+                  888888888888888888888FFFFFFFFFFFFF888788888888888F88870FFFFFFFFF
+                  8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF
+                  8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF8F88870FFFFFFFFF
+                  8F888700000000008F888777777777777F888888888888888888}
+              end
+            end
+            object Panel6: TPanel
+              Left = 5
+              Top = 5
+              Width = 227
+              Height = 175
+              Align = alClient
+              BevelOuter = bvNone
+              BorderWidth = 5
+              TabOrder = 0
+              object chbDbOrders: TCheckListBox
+                Left = 5
+                Top = 5
+                Width = 217
+                Height = 165
+                OnClickCheck = chbDbOrdersClickCheck
+                Align = alClient
+                Flat = False
+                ItemHeight = 13
+                Style = lbOwnerDrawFixed
+                TabOrder = 0
+                OnClick = chbDbOrdersClick
+                OnDragDrop = clbListColumnsDragDrop
+                OnDragOver = clbListColumnsDragOver
+                OnDrawItem = chbDbOrdersDrawItem
+                OnMouseMove = clbListColumnsMouseMove
+              end
+            end
+          end
+          object pnDbOrdersBottom: TPanel
+            Left = 2
+            Top = 200
+            Width = 280
+            Height = 28
+            Align = alBottom
+            BevelOuter = bvNone
+            TabOrder = 1
+            object lbDbOrdersType: TLabel
+              Left = 11
+              Top = 5
+              Width = 84
+              Height = 13
+              Caption = 'Вид сортировки:'
+            end
+            object cmbDbOrdersType: TComboBox
+              Left = 104
+              Top = 2
+              Width = 169
+              Height = 20
+              Style = csOwnerDrawFixed
+              ItemHeight = 14
+              TabOrder = 0
+              OnChange = cmbDbOrdersTypeChange
+              OnDrawItem = chbDbOrdersDrawItem
+              Items.Strings = (
+                'по умолчанию'
+                'по возрастанию'
+                'по убыванию')
+            end
+          end
+        end
+      end
+    end
+  end
+  object fd: TFontDialog
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    MinFontSize = 8
+    MaxFontSize = 8
+    Options = [fdEffects, fdLimitSize]
+    Left = 60
+    Top = 73
+  end
+  object il: TImageList
+    Height = 13
+    Width = 14
+    Left = 96
+    Top = 73
+    Bitmap = {
+      494C01010300040004000E000D00FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      0000000000003600000028000000380000000D0000000100200000000000600B
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000424D3E000000000000003E000000
+      28000000380000000D0000000100010000000000680000000000000000000000
+      000000000000000000000000FFFFFF00FFFFFFFFFFC00000FFFFFFFFFFC00000
+      FFFFFFFFFFC00000C71FFFFFFFC00000E23FF7FC01C00000F07FE3FE03C00000
+      F8FFC1FF07C00000F07F80FF8FC00000E23F007FDFC00000C71FFFFFFFC00000
+      FFFFFFFFFFC00000FFFFFFFFFFC00000FFFFFFFFFFC000000000000000000000
+      0000000000000000000000000000}
+  end
+end

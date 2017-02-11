@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">Default.Personality</Option>
+			<Option Name="ProjectType"></Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{B89378CE-690B-429F-9EB9-78BCB33AF554}</Option>
+		</Option>
+	</PersonalityInfo>
+	<Default.Personality>  <Projects>
+      <Projects Name="daADComID10.bpl">daADComID10.bdsproj</Projects>
+      <Projects Name="daADPhysD10.bpl">daADPhysD10.bdsproj</Projects>
+      <Projects Name="daADPhysDBExpD10.bpl">daADPhysDBExpD10.bdsproj</Projects>
+      <Projects Name="daADPhysODBCD10.bpl">daADPhysODBCD10.bdsproj</Projects>
+      <Projects Name="daADPhysMSAccD10.bpl">daADPhysMSAccD10.bdsproj</Projects>
+      <Projects Name="daADPhysMSSQLD10.bpl">daADPhysMSSQLD10.bdsproj</Projects>
+      <Projects Name="daADPhysDb2D10.bpl">daADPhysDb2D10.bdsproj</Projects>
+      <Projects Name="daADPhysASAD10.bpl">daADPhysASAD10.bdsproj</Projects>
+      <Projects Name="daADPhysADSD10.bpl">daADPhysADSD10.bdsproj</Projects>
+      <Projects Name="daADPhysMySQLD10.bpl">daADPhysMySQLD10.bdsproj</Projects>
+      <Projects Name="daADPhysOraclD10.bpl">daADPhysOraclD10.bdsproj</Projects>
+      <Projects Name="daADCompD10.bpl">daADCompD10.bdsproj</Projects>
+      <Projects Name="daADGUIxFormsD10.bpl">daADGUIxFormsD10.bdsproj</Projects>
+      <Projects Name="daADDclD10.bpl">daADDclD10.bdsproj</Projects>
+      <Projects Name="Project1.exe">..\_OTHER\DM\Project1.bdsproj</Projects>
+      <Projects Name="Project2.exe">..\_OTHER\DM\Project2.bdsproj</Projects>
+      <Projects Name="Targets">daADComID10.bpl daADPhysD10.bpl daADPhysDBExpD10.bpl daADPhysODBCD10.bpl daADPhysMSAccD10.bpl daADPhysMSSQLD10.bpl daADPhysDb2D10.bpl daADPhysASAD10.bpl daADPhysADSD10.bpl daADPhysMySQLD10.bpl daADPhysOraclD10.bpl daADCompD10.bpl daADGUIxFormsD10.bpl daADDclD10.bpl Project1.exe Project2.exe</Projects>
+    </Projects>
+    <Dependencies>
+      <Dependency GUID="{3B67F99F-B476-4DDA-82D7-32CC3B67F55D}">
+        <Dependency GUID="{617EC7B8-C1D7-4EF0-97AA-3A1D887D7FDA}"/>
+        <Dependency GUID="{4FE1A451-254C-4FED-B8C9-6B9A364798AB}"/>
+      </Dependency>
+    </Dependencies>
+  </Default.Personality>
+	<StarTeamAssociation></StarTeamAssociation>
+	<StarTeamNonRelativeFiles></StarTeamNonRelativeFiles>
+</BorlandProject>

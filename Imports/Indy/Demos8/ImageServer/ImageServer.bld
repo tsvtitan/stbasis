@@ -1,0 +1,22 @@
+[TESTED]
+D4
+
+[OS]
+Windows
+
+[Files]
+ImageServer_ReadMe.txt
+client\client.dpr
+client\client.res
+client\fclient.dfm
+client\fclient.pas
+server\fserver.dfm
+server\fserver.pas
+server\server.dpr
+server\server.res
+server\images\Connect.bmp
+server\images\errorlog.bmp
+server\images\Message Client.bmp
+server\images\Offline.bmp
+server\images\Refresh Client List.bmp
+server\images\Remove Client.bmp

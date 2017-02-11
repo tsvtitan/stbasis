@@ -1,0 +1,59 @@
+package daADDclD7;
+
+{$R *.res}
+{$R 'daADDcl.dcr'}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'da-soft AnyDAC design time Package for Delphi 7'}
+{$DESIGNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  designide,
+  rtl,
+  vcl,
+  dbrtl,
+  vclactnband,
+  vclx,
+  dcldb,
+  vcldesigner,
+  designdgm,
+  dclstd,
+  vcldb,
+  daADCompD7,
+  daADComID7,
+  daADGUIxFormsD7,
+  daADPhysD7,
+  daADPhysODBCD7,
+  daADPhysMSAccD7,
+  daADPhysMSSQLD7,
+  daADPhysDB2D7,
+  daADPhysMySQLD7,
+  daADPhysOraclD7,
+  daADPhysASAD7,
+  daADPhysDBExpD7,
+  daADPhysADSD7;
+
+contains
+  daADCompReg;
+
+end.

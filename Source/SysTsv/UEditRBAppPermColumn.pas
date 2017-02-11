@@ -1,0 +1,410 @@
+unit UEditRBAppPermColumn;
+
+interface
+{$I stbasis.inc}
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  UEditRB, StdCtrls, Buttons, ExtCtrls, IBServices, IBQuery, db, IBDatabase, IB,
+  ComCtrls;
+
+type
+  TfmEditRBAppPermColumn = class(TfmEditRB)
+    lbApp: TLabel;
+    edApp: TEdit;
+    bibApp: TButton;
+    lbCol: TLabel;
+    lbPerm: TLabel;
+    cmbPerm: TComboBox;
+    lbObj: TLabel;
+    cmbObj: TComboBox;
+    cmbColumn: TComboBox;
+    procedure edObjChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure edObjKeyPress(Sender: TObject; var Key: Char);
+    procedure bibAppClick(Sender: TObject);
+    procedure dtpInDateChange(Sender: TObject);
+    procedure edAppChange(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure cmbColumnChange(Sender: TObject);
+    procedure cmbPermChange(Sender: TObject);
+  protected
+    function AddToRBooks: Boolean; override;
+    function UpdateRBooks: Boolean; override;
+    function CheckFieldsFill: Boolean; override;
+
+    procedure ClearCmbObj;
+    procedure FillCmbObj;
+    procedure FillCmbColumn;
+  public
+    oldapppermcolumn_id: Integer;
+    apppermcolumn_id: Integer;
+    app_id: Integer;
+    procedure AddClick(Sender: TObject); override;
+    procedure ChangeClick(Sender: TObject); override;
+    procedure FilterClick(Sender: TObject); override;
+
+  end;
+
+var
+  fmEditRBAppPermColumn: TfmEditRBAppPermColumn;
+
+implementation
+
+uses USysTsvCode, USysTsvData, UMainUnited;
+
+type
+  PInfoRelation=^TInfoRelation;
+  TInfoRelation=packed record
+    Description: string;
+    ListFields: TList;
+  end;
+
+  PInfoField=^TInfoField;
+  TInfoField=packed record
+    Name: string;
+    Description: string;
+  end;
+
+{$R *.DFM}
+
+procedure TfmEditRBAppPermColumn.FilterClick(Sender: TObject);
+begin
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBAppPermColumn.AddToRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: string;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    qr.Database:=IBDB;
+    qr.Transaction:=ibtran;
+    qr.Transaction.Active:=true;
+    id:=inttostr(GetGenId(IBDB,tbAppPermColumn,1));
+    sqls:='Insert into '+tbAppPermColumn+
+          ' (apppermcolumn_id,app_id,obj,col,perm) values '+
+          ' ('+id+
+          ','+inttostr(app_id)+
+          ','+QuotedStr(Trim(cmbObj.Text))+
+          ','+QuotedStr(Trim(cmbColumn.Text))+
+          ','+QuotedStr(Trim(cmbPerm.Text))+')';
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+    oldapppermcolumn_id:=strtoint(id);
+
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBAppPermColumn.AddClick(Sender: TObject);
+begin
+  if not CheckFieldsFill then exit;
+  if not AddToRBooks then exit;
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBAppPermColumn.UpdateRBooks: Boolean;
+var
+  qr: TIBQuery;
+  sqls: string;
+  id: String;
+begin
+ Result:=false;
+ try
+  Screen.Cursor:=crHourGlass;
+  qr:=TIBQuery.Create(nil);
+  try
+
+    id:=inttostr(oldapppermcolumn_id);//fmRBRateCurrency.MainQr.FieldByName('ratecurrency_id').AsString;
+    qr.Database:=IBDB;
+    qr.Transaction:=IBTran;
+    qr.Transaction.Active:=true;
+    sqls:='Update '+tbAppPermColumn+
+          ' set app_id='+inttostr(app_id)+
+          ', obj='+QuotedStr(Trim(cmbObj.Text))+
+          ', col='+QuotedStr(Trim(cmbColumn.Text))+
+          ', perm='+QuotedStr(Trim(cmbPerm.Text))+
+          ' where apppermcolumn_id='+id;
+    qr.SQL.Add(sqls);
+    qr.ExecSQL;
+    qr.Transaction.Commit;
+
+    Result:=true;
+  finally
+    qr.Free;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  on E: EIBInterBaseError do begin
+    TempStr:=TranslateIBError(E.Message);
+    ShowErrorEx(TempStr);
+    Assert(false,TempStr);
+  end;
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBAppPermColumn.ChangeClick(Sender: TObject);
+begin
+  if ChangeFlag then begin
+   if not CheckFieldsFill then exit;
+   if not UpdateRBooks then exit;
+  end; 
+  ModalResult:=mrOk;
+end;
+
+function TfmEditRBAppPermColumn.CheckFieldsFill: Boolean;
+begin
+  Result:=true;
+  if trim(edApp.Text)='' then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbApp.Caption]));
+    bibApp.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if cmbObj.ItemIndex=-1 then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbObj.Caption]));
+    cmbObj.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if cmbColumn.ItemIndex=-1 then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbCol.Caption]));
+    cmbColumn.SetFocus;
+    Result:=false;
+    exit;
+  end;
+  if cmbPerm.ItemIndex=-1 then begin
+    ShowErrorEx(Format(ConstFieldNoEmpty,[lbPerm.Caption]));
+    cmbPerm.SetFocus;
+    Result:=false;
+    exit;
+  end;
+end;
+
+procedure TfmEditRBAppPermColumn.FormCreate(Sender: TObject);
+begin
+  inherited;
+  IBTran.AddDatabase(IBDB);
+  IBDB.AddTransaction(IBTran);
+
+  edApp.MaxLength:=DomainNameLength;
+  cmbColumn.MaxLength:=DomainNameLength;
+
+  cmbPerm.Items.Add(SelConst);
+  cmbPerm.Items.Add(InsConst);
+  cmbPerm.Items.Add(UpdConst);
+  cmbPerm.Items.Add(DelConst);
+  cmbPerm.ItemIndex:=0;
+  cmbPerm.Hint:=ConstSelect;
+
+  FillCmbObj;
+  FillCmbColumn;
+
+end;
+
+procedure TfmEditRBAppPermColumn.edObjKeyPress(Sender: TObject;
+  var Key: Char);
+var
+  APos: Integer;
+begin
+  ChangeFlag:=true;
+  if (not (Key in ['0'..'9']))and
+   (Key<>DecimalSeparator)and(Integer(Key)<>VK_Back) then begin
+    Key:=Char(nil);
+  end else begin
+   if Key=DecimalSeparator then begin
+    Apos:=Pos(String(DecimalSeparator),TEdit(Sender).Text);
+    if Apos<>0 then Key:=char(nil);
+   end;
+  end;
+end;
+
+procedure TfmEditRBAppPermColumn.bibAppClick(Sender: TObject);
+var
+  TPRBI: TParamRBookInterface;
+begin
+ FillChar(TPRBI,SizeOf(TPRBI),0);
+ TPRBI.Visual.TypeView:=tvibvModal;
+ TPRBI.Locate.KeyFields:='app_id';
+ TPRBI.Locate.KeyValues:=app_id;
+ TPRBI.Locate.Options:=[loCaseInsensitive];
+ if _ViewInterfaceFromName(NameRbkApp,@TPRBI) then begin
+   ChangeFlag:=true;
+   app_id:=GetFirstValueFromParamRBookInterface(@TPRBI,'app_id');
+   edApp.Text:=GetFirstValueFromParamRBookInterface(@TPRBI,'name');
+ end;
+end;
+
+procedure TfmEditRBAppPermColumn.dtpInDateChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBAppPermColumn.edAppChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+end;
+
+procedure TfmEditRBAppPermColumn.FillCmbObj;
+var
+  qr: TIBQuery;
+  tr: TIBTransaction;
+  sqls: string;
+  RName: string;
+  NewName: string;
+  PRel: PInfoRelation;
+  PField: PInfoField;
+begin
+  try
+   Screen.Cursor:=crHourGlass;
+   cmbObj.Items.BeginUpdate;
+   qr:=TIBQuery.Create(nil);
+   tr:=TIBTransaction.Create(nil);
+   try
+     ClearCmbObj;
+     qr.Database:=IBDB;
+     tr.AddDatabase(IBDB);
+     tr.Params.Text:=DefaultTransactionParamsTwo;
+     IBDB.AddTransaction(tr);
+     qr.Transaction:=tr;
+     qr.Transaction.Active:=true;
+     sqls:='select r.rdb$relation_name, r.rdb$description as d1, rf.rdb$field_name,'+
+           'rf.rdb$description as d2, rf.rdb$field_position '+
+           'from '+tbSysRelations+' r join '+tbSysRelation_fields+' rf on r.rdb$relation_name=rf.rdb$relation_name  '+
+           'where r.rdb$system_flag=0 '+
+           'order by r.rdb$relation_name, rf.rdb$field_position';
+     qr.SQL.Add(sqls);
+     qr.Active:=true;
+     qr.First;
+     if not qr.isEmpty then begin
+      RName:=Trim(qr.fieldbyname('rdb$relation_name').asstring);
+      New(PRel);
+      PRel.Description:=Trim(qr.fieldbyname('d1').asstring);
+      PRel.ListFields:=TList.Create;
+      cmbObj.Items.AddObject(RName,TObject(PRel));
+      while not qr.Eof do begin
+       NewName:=Trim(qr.fieldbyname('rdb$relation_name').asstring);
+       if AnsiSameText(RName,NewName) then begin
+        New(PField);
+        PField.Name:=Trim(qr.fieldbyname('rdb$field_name').asstring);
+        PField.Description:=Trim(qr.fieldbyname('d2').asstring);
+        Prel.ListFields.Add(PField);
+       end else begin
+        RName:=Trim(qr.fieldbyname('rdb$relation_name').asstring);
+        New(PRel);
+        PRel.Description:=Trim(qr.fieldbyname('d1').asstring);
+        PRel.ListFields:=TList.Create;
+        cmbObj.Items.AddObject(RName,TObject(PRel));
+        New(PField);
+        PField.Name:=Trim(qr.fieldbyname('rdb$field_name').asstring);
+        PField.Description:=Trim(qr.fieldbyname('d2').asstring);
+        Prel.ListFields.Add(PField);
+       end;
+       qr.Next;
+      end;
+     end;
+   finally
+    tr.free;
+    qr.free;
+    cmbObj.Items.EndUpdate;
+    Screen.Cursor:=crDefault;
+  end;
+ except
+  {$IFDEF DEBUG} on E: Exception do Assert(false,E.message);{$ENDIF}
+ end;
+end;
+
+procedure TfmEditRBAppPermColumn.edObjChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+  if cmbObj.ItemIndex<>-1 then begin
+    cmbObj.Hint:=PInfoRelation(cmbObj.items.Objects[cmbObj.ItemIndex]).Description;
+    cmbColumn.Hint:='';
+    FillCmbColumn;
+    if cmbColumn.Items.count>0 then cmbColumn.ItemIndex:=0;
+  end;  
+end;
+
+procedure TfmEditRBAppPermColumn.ClearCmbObj;
+var
+  i,j: Integer;
+  PRel: PInfoRelation;
+  PField: PInfoField;
+begin
+  for i:=0 to cmbObj.Items.Count-1 do begin
+    PRel:=PInfoRelation(cmbObj.Items.Objects[i]);
+    for j:=0 to PRel.ListFields.Count-1 do begin
+     PField:=PRel.ListFields.Items[j];
+     Dispose(PField);
+    end;
+    PRel.ListFields.Free;
+    Dispose(PRel);
+  end;
+  cmbObj.Items.Clear;
+end;
+
+procedure TfmEditRBAppPermColumn.FormDestroy(Sender: TObject);
+begin
+  ClearCmbObj;
+end;
+
+procedure TfmEditRBAppPermColumn.FillCmbColumn;
+var
+  i: Integer;
+  PRel: PInfoRelation;
+  PField: PInfoField;
+begin
+  if cmbObj.ItemIndex=-1 then exit;
+  cmbColumn.Items.BeginUpdate;
+  try
+    cmbColumn.Items.Clear;
+    Prel:=PInfoRelation(cmbObj.items.Objects[cmbObj.ItemIndex]);
+    for i:=0 to Prel.ListFields.Count-1 do begin
+      PField:=Prel.ListFields.Items[i];
+      cmbColumn.Items.AddObject(PField.Name,TObject(PField));
+    end;
+  finally
+    cmbColumn.Items.EndUpdate;
+  end;
+end;
+
+procedure TfmEditRBAppPermColumn.cmbColumnChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+  if cmbColumn.ItemIndex<>-1 then begin
+    cmbColumn.Hint:=PInfoField(cmbColumn.items.Objects[cmbColumn.ItemIndex]).Description;
+  end;
+end;
+
+procedure TfmEditRBAppPermColumn.cmbPermChange(Sender: TObject);
+begin
+  ChangeFlag:=true;
+  case cmbPerm.ItemIndex of
+    0: cmbPerm.Hint:=ConstSelect;
+    1: cmbPerm.Hint:=ConstInsert;
+    2: cmbPerm.Hint:=ConstUpdate;
+    3: cmbPerm.Hint:=ConstDelete;
+  end;
+end;
+
+end.

@@ -1,0 +1,1086 @@
+{*******************************************************}
+{                                                       }
+{       Borland Delphi Runtime Library                  }
+{       Remote Access Service interface unit            }
+{                                                       }
+{       Copyright (C) 1995-2000, Microsoft Corporation. }
+{       All Rights Reserved.                            }
+{                                                       }
+{       http://www.delphi-jedi.org                      }
+{       Translator: Petr Vones                          }
+{                                                       }
+{*******************************************************}
+
+
+unit Ras;
+
+
+{$ALIGN ON}
+{$MINENUMSIZE 4}
+{$WEAKPACKAGEUNIT}
+
+interface
+
+uses
+  Windows, LmCons;
+
+(*$HPPEMIT '#include <lmcons.h>'*)
+(*$HPPEMIT '#include <pshpack4.h>'*)
+(*$HPPEMIT '#include <ras.h>'*)
+
+const
+  RAS_MaxDeviceType = 16;
+  {$EXTERNALSYM RAS_MaxDeviceType}
+  RAS_MaxPhoneNumber = 128;
+  {$EXTERNALSYM RAS_MaxPhoneNumber}
+  RAS_MaxIpAddress = 15;
+  {$EXTERNALSYM RAS_MaxIpAddress}
+  RAS_MaxIpxAddress = 21;
+  {$EXTERNALSYM RAS_MaxIpxAddress}
+
+  RAS_MaxEntryName = 256;
+  {$EXTERNALSYM RAS_MaxEntryName}
+  RAS_MaxDeviceName = 128;
+  {$EXTERNALSYM RAS_MaxDeviceName}
+  RAS_MaxCallbackNumber = RAS_MaxPhoneNumber;
+  {$EXTERNALSYM RAS_MaxCallbackNumber}
+
+  RAS_MaxAreaCode = 10;
+  {$EXTERNALSYM RAS_MaxAreaCode}
+  RAS_MaxPadType = 32;
+  {$EXTERNALSYM RAS_MaxPadType}
+  RAS_MaxX25Address = 200;
+  {$EXTERNALSYM RAS_MaxX25Address}
+  RAS_MaxFacilities = 200;
+  {$EXTERNALSYM RAS_MaxFacilities}
+  RAS_MaxUserData = 200;
+  {$EXTERNALSYM RAS_MaxUserData}
+  RAS_MaxReplyMessage = 1024;
+  {$EXTERNALSYM RAS_MaxReplyMessage}
+
+type
+  PHRasConn = ^THRasConn;
+  HRASCONN = THandle;
+  {$EXTERNALSYM HRASCONN}
+  THRasConn = HRASCONN;
+
+// Identifies an active RAS connection.  (See RasEnumConnections)
+
+  PRasConnA = ^TRasConnA;
+  PRasConnW = ^TRasConnW;
+  PRasConn = PRasConnA;
+  tagRASCONNA = record
+    dwSize: DWORD;
+    hrasconn: THRasConn;
+    szEntryName: packed array[0..RAS_MaxEntryName] of AnsiChar;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of AnsiChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASCONNA}
+  tagRASCONNW = record
+    dwSize: DWORD;
+    hrasconn: THRasConn;
+    szEntryName: packed array[0..RAS_MaxEntryName] of WideChar;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of WideChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASCONNW}
+  tagRASCONN = tagRASCONNA;
+  TRasConnA = tagRASCONNA;
+  TRasConnW = tagRASCONNW;
+  TRasConn = TRasConnA;
+  RASCONNA = tagRASCONNA;
+  {$EXTERNALSYM RASCONNA}
+  RASCONNW = tagRASCONNW;
+  {$EXTERNALSYM RASCONNW}
+  RASCONN = RASCONNA;
+
+// Enumerates intermediate states to a connection.  (See RasDial)
+
+const
+  RASCS_PAUSED = $1000;
+  {$EXTERNALSYM RASCS_PAUSED}
+  RASCS_DONE   = $2000;
+  {$EXTERNALSYM RASCS_DONE}
+
+type
+  PRasConnState = ^TRasConnState;
+  RASCONNSTATE = DWORD;
+  {$EXTERNALSYM RASCONNSTATE}
+  TRasConnState = RASCONNSTATE;
+
+const
+  RASCS_OpenPort = 0;
+  {$EXTERNALSYM RASCS_OpenPort}
+  RASCS_PortOpened = 1;
+  {$EXTERNALSYM RASCS_PortOpened}
+  RASCS_ConnectDevice = 2;
+  {$EXTERNALSYM RASCS_ConnectDevice}
+  RASCS_DeviceConnected = 3;
+  {$EXTERNALSYM RASCS_DeviceConnected}
+  RASCS_AllDevicesConnected = 4;
+  {$EXTERNALSYM RASCS_AllDevicesConnected}
+  RASCS_Authenticate = 5;
+  {$EXTERNALSYM RASCS_Authenticate}
+  RASCS_AuthNotify = 6;
+  {$EXTERNALSYM RASCS_AuthNotify}
+  RASCS_AuthRetry = 7;
+  {$EXTERNALSYM RASCS_AuthRetry}
+  RASCS_AuthCallback = 8;
+  {$EXTERNALSYM RASCS_AuthCallback}
+  RASCS_AuthChangePassword = 9;
+  {$EXTERNALSYM RASCS_AuthChangePassword}
+  RASCS_AuthProject = 10;
+  {$EXTERNALSYM RASCS_AuthProject}
+  RASCS_AuthLinkSpeed = 11;
+  {$EXTERNALSYM RASCS_AuthLinkSpeed}
+  RASCS_AuthAck = 12;
+  {$EXTERNALSYM RASCS_AuthAck}
+  RASCS_ReAuthenticate = 13;
+  {$EXTERNALSYM RASCS_ReAuthenticate}
+  RASCS_Authenticated = 14;
+  {$EXTERNALSYM RASCS_Authenticated}
+  RASCS_PrepareForCallback = 15;
+  {$EXTERNALSYM RASCS_PrepareForCallback}
+  RASCS_WaitForModemReset = 16;
+  {$EXTERNALSYM RASCS_WaitForModemReset}
+  RASCS_WaitForCallback = 17;
+  {$EXTERNALSYM RASCS_WaitForCallback}
+  RASCS_Projected = 18;
+  {$EXTERNALSYM RASCS_Projected}
+  RASCS_StartAuthentication = 19;
+  {$EXTERNALSYM RASCS_StartAuthentication}
+  RASCS_CallbackComplete = 20;
+  {$EXTERNALSYM RASCS_CallbackComplete}
+  RASCS_LogonNetwork = 21;
+  {$EXTERNALSYM RASCS_LogonNetwork}
+  RASCS_SubEntryConnected = 22;
+  {$EXTERNALSYM RASCS_SubEntryConnected}
+  RASCS_SubEntryDisconnected = 23;
+  {$EXTERNALSYM RASCS_SubEntryDisconnected}
+  RASCS_Interactive = RASCS_PAUSED;
+  {$EXTERNALSYM RASCS_Interactive}
+  RASCS_RetryAuthentication = RASCS_PAUSED + 1;
+  {$EXTERNALSYM RASCS_RetryAuthentication}
+  RASCS_CallbackSetByCaller = RASCS_PAUSED + 2;
+  {$EXTERNALSYM RASCS_CallbackSetByCaller}
+  RASCS_PasswordExpired = RASCS_PAUSED + 3;
+  {$EXTERNALSYM RASCS_PasswordExpired}
+  RASCS_Connected = RASCS_DONE;
+  {$EXTERNALSYM RASCS_Connected}
+  RASCS_Disconnected = RASCS_DONE + 1;
+  {$EXTERNALSYM RASCS_Disconnected}
+
+// Describes the status of a RAS connection.  (See RasConnectionStatus)
+
+type
+  PRasConnStatusA = ^TRasConnStatusA;
+  PRasConnStatusW = ^TRasConnStatusW;
+  PRasConnStatus = PRasConnStatusA;
+  tagRASCONNSTATUSA = record
+    dwSize: DWORD;
+    rasconnstate: TRasConnState;
+    dwError: DWORD;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of AnsiChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASCONNSTATUSA}
+  tagRASCONNSTATUSW = record
+    dwSize: DWORD;
+    rasconnstate: TRasConnState;
+    dwError: DWORD;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of WideChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASCONNSTATUSW}
+  tagRASCONNSTATUS = tagRASCONNSTATUSA;
+  TRasConnStatusA = tagRASCONNSTATUSA;
+  TRasConnStatusW = tagRASCONNSTATUSW;
+  TRasConnStatus = TRasConnStatusA;
+  RASCONNSTATUSA = tagRASCONNSTATUSA;
+  {$EXTERNALSYM RASCONNSTATUSA}
+  RASCONNSTATUSW = tagRASCONNSTATUSW;
+  {$EXTERNALSYM RASCONNSTATUSW}
+  RASCONNSTATUS = RASCONNSTATUSA;
+
+// Describes connection establishment parameters.  (See RasDial)
+  PRasDialParamsA = ^TRasDialParamsA;
+  PRasDialParamsW = ^TRasDialParamsW;
+  PRasDialParams = PRasDialParamsA;
+  tagRASDIALPARAMSA = record
+    dwSize: DWORD;
+    szEntryName: packed array[0..RAS_MaxEntryName] of AnsiChar;
+    szPhoneNumber: packed array[0..RAS_MaxPhoneNumber] of AnsiChar;
+    szCallbackNumber: packed array[0..RAS_MaxCallbackNumber] of AnsiChar;
+    szUserName: packed array[0..UNLEN] of AnsiChar;
+    szPassword: packed array[0..PWLEN] of AnsiChar;
+    szDomain: packed array[0..DNLEN] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASDIALPARAMSA}
+  tagRASDIALPARAMSW = record
+    dwSize: DWORD;
+    szEntryName: packed array[0..RAS_MaxEntryName] of WideChar;
+    szPhoneNumber: packed array[0..RAS_MaxPhoneNumber] of WideChar;
+    szCallbackNumber: packed array[0..RAS_MaxCallbackNumber] of WideChar;
+    szUserName: packed array[0..UNLEN] of WideChar;
+    szPassword: packed array[0..PWLEN] of WideChar;
+    szDomain: packed array[0..DNLEN] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASDIALPARAMSW}
+  tagRASDIALPARAMS = tagRASDIALPARAMSA;
+  TRasDialParamsA = tagRASDIALPARAMSA;
+  TRasDialParamsW = tagRASDIALPARAMSW;
+  TRasDialParams = TRasDialParamsA;
+  RASDIALPARAMSA = tagRASDIALPARAMSA;
+  {$EXTERNALSYM RASDIALPARAMSA}
+  RASDIALPARAMSW = tagRASDIALPARAMSW;
+  {$EXTERNALSYM RASDIALPARAMSW}
+  RASDIALPARAMS = RASDIALPARAMSA;
+
+
+// Describes extended connection establishment options.  (See RasDial)
+
+  PRasDialExtensions = ^TRasDialExtensions;
+  tagRASDIALEXTENSIONS = record
+    dwSize: DWORD;
+    dwfOptions: DWORD;
+    hwndParent: HWND;
+    reserved: DWORD;
+  end;
+  {$EXTERNALSYM tagRASDIALEXTENSIONS}
+  TRasDialExtensions = tagRASDIALEXTENSIONS;
+  RASDIALEXTENSIONS = tagRASDIALEXTENSIONS;
+  {$EXTERNALSYM RASDIALEXTENSIONS}
+
+// 'dwfOptions' bit flags.
+
+const
+  RDEOPT_UsePrefixSuffix           = $00000001;
+  {$EXTERNALSYM RDEOPT_UsePrefixSuffix}
+  RDEOPT_PausedStates              = $00000002;
+  {$EXTERNALSYM RDEOPT_PausedStates}
+  RDEOPT_IgnoreModemSpeaker        = $00000004;
+  {$EXTERNALSYM RDEOPT_IgnoreModemSpeaker}
+  RDEOPT_SetModemSpeaker           = $00000008;
+  {$EXTERNALSYM RDEOPT_SetModemSpeaker}
+  RDEOPT_IgnoreSoftwareCompression = $00000010;
+  {$EXTERNALSYM RDEOPT_IgnoreSoftwareCompression}
+  RDEOPT_SetSoftwareCompression    = $00000020;
+  {$EXTERNALSYM RDEOPT_SetSoftwareCompression}
+  RDEOPT_DisableConnectedUI        = $00000040;
+  {$EXTERNALSYM RDEOPT_DisableConnectedUI}
+  RDEOPT_DisableReconnectUI        = $00000080;
+  {$EXTERNALSYM RDEOPT_DisableReconnectUI}
+  RDEOPT_DisableReconnect          = $00000100;
+  {$EXTERNALSYM RDEOPT_DisableReconnect}
+  RDEOPT_NoUser                    = $00000200;
+  {$EXTERNALSYM RDEOPT_NoUser}
+  RDEOPT_PauseOnScript             = $00000400;
+  {$EXTERNALSYM RDEOPT_PauseOnScript}
+  RDEOPT_Router                    = $00000800;
+  {$EXTERNALSYM RDEOPT_Router}
+
+// This flag when set in the RASENTRYNAME structure
+// indicates that the phonebook to which this entry
+// belongs is a system phonebook.
+
+  REN_User                         = $00000000;
+  {$EXTERNALSYM REN_User}
+  REN_AllUsers                     = $00000001;
+  {$EXTERNALSYM REN_AllUsers}
+
+// Describes an enumerated RAS phone book entry name.  (See RasEntryEnum)
+
+type
+  PRasEntryNameA = ^TRasEntryNameA;
+  PRasEntryNameW = ^TRasEntryNameW;
+  PRasEntryName = PRasEntryNameA;
+  tagRASENTRYNAMEA = record
+    dwSize: DWORD;
+    szEntryName: packed array[0..RAS_MaxEntryName] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASENTRYNAMEA}
+  tagRASENTRYNAMEW = record
+    dwSize: DWORD;
+    szEntryName: packed array[0..RAS_MaxEntryName] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASENTRYNAMEW}
+  tagRASENTRYNAME = tagRASENTRYNAMEA;
+  TRasEntryNameA = tagRASENTRYNAMEA;
+  TRasEntryNameW = tagRASENTRYNAMEW;
+  TRasEntryName = TRasEntryNameA;
+  RASENTRYNAMEA = tagRASENTRYNAMEA;
+  {$EXTERNALSYM RASENTRYNAMEA}
+  RASENTRYNAMEW = tagRASENTRYNAMEW;
+  {$EXTERNALSYM RASENTRYNAMEW}
+  RASENTRYNAME = RASENTRYNAMEA;
+
+// Protocol code to projection data structure mapping.
+
+type
+  PRasProjection = ^TRasProjection;
+  TRasProjection = DWORD;
+
+const
+  RASP_Amb = $10000;
+  {$EXTERNALSYM RASP_Amb}
+  RASP_PppNbf = $803F;
+  {$EXTERNALSYM RASP_PppNbf}
+  RASP_PppIpx = $802B;
+  {$EXTERNALSYM RASP_PppIpx}
+  RASP_PppIp = $8021;
+  {$EXTERNALSYM RASP_PppIp}
+  RASP_PppLcp = $C021;
+  {$EXTERNALSYM RASP_PppLcp}
+  RASP_Slip = $20000;
+  {$EXTERNALSYM RASP_Slip}
+
+// Describes the result of a RAS AMB (Authentication Message Block)
+// projection.  This protocol is used with NT 3.1 and OS/2 1.3 downlevel
+// RAS servers.
+
+type
+  PRasAmbA = ^TRasAmbA;
+  PRasAmbW = ^TRasAmbW;
+  PRasAmb = PRasAmbA;
+  tagRASAMBA = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szNetBiosError: packed array[0..NETBIOS_NAME_LEN] of AnsiChar;
+    bLana: Byte;
+  end;
+  {$EXTERNALSYM tagRASAMBA}
+  tagRASAMBW = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szNetBiosError: packed array[0..NETBIOS_NAME_LEN] of WideChar;
+    bLana: Byte;
+  end;
+  {$EXTERNALSYM tagRASAMBW}
+  tagRASAMB = tagRASAMBA;
+  TRasAmbA = tagRASAMBA;
+  TRasAmbW = tagRASAMBW;
+  TRasAmb = TRasAmbA;
+  RASAMBA = tagRASAMBA;
+  {$EXTERNALSYM RASAMBA}
+  RASAMBW = tagRASAMBW;
+  {$EXTERNALSYM RASAMBW}
+  RASAMB = RASAMBA;
+
+// Describes the result of a PPP NBF (NetBEUI) projection.
+
+  PRasPppNBFA = ^TRasPppNBFA;
+  PRasPppNBFW = ^TRasPppNBFW;
+  PRasPppNBF = PRasPppNBFA;
+  tagRASPPPNBFA = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    dwNetBiosError: DWORD;
+    szNetBiosError: packed array[0..NETBIOS_NAME_LEN] of AnsiChar;
+    szWorkstationName: packed array[0..NETBIOS_NAME_LEN] of AnsiChar;
+    bLana: Byte;
+  end;
+  {$EXTERNALSYM tagRASPPPNBFA}
+  tagRASPPPNBFW = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    dwNetBiosError: DWORD;
+    szNetBiosError: packed array[0..NETBIOS_NAME_LEN] of WideChar;
+    szWorkstationName: packed array[0..NETBIOS_NAME_LEN] of WideChar;
+    bLana: Byte;
+  end;
+  {$EXTERNALSYM tagRASPPPNBFW}
+  tagRASPPPNBF = tagRASPPPNBFA;
+  TRasPppNBFA = tagRASPPPNBFA;
+  TRasPppNBFW = tagRASPPPNBFW;
+  TRasPppNBF = TRasPppNBFA;
+  RASPPPNBFA = tagRASPPPNBFA;
+  {$EXTERNALSYM tagRASPPPNBFA}
+  RASPPPNBFW = tagRASPPPNBFW;
+  {$EXTERNALSYM tagRASPPPNBFW}
+  RASPPPNBF = RASPPPNBFA;
+
+// Describes the results of a PPP IPX (Internetwork Packet Exchange) projection.
+
+  PRasPppIPXA = ^TRasPppIPXA;
+  PRasPppIPXW = ^TRasPppIPXW;
+  PRasPppIPX = PRasPppIPXA;
+  tagRASPPPIPXA = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpxAddress: packed array[0..RAS_MaxIpxAddress] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASPPPIPXA}
+  tagRASPPPIPXW = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpxAddress: packed array[0..RAS_MaxIpxAddress] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASPPPIPXW}
+  tagRASPPPIPX = tagRASPPPIPXA;
+  TRasPppIPXA = tagRASPPPIPXA;
+  TRasPppIPXW = tagRASPPPIPXW;
+  TRasPppIPX = TRasPppIPXA;
+  RASPPPIPXA = tagRASPPPIPXA;
+  {$EXTERNALSYM RASPPPIPXA}
+  RASPPPIPXW = tagRASPPPIPXW;
+  {$EXTERNALSYM RASPPPIPXW}
+  RASPPPIPX = RASPPPIPXA;
+
+// Describes the results of a PPP IP (Internet) projection
+
+
+type
+  PRasPppIPA = ^TPRasPppIPA;
+  PRasPppIPW = ^TPRasPppIPW;
+  PRasPppIP = PRasPppIPA;
+  tagRASIPA = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpAddress: packed array[0..RAS_MaxIpAddress] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASIPA}
+  tagRASIPW = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpAddress: packed array[0..RAS_MaxIpAddress] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASIPW}
+  tagRASIP = tagRASIPA;
+  TPRasPppIPA = tagRASIPA;
+  TPRasPppIPW = tagRASIPW;
+  TPRasPppIP = TPRasPppIPA;
+  RASIPA = tagRASIPA;
+  {$EXTERNALSYM RASIPA}
+  RASIPW = tagRASIPW;
+  {$EXTERNALSYM RASIPW}
+  RASIP = RASIPA;
+
+{#ifndef WINNT35COMPATIBLE
+
+    /* This field was added between Windows NT 3.51 beta and Windows NT 3.51
+    ** final, and between Windows 95 M8 beta and Windows 95 final.  If you do
+    ** not require the server address and wish to retrieve PPP IP information
+    ** from Windows NT 3.5 or early Windows NT 3.51 betas, or on early Windows
+    ** 95 betas, define WINNT35COMPATIBLE.
+    **
+    ** The server IP address is not provided by all PPP implementations,
+    ** though Windows NT server's do provide it.
+    */
+    WCHAR szServerIpAddress[ RAS_MaxIpAddress + 1 ];
+
+#endif}
+
+
+// Describes the results of a PPP LCP/multi-link negotiation.
+
+type
+  PRasPppLCPA = ^TRasPppLCPA;
+  PRasPppLCPW = ^TRasPppLCPW;
+  PRasPppLCP = PRasPppLCPA;
+  tagRASPPPLCPA = record
+    dwSize: DWORD;
+    fBundled: BOOL;
+  end;
+  {$EXTERNALSYM tagRASPPPLCPA}
+  tagRASPPPLCPW = record
+    dwSize: DWORD;
+    fBundled: BOOL;
+  end;
+  {$EXTERNALSYM tagRASPPPLCPW}
+  tagRASPPPLCP = tagRASPPPLCPA;
+  TRasPppLCPA = tagRASPPPLCPA;
+  TRasPppLCPW = tagRASPPPLCPW;
+  TRasPppLCP = TRasPppLCPA;
+  RASPPPLCPA = tagRASPPPLCPA;
+  {$EXTERNALSYM RASPPPLCPA}
+  RASPPPLCPW = tagRASPPPLCPW;
+  {$EXTERNALSYM RASPPPLCPW}
+  RASPPPLCP = RASPPPLCPA;
+
+// Describes the results of a SLIP (Serial Line IP) projection.
+
+  PRasSlipA = ^TRasSlipA;
+  PRasSlipW = ^TRasSlipW;
+  PRasSlip = PRasSlipA;
+  tagRASSLIPA = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpAddress: packed array[0..RAS_MaxIpAddress] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASSLIPA}
+  tagRASSLIPW = record
+    dwSize: DWORD;
+    dwError: DWORD;
+    szIpAddress: packed array[0..RAS_MaxIpAddress] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASSLIPW}
+  tagRASSLIP = tagRASSLIPA;
+  TRasSlipA = tagRASSLIPA;
+  TRasSlipW = tagRASSLIPW;
+  TRasSlip = TRasSlipA;
+  RASSLIPA = tagRASSLIPA;
+  {$EXTERNALSYM RASSLIPA}
+  RASSLIPW = tagRASSLIPW;
+  {$EXTERNALSYM RASSLIPW}
+  RASSLIP = RASSLIPA;
+
+
+
+// If using RasDial message notifications, get the notification message code
+// by passing this string to the RegisterWindowMessageA() API.
+// WM_RASDIALEVENT is used only if a unique message cannot be registered.
+
+const
+  RASDIALEVENT    = 'RasDialEvent';
+  {$EXTERNALSYM RASDIALEVENT}
+  WM_RASDIALEVENT = $CCCD;
+  {$EXTERNALSYM WM_RASDIALEVENT}
+
+// Prototypes for caller's RasDial callback handler.  Arguments are the
+// message ID (currently always WM_RASDIALEVENT), the current RASCONNSTATE and
+// the error that has occurred (or 0 if none).  Extended arguments are the
+// handle of the RAS connection and an extended error code.
+//
+// For RASDIALFUNC2, subsequent callback notifications for all
+// subentries can be cancelled by returning FALSE.
+
+type
+  TRasDialFunc = procedure (unMsg: UINT; rasconnstate: TRasConnState; dwError: DWORD); stdcall;
+  {$EXTERNALSYM TRasDialFunc}
+  TRasDialFunc1 = procedure (hrasconn: THRasConn; unMsg: UINT; rascs: TRasConnState;
+    dwError: DWORD; dwExtendedError: DWORD); stdcall;
+  {$EXTERNALSYM TRasDialFunc1}
+  TRasDialFunc2 = function (dwCallbackId: DWORD; dwSubEntry: DWORD;
+    hrasconn: THRasConn; unMsg: UINT; rascs: TRasConnState; dwError: DWORD;
+    dwExtendedError: DWORD): DWORD; stdcall;
+  {$EXTERNALSYM TRasDialFunc2}
+
+// Information describing a RAS-capable device.
+
+  PRasDevInfoA = ^TRasDevInfoA;
+  PRasDevInfoW = ^TRasDevInfoW;
+  PRasDevInfo = PRasDevInfoA;
+  tagRASDEVINFOA = record
+    dwSize: DWORD;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of AnsiChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of AnsiChar;
+  end;
+  {$EXTERNALSYM tagRASDEVINFOA}
+  tagRASDEVINFOW = record
+    dwSize: DWORD;
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of WideChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of WideChar;
+  end;
+  {$EXTERNALSYM tagRASDEVINFOW}
+  tagRASDEVINFO = tagRASDEVINFOA;
+  TRasDevInfoA = tagRASDEVINFOA;
+  TRasDevInfoW = tagRASDEVINFOW;
+  TRasDevInfo = TRasDevInfoA;
+  RASDEVINFOA = tagRASDEVINFOA;
+  {$EXTERNALSYM RASDEVINFOA}
+  RASDEVINFOW = tagRASDEVINFOW;
+  {$EXTERNALSYM RASDEVINFOW}
+  RASDEVINFO = RASDEVINFOA;
+
+// RAS country information (currently retrieved from TAPI).
+
+  PRasCtryInfoA = ^TRasCtryInfoA;
+  PRasCtryInfoW = ^TRasCtryInfoW;
+  PRasCtryInfo = PRasCtryInfoA;
+  RASCTRYINFOA = record
+    dwSize: DWORD;
+    dwCountryID: DWORD;
+    dwNextCountryID: DWORD;
+    dwCountryCode: DWORD;
+    dwCountryNameOffset: DWORD;
+  end;
+  {$EXTERNALSYM RASCTRYINFOA}
+  RASCTRYINFOW = record
+    dwSize: DWORD;
+    dwCountryID: DWORD;
+    dwNextCountryID: DWORD;
+    dwCountryCode: DWORD;
+    dwCountryNameOffset: DWORD;
+  end;
+  {$EXTERNALSYM RASCTRYINFOW}
+  RASCTRYINFO = RASCTRYINFOA;
+  TRasCtryInfoA = RASCTRYINFOA;
+  TRasCtryInfoW = RASCTRYINFOW;
+  TRasCtryInfo = TRasCtryInfoA;
+  CTRYINFOA = RASCTRYINFOA;
+  {$EXTERNALSYM CTRYINFOA}
+  CTRYINFOW = RASCTRYINFOW;
+  {$EXTERNALSYM CTRYINFOW}
+  CTRYINFO = CTRYINFOA;
+
+// There is currently no difference between RASCTRYINFOA and RASCTRYINFOW.
+// This may change in the future.
+
+const
+
+  VS_Default	= 0; // default (PPTP for now)
+  {$EXTERNALSYM VS_Default}
+  VS_PptpOnly   = 1; // Only PPTP is attempted.
+  {$EXTERNALSYM VS_PptpOnly}
+  VS_PptpFirst	= 2; // PPTP is tried first.
+  {$EXTERNALSYM VS_PptpFirst}
+  VS_L2tpOnly 	= 3; // Only L2TP is attempted.
+  {$EXTERNALSYM VS_L2tpOnly}
+  VS_L2tpFirst	= 4; // L2TP is tried first.
+  {$EXTERNALSYM VS_L2tpFirst}
+
+type
+  TRasIPAddr = record
+    a, b, c, d: Byte;
+  end;
+  RASIPADDR = TRasIPAddr;
+  {$EXTERNALSYM RASIPADDR}
+
+// A RAS phone book entry.
+
+  PRasEntryA = ^TRasEntryA;
+  PRasEntryW = ^TRasEntryW;
+  PRasEntry = PRasEntryA;
+  tagRASENTRYA = record
+    dwSize: DWORD;
+    dwfOptions: DWORD;
+    // Location/phone number.
+    dwCountryID: DWORD;
+    dwCountryCode: DWORD;
+    szAreaCode: packed array[0..RAS_MaxAreaCode] of AnsiChar;
+    szLocalPhoneNumber: packed array[0..RAS_MaxPhoneNumber] of AnsiChar;
+    dwAlternateOffset: DWORD;
+    // PPP/Ip
+    ipaddr: RASIPADDR;
+    ipaddrDns: RASIPADDR;
+    ipaddrDnsAlt: RASIPADDR;
+    ipaddrWins: RASIPADDR;
+    ipaddrWinsAlt: RASIPADDR;
+    // Framing
+    dwFrameSize: DWORD;
+    dwfNetProtocols: DWORD;
+    dwFramingProtocol: DWORD;
+    // Scripting
+    szScript: packed array[0..MAX_PATH-1] of AnsiChar;
+    // AutoDial
+    szAutodialDll: packed array[0..MAX_PATH-1] of AnsiChar;
+    szAutodialFunc: packed array[0..MAX_PATH-1] of AnsiChar;
+    // Device
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of AnsiChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of AnsiChar;
+    // X.25
+    szX25PadType: packed array[0..RAS_MaxPadType] of AnsiChar;
+    szX25Address: packed array[0..RAS_MaxX25Address] of AnsiChar;
+    szX25Facilities: packed array[0..RAS_MaxFacilities] of AnsiChar;
+    szX25UserData: packed array[0..RAS_MaxUserData] of AnsiChar;
+    dwChannels: DWORD;
+    // Reserved
+    dwReserved1: DWORD;
+    dwReserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASENTRYA}
+  tagRASENTRYW = record
+    dwSize: DWORD;
+    dwfOptions: DWORD;
+    // Location/phone number.
+    dwCountryID: DWORD;
+    dwCountryCode: DWORD;
+    szAreaCode: packed array[0..RAS_MaxAreaCode] of WideChar;
+    szLocalPhoneNumber: packed array[0..RAS_MaxPhoneNumber] of WideChar;
+    dwAlternateOffset: DWORD;
+    // PPP/Ip
+    ipaddr: RASIPADDR;
+    ipaddrDns: RASIPADDR;
+    ipaddrDnsAlt: RASIPADDR;
+    ipaddrWins: RASIPADDR;
+    ipaddrWinsAlt: RASIPADDR;
+    // Framing
+    dwFrameSize: DWORD;
+    dwfNetProtocols: DWORD;
+    dwFramingProtocol: DWORD;
+    // Scripting
+    szScript: packed array[0..MAX_PATH-1] of WideChar;
+    // AutoDial
+    szAutodialDll: packed array[0..MAX_PATH-1] of WideChar;
+    szAutodialFunc: packed array[0..MAX_PATH-1] of WideChar;
+    // Device
+    szDeviceType: packed array[0..RAS_MaxDeviceType] of WideChar;
+    szDeviceName: packed array[0..RAS_MaxDeviceName] of WideChar;
+    // X.25
+    szX25PadType: packed array[0..RAS_MaxPadType] of WideChar;
+    szX25Address: packed array[0..RAS_MaxX25Address] of WideChar;
+    szX25Facilities: packed array[0..RAS_MaxFacilities] of WideChar;
+    szX25UserData: packed array[0..RAS_MaxUserData] of WideChar;
+    dwChannels: DWORD;
+    // Reserved
+    dwReserved1: DWORD;
+    dwReserved2: DWORD;
+  end;
+  {$EXTERNALSYM tagRASENTRYW}
+  tagRASENTRY = tagRASENTRYA;
+  TRasEntryA = tagRASENTRYA;
+  TRasEntryW = tagRASENTRYW;
+  TRasEntry = TRasEntryA;
+  RASENTRYA = tagRASENTRYA;
+  {$EXTERNALSYM RASENTRYA}
+  RASENTRYW = tagRASENTRYW;
+  {$EXTERNALSYM RASENTRYW}
+  RASENTRY = RASENTRYA;
+
+// RASENTRY 'dwfOptions' bit flags.
+
+const
+  RASEO_UseCountryAndAreaCodes    = $00000001;
+  {$EXTERNALSYM RASEO_UseCountryAndAreaCodes}
+  RASEO_SpecificIpAddr            = $00000002;
+  {$EXTERNALSYM RASEO_SpecificIpAddr}
+  RASEO_SpecificNameServers       = $00000004;
+  {$EXTERNALSYM RASEO_SpecificNameServers}
+  RASEO_IpHeaderCompression       = $00000008;
+  {$EXTERNALSYM RASEO_IpHeaderCompression}
+  RASEO_RemoteDefaultGateway      = $00000010;
+  {$EXTERNALSYM RASEO_RemoteDefaultGateway}
+  RASEO_DisableLcpExtensions      = $00000020;
+  {$EXTERNALSYM RASEO_DisableLcpExtensions}
+  RASEO_TerminalBeforeDial        = $00000040;
+  {$EXTERNALSYM RASEO_TerminalBeforeDial}
+  RASEO_TerminalAfterDial         = $00000080;
+  {$EXTERNALSYM RASEO_TerminalAfterDial}
+  RASEO_ModemLights               = $00000100;
+  {$EXTERNALSYM RASEO_ModemLights}
+  RASEO_SwCompression             = $00000200;
+  {$EXTERNALSYM RASEO_SwCompression}
+  RASEO_RequireEncryptedPw        = $00000400;
+  {$EXTERNALSYM RASEO_RequireEncryptedPw}
+  RASEO_RequireMsEncryptedPw      = $00000800;
+  {$EXTERNALSYM RASEO_RequireMsEncryptedPw}
+  RASEO_RequireDataEncryption     = $00001000;
+  {$EXTERNALSYM RASEO_RequireDataEncryption}
+  RASEO_NetworkLogon              = $00002000;
+  {$EXTERNALSYM RASEO_NetworkLogon}
+  RASEO_UseLogonCredentials       = $00004000;
+  {$EXTERNALSYM RASEO_UseLogonCredentials}
+  RASEO_PromoteAlternates         = $00008000;
+  {$EXTERNALSYM RASEO_PromoteAlternates}
+
+
+// RASENTRY 'dwProtocols' bit flags.
+  RASNP_NetBEUI                   = $00000001;
+  {$EXTERNALSYM RASNP_NetBEUI}
+  RASNP_Ipx                       = $00000002;
+  {$EXTERNALSYM RASNP_Ipx}
+  RASNP_Ip                        = $00000004;
+  {$EXTERNALSYM RASNP_Ip}
+
+// RASENTRY 'dwFramingProtocols' bit flags.
+  RASFP_Ppp                       = $00000001;
+  {$EXTERNALSYM RASFP_Ppp}
+  RASFP_Slip                      = $00000002;
+  {$EXTERNALSYM RASFP_Slip}
+  RASFP_Ras                       = $00000004;
+  {$EXTERNALSYM RASFP_Ras}
+
+// RASENTRY 'szDeviceType' default strings.
+  RASDT_Modem                     = 'modem';
+  {$EXTERNALSYM RASDT_Modem}
+  RASDT_Isdn                      = 'isdn';
+  {$EXTERNALSYM RASDT_Isdn}
+  RASDT_X25                       = 'x25';
+  {$EXTERNALSYM RASDT_X25}
+  RASDT_Vpn                       = 'vpn';
+  {$EXTERNALSYM RASDT_Vpn}
+  RASDT_Pad                       = 'pad';
+  {$EXTERNALSYM RASDT_Pad}
+  RASDT_Generic                   = 'GENERIC';
+  {$EXTERNALSYM RASDT_Generic}
+  RASDT_Serial                    = 'SERIAL';
+  {$EXTERNALSYM RASDT_Serial}
+  RASDT_FrameRelay                = 'FRAMERELAY';
+  {$EXTERNALSYM RASDT_FrameRelay}
+  RASDT_Atm                       = 'ATM';
+  {$EXTERNALSYM RASDT_Atm}
+  RASDT_Sonet                     = 'SONET';
+  {$EXTERNALSYM RASDT_Sonet}
+  RASDT_SW56                      = 'SW56';
+  {$EXTERNALSYM RASDT_SW56}
+  RASDT_Irda                      = 'IRDA';
+  {$EXTERNALSYM RASDT_Irda}
+  RASDT_Parallel                  = 'PARALLEL';
+  {$EXTERNALSYM RASDT_Parallel}
+
+// The entry type used to determine which UI properties
+// are to be presented to user.  This generally corresponds
+// to a Connections "add" wizard selection.
+
+  RASET_Phone    = 1;  // Phone lines: modem, ISDN, X.25, etc
+  {$EXTERNALSYM RASET_Phone}
+  RASET_Vpn      = 2;  // Virtual private network
+  {$EXTERNALSYM RASET_Vpn}
+  RASET_Direct   = 3;  // Direct connect: serial, parallel
+  {$EXTERNALSYM RASET_Direct}
+  RASET_Internet = 4;  // BaseCamp internet
+  {$EXTERNALSYM RASET_Internet}
+
+
+// Old AutoDial DLL function prototype.
+//
+// This prototype is documented for backward-compatibility
+// purposes only.  It is superceded by the RASADFUNCA
+// and RASADFUNCW definitions below.  DO NOT USE THIS
+// PROTOTYPE IN NEW CODE.  SUPPORT FOR IT MAY BE REMOVED
+// IN FUTURE VERSIONS OF RAS.
+
+type
+ TORASADFunc = function(hwndOwner: HWND; lpszEntry: LPSTR; dwFlags: DWORD;
+   var lpdwRetCode: DWORD): BOOL; stdcall;
+ {$EXTERNALSYM TORASADFunc}
+
+// (WINVER >= 0x401)
+
+
+function RasDialA(lpRasDialExtensions: PRasDialExtensions; lpszPhonebook: PAnsiChar;
+  lpRasDialParams: PRasDialParamsA; dwNotifierType: DWORD; lpvNotifier: Pointer;
+  var lphRasConn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasDialA}
+function RasDialW(lpRasDialExtensions: PRasDialExtensions; lpszPhonebook: PWideChar;
+  lpRasDialParams: PRasDialParamsW; dwNotifierType: DWORD; lpvNotifier: Pointer;
+  var lphRasConn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasDialW}
+function RasDial(lpRasDialExtensions: PRasDialExtensions; lpszPhonebook: PChar;
+  lpRasDialParams: PRasDialParams; dwNotifierType: DWORD; lpvNotifier: Pointer;
+  var lphRasConn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasDial}
+
+function RasEnumConnectionsA(lprasconn: PRasConnA; var lpcb: DWORD;
+  var pcConnections: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumConnectionsA}
+function RasEnumConnectionsW(lprasconn: PRasConnW; var lpcb: DWORD;
+  var pcConnections: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumConnectionsW}
+function RasEnumConnections(lprasconn: PRasConn; var lpcb: DWORD;
+  var pcConnections: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumConnections}
+
+function RasEnumEntriesA(reserved: PAnsiChar; lpszPhonebook: PAnsiChar;
+  lprasentryname: PRasEntryNameA; var lpcb: DWORD;
+  var lpcEntries: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumEntriesA}
+function RasEnumEntriesW(reserved: PWideChar; lpszPhonebook: PWideChar;
+  lprasentryname: PRasEntryNameW; var lpcb: DWORD;
+  var lpcEntries: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumEntriesW}
+function RasEnumEntries(reserved: PChar; lpszPhonebook: PChar;
+  lprasentryname: PRasEntryName; var lpcb: DWORD;
+  var lpcEntries: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumEntries}
+
+function RasGetConnectStatusA(hrasconn: THRasConn;
+  var lprasconnstatus: TRasConnStatusA): DWORD; stdcall;
+{$EXTERNALSYM RasGetConnectStatusA}
+function RasGetConnectStatusW(hrasconn: THRasConn;
+  var lprasconnstatus: TRasConnStatusW): DWORD; stdcall;
+{$EXTERNALSYM RasGetConnectStatusW}
+function RasGetConnectStatus(hrasconn: THRasConn;
+  var lprasconnstatus: TRasConnStatus): DWORD; stdcall;
+{$EXTERNALSYM RasGetConnectStatus}
+
+function RasGetErrorStringA(uErrorValue: UINT; lpszErrorString: PAnsiChar;
+  cBufSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetErrorStringA}
+function RasGetErrorStringW(uErrorValue: UINT; lpszErrorString: PWideChar;
+  cBufSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetErrorStringW}
+function RasGetErrorString(uErrorValue: UINT; lpszErrorString: PChar;
+  cBufSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetErrorString}
+
+function RasHangUpA(hrasconn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasHangUpA}
+function RasHangUpW(hrasconn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasHangUpW}
+function RasHangUp(hrasconn: THRasConn): DWORD; stdcall;
+{$EXTERNALSYM RasHangUp}
+
+function RasGetProjectionInfoA(hrasconn: THRasConn; rasprojection: TRasProjection;
+  lpprojection: Pointer; var lpcb: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetProjectionInfoA}
+function RasGetProjectionInfoW(hrasconn: THRasConn; rasprojection: TRasProjection;
+  lpprojection: Pointer; var lpcb: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetProjectionInfoW}
+function RasGetProjectionInfo(hrasconn: THRasConn; rasprojection: TRasProjection;
+  lpprojection: Pointer; var lpcb: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetProjectionInfo}
+
+function RasCreatePhonebookEntryA(hwnd: HWND; lpszPhonebook: PAnsiChar): DWORD; stdcall;
+{$EXTERNALSYM RasCreatePhonebookEntryA}
+function RasCreatePhonebookEntryW(hwnd: HWND; lpszPhonebook: PWideChar): DWORD; stdcall;
+{$EXTERNALSYM RasCreatePhonebookEntryW}
+function RasCreatePhonebookEntry(hwnd: HWND; lpszPhonebook: PChar): DWORD; stdcall;
+{$EXTERNALSYM RasCreatePhonebookEntry}
+
+function RasEditPhonebookEntryA(hwnd: HWND; lpszPhonebook: PAnsiChar;
+  lpszEntryName: PAnsiChar): DWORD; stdcall;
+{$EXTERNALSYM RasEditPhonebookEntryA}
+function RasEditPhonebookEntryW(hwnd: HWND; lpszPhonebook: PWideChar;
+  lpszEntryName: PWideChar): DWORD; stdcall;
+{$EXTERNALSYM RasEditPhonebookEntryW}
+function RasEditPhonebookEntry(hwnd: HWND; lpszPhonebook: PChar;
+  lpszEntryName: PChar): DWORD; stdcall;
+{$EXTERNALSYM RasEditPhonebookEntry}
+
+function RasSetEntryDialParamsA(lpszPhonebook: PAnsiChar;
+  lprasdialparams: PRasDialParamsA; fRemovePassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryDialParamsA}
+function RasSetEntryDialParamsW(lpszPhonebook: PWideChar;
+  lprasdialparams: PRasDialParamsW; fRemovePassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryDialParamsW}
+function RasSetEntryDialParams(lpszPhonebook: PChar;
+  lprasdialparams: PRasDialParams; fRemovePassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryDialParams}
+
+function RasGetEntryDialParamsA(lpszPhonebook: PAnsiChar;
+  var lprasdialparams: TRasDialParamsA; var lpfPassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryDialParamsA}
+function RasGetEntryDialParamsW(lpszPhonebook: PWideChar;
+  var lprasdialparams: TRasDialParamsW; var lpfPassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryDialParamsW}
+function RasGetEntryDialParams(lpszPhonebook: PChar;
+  var lprasdialparams: TRasDialParams; var lpfPassword: BOOL): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryDialParams}
+
+function RasEnumDevicesA(lpRasDevInfo: PRasDevInfoA; var lpcb: DWORD;
+  var lpcDevices: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumDevicesA}
+function RasEnumDevicesW(lpRasDevInfo: PRasDevInfoW; var lpcb: DWORD;
+  var lpcDevices: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumDevicesW}
+function RasEnumDevices(lpRasDevInfo: PRasDevInfo; var lpcb: DWORD;
+  var lpcDevices: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasEnumDevices}
+
+function RasGetCountryInfoA(var lpRasCtryInfo: TRasCtryInfoA;
+  var lpdwSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetCountryInfoA}
+function RasGetCountryInfoW(var lpRasCtryInfo: TRasCtryInfoW;
+  var lpdwSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetCountryInfoW}
+function RasGetCountryInfo(var lpRasCtryInfo: TRasCtryInfo;
+  var lpdwSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetCountryInfo}
+
+function RasGetEntryPropertiesA(lpszPhonebook: PAnsiChar; lpszEntry: PAnsiChar;
+  lpRasEntry: PRasEntryA; var lpdwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: PDWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryPropertiesA}
+function RasGetEntryPropertiesW(lpszPhonebook: PWideChar; lpszEntry: PWideChar;
+  lpRasEntry: PRasEntryW; var lpdwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: PDWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryPropertiesW}
+function RasGetEntryProperties(lpszPhonebook: PChar; lpszEntry: PChar;
+  lpRasEntry: PRasEntry; var lpdwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: PDWORD): DWORD; stdcall;
+{$EXTERNALSYM RasGetEntryProperties}
+
+function RasSetEntryPropertiesA(lpszPhonebook: PAnsiChar; lpszEntry: PAnsiChar;
+  lpRasEntry: PRasEntryA; dwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryPropertiesA}
+function RasSetEntryPropertiesW(lpszPhonebook: PWideChar; lpszEntry: PWideChar;
+  lpRasEntry: PRasEntryW; dwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryPropertiesW}
+function RasSetEntryProperties(lpszPhonebook: PChar; lpszEntry: PChar;
+  lpRasEntry: PRasEntry; dwEntryInfoSize: DWORD;
+  lpbDeviceInfo: Pointer; lpdwDeviceInfoSize: DWORD): DWORD; stdcall;
+{$EXTERNALSYM RasSetEntryProperties}
+
+function RasRenameEntryA(lpszPhonebook: PAnsiChar; lpszOldEntry: PAnsiChar;
+  lpszNewEntry: PAnsiChar): DWORD; stdcall;
+{$EXTERNALSYM RasRenameEntryA}
+function RasRenameEntryW(lpszPhonebook: PWideChar; lpszOldEntry: PWideChar;
+  lpszNewEntry: PWideChar): DWORD; stdcall;
+{$EXTERNALSYM RasRenameEntryW}
+function RasRenameEntry(lpszPhonebook: PChar; lpszOldEntry: PChar;
+  lpszNewEntry: PChar): DWORD; stdcall;
+{$EXTERNALSYM RasRenameEntry}
+
+function RasDeleteEntryA(lpszPhonebook, lpszEntry: PAnsiChar): DWORD; stdcall;
+{$EXTERNALSYM RasDeleteEntryA}
+function RasDeleteEntryW(lpszPhonebook, lpszEntry: PWideChar): DWORD; stdcall;
+{$EXTERNALSYM RasDeleteEntryW}
+function RasDeleteEntry(lpszPhonebook, lpszEntry: PChar): DWORD; stdcall;
+{$EXTERNALSYM RasDeleteEntry}
+
+function RasValidateEntryNameA(lpszPhonebook, lpszEntry: PAnsiChar): DWORD; stdcall;
+{$EXTERNALSYM RasValidateEntryNameA}
+function RasValidateEntryNameW(lpszPhonebook, lpszEntry: PWideChar): DWORD; stdcall;
+{$EXTERNALSYM RasValidateEntryNameW}
+function RasValidateEntryName(lpszPhonebook, lpszEntry: PChar): DWORD; stdcall;
+{$EXTERNALSYM RasValidateEntryName}
+
+
+
+implementation
+
+const
+  raslib = 'rasapi32.dll';
+
+function RasDialA; external raslib name 'RasDialA';
+function RasDialW; external raslib name 'RasDialW';
+function RasDial; external raslib name 'RasDialA';
+function RasEnumConnectionsA; external raslib name 'RasEnumConnectionsA';
+function RasEnumConnectionsW; external raslib name 'RasEnumConnectionsW';
+function RasEnumConnections; external raslib name 'RasEnumConnectionsA';
+function RasEnumEntriesA; external raslib name 'RasEnumEntriesA';
+function RasEnumEntriesW; external raslib name 'RasEnumEntriesW';
+function RasEnumEntries; external raslib name 'RasEnumEntriesA';
+function RasGetConnectStatusA; external raslib name 'RasGetConnectStatusA';
+function RasGetConnectStatusW; external raslib name 'RasGetConnectStatusW';
+function RasGetConnectStatus; external raslib name 'RasGetConnectStatusA';
+function RasGetErrorStringA; external raslib name 'RasGetErrorStringA';
+function RasGetErrorStringW; external raslib name 'RasGetErrorStringW';
+function RasGetErrorString; external raslib name 'RasGetErrorStringA';
+function RasHangUpA; external raslib name 'RasHangUpA';
+function RasHangUpW; external raslib name 'RasHangUpW';
+function RasHangUp; external raslib name 'RasHangUpA';
+function RasGetProjectionInfoA; external raslib name 'RasGetProjectionInfoA';
+function RasGetProjectionInfoW; external raslib name 'RasGetProjectionInfoW';
+function RasGetProjectionInfo; external raslib name 'RasGetProjectionInfoA';
+function RasCreatePhonebookEntryA; external raslib name 'RasCreatePhonebookEntryA';
+function RasCreatePhonebookEntryW; external raslib name 'RasCreatePhonebookEntryW';
+function RasCreatePhonebookEntry; external raslib name 'RasCreatePhonebookEntryA';
+function RasEditPhonebookEntryA; external raslib name 'RasEditPhonebookEntryA';
+function RasEditPhonebookEntryW; external raslib name 'RasEditPhonebookEntryW';
+function RasEditPhonebookEntry; external raslib name 'RasEditPhonebookEntryA';
+function RasSetEntryDialParamsA; external raslib name 'RasSetEntryDialParamsA';
+function RasSetEntryDialParamsW; external raslib name 'RasSetEntryDialParamsW';
+function RasSetEntryDialParams; external raslib name 'RasSetEntryDialParamsA';
+function RasGetEntryDialParamsA; external raslib name 'RasGetEntryDialParamsA';
+function RasGetEntryDialParamsW; external raslib name 'RasGetEntryDialParamsW';
+function RasGetEntryDialParams; external raslib name 'RasGetEntryDialParamsA';
+function RasEnumDevicesA; external raslib name 'RasEnumDevicesA';
+function RasEnumDevicesW; external raslib name 'RasEnumDevicesW';
+function RasEnumDevices; external raslib name 'RasEnumDevicesA';
+function RasGetCountryInfoA; external raslib name 'RasGetCountryInfoA';
+function RasGetCountryInfoW; external raslib name 'RasGetCountryInfoW';
+function RasGetCountryInfo; external raslib name 'RasGetCountryInfoA';
+function RasGetEntryPropertiesA; external raslib name 'RasGetEntryPropertiesA';
+function RasGetEntryPropertiesW; external raslib name 'RasGetEntryPropertiesW';
+function RasGetEntryProperties; external raslib name 'RasGetEntryPropertiesA';
+function RasSetEntryPropertiesA; external raslib name 'RasSetEntryPropertiesA';
+function RasSetEntryPropertiesW; external raslib name 'RasSetEntryPropertiesW';
+function RasSetEntryProperties; external raslib name 'RasSetEntryPropertiesA';
+function RasRenameEntryA; external raslib name 'RasRenameEntryA';
+function RasRenameEntryW; external raslib name 'RasRenameEntryW';
+function RasRenameEntry; external raslib name 'RasRenameEntryA';
+function RasDeleteEntryA; external raslib name 'RasDeleteEntryA';
+function RasDeleteEntryW; external raslib name 'RasDeleteEntryW';
+function RasDeleteEntry; external raslib name 'RasDeleteEntryA';
+function RasValidateEntryNameA; external raslib name 'RasValidateEntryNameA';
+function RasValidateEntryNameW; external raslib name 'RasValidateEntryNameW';
+function RasValidateEntryName; external raslib name 'RasValidateEntryNameA';
+
+
+
+end.

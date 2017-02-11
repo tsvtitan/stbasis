@@ -1,0 +1,22 @@
+[Ora]
+PackageD7=daADPhysOraclD7.bpl
+
+[Ora815]
+BaseDriverID=Ora
+VendorHome=OraHome815
+
+[Ora920]
+BaseDriverID=Ora
+VendorHome=OraHome920
+
+[MySQL]
+PackageD6=daADPhysMySQLPackD6.bpl
+PackageD7=daADPhysMySQLPackD7.bpl
+
+[MySQL327]
+BaseDriverID=MySQL
+VendorLib=c:\LIBMYSQL327.DLL
+
+[MySQL410]
+BaseDriverID=MySQL
+VendorLib =c:\LIBMYSQL410.DLL

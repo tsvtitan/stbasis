@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+mainform.pas
+mainform.dfm
+EchoServer.dpr
+EchoServer.res

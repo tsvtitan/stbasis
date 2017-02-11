@@ -1,0 +1,3 @@
+ALTER TABLE ap_planning
+ADD LINK NOTE
+

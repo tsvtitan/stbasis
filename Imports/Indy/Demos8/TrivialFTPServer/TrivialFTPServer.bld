@@ -1,0 +1,11 @@
+[Options]
+Windows
+
+[Files]
+TFTPServer.dpr
+TFTPServer.res
+main.dfm
+main.pas
+transfer.dfm
+transfer.pas
+

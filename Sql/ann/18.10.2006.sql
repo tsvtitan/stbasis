@@ -1,0 +1,84 @@
+ALTER TABLE AP_TOWN
+ADD LINK NOTE
+
+ALTER TABLE ap_operation
+ADD LINK NOTE
+
+ALTER TABLE ap_countroom
+ADD LINK NOTE
+
+ALTER TABLE ap_region
+ADD LINK NOTE
+
+ALTER TABLE ap_landmark
+ADD LINK NOTE
+
+ALTER TABLE ap_agency
+ADD LINK NOTE
+
+ALTER TABLE ap_builder
+ADD LINK NOTE
+
+ALTER TABLE ap_field_view
+ADD LINK NOTE
+
+ALTER TABLE ap_home_tech
+ADD LINK NOTE
+
+ALTER TABLE ap_street
+ADD LINK NOTE
+
+ALTER TABLE ap_style
+ADD LINK NOTE
+
+ALTER TABLE ap_type_apartment
+ADD LINK NOTE
+
+ALTER TABLE ap_type_balcony
+ADD LINK NOTE
+
+ALTER TABLE ap_type_bath
+ADD LINK NOTE
+
+ALTER TABLE ap_type_building
+ADD LINK NOTE
+
+ALTER TABLE ap_type_condition
+ADD LINK NOTE
+
+ALTER TABLE ap_type_door
+ADD LINK NOTE
+
+ALTER TABLE ap_type_furniture
+ADD LINK NOTE
+
+ALTER TABLE ap_type_garage
+ADD LINK NOTE
+
+ALTER TABLE ap_type_heat
+ADD LINK NOTE
+
+ALTER TABLE ap_type_internet
+ADD LINK NOTE
+
+ALTER TABLE ap_type_phone
+ADD LINK NOTE
+
+ALTER TABLE ap_type_plate
+ADD LINK NOTE
+
+ALTER TABLE ap_type_premises
+ADD LINK NOTE
+
+ALTER TABLE ap_type_sanitary
+ADD LINK NOTE
+
+ALTER TABLE ap_type_sewerage
+ADD LINK NOTE
+
+ALTER TABLE ap_type_water
+ADD LINK NOTE
+
+ALTER TABLE ap_unit_price
+ADD LINK NOTE
+

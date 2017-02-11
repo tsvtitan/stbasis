@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+telnet.res
+mainform.pas
+telnet.dpr
+mainform.dfm

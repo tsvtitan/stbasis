@@ -1,0 +1,71 @@
+object Form1: TForm1
+  Left = 290
+  Height = 300
+  Top = 149
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 299
+  ActiveControl = cbPooled
+  Caption = 'Form1'
+  object Label1: TLabel
+    Left = 8
+    Height = 14
+    Top = 51
+    Width = 84
+    Caption = 'Total executions:'
+    Color = clNone
+    ParentColor = False
+  end
+  object lblTotalExec: TLabel
+    Left = 96
+    Height = 14
+    Top = 51
+    Width = 13
+    Caption = '---'
+    Color = clNone
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 14
+    Top = 67
+    Width = 52
+    Caption = 'Total time:'
+    Color = clNone
+    ParentColor = False
+  end
+  object lblTotalTime: TLabel
+    Left = 96
+    Height = 14
+    Top = 67
+    Width = 13
+    Caption = '---'
+    Color = clNone
+    ParentColor = False
+  end
+  object cbPooled: TCheckBox
+    Left = 92
+    Height = 13
+    Top = 19
+    Width = 75
+    Caption = 'Run pooled'
+    TabOrder = 0
+  end
+  object btnRun: TButton
+    Left = 9
+    Height = 25
+    Top = 16
+    Width = 75
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Run'
+    OnClick = btnRunClick
+    TabOrder = 1
+  end
+  object Console: TMemo
+    Left = 9
+    Height = 205
+    Top = 91
+    Width = 382
+    TabOrder = 2
+  end
+end

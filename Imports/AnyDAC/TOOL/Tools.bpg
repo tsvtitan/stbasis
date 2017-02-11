@@ -1,0 +1,31 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = ADAdministrator.exe ADExecutor.exe ADExplorer.exe ADMonitor.exe ADPump.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+ADAdministrator.exe: Administrator\ADAdministrator.dpr
+  $(DCC)
+
+ADExecutor.exe: Executor\ADExecutor.dpr
+  $(DCC)
+
+ADExplorer.exe: Explorer\ADExplorer.dpr
+  $(DCC)
+
+ADMonitor.exe: Monitor\ADMonitor.dpr
+  $(DCC)
+
+ADPump.exe: Pump\ADPump.dpr
+  $(DCC)
+

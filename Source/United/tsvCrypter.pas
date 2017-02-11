@@ -1,0 +1,306 @@
+unit tsvCrypter;
+
+interface
+
+uses Classes, SysUtils;
+
+type
+
+  TTsvHashAlgorithm=(haMD4,haMD5,haSHA,haSHA1,haRipeMD128,haRipeMD160,haRipeMD256,haRipeMD320,
+                     haHaval128,haHaval160,haHaval192,haHaval224,haHaval256,haSapphire128,
+                     haSapphire160,haSapphire192,haSapphire224,haSapphire256,haSapphire288,
+                     haSapphire320,haSnefru,haSquare,haTiger,haXOR16,haXOR32,haCRC16_CCITT,
+                     haCRC16_Standard,haCRC32);
+
+  TTsvHashFormat=(hfDefault,hfHEX,hfHEXL,hfMIME64,hfUU,hfXX);
+
+  TTsvCipherAlgorithm=(ca3Way,caBlowfish,caGost,caIDEA,caQ128,caSAFER_K40,caSAFER_SK40,caSAFER_K64,
+                       caSAFER_SK64,caSAFER_K128,caSAFER_SK128,caSCOP,caShark,caSquare,caTEA,caTEAN,
+                       caTwofish,caCast128,caCast256,ca1DES,ca2DES,ca2DDES,ca3DES,ca3DDES,ca3TDES,
+                       caDESX,caDiamond2,caDiamond2Lite,caFROG,caMars,caMisty,caNewDES,caRC2,
+                       caRC4,caRC5,caRC6,caRijndael,caSapphire,caSkipjack);
+
+  TTsvCipherMode=(cmCTS,cmCBC,cmCFB,cmOFB,cmECB,cmCTSMAC,cmCBCMAC,cmCFBMAC);
+
+  TTsvCrypter=class(TComponent)
+  private
+    FActive: Boolean;
+  public
+    constructor Create(AOwner: TComponent); override;
+    function HashString(S: string; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+    function HashStream(Stream: TStream; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+    function HashFile(FileName: string; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+    procedure EncodeStream(Key: string; Stream: TStream; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode);
+    procedure DecodeStream(Key: string; Stream: TStream; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode);
+    function EncodeString(Key: string; S: String; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode): string;
+    function DecodeString(Key: string; S: String; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode): string;
+
+  public
+    property Active: Boolean read FActive write FActive;
+  end;
+
+implementation
+
+uses Cipher, Cipher1, HCMngr, Hash, DECUtil, Compress;
+
+{ TTsvCrypter }
+
+constructor TTsvCrypter.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FActive:=true;
+end;
+
+function GetHashClassByAlgorithm(Algorithm: TTsvHashAlgorithm): THashClass;
+begin
+  Result:=nil;
+  case Algorithm of
+    haMD4: Result:=THash_MD4;
+    haMD5: Result:=THash_MD5;
+    haSHA: Result:=THash_SHA;
+    haSHA1: Result:=THash_SHA1;
+    haRipeMD128: Result:=THash_RipeMD128;
+    haRipeMD160: Result:=THash_RipeMD160;
+    haRipeMD256: Result:=THash_RipeMD256;
+    haRipeMD320: Result:=THash_RipeMD320;
+    haHaval128: Result:=THash_Haval128;
+    haHaval160: Result:=THash_Haval160;
+    haHaval192: Result:=THash_Haval192;
+    haHaval224: Result:=THash_Haval224;
+    haHaval256: Result:=THash_Haval256;
+    haSapphire128: Result:=THash_Sapphire128;
+    haSapphire160: Result:=THash_Sapphire160;
+    haSapphire192: Result:=THash_Sapphire192;
+    haSapphire224: Result:=THash_Sapphire224;
+    haSapphire256: Result:=THash_Sapphire256;
+    haSapphire288: Result:=THash_Sapphire288;
+    haSapphire320: Result:=THash_Sapphire320;
+    haSnefru: Result:=THash_Snefru;
+    haSquare: Result:=THash_Square;
+    haTiger: Result:=THash_Tiger;
+    haXOR16: Result:=THash_XOR16;
+    haXOR32: Result:=THash_XOR32;
+    haCRC16_CCITT: Result:=THash_CRC16_CCITT;
+    haCRC16_Standard: Result:=THash_CRC16_Standard;
+    haCRC32: Result:=THash_CRC32;
+  end;
+end;
+
+function GetHashFormat(Format: TTsvHashFormat): Integer;
+begin
+  Result:=0;
+  case Format of
+    hfDefault: Result:=fmtDEFAULT;
+    hfHEX: Result:=fmtHEX;
+    hfHEXL: Result:=fmtHEXL;
+    hfMIME64: Result:=fmtMIME64;
+    hfUU: Result:=fmtUU;
+    hfXX: Result:=fmtXX;
+  end;
+end;
+
+function GetCipherClassByAlgorithm(Algorithm: TTsvCipherAlgorithm): TCipherClass;
+begin
+  Result:=nil;
+  case Algorithm of
+    ca3Way: Result:=TCipher_3Way;
+    caBlowfish: Result:=TCipher_Blowfish;
+    caGost: Result:=TCipher_Gost;
+    caIDEA: Result:=TCipher_IDEA;
+    caQ128: Result:=TCipher_Q128;
+    caSAFER_K40: Result:=TCipher_SAFER_K40;
+    caSAFER_SK40: Result:=TCipher_SAFER_SK40;
+    caSAFER_K64: Result:=TCipher_SAFER_K64;
+    caSAFER_SK64: Result:=TCipher_SAFER_SK64;
+    caSAFER_K128: Result:=TCipher_SAFER_K128;
+    caSAFER_SK128: Result:=TCipher_SAFER_SK128;
+    caSCOP: Result:=TCipher_SCOP;
+    caShark: Result:=TCipher_Shark;
+    caSquare: Result:=TCipher_Square;
+    caTEA: Result:=TCipher_TEA;
+    caTEAN: Result:=TCipher_TEAN;
+    caTwofish: Result:=TCipher_Twofish;
+    caCast128: Result:=TCipher_Cast128;
+    caCast256: Result:=TCipher_Cast256;
+    ca1DES: Result:=TCipher_1DES;
+    ca2DES: Result:=TCipher_2DES;
+    ca2DDES: Result:=TCipher_2DDES;
+    ca3DES: Result:=TCipher_3DES;
+    ca3DDES: Result:=TCipher_3DDES;
+    ca3TDES: Result:=TCipher_3TDES;
+    caDESX: Result:=TCipher_DESX;
+    caDiamond2: Result:=TCipher_Diamond2;
+    caDiamond2Lite: Result:=TCipher_Diamond2Lite;
+    caFROG: Result:=TCipher_FROG;
+    caMars: Result:=TCipher_Mars;
+    caMisty: Result:=TCipher_Misty;
+    caNewDES: Result:=TCipher_NewDES;
+    caRC2: Result:=TCipher_RC2;
+    caRC4: Result:=TCipher_RC4;
+    caRC5: Result:=TCipher_RC5;
+    caRC6: Result:=TCipher_RC6;
+    caRijndael: Result:=TCipher_Rijndael;
+    caSapphire: Result:=TCipher_Sapphire;
+    caSkipjack: Result:=TCipher_Skipjack;
+  end;
+end;
+
+function GetCipherMode(Mode: TTsvCipherMode): TCipherMode;
+begin
+  Result:=Cipher.cmCTS;
+  case Mode of
+    cmCTS: Result:=Cipher.cmCTS;
+    cmCBC: Result:=Cipher.cmCBC;
+    cmCFB: Result:=Cipher.cmCFB;
+    cmOFB: Result:=Cipher.cmOFB;
+    cmECB: Result:=Cipher.cmECB;
+    cmCTSMAC: Result:=Cipher.cmCTSMAC;
+    cmCBCMAC: Result:=Cipher.cmCBCMAC;
+    cmCFBMAC: Result:=Cipher.cmCFBMAC;
+  end;
+end;
+
+function TTsvCrypter.HashString(S: string; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+var
+  HashManager: THashManager;
+begin
+  Result:=S;
+  HashManager:=THashManager.Create(nil);
+  try
+    HashManager.HashClass:=GetHashClassByAlgorithm(Algorithm);
+    HashManager.CalcString(S);
+    Result:=HashManager.DigestString[GetHashFormat(Format)];
+  finally
+    HashManager.Free;
+  end;
+end;
+
+function TTsvCrypter.HashStream(Stream: TStream; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+var
+  HashManager: THashManager;
+begin
+  HashManager:=THashManager.Create(nil);
+  try
+    HashManager.HashClass:=GetHashClassByAlgorithm(Algorithm);
+    HashManager.CalcStream(Stream,Stream.Size);
+    Result:=HashManager.DigestString[GetHashFormat(Format)];
+  finally
+    HashManager.Free;
+  end;
+end;
+
+function TTsvCrypter.HashFile(FileName: string; Algorithm: TTsvHashAlgorithm; Format: TTsvHashFormat): String;
+var
+  HashManager: THashManager;
+begin
+  HashManager:=THashManager.Create(nil);
+  try
+    HashManager.HashClass:=GetHashClassByAlgorithm(Algorithm);
+    HashManager.CalcFile(FileName);
+    Result:=HashManager.DigestString[GetHashFormat(Format)];
+  finally
+    HashManager.Free;
+  end;
+end;
+
+procedure TTsvCrypter.EncodeStream(Key: string; Stream: TStream; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode);
+var
+  CipherManager: TCipherManager;
+  Compressor: TCompress_ZLIB;
+  MemoryStream: TMemoryStream;
+begin
+  if not FActive then exit;
+  CipherManager:=TCipherManager.Create(nil);
+  Compressor:=TCompress_ZLIB.Create(nil);
+  MemoryStream:=TMemoryStream.Create;
+  try
+    if Assigned(Stream) then begin
+      Stream.Position:=0;
+      MemoryStream.CopyFrom(Stream,Stream.Size);
+      Stream.Size:=0;
+      Stream.Position:=0;
+      MemoryStream.Position:=0;
+      Compressor.CodeStream(MemoryStream,Stream,MemoryStream.Size,paEncode);
+      Stream.Position:=0;
+      MemoryStream.Clear;
+      MemoryStream.CopyFrom(Stream,Stream.Size);
+      Stream.Size:=0;
+      Stream.Position:=0;
+      MemoryStream.Position:=0;
+      CipherManager.CipherClass:=GetCipherClassByAlgorithm(Algorithm);
+      CipherManager.Mode:=GetCipherMode(Mode);
+      CipherManager.InitKey(Key,nil);
+      CipherManager.EncodeStream(MemoryStream,Stream,MemoryStream.Size);
+    end;
+  finally
+    MemoryStream.Free;
+    Compressor.Free;
+    CipherManager.Free;
+  end;
+end;
+
+procedure TTsvCrypter.DecodeStream(Key: string; Stream: TStream; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode);
+var
+  CipherManager: TCipherManager;
+  Compressor: TCompress_ZLIB;
+  MemoryStream: TMemoryStream;
+begin
+  if not FActive then exit;
+  CipherManager:=TCipherManager.Create(nil);
+  Compressor:=TCompress_ZLIB.Create(nil);
+  MemoryStream:=TMemoryStream.Create;
+  try
+    if Assigned(Stream) then begin
+      Stream.Position:=0;
+      MemoryStream.CopyFrom(Stream,Stream.Size);
+      Stream.Size:=0;
+      Stream.Position:=0;
+      MemoryStream.Position:=0;
+      CipherManager.CipherClass:=GetCipherClassByAlgorithm(Algorithm);
+      CipherManager.Mode:=GetCipherMode(Mode);
+      CipherManager.InitKey(Key,nil);
+      CipherManager.DecodeStream(MemoryStream,Stream,MemoryStream.Size);
+      Stream.Position:=0;
+      MemoryStream.Clear;
+      MemoryStream.CopyFrom(Stream,Stream.Size);
+      Stream.Size:=0;
+      Stream.Position:=0;
+      MemoryStream.Position:=0;
+      Compressor.CodeStream(MemoryStream,Stream,MemoryStream.Size,paDecode);
+    end;
+  finally
+    MemoryStream.Free;
+    Compressor.Free;
+    CipherManager.Free;
+  end;
+end;
+
+function TTsvCrypter.EncodeString(Key: string; S: String; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode): string;
+var
+  CipherManager: TCipherManager;
+  Compressor: TCompress_ZLIB;
+begin
+  Result:=S;
+  if not FActive then exit;
+  CipherManager:=TCipherManager.Create(nil);
+  Compressor:=TCompress_ZLIB.Create(nil);
+  try
+    Result:=Compressor.CodeString(S,paEncode,0);
+    if Trim(Result)='' then
+      Result:=S;
+    CipherManager.CipherClass:=GetCipherClassByAlgorithm(Algorithm);
+    CipherManager.Mode:=GetCipherMode(Mode);
+    CipherManager.InitKey(Key,nil);
+    Result:=CipherManager.EncodeString(Result);
+  finally
+    Compressor.Free;
+    CipherManager.Free;
+  end;
+end;
+
+function TTsvCrypter.DecodeString(Key: string; S: String; Algorithm: TTsvCipherAlgorithm; Mode: TTsvCipherMode): string;
+begin
+
+end;
+
+end.

@@ -1,0 +1,62 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = daADComID6.bpl daADPhysD6.bpl daADPhysODBCD6.bpl \
+  daADPhysMSAccD6.bpl daADPhysMSSQLD6.bpl daADPhysDb2D6.bpl daADPhysASAD6.bpl \
+  daADPhysADSD6.bpl daADPhysMySQLD6.bpl daADPhysOraclD6.bpl daADPhysDBExpD6.bpl \
+  daADCompD6.bpl daADGUIxFormsD6.bpl daADDclD6.bpl
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+daADGUIxFormsD6.bpl: daADGUIxFormsD6.dpk
+  $(DCC)
+
+daADPhysD6.bpl: daADPhysD6.dpk
+  $(DCC)
+
+daADPhysMSAccD6.bpl: daADPhysMSAccD6.dpk
+  $(DCC)
+
+daADPhysMSSQLD6.bpl: daADPhysMSSQLD6.dpk
+  $(DCC)
+
+daADPhysDBExpD6.bpl: daADPhysDBExpD6.dpk
+  $(DCC)
+
+daADPhysMySQLD6.bpl: daADPhysMySQLD6.dpk
+  $(DCC)
+
+daADPhysOraclD6.bpl: daADPhysOraclD6.dpk
+  $(DCC)
+
+daADPhysDb2D6.bpl: daADPhysDb2D6.dpk
+  $(DCC)
+
+daADPhysODBCD6.bpl: daADPhysODBCD6.dpk
+  $(DCC)
+
+daADPhysASAD6.bpl: daADPhysASAD6.dpk
+  $(DCC)
+
+daADComID6.bpl: daADComID6.dpk
+  $(DCC)
+
+daADCompD6.bpl: daADCompD6.dpk
+  $(DCC)
+
+daADDclD6.bpl: daADDclD6.dpk
+  $(DCC)
+
+daADPhysADSD6.bpl: daADPhysADSD6.dpk
+  $(DCC)
+
+

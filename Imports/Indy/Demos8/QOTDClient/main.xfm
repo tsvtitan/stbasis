@@ -1,0 +1,78 @@
+object frmQuoteOfTheDayDemo: TfrmQuoteOfTheDayDemo
+  Left = 414
+  Top = 220
+  Width = 371
+  Height = 205
+  ActiveControl = edtQuoteDayServer
+  Caption = 'Quote of the Day'
+  Color = clButton
+  Font.CharSet = fcsAnyCharSet
+  Font.Color = clText
+  Font.Height = 13
+  Font.Name = 'MS Sans Serif'
+  Font.Pitch = fpVariable
+  Font.Style = []
+  ParentFont = False
+  PixelsPerInch = 75
+  TextHeight = 15
+  TextWidth = 7
+  object lblServer: TLabel
+    Left = 12
+    Top = 12
+    Width = 78
+    Height = 15
+    Caption = 'Quote &Server:'
+    FocusControl = edtQuoteDayServer
+    Layout = tlCenter
+  end
+  object lblQuote: TLabel
+    Left = 8
+    Top = 48
+    Width = 37
+    Height = 15
+    Caption = 'Qu&ote:'
+    FocusControl = mmoQuoteOfTheDay
+    Layout = tlCenter
+  end
+  object mmoQuoteOfTheDay: TMemo
+    Left = 10
+    Top = 64
+    Width = 329
+    Height = 94
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    MaxLength = -1
+    ReadOnly = True
+    ScrollBars = ssBoth
+    TabOrder = 2
+  end
+  object edtQuoteDayServer: TEdit
+    Left = 96
+    Top = 8
+    Width = 153
+    Height = 23
+    Anchors = [akLeft, akTop, akRight]
+    MaxLength = 32767
+    TabOrder = 0
+  end
+  object btnQuote: TButton
+    Left = 264
+    Top = 8
+    Width = 75
+    Height = 25
+    Anchors = [akTop, akRight]
+    Caption = '&Quote'
+    Default = True
+    TabOrder = 1
+    OnClick = btnQuoteClick
+  end
+  object IdQtdDemo: TIdQOTD
+    ASCIIFilter = False
+    RecvBufferSize = 1024
+    Port = 17
+    SocksInfo.Authentication = saNoAuthentication
+    SocksInfo.Port = 0
+    SocksInfo.Version = svNoSocks
+    Left = 80
+    Top = 32
+  end
+end

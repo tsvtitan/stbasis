@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <PathDelim Value="\"/>
+    <Version Value="5"/>
+    <General>
+      <MainUnit Value="0"/>
+      <IconPath Value="./"/>
+      <TargetFileExt Value=".exe"/>
+    </General>
+    <VersionInfo>
+      <ProjectVersion Value=""/>
+      <Language Value=""/>
+      <CharSet Value=""/>
+    </VersionInfo>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|ppw|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="25">
+      <Unit0>
+        <Filename Value="IADPhys_Async.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="14" Y="4"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="20"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <ComponentName Value="Form1"/>
+        <IsPartOfProject Value="True"/>
+        <ResourceFilename Value="unit1.lrs"/>
+        <UnitName Value="Unit1"/>
+        <CursorPos X="69" Y="107"/>
+        <TopLine Value="83"/>
+        <UsageCount Value="20"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\lcl\include\application.inc"/>
+        <CursorPos X="5" Y="316"/>
+        <TopLine Value="295"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanFactory.pas"/>
+        <UnitName Value="daADStanFactory"/>
+        <CursorPos X="1" Y="128"/>
+        <TopLine Value="107"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADGUIxFormsWait.pas"/>
+        <UnitName Value="daADGUIxFormsWait"/>
+        <CursorPos X="28" Y="55"/>
+        <TopLine Value="43"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADGUIxIntf.pas"/>
+        <UnitName Value="daADGUIxIntf"/>
+        <CursorPos X="28" Y="105"/>
+        <TopLine Value="84"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\rtl\objpas\classes\classesh.inc"/>
+        <CursorPos X="3" Y="104"/>
+        <TopLine Value="83"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADGUIxConsoleWait.pas"/>
+        <UnitName Value="daADGUIxConsoleWait"/>
+        <CursorPos X="13" Y="111"/>
+        <TopLine Value="57"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <CursorPos X="3" Y="778"/>
+        <TopLine Value="757"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\rtl\inc\objpash.inc"/>
+        <CursorPos X="23" Y="121"/>
+        <TopLine Value="100"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADPhysIntf.pas"/>
+        <UnitName Value="daADPhysIntf"/>
+        <CursorPos X="1" Y="546"/>
+        <TopLine Value="518"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADPhysManager.pas"/>
+        <UnitName Value="daADPhysManager"/>
+        <CursorPos X="1" Y="5020"/>
+        <TopLine Value="4999"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanError.pas"/>
+        <UnitName Value="daADStanError"/>
+        <CursorPos X="86" Y="390"/>
+        <TopLine Value="361"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanDef.pas"/>
+        <UnitName Value="daADStanDef"/>
+        <CursorPos X="1" Y="1970"/>
+        <TopLine Value="1947"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanUtil.pas"/>
+        <UnitName Value="daADStanUtil"/>
+        <CursorPos X="1" Y="1378"/>
+        <TopLine Value="1357"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanConst.pas"/>
+        <UnitName Value="daADStanConst"/>
+        <CursorPos X="1" Y="1"/>
+        <TopLine Value="1"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\fcl\inc\registry.pp"/>
+        <UnitName Value="registry"/>
+        <CursorPos X="3" Y="210"/>
+        <TopLine Value="208"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\..\..\..\..\Tools\lazarus\fpc\2.0.4\source\fcl\win32\winreg.inc"/>
+        <CursorPos X="33" Y="176"/>
+        <TopLine Value="168"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanIntf.pas"/>
+        <UnitName Value="daADStanIntf"/>
+        <CursorPos X="5" Y="146"/>
+        <TopLine Value="125"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADPhysMySQL.pas"/>
+        <UnitName Value="daADPhysMySQL"/>
+        <CursorPos X="55" Y="86"/>
+        <TopLine Value="65"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanOption.pas"/>
+        <UnitName Value="daADStanOption"/>
+        <CursorPos X="111" Y="2104"/>
+        <TopLine Value="2083"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADDatSManager.pas"/>
+        <UnitName Value="daADDatSManager"/>
+        <CursorPos X="56" Y="11580"/>
+        <TopLine Value="11559"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanParam.pas"/>
+        <UnitName Value="daADStanParam"/>
+        <CursorPos X="16" Y="2783"/>
+        <TopLine Value="2739"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADPhysCmdGenerator.pas"/>
+        <UnitName Value="daADPhysCmdGenerator"/>
+        <CursorPos X="68" Y="343"/>
+        <TopLine Value="313"/>
+        <UsageCount Value="10"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\..\..\..\..\..\SOURCE\daADStanAsync.pas"/>
+        <UnitName Value="daADStanAsync"/>
+        <CursorPos X="74" Y="166"/>
+        <TopLine Value="151"/>
+        <UsageCount Value="10"/>
+      </Unit24>
+    </Units>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="5"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <OtherUnitFiles Value="..\..\..\..\..\SOURCE\"/>
+      <SrcPath Value="$(LazarusDir)\lcl\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <CStyleOperator Value="False"/>
+        <AllowLabel Value="False"/>
+        <CPPInline Value="False"/>
+        <DelphiCompat Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Generate Value="Faster"/>
+    </CodeGeneration>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Source Value="..\..\..\..\..\..\SOURCE\daADStanFactory.pas"/>
+        <Line Value="270"/>
+      </Item1>
+    </BreakPoints>
+    <Exceptions Count="2">
+      <Item1>
+        <Name Value="ECodetoolError"/>
+      </Item1>
+      <Item2>
+        <Name Value="EFOpenError"/>
+      </Item2>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

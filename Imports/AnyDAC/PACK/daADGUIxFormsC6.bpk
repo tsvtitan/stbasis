@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="daADGUIxFormsC6.bpl"/>
+    <OBJFILES value="daADGUIxFormsC6.obj daADGUIxFormsUtil.obj 
+      daADGUIxFormsControls.obj daADGUIxFormsfAbout.obj 
+      daADGUIxFormsfAsync.obj daADGUIxFormsfConnEdit.obj 
+      daADGUIxFormsfError.obj daADGUIxFormsfFetchOptions.obj 
+      daADGUIxFormsfFormatOptions.obj 
+      daADGUIxFormsfLogin.obj daADGUIxFormsfOptsBase.obj 
+      daADGUIxFormsfQBldr.obj daADGUIxFormsfQBldrConn.obj 
+      daADGUIxFormsfQBldrLink.obj daADGUIxFormsfQEdit.obj 
+      daADGUIxFormsfResourceOptions.obj 
+      daADGUIxFormsfUpdateOptions.obj 
+      daADGUIxFormsfUSEdit.obj daADGUIxFormsQBldr.obj 
+      daADGUIxFormsQBldrCtrls.obj"/>
+    <RESFILES value="sourceforcompile\daADGUIxFormsC6.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) sourceforcompile\daADGUIxFormsfAsync.dfm 
+      sourceforcompile\daADGUIxFormsfError.dfm sourceforcompile\daADGUIxFormsfFetchOptions.dfm 
+      sourceforcompile\daADGUIxFormsfFormatOptions.dfm 
+      sourceforcompile\daADGUIxFormsfOptsBase.dfm sourceforcompile\daADGUIxFormsfQBldrConn.dfm 
+      sourceforcompile\daADGUIxFormsfQBldrLink.dfm 
+      sourceforcompile\daADGUIxFormsfResourceOptions.dfm 
+      sourceforcompile\daADGUIxFormsfUpdateOptions.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value=""/>
+    <SPARELIBS value="rtl.lib"/>
+    <PACKAGES value="rtl.bpi vcl.bpi vclx.bpi dbrtl.bpi vcldb.bpi
+	$(SYNEDIT_BPI) daADCompC6.bpi"/>
+    <PATHCPP value=".;sourceforcompile"/>
+    <PATHPAS value=".;sourceforcompile"/>
+    <PATHRC value=".;sourceforcompile;Lib\c6"/>
+    <PATHASM value=".;sourceforcompile"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_RTLDLL;NO_STRICT;USEPACKAGES"/>
+    <MAINSOURCE value="daADPhysC6.cpp"/>
+    <INCLUDEPATH value="sourceforcompile;&quot;$(SYNEDIT_DCU)&quot;;PACK;Lib\C6;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="sourceforcompile;PACK;&quot;$(SYNEDIT_DCP)&quot;;$(BCB)\lib\obj;$(BCB)\lib;Lib\C6;&quot;$(DEF_DCP)&quot;"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-Isourceforcompil 
+      -IPACK
+       -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpp -Gpr -x -Gn -Gl -Gi -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0pkg32.obj $(PACKAGES) Memmgr.Lib sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mti.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="daADGUIxFormsC6.res" FORMNAME="" UNITNAME="daADGUIxFormsC6.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsC6.cpp" FORMNAME="" UNITNAME="daADGUIxFormsC6" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="rtl.bpi" FORMNAME="" UNITNAME="rtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsUtil.pas" FORMNAME="" UNITNAME="daADGUIxFormsUtil" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsControls.pas" FORMNAME="" UNITNAME="daADGUIxFormsControls" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfAbout.pas" FORMNAME="" UNITNAME="daADGUIxFormsfAbout" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfAsync.pas" FORMNAME="frmADGUIxFormsAsyncExecute" UNITNAME="daADGUIxFormsfAsync" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfConnEdit.pas" FORMNAME="" UNITNAME="daADGUIxFormsfConnEdit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfError.pas" FORMNAME="frmADGUIxFormsError" UNITNAME="daADGUIxFormsfError" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfFetchOptions.pas" FORMNAME="frmADGUIxFormsFetchOptions" UNITNAME="daADGUIxFormsfFetchOptions" CONTAINERID="PascalCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfFormatOptions.pas" FORMNAME="frmADGUIxFormsFormatOptions" UNITNAME="daADGUIxFormsfFormatOptions" CONTAINERID="PascalCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfLogin.pas" FORMNAME="" UNITNAME="daADGUIxFormsfLogin" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfOptsBase.pas" FORMNAME="frmADGUIxFormsOptsBase" UNITNAME="daADGUIxFormsfOptsBase" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfQBldr.pas" FORMNAME="" UNITNAME="daADGUIxFormsfQBldr" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfQBldrConn.pas" FORMNAME="frmADGUIxFormsQBldrConn" UNITNAME="daADGUIxFormsfQBldrConn" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfQBldrLink.pas" FORMNAME="frmADGUIxFormsQBldrLink" UNITNAME="daADGUIxFormsfQBldrLink" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfQEdit.pas" FORMNAME="" UNITNAME="daADGUIxFormsfQEdit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfResourceOptions.pas" FORMNAME="frmADGUIxFormsResourceOptions" UNITNAME="daADGUIxFormsfResourceOptions" CONTAINERID="PascalCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfUpdateOptions.pas" FORMNAME="frmADGUIxFormsUpdateOptions" UNITNAME="daADGUIxFormsfUpdateOptions" CONTAINERID="PascalCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsfUSEdit.pas" FORMNAME="" UNITNAME="daADGUIxFormsfUSEdit" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsQBldr.pas" FORMNAME="" UNITNAME="daADGUIxFormsQBldr" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADGUIxFormsQBldrCtrls.pas" FORMNAME="" UNITNAME="daADGUIxFormsQBldrCtrls" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vcl.bpi" FORMNAME="" UNITNAME="vcl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vclx.bpi" FORMNAME="" UNITNAME="vclx" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="dbrtl.bpi" FORMNAME="" UNITNAME="dbrtl" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vcldb.bpi" FORMNAME="" UNITNAME="vcldb" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADCompC6.bpi" FORMNAME="" UNITNAME="daADCompC6" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="daADComIC6.bpi" FORMNAME="" UNITNAME="daADComIC6" CONTAINERID="BPITool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=0
+MajorVer=1
+MinorVer=12
+Release=2
+Build=225
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.12.2.225
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.12.2.0
+Comments=
+
+[Excluded Packages]
+
+[HistoryLists\hlIncludePath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=1
+Item0=sourceforcompile;PACK;$(BCB)\lib\obj;$(BCB)\lib;Lib\C6
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hIBPIOutputDir]
+Count=1
+Item0=
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+
+[Linker]
+LibPrefix=
+LibSuffix=
+LibVersion=
+
+  </IDEOPTIONS>
+</PROJECT>

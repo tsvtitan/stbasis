@@ -1,0 +1,190 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{bd9888c4-7aca-4e77-bb22-df4173a75457}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject xmlns=""><Default.Personality></Default.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="daADComID11">
+    <MSBuild Projects="daADComID11.dproj" Targets="" />
+    <MSBuild Projects="daADComID11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADComID11:Clean">
+    <MSBuild Projects="daADComID11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADComID11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADComID11:Rebuild">
+    <MSBuild Projects="daADComID11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADComID11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysD11">
+    <MSBuild Projects="daADPhysD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysD11:Clean">
+    <MSBuild Projects="daADPhysD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysD11:Rebuild">
+    <MSBuild Projects="daADPhysD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysTDBXD11" DependsOnTargets="daADComID11;daADPhysD11">
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysTDBXD11:Clean" DependsOnTargets="daADComID11:Clean;daADPhysD11:Clean">
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysTDBXD11:Rebuild" DependsOnTargets="daADComID11:Rebuild;daADPhysD11:Rebuild">
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysTDBXD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysODBCD11">
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysODBCD11:Clean">
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysODBCD11:Rebuild">
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysODBCD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysMSAccD11">
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysMSAccD11:Clean">
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysMSAccD11:Rebuild">
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysMSAccD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysMSSQLD11">
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysMSSQLD11:Clean">
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysMSSQLD11:Rebuild">
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysMSSQLD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysDb2D11">
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysDb2D11:Clean">
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysDb2D11:Rebuild">
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysDb2D11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysASAD11">
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysASAD11:Clean">
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysASAD11:Rebuild">
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysASAD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysADSD11">
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysADSD11:Clean">
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysADSD11:Rebuild">
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysADSD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysMySQLD11">
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysMySQLD11:Clean">
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysMySQLD11:Rebuild">
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysMySQLD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADPhysOraclD11">
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="" />
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADPhysOraclD11:Clean">
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADPhysOraclD11:Rebuild">
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADPhysOraclD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADCompD11">
+    <MSBuild Projects="daADCompD11.dproj" Targets="" />
+    <MSBuild Projects="daADCompD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADCompD11:Clean">
+    <MSBuild Projects="daADCompD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADCompD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADCompD11:Rebuild">
+    <MSBuild Projects="daADCompD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADCompD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADGUIxFormsD11">
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="" />
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADGUIxFormsD11:Clean">
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADGUIxFormsD11:Rebuild">
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADGUIxFormsD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="daADDclD11">
+    <MSBuild Projects="daADDclD11.dproj" Targets="" />
+    <MSBuild Projects="daADDclD11.dproj" Targets="" />
+  </Target>
+  <Target Name="daADDclD11:Clean">
+    <MSBuild Projects="daADDclD11.dproj" Targets="Clean" />
+    <MSBuild Projects="daADDclD11.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="daADDclD11:Rebuild">
+    <MSBuild Projects="daADDclD11.dproj" Targets="Rebuild" />
+    <MSBuild Projects="daADDclD11.dproj" Targets="Rebuild" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="daADComID11;daADPhysD11;daADPhysTDBXD11;daADPhysODBCD11;daADPhysMSAccD11;daADPhysMSSQLD11;daADPhysDb2D11;daADPhysASAD11;daADPhysADSD11;daADPhysMySQLD11;daADPhysOraclD11;daADCompD11;daADGUIxFormsD11;daADDclD11" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="daADComID11:Clean;daADPhysD11:Clean;daADPhysTDBXD11:Clean;daADPhysODBCD11:Clean;daADPhysMSAccD11:Clean;daADPhysMSSQLD11:Clean;daADPhysDb2D11:Clean;daADPhysASAD11:Clean;daADPhysADSD11:Clean;daADPhysMySQLD11:Clean;daADPhysOraclD11:Clean;daADCompD11:Clean;daADGUIxFormsD11:Clean;daADDclD11:Clean" />
+  </Target>
+  <Target Name="Rebuild">
+    <CallTarget Targets="daADComID11:Rebuild;daADPhysD11:Rebuild;daADPhysTDBXD11:Rebuild;daADPhysODBCD11:Rebuild;daADPhysMSAccD11:Rebuild;daADPhysMSSQLD11:Rebuild;daADPhysDb2D11:Rebuild;daADPhysASAD11:Rebuild;daADPhysADSD11:Rebuild;daADPhysMySQLD11:Rebuild;daADPhysOraclD11:Rebuild;daADCompD11:Rebuild;daADGUIxFormsD11:Rebuild;daADDclD11:Rebuild" />
+  </Target>
+</Project>

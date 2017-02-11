@@ -1,0 +1,67 @@
+package daADPhysD10;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'da-soft AnyDAC Phys Package for Delphi 2006'}
+{$IMPLICITBUILD OFF}
+
+{$I daAD.inc}
+
+requires
+  rtl,
+  dbrtl,
+{$IFDEF AnyDAC_MONITOR}
+  {$IFDEF AnyDAC_INDY10}
+  IndyCore100,
+  {$ELSE}
+  Indy90,
+  {$ENDIF}
+{$ENDIF}
+  daADComID10;
+
+contains
+  daADPhysManager,
+  daADPhysCmdPreprocessor,
+  daADPhysCmdGenerator,
+  daADPhysConnMeta,
+  daADPhysDb2Meta,
+  daADPhysMSSQLMeta,
+  daADPhysMSAccMeta,
+  daADPhysMySQLMeta,
+  daADPhysOraclMeta,
+  daADPhysASAMeta,
+  daADPhysADSMeta,
+  daADDAptManager,
+{$IFDEF AnyDAC_MONITOR}
+  daADMoniBase,
+  daADMoniIndyBase,
+  daADMoniIndyClient,
+  daADMoniIndyServer,
+  daADMoniCustom,
+  daADStanTracer,
+  daADMoniFlatFile,
+{$ENDIF}
+  daADPhysScript,
+  daADPhysScriptCommands;
+
+end.

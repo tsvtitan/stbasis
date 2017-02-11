@@ -1,0 +1,8 @@
+[OS]
+Windows
+
+[Files]
+Proxy.dpr
+Proxy.res
+Main.dfm
+Main.pas

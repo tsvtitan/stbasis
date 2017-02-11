@@ -1,0 +1,364 @@
+Экспорт готовое продам в RTFЭкспорт готовое продам в RTF&{0921F68E-E564-4172-A84A-5D6237FC32D5}Ђ1unit Main;
+
+interface
+
+implementation
+
+procedure ViewInterface;
+begin
+ // ViewByRelease(365);
+end;
+
+procedure CreateRTFString(RTF: TtsvRTFStream; S: String;
+                          FontColor: TColor; FontName: String;
+                          FontSize: Integer; FontBold: Boolean);
+var
+  Font: TFont;
+begin
+  Font:=TFont.Create;
+  try
+    Font.Color:=FontColor;
+    Font.Name:=FontName;
+    Font.Size:=FontSize;
+    Font.Style:=[];
+    if FontBold then
+      Font.Style:=[fsBold];
+    RTF.CreateString(S,Font,true);
+  finally
+    Font.Free;
+  end;
+end;
+
+procedure AppendRTFQuery(RTF: TtsvRTFStream; Query: TiIBQuery; CountRoomName: String);
+var
+  Landmark: String;
+  Street: String;
+  Price: String;
+  TypeApartment: String;
+  Floor: String;
+  FloorCount: String;
+  TypeBuilding: String;
+  GeneralArea: String;
+  DwellingArea: String;
+  KitchenArea: String;
+  TypeSanitary: String;
+  TypeBalcony: String;
+  Note: String;
+  Phones: String;
+  S1: String;
+  S2: String;
+  Str: TStringList;
+begin
+  Landmark:=Trim(Query.FieldByName('LANDMARK_EXPORT').AsString);
+  if Landmark='' then
+    Landmark:=Trim(Query.FieldByName('LANDMARK_NAME').AsString);
+
+  Street:=Trim(Query.FieldByName('STREET_EXPORT').AsString);
+  if Street='' then
+    Street:=Trim(Query.FieldByName('STREET_NAME').AsString);
+
+  Price:=Trim(Query.FieldByName('PRICE').AsString);
+
+  if (Landmark<>Street) then begin
+
+    S1:='';
+    if Landmark<>'' then
+      S1:=Landmark;
+  
+    if Street<>'' then
+      S1:=S1+iff(S1<>'',', ','')+Street;
+
+  end else begin
+
+    S1:='';
+    if Landmark<>'' then
+      S1:=Landmark;
+
+  end;
+
+  if Price<>'' then
+    S1:=S1+iff(S1<>'',#09,'')+'ц.'+Price+' т.р.'
+  else
+    S1:=S1+iff(S1<>'',#09,'')+'ц. т.р.'
+
+  if Trim(S1)<>'' then begin
+    CreateRTFString(RTF,S1,clGray,'MS Sans Serif',8,false);
+  end;
+
+  CountRoomName:=Trim(CountRoomName);
+
+  TypeApartment:=Trim(Query.FieldByName('TYPE_APARTMENT_EXPORT').AsString);
+  if TypeApartment='' then
+    TypeApartment:=Trim(Query.FieldByName('TYPE_APARTMENT_NAME').AsString);
+
+  Floor:=Trim(Query.FieldByName('FLOOR').AsString);
+  FloorCount:=Trim(Query.FieldByName('FLOOR_COUNT').AsString);
+
+  TypeBuilding:=Trim(Query.FieldByName('TYPE_BUILDING_EXPORT').AsString);
+  if TypeBuilding='' then
+    TypeBuilding:=Trim(Query.FieldByName('TYPE_BUILDING_NAME').AsString);
+
+  GeneralArea:=Trim(Query.FieldByName('GENERAL_AREA').AsString);
+  DwellingArea:=Trim(Query.FieldByName('DWELLING_AREA').AsString);
+  KitchenArea:=Trim(Query.FieldByName('KITCHEN_AREA').AsString);
+
+  TypeSanitary:=Trim(Query.FieldByName('TYPE_SANITARY_EXPORT').AsString);
+  if TypeSanitary='' then
+    TypeSanitary:=Trim(Query.FieldByName('TYPE_SANITARY_NAME').AsString);
+
+  TypeBalcony:=Trim(Query.FieldByName('TYPE_BALCONY_EXPORT').AsString);
+  if TypeBalcony='' then
+    TypeBalcony:=Trim(Query.FieldByName('TYPE_BALCONY_NAME').AsString);
+
+  Note:=Trim(Query.FieldByName('NOTE').AsString);
+  Phones:=Trim(Query.FieldByName('PREMISES_PHONES').AsString);
+
+  S2:='';
+  if CountRoomName<>'' then
+    S2:=CountRoomName;
+
+  if TypeApartment<>'' then
+    S2:=S2+iff(S2<>'',', ','')+TypeApartment;
+
+  if Floor<>'' then
+    S2:=S2+iff(S2<>'',', ','')+Floor;
+
+  if FloorCount<>'' then
+    S2:=S2+iff(S2<>'','/','')+FloorCount;
+
+  if TypeBuilding<>'' then
+    S2:=S2+iff(S2<>'',' ','')+TypeBuilding;
+
+  if GeneralArea<>'' then
+    S2:=S2+iff(S2<>'',' ','')+GeneralArea;
+
+  if DwellingArea<>'' then
+    S2:=S2+iff(S2<>'','/','')+DwellingArea;
+
+  if KitchenArea<>'' then
+    S2:=S2+iff(S2<>'','/','')+KitchenArea;
+
+  if TypeSanitary<>'' then
+    S2:=S2+iff(S2<>'',', ','')+TypeSanitary;
+
+  if TypeBalcony<>'' then
+    S2:=S2+iff(S2<>'',', ','')+TypeBalcony;
+
+  if Note<>'' then
+    S2:=S2+iff(S2<>'',', ','')+Note;
+
+  if Phones<>'' then
+    S2:=S2+iff(S2<>'',', Тел. ','')+Phones;
+
+  if Trim(S2)<>'' then begin
+    CreateRTFString(RTF,S2,clGray,'MS Sans Serif',8,false);
+  end;
+end;
+
+procedure ViewByRelease(ReleaseId: Integer);
+var
+  qrCountRoom: TiIBQuery;
+  trCountRoom: TiIBTransaction;
+  qrRegion: TiIBQuery;
+  trRegion: TiIBTransaction;
+  qrPremises: TiIBQuery;
+  trPremises: TiIBTransaction;
+  sqls: string;
+  RegionName: String;
+  RegionId: String;
+  OldRegionId: String;
+  CountRoomName: String;
+  CountRoomId: String;
+  OldCountRoomId: String;
+  CountRoomProgress: THandle;
+  CountRoomI: Integer;
+  FlagFirst: Boolean;
+  AllCount: Integer;
+  RTF: TtsvRTFStream;
+  FileName: String;
+  SaveDialog: TiSaveDialog;
+const
+  SDefaultTranParams='read_committed'+#13+
+                     'rec_version'+#13+
+                     'nowait';
+  SOperationId=14; // Готовое/продам
+begin
+  SaveDialog:=TiSaveDialog.Create(nil);
+  try
+    SaveDialog.Filter:='Файлы RTF (*.rtf)|*.rtf|Все файлы (*.*)|*.*';
+    SaveDialog.FileName:='Готовое_Продам';
+    SaveDialog.DefaultExt:='.rtf';
+    if SaveDialog.Execute then begin
+      qrCountRoom:=TiIBQuery.Create(nil);
+      trCountRoom:=TiIBTransaction.Create(nil);
+      qrRegion:=TiIBQuery.Create(nil);
+      trRegion:=TiIBTransaction.Create(nil);
+      qrPremises:=TiIBQuery.Create(nil);
+      trPremises:=TiIBTransaction.Create(nil);
+      RTF:=TtsvRTFStream.Create;
+      try
+        RTF.Open;
+      //  FileName:='c:\1.rtf';
+        FileName:=SaveDialog.FileName;
+    
+        CreateRTFString(RTF,'ГОТОВОЕ',clNavy,'Times New Roman',11,true);
+        CreateRTFString(RTF,'ПРОДАМ',clRed,'Times New Roman',10,true);
+    
+        qrCountRoom.Database:=MainDataBase;
+        MainDataBase.AddTransaction(trCountRoom);
+        trCountRoom.AddDatabase(MainDataBase);
+        trCountRoom.Params.Text:=SDefaultTranParams;
+        qrCountRoom.Transaction:=trCountRoom;
+        trCountRoom.Active:=true;
+        sqls:='SELECT AP_COUNTROOM_ID, NAME, EXPORT FROM AP_COUNTROOM '+
+               'WHERE AP_COUNTROOM_ID IN '+
+               '(SELECT AP_COUNTROOM_ID FROM AP_PREMISES '+
+                 'WHERE RELEASE_ID='+IntToStr(ReleaseId)+' '+
+                   'AND AP_OPERATION_ID='+SOperationId+') '+
+               'ORDER BY PRIORITY';
+        qrCountRoom.Sql.Add(sqls);
+        qrCountRoom.Active:=true;
+        qrCountRoom.FetchAll;
+    
+        qrRegion.Database:=MainDataBase;
+        MainDataBase.AddTransaction(trRegion);
+        trRegion.AddDatabase(MainDataBase);
+        trRegion.Params.Text:=SDefaultTranParams;
+        qrRegion.Transaction:=trRegion;
+        trRegion.Active:=true;
+        sqls:='SELECT AP_REGION_ID, NAME, EXPORT FROM AP_REGION '+
+               'WHERE AP_REGION_ID IN '+
+               '(SELECT AP_REGION_ID FROM AP_PREMISES '+
+                 'WHERE RELEASE_ID='+IntToStr(ReleaseId)+' '+
+                   'AND AP_OPERATION_ID='+SOperationId+') '+
+               'ORDER BY PRIORITY';
+        qrRegion.Sql.Add(sqls);
+        qrRegion.Active:=true;
+        qrRegion.FetchAll;
+    
+        qrPremises.Database:=MainDataBase;
+        MainDataBase.AddTransaction(trPremises);
+        trPremises.AddDatabase(MainDataBase);
+        trPremises.Params.Text:=SDefaultTranParams;
+        qrPremises.Transaction:=trPremises;
+        trPremises.Active:=true;
+    
+        if not qrCountRoom.IsEmpty then begin
+          CountRoomProgress:=CreateProgressBar(0,qrCountRoom.RecordCount,'',clNavy);
+          try
+            FlagFirst:=true;
+            AllCount:=0;
+            qrCountRoom.First;
+            while not qrCountRoom.Eof do begin
+              Application.ProcessMessages;
+
+              CountRoomName:=qrCountRoom.FieldByName('EXPORT').AsString;
+              if Trim(CountRoomName)='' then
+                CountRoomName:=qrCountRoom.FieldByName('NAME').AsString;
+              CountRoomId:=qrCountRoom.FieldByName('AP_COUNTROOM_ID').AsString;
+    
+              CreateRTFString(RTF,CountRoomName,clMaroon,'Times New Roman',8,true);
+    
+              qrRegion.First;
+              while not qrRegion.Eof do begin
+                Application.ProcessMessages;
+
+                RegionName:=qrRegion.FieldByName('EXPORT').AsString;
+                if Trim(RegionName)='' then
+                  RegionName:=qrRegion.FieldByName('NAME').AsString;
+                RegionId:=qrRegion.FieldByName('AP_REGION_ID').AsString;
+    
+                CreateRTFString(RTF,RegionName,clOlive,'Arial',8,false);
+    
+                qrPremises.Active:=false;
+                trPremises.Active:=false;
+                sqls:='SELECT S.NAME AS STREET_NAME, '+
+                             'S.EXPORT AS STREET_EXPORT, '+
+                             'TA.NAME AS TYPE_APARTMENT_NAME, '+
+                             'TA.EXPORT AS TYPE_APARTMENT_EXPORT, '+
+                             'P.FLOOR, '+
+                             'P.FLOOR_COUNT, '+
+                             'TB.NAME AS TYPE_BUILDING_NAME, '+
+                             'TB.EXPORT AS TYPE_BUILDING_EXPORT, '+
+                             'TP.NAME AS TYPE_PHONE_NAME, '+
+                             'TP.EXPORT AS TYPE_PHONE_EXPORT, '+
+                             'P.GENERAL_AREA, '+
+                             'P.DWELLING_AREA, '+
+                             'P.KITCHEN_AREA, '+
+                             'TS.NAME AS TYPE_SANITARY_NAME, '+
+                             'TS.EXPORT AS TYPE_SANITARY_EXPORT, '+
+                             'TL.NAME AS TYPE_BALCONY_NAME, '+
+                             'TL.EXPORT AS TYPE_BALCONY_EXPORT, '+
+                             'TT.NAME AS TYPE_PLATE_NAME, '+
+                             'TT.EXPORT AS TYPE_PLATE_EXPORT, '+
+                             'LM.NAME AS LANDMARK_NAME, '+
+                             'LM.EXPORT AS LANDMARK_EXPORT, '+
+                             'P.PRICE, '+
+                             'P.PHONES AS PREMISES_PHONES, '+
+                             'A.NAME AS AGENCY_NAME, '+
+                             'A.EXPORT AS AGENCY_EXPORT, '+
+                             'P.NOTE, '+
+                             'P.AP_LANDMARK_ID, '+
+                             'P.AP_PREMISES_ID '+
+                        'FROM AP_PREMISES P JOIN '+
+                        'AP_AGENCY A ON P.AP_AGENCY_ID=A.AP_AGENCY_ID LEFT JOIN '+
+                        'AP_STREET S ON P.AP_STREET_ID=S.AP_STREET_ID LEFT JOIN '+
+                        'AP_TYPE_APARTMENT TA ON P.AP_TYPE_APARTMENT_ID=TA.AP_TYPE_APARTMENT_ID LEFT JOIN '+
+                        'AP_TYPE_BUILDING TB ON P.AP_TYPE_BUILDING_ID=TB.AP_TYPE_BUILDING_ID LEFT JOIN '+
+                        'AP_TYPE_PHONE TP ON P.AP_TYPE_PHONE_ID=TP.AP_TYPE_PHONE_ID LEFT JOIN '+
+                        'AP_TYPE_SANITARY TS ON P.AP_TYPE_SANITARY_ID=TS.AP_TYPE_SANITARY_ID LEFT JOIN '+
+                        'AP_TYPE_BALCONY TL ON P.AP_TYPE_BALCONY_ID=TL.AP_TYPE_BALCONY_ID LEFT JOIN '+
+                        'AP_LANDMARK LM ON P.AP_LANDMARK_ID=LM.AP_LANDMARK_ID LEFT JOIN '+
+                        'AP_TYPE_PLATE TT ON P.AP_TYPE_PLATE_ID=TT.AP_TYPE_PLATE_ID '+
+                       'WHERE RELEASE_ID='+IntToStr(ReleaseId)+' '+
+                         'AND AP_OPERATION_ID='+SOperationId+' '+
+                         'AND AP_COUNTROOM_ID='+CountRoomId+' '+
+                         'AND AP_REGION_ID='+RegionId+' '+
+                       'ORDER BY LM.NAME, S.NAME';
+                
+                qrPremises.Sql.Text:=sqls;
+                trPremises.Active:=true;
+                qrPremises.Active:=true;
+    
+                qrPremises.FetchAll;
+                qrPremises.First;
+                while not qrPremises.Eof do begin
+                  Application.ProcessMessages;
+
+                  AppendRTFQuery(RTF,qrPremises,qrCountRoom.FieldByName('EXPORT').AsString);
+    
+                  qrPremises.Next;
+                  Inc(AllCount);
+                end;
+    
+                qrRegion.Next;
+              end;
+              SetProgressBarStatus(CountRoomProgress,CountRoomI,qrCountRoom.RecordCount,'');
+              qrCountRoom.Next;
+              Inc(CountRoomI);
+      //        break;
+            end;
+          finally
+            FreeProgressBar(CountRoomProgress);
+            RTF.Close;
+            RTF.SaveToFile(FileName);
+            ShowInfoEx('Экспортировано: '+AllCount);
+          end;
+        end;
+      finally
+        RTF.Free;
+        trPremises.Free;
+        qrPremises.Free;
+        trRegion.Free;
+        qrRegion.Free;
+        trCountRoom.Free;
+        qrCountRoom.Free;
+      end;
+    end;
+  finally
+    SaveDialog.Free;
+  end;
+end;
+
+end.
+  

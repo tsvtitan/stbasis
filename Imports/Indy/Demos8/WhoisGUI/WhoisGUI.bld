@@ -1,0 +1,5 @@
+[OS]
+Linux=True
+
+[Files]
+WhoisGUI.dpr

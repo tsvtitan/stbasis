@@ -1,0 +1,292 @@
+unit tsvSecurity;
+
+interface
+
+uses Classes, DB,
+     tsvDb, tsvCrypter, tsvCmdLine;
+
+type
+  TTsvSecurityCheckType=(sctNone,sctInclination,sctRunCount);
+  TTsvSecurityCheckTypes=set of TTsvSecurityCheckType;
+
+  TTsvSecurity=class(TObject)
+  private
+    FDb: TTsvDb;
+    FCrypter: TTsvCrypter;
+    FFileName: String;
+    FCondition: String;
+    FCheckTypes: TTsvSecurityCheckTypes;
+    FCmdLine: TtsvCmdLine;
+    function GetKey: String;
+    procedure SetKey(Value: String);
+    function GetRunCount: Integer;
+    procedure SetRunCount(Value: Integer);
+    function GetNewCondition(S: String): String;
+    procedure UpdateInclination(Enabled: Boolean);
+    procedure UpdateRunCount(Enabled: Boolean; ARunCount: Integer);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    procedure LoadDb;
+    procedure LoadDbByDllFile(const AFileName: String);
+    procedure SwitchParams;
+    procedure SaveDb;
+    procedure DecRunCount;
+    function Check(ACheckTypes: TTsvSecurityCheckTypes): Boolean;
+    function ReadOnly: Boolean;
+
+    property Key: String read GetKey write SetKey;
+    property FileName: String read FFileName write FFileName;
+    property RunCount: Integer read GetRunCount write SetRunCount;
+    property Condition: String read FCondition;
+  end;
+
+implementation
+
+uses Windows, SysUtils, DBClient,
+     StbasisSUtils;
+
+const
+  SDbParam_RunCount='Количество запусков';
+  SDbParam_Inclination='Привязка';
+  SParam_Inclination='inclination';
+  SParam_Runcount='runcount';
+  STrue='true';
+  SFalse='false';
+
+{ TTsvSecurity }
+
+constructor TTsvSecurity.Create;
+begin
+  inherited Create;
+  FCrypter:=TTsvCrypter.Create(nil);
+  FCmdLine:=TtsvCmdLine.Create;
+  FDb:=TTsvDb.Create(nil);
+  FDb.Crypter:=FCrypter;
+end;
+
+destructor TTsvSecurity.Destroy;
+begin
+  FDb.Free;
+  FCmdLine.Free;
+  FCrypter.Free;
+  inherited Destroy;
+end;
+
+function TTsvSecurity.GetKey: String;
+begin
+  Result:=FDb.CipherKey;
+end;
+
+procedure TTsvSecurity.SetKey(Value: String);
+begin
+  FDb.CipherKey:=Value;
+end;
+
+procedure TTsvSecurity.LoadDb;
+var
+  P: PChar;
+begin
+  GetMem(P,1024);
+  try
+    GetModuleFileName(HINSTANCE,P,1024);
+    LoadDbByDllFile(P);
+  finally
+    FreeMem(P);
+  end;
+end;
+
+procedure TTsvSecurity.LoadDbByDllFile(const AFileName: String);
+begin
+  FFileName:=ChangeFileExt(AFileName,'.db');
+  FDb.Init(FFileName);
+end;
+
+procedure TTsvSecurity.UpdateInclination(Enabled: Boolean);
+var
+  Stream: TMemoryStream;
+  D: TClientDataSet;
+  S: String;
+  Str: TStringList;
+  i: Integer;
+begin
+  if Enabled then begin
+    if not FDb.ExistsParam(SDbParam_Inclination) then begin
+      D:=TClientDataSet.Create(nil);
+      Stream:=TMemoryStream.Create;
+      Str:=TStringList.Create;
+      try
+        D.FieldDefs.Add('KEY',ftString,32);
+        D.CreateDataSet;
+        FillUniqueIdsByAdapter(Str);
+        for i:=0 to Str.Count-1 do begin
+          D.Append;
+          D.FieldByName('KEY').AsString:=Str.Strings[i];
+          D.Post;
+        end;
+        D.MergeChangeLog;
+        D.SaveToStream(Stream);
+        Stream.Position:=0;
+        SetLength(S,Stream.Size);
+        Stream.Read(Pointer(S)^,Stream.Size);
+        FDb.WriteParam(SDbParam_Inclination,S,True);
+        FDb.DataSet.Edit;
+        FDb.DataSet.FieldByName(SDb_Type).AsInteger:=12; // Table
+        FDb.DataSet.Post;
+      finally
+        Str.Free;
+        Stream.Free;
+        D.Free;
+      end;
+    end;
+  end else
+    FDb.DeleteParam(SDbParam_Inclination);
+end;
+
+procedure TTsvSecurity.UpdateRunCount(Enabled: Boolean; ARunCount: Integer);
+begin
+  if Enabled then begin
+    if not FDb.ExistsParam(SDbParam_RunCount) then begin
+      FDb.WriteParam(SDbParam_RunCount,IntToStr(ARunCount),True);
+      FDb.DataSet.Edit;
+      FDb.DataSet.FieldByName(SDb_Type).AsInteger:=2; // Number
+      FDb.DataSet.Post;
+    end;
+  end else
+    FDb.DeleteParam(SDbParam_RunCount);
+end;
+
+procedure TTsvSecurity.SwitchParams;
+var
+  S: String;
+  S2: String;
+  Enabled: Boolean;
+begin
+  if FCmdLine.ParamExists(SParam_Inclination) then begin
+    S:=FCmdLine.ValueByParam(SParam_Inclination);
+    if AnsiSameText(S,STrue) or
+       AnsiSameText(S,SFalse) then begin
+      Enabled:=AnsiSameText(S,STrue);
+      UpdateInclination(Enabled);
+    end;
+  end;
+  if FCmdLine.ParamExists(SParam_Runcount) then begin
+    S:=FCmdLine.ValueByParam(SParam_Runcount);
+    if AnsiSameText(S,STrue) or
+       AnsiSameText(S,SFalse) then begin
+      Enabled:=AnsiSameText(S,STrue);
+      S2:=FCmdLine.ValueByParam(SParam_Runcount,1);
+      UpdateRunCount(Enabled,StrToIntDef(S2,0));
+    end;
+  end;
+end;
+
+procedure TTsvSecurity.SaveDb;
+begin
+  FDb.UpdateFile;
+end;
+
+procedure TTsvSecurity.DecRunCount;
+begin
+  RunCount:=RunCount-1;
+end;
+
+function TTsvSecurity.GetRunCount: Integer;
+var
+  Buffer: String;
+begin
+  Result:=0;
+  if FDb.IsInit then begin
+    if FDb.ExistsParam(SDbParam_RunCount) then begin
+      if FDb.ReadParam(SDbParam_RunCount,Buffer) then
+        Result:=StrToIntDef(Buffer,0);
+    end;
+  end;
+end;
+
+procedure TTsvSecurity.SetRunCount(Value: Integer);
+begin
+  if FDb.IsInit then begin
+    if FDb.ExistsParam(SDbParam_RunCount) then begin
+      if Value<0 then
+        Value:=0;
+      FDb.WriteParam(SDbParam_RunCount,IntToStr(Value),false);
+    end;
+  end;
+end;
+
+function TTsvSecurity.GetNewCondition(S: String): String;
+begin
+  if Trim(FCondition)='' then
+    Result:=Format('%s',[S])
+  else Result:=Format('%s'+#13#10+'%s',[FCondition,S]);
+  Result:=Trim(Result);
+end;
+
+function TTsvSecurity.Check(ACheckTypes: TTsvSecurityCheckTypes): Boolean;
+var
+  Stream: TMemoryStream;
+  Flag: Boolean;
+  DS: TClientDataSet;
+begin
+  Result:=FDb.IsInit;
+  try
+    if FDb.ReadOnly then begin
+      Result:=false;
+      exit;
+    end;  
+    FCondition:='';
+    FCheckTypes:=ACheckTypes;
+    if sctInclination in FCheckTypes then begin
+      if FDb.IsInit and
+         FDb.ExistsParam(SDbParam_Inclination) then begin
+        FCondition:=GetNewCondition('Привязка к IP адресу.');
+        Stream:=TMemoryStream.Create;
+        try
+          if FDb.ReadParam(SDbParam_Inclination,Stream) then begin
+            DS:=TClientDataSet.Create(nil);
+            try
+              Stream.Position:=0;
+              DS.LoadFromStream(Stream);
+              if DS.Active and
+                 not DS.IsEmpty then begin
+                Flag:=false;
+                DS.First;
+                while not DS.Eof do begin
+                  if CheckUniqueIdByAdapter(DS.FieldByName('KEY').AsString) then begin
+                    Flag:=true;
+                    break;
+                  end;
+                  DS.Next;
+                end;
+                Result:=Flag;
+              end else
+                Result:=false;
+            finally
+              DS.Free;
+            end;
+          end;
+        finally
+          Stream.Free;
+        end;
+      end;
+    end;
+    if sctRunCount in FCheckTypes then begin
+      if FDb.IsInit and
+         FDb.ExistsParam(SDbParam_RunCount) then begin
+        FCondition:=GetNewCondition(Format('Ограничение по количеству запусков, осталось %d.',[RunCount]));
+        Result:=Result and (RunCount>0);
+      end;
+    end;
+  except
+    Result:=false;
+    FCondition:='';
+  end;     
+end;
+
+function TTsvSecurity.ReadOnly: Boolean;
+begin
+  Result:=FDb.ReadOnly;
+end;
+
+end.

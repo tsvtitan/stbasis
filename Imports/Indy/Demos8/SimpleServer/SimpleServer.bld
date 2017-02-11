@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+SimpleServer.dpr
+SimpleServer.res
+main.dfm
+main.pas

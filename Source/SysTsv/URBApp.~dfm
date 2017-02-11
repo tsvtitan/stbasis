@@ -1,0 +1,43 @@
+inherited fmRBApp: TfmRBApp
+  Left = 633
+  Top = 142
+  Caption = 'Справочник приложений'
+  Icon.Data = {
+    0000010001001010100000000000280100001600000028000000100000002000
+    00000100040000000000C0000000000000000000000000000000000000000000
+    000000008000008000000080800080000000800080008080000080808000C0C0
+    C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF000000
+    0000000000000000000007000000000007707770770000000008070077000008
+    8088808800000008888888880700000088000880777000088000008807000088
+    8000008880000008800000880700000088000880070000088888888800000008
+    808880880000000000080000000000000000000000000000000000000000FF1F
+    0000F9130000F0010000E4010000C0030000C0000000E0000000810000008383
+    000081010000E0090000C0030000C0070000E44F0000FC7F0000FFFF0000}
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnBackGrid: TPanel
+    inherited pnBut: TPanel
+      inherited pnModal: TPanel
+        inherited bibView: TButton
+          OnClick = bibViewClick
+        end
+      end
+      inherited pnSQL: TPanel
+        inherited bibAdd: TButton
+          OnClick = bibAddClick
+        end
+        inherited bibChange: TButton
+          OnClick = bibChangeClick
+        end
+        inherited bibDel: TButton
+          OnClick = bibDelClick
+        end
+      end
+    end
+  end
+  inherited pnFind: TPanel
+    inherited edSearch: TEdit
+      Anchors = [akLeft, akTop, akBottom]
+    end
+  end
+end

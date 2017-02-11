@@ -1,0 +1,316 @@
+unit StbasisSCode;
+
+interface
+
+uses Windows, Forms;
+
+procedure InitApplication;
+procedure DoneApplication;
+procedure StartApplication;
+procedure StopApplication;
+
+var
+  FConfigFileName: string;
+  FLogFileName: String;
+  FName: string;
+  FDisplayName: string;
+  FDescription: string;
+  FClearLog: Boolean;
+  FMessageId: Integer;
+  FMutexHandle: THandle;
+  FAutoStart: Boolean;
+
+implementation
+
+uses SysUtils, ShellApi, SvcMgr, ActiveX,
+     IBIntf, 
+     StbasisSUtils, StbasisSData,
+     StbasisSCmdLine, StbasisSLog, StbasisSConfig, StbasisSPrimaryDb,
+     StbasisSService, StbasisSStand, StbasisSTCPServer, StbasisSCrypter;
+
+var
+  FCmdLine: TStbasisSCmdLine;
+  FLog: TStbasisSLog;
+  FConfig: TStbasisSConfig;
+  FPrimaryDb: TStbasisSPrimaryDb;
+  FService: TStbasisSService;
+  FStand: TStbasisSStandForm;
+  FCrypter: TStbasisSCrypter;
+  FTCPServer: TStbasisSTCPServer;
+
+  FParamUnInstall: Boolean;
+  FParamInstall: Boolean;
+  FParamIsService: Boolean;
+  FParamConfig: Boolean;
+  FParamLog: Boolean;
+
+  FInit: Boolean;
+  FActive: Boolean;
+
+procedure RegisterMidas;
+var
+  s,r,m,p: String;
+begin
+  r:=GetWinSysDir+'\'+SRegSvr32;
+  p:=ExtractFilePath(GetModuleName(HInstance));
+  m:=p+SMidas;
+  s:=Format(SRegisterMidas,[m]);
+  ShellExecute(GetDesktopWindow,SRegisterAction,PChar(r),PChar(s),PChar(p),SW_SHOW);
+end;
+
+procedure UnRegisterMidas;
+var
+  s,r,m,p: String;
+begin
+  r:=GetWinSysDir+'\'+SRegSvr32;
+  p:=ExtractFilePath(GetModuleName(HInstance));
+  m:=p+SMidas;
+  s:=Format(SUnRegisterMidas,[m]);
+  ShellExecute(GetDesktopWindow,SRegisterAction,PChar(r),PChar(s),PChar(p),SW_SHOW);
+end;
+
+function More: Boolean;
+var
+  Ret: DWord;
+begin
+  Result:=false;
+  FMessageId:=RegisterWindowMessage(Pchar(FConfigFileName));
+  FMutexHandle:=CreateMutex(nil,false,PChar(FName));
+  Ret:=GetLastError;
+  if Ret=ERROR_ALREADY_EXISTS then begin
+    PostMessage(HWND_BROADCAST,FMessageId,0,0);
+  end else
+    Result:=true;
+end;
+
+procedure LogWrite(const Message: string; LogType: TStbasisSLogType);
+const
+  SFormatMessage='%s';
+begin
+  FLog.WriteToBoth(Format(SFormatMessage,[Message]),LogType);
+end;
+
+procedure ServiceController(CtrlCode: DWord); stdcall;
+begin
+  FService.Controller(CtrlCode);
+end;
+
+type
+  THackServiceApplication=class(TServiceApplication)
+  end;
+
+procedure InitApplication;
+
+  function PrepareFileName(FileName,Param,Ext: string; var ParamExists: Boolean; Def: Boolean=true): String;
+  var
+    Path: string;
+  begin
+    Result:=FileName;
+    ParamExists:=false;
+    if FCmdLine.ParamExists(Param) then begin
+      ParamExists:=true;
+      Result:=FCmdLine.ValueByParam(Param);
+    end else
+      if Def then
+        Result:=ChangeFileExt(ParamStr(0),Ext);
+
+    Path:=ExtractFilePath(Result);
+    if (Trim(Path)='') and (Trim(Result)<>'') then
+      Result:=ExtractFilePath(ParamStr(0))+
+              ChangeFileExt(ExtractFileName(Result),Ext);
+  end;
+
+begin
+  if not TryIBLoad then exit;
+  
+  FParamUnInstall:=FCmdLine.ParamExists(SParamUnInstall);
+  if FParamUnInstall then begin
+    UnRegisterMidas;
+  end;
+
+  FParamInstall:=FCmdLine.ParamExists(SParamInstall);
+  if FParamInstall then begin
+    RegisterMidas;
+  end;
+
+  FParamIsService:=FCmdLine.ParamExists(SParamIsService);
+
+  FConfigFileName:=PrepareFileName(FConfigFileName,SParamConfig,SIniExtension,FParamConfig);
+  FLogFileName:=PrepareFileName(FLogFileName,SParamLog,SLogExtension,FParamLog);
+
+  FLog.Init(FLogFileName);
+  if not FileExists(FLogFileName) then
+    FLogFileName:='';
+
+  FConfig.Init(FConfigFileName);
+  if not FileExists(FConfigFileName) then begin
+    FConfigFileName:='';
+    exit;
+  end;
+
+  FName:=FConfig.ReadString(SSectionMain,SParamName,'StbasisServer');
+  FDisplayName:=FConfig.ReadString(SSectionMain,SParamDisplayName,'StbasisServer');
+  FDescription:=FConfig.ReadString(SSectionMain,SParamDescription,'Stbasis synchronizing server');
+  FParamIsService:=FConfig.ReadBool(SSectionMain,SParamIsService,FParamIsService);
+  FClearLog:=FConfig.ReadBool(SSectionMain,SParamClearLog,FClearLog);
+
+  if not More then
+    exit;
+
+  if FClearLog then
+    FLog.Clear;
+
+  if FParamIsService then begin
+
+    SvcMgr.Application.Initialize;
+    FService:=TStbasisSService.CreateNew(SvcMgr.Application,0);
+    FService.ServiceController:=ServiceController;
+    with FService do begin
+      Config:=FConfig;
+      Init;
+    end;
+    FInit:=true;
+    if FParamInstall then begin
+      THackServiceApplication(SvcMgr.Application).RegisterServices(true,true);
+      exit;
+    end;
+    if FParamUnInstall then begin
+      THackServiceApplication(SvcMgr.Application).RegisterServices(false,true);
+      exit;
+    end;
+    SvcMgr.Application.Run;
+  end else begin
+
+    Forms.Application.Initialize;
+    Forms.Application.CreateHandle;
+    Forms.Application.Title:=FDisplayName;
+
+    GetFormatSettings;
+    Forms.Application.CreateForm(TStbasisSStandForm,FStand);
+    with FStand do begin
+      Enabled:=false;
+      TCPServer:=FTCPServer;
+      Config:=FConfig;
+      Init; 
+      Show;
+      Update;
+    end;
+    FInit:=true;
+    if FAutoStart then
+      StartApplication;
+    FStand.Enabled:=true;
+    Forms.Application.Run;
+  end;
+
+end;
+
+procedure DoneApplication;
+begin
+  if not FParamIsService and
+     Assigned(FStand) then
+    FStand.Done;
+  StopApplication;
+
+  FInit:=false;
+  if FParamIsService then begin
+    if Assigned(FService) then
+      FreeAndNil(FService);
+  end else begin
+    if Assigned(FStand) then begin
+      FreeAndNil(FStand);
+    end;
+  end;
+
+  FConfig.Done;
+  FLog.Done;
+end;
+
+procedure StartApplication;
+const
+  SStart='Start ...';
+  SStartedSucc='Started success';
+  SStartedFail='Started fail (error: %s)';
+begin
+  if not FActive and
+     FInit then begin
+
+    try
+      CoInitialize(nil);
+
+      GetFormatSettings;
+
+      FActive:=true;
+      LogWrite(SStart,ltInformation);
+
+      FConfig.Init(FConfigFileName);
+      FPrimaryDb.Init;
+      FTCPServer.Init;
+
+      FPrimaryDb.Connect;
+      FTCPServer.Start;
+      if Assigned(FStand) then
+        FStand.Start;
+
+      LogWrite(SStartedSucc,ltInformation);
+    except
+      On E: Exception do
+        LogWrite(Format(SStartedFail,[E.Message]),ltError); 
+    end;  
+  end;
+end;
+
+procedure StopApplication;
+const
+  SStop='Stop ...';
+  SStoppedSucc='Stopped success';
+  SStoppedFail='Stopped fail (error: %s)';
+begin
+  if FActive and
+     FInit then begin
+
+    try
+      FActive:=false;
+      LogWrite(SStop,ltInformation);
+      if Assigned(FStand) then
+        FStand.Stop;
+      FTCPServer.Stop;
+      FPrimaryDb.Disconnect;
+
+      FTCPServer.Done;
+      FPrimaryDb.Done;
+      FConfig.Done;
+
+      CoUnInitialize;
+      LogWrite(SStoppedSucc,ltInformation);
+    except
+      On E: Exception do
+        LogWrite(Format(SStoppedFail,[E.Message]),ltError);
+    end;  
+  end;
+end;
+
+initialization
+  FCmdLine:=TStbasisSCmdLine.Create(nil);
+  FLog:=TStbasisSLog.Create(nil);
+  FConfig:=TStbasisSConfig.Create(nil);
+  FPrimaryDb:=TStbasisSPrimaryDb.Create(nil);
+  FPrimaryDb.Config:=FConfig;
+  FPrimaryDb.Log:=FLog;
+  FCrypter:=TStbasisSCrypter.Create(nil);
+  FTCPServer:=TStbasisSTCPServer.Create(nil);
+  FTCPServer.PrimaryDb:=FPrimaryDb;
+  FTCPServer.Config:=FConfig;
+  FTCPServer.Log:=FLog;
+  FTCPServer.Crypter:=FCrypter;
+  FAutoStart:=true;
+
+
+finalization
+  FTCPServer.Free;
+  FCrypter.Free;
+  FPrimaryDb.Free;
+  FConfig.Free;
+  FLog.Free;
+  FCmdLine.Free;
+
+end.

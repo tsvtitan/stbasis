@@ -1,0 +1,59 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = daADComID5.bpl daADPhysD5.bpl daADPhysODBCD5.bpl \
+  daADPhysMSAccD5.bpl daADPhysMSSQLD5.bpl daADPhysDb2D5.bpl daADPhysASAD5.bpl \
+  daADPhysADSD5.bpl daADPhysMySQLD5.bpl daADPhysOraclD5.bpl \
+  daADCompD5.bpl daADGUIxFormsD5.bpl daADDclD5.bpl
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+daADGUIxFormsD5.bpl: daADGUIxFormsD5.dpk
+  $(DCC)
+
+daADPhysD5.bpl: daADPhysD5.dpk
+  $(DCC)
+
+daADPhysMSAccD5.bpl: daADPhysMSAccD5.dpk
+  $(DCC)
+
+daADPhysMSSQLD5.bpl: daADPhysMSSQLD5.dpk
+  $(DCC)
+
+daADPhysMySQLD5.bpl: daADPhysMySQLD5.dpk
+  $(DCC)
+
+daADPhysOraclD5.bpl: daADPhysOraclD5.dpk
+  $(DCC)
+
+daADPhysDb2D5.bpl: daADPhysDb2D5.dpk
+  $(DCC)
+
+daADPhysODBCD5.bpl: daADPhysODBCD5.dpk
+  $(DCC)
+
+daADPhysASAD5.bpl: daADPhysASAD5.dpk
+  $(DCC)
+
+daADComID5.bpl: daADComID5.dpk
+  $(DCC)
+
+daADCompD5.bpl: daADCompD5.dpk
+  $(DCC)
+
+daADDclD5.bpl: daADDclD5.dpk
+  $(DCC)
+
+daADPhysADSD5.bpl: daADPhysADSD5.dpk
+  $(DCC)
+
+

@@ -1,0 +1,16 @@
+[Options]
+Windows
+
+[Files]
+MailDemo.dpr
+MailDemo.res
+main.dfm
+main.pas
+MsgEditor.dfm
+MsgEditor.pas
+MsgEdtAdv.dfm
+MsgEdtAdv.pas
+Setup.dfm
+Setup.pas
+SmtpAuth.dfm
+SmtpAuth.pas

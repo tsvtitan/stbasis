@@ -1,0 +1,1791 @@
+     <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+     <html>
+     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta name="GENERATOR" content="Mozilla/4.72 [en] (WinNT; I) [Netscape]">
+        <title>Firebird v1.0 - Open Feature Requests</title>
+     </head>
+     <body>
+    <table CELLSPACING="5" border="0" width="100%" height="20">
+      <tr>
+        <td align="left" width="20%">
+          <a href="http://Firebird.sourceforge.net">
+          <img src="http://Firebird.sourceforge.net/images/firebird_main_header.png"
+          border="0" alt="Firebird Project Home Page" height="60"></a>
+        </td>
+        <td>
+          <FONT face="Lucida,Verdana,Helvetica,Arial" size= "5" color="black"
+          style="bold">Open Feature Requests</font>
+        </td>
+      </tr>
+    </table>
+
+     <table width="100%" bgcolor="FFFFFF">
+     <tr><td width="85%">
+     <table>
+     <tr><td width="100%" valign=top><font face="Verdana" size="-1">
+     <b> Category: Build Issues                   </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451954&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451954
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451954&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Win32 builds with GNU/Cygwin compiler
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Currently WIN32 builds are limited to MSVC compiler.  We should allow Win32 builds using GNU/Cygwin compiler.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Client/GDS32                   </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446227&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446227
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446227&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Implement ThreadSafe code/operation
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The current GDS32 library is NOT thread-safe.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=468983&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     468983
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=468983&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     No collation orders for ISO_8859_2
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I finally found an ISO_8859_2 character set, but there's no collation orders for this set except for default, so character data does not collate correctly in Polish (b before ±, d before Æ and so on).<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Core Engine                    </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451947&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451947
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451947&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     "Over the wire" connection encryption
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Using one of the standard crypt libraries: SSL, NSS...<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=480750&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     480750
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=480750&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Ability to clear/delete External Tables
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Like the ZAP (dBase) command, users would like to clear the contents of an External table or delete the table completely.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451914&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451914
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451914&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Ability to drop client connection
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Extend API to allow for a specified client connection to be disconnected.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451920&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451920
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451920&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Ability to set date format
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for the date format to be set outside of the server's local settings.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=523452&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     523452
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=523452&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Allow ORDER BY in subquery
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Although the SQL standards (89, 92, 99) defines a  Subselect is a query expressions, which do not include an order by clause.<br>
+     <br>
+     The ability to include a ORDER BY in a subquery can sometimes be a requirement, as in this example:</font><font face="Courier New" size=2><pre>
+     select ( select first 1 t2.t2_value from t2 where t2.t1_id = t1.t1_id ORDER BY t2.t2_id DESC ) as some_field
+     from t1</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451912&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451912
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451912&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Better query optimizer
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The current optimizer often does a poor job of selecting the optimal indexes.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451933&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451933
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451933&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Case insensitive indexes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451939&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451939
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451939&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Connection priority
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for task priority to be set by connection.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446182&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446182
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446182&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Enable support for 32kb pages
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Modify the engine and GBAK routines to allow for the database pages of 32kb in size to be specified.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451950&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451950
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451950&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     External table paths
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Restrict 'valid' path for External Table to paths specified in IBConfig/ISCConfig.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451949&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451949
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451949&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     FK defined with active connections
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Currently, FKs cannot be defined with active database connections.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446257&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446257
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446257&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     HTML/XML output
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for dataset to be returned in HTML/XML format using data-output templates.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446252&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446252
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446252&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Hooks for external SP and Trigger debug
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Enable hooks/support for external SP and Trigger debugging.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451953&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451953
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451953&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Indexes with NULLs
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for NULL values to be included in the index data, using the syntax:</font><font face="Courier New" size=2><pre>
+     CREATE [WITHNULLS] INDEX...</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446233&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446233
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446233&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Kill Query - server timeout/runaway
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The server should have built-in support to ensure that a query cannot run 'away'.  A parameter in the server config file should establish the maximum query execution time.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446232&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446232
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446232&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Kill query -- client requested
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The user needs the ability to stop/kill a query.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451928&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451928
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451928&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     LOG ALL [INSERT|UPDATE|DELETE|SELECT] Command
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Ability to have the system log all SQL statements executed for the entire database or a specific table.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=233602&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     233602
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=233602&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Like operator doesn't work correctly with UPPER()
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     </font><font face="Courier New" size=2><pre>
+     select * from gd_contact where
+       upper(name) like upper('%some_lowercase_belarusian_string%')</pre></font><font face="Verdana" size=1>
+     this query returns empty cursor although there are records in the database which match the criteria. if you change the SQL to:</font><font face="Courier New" size=2><pre>
+     select * from gd_contact where
+       upper(name) like upper('%THE_SAME_STRING_IN_UPPERCASE%')</pre></font><font face="Verdana" size=1>
+     all works fine, but I need to convert string to uppercase pragramattically, and of course, there is no need for second UPPER().<br>
+     <br>
+     Additional note: field NAME defined as VARCHAR(60) CHARACTER SET win1251 COLLATION PXW_CYRL.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=227776&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     227776
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=227776&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     More information about dependencies is needed
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I've logged this issue as a request for enhancement and I hope others will append what they think IB needs about keeping dependencies.<br>
+     <br>
+     Following with my example script described in: [Bug #125219] "isql -a: wrong order with domains based on table's fields"<br>
+     <br>
+     I decided to drop the procedure named valid16 that handles the validation for the domain dom16. No problem. IB destroyed it. I still was able to select from tab16 (the one that uses the domain and it's used by the domain at the same time), since the proc was loaded in memory. As soon as I disconnected and reconnected, doing a simple</font><font face="Courier New" size=2><pre>
+     select * from tab16</pre></font><font face="Verdana" size=1>
+     caused the following (expected) message:<br>
+        Invalid request BLR at offset 8 procedure id 28 is not defined<br>
+     <br>
+     I had to drop the constraint from the domain for IB to allow me to define the proc again (or it kept complaining about id 28), then I recreated the check constraint.<br>
+     <br>
+     IB keeps track of table to table dependencies through PKs in rdb$ref_constraints. Procedures, views and triggers that depends on tables are tracked at rdb$dependencies and it tracks also procedure2procedure and trigger2procedure dependencies.<br>
+     <br>
+     What's missing, among others dependencies:<br>
+     - domain using procedure, table, generator or view<br>
+     - computed field using procedure, table, generator or view<br>
+     - procedure using generator<br>
+     - trigger using generator<br>
+     - view using generator<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=490261&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     490261
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=490261&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Need ALTER VIEW Syntax
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Main problem here is dependencies, when you need to change view, you must drop or comment calls in all depenent objects, than drop view, create view and then restore dependencies.<br>
+      <br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451942&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451942
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451942&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     New database object - Constants
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Support constants to be stored within the database using the syntax:</font><font face="Courier New" size=2><pre>
+       CREATE CONSTANT {ObjectName} {Datatype} AS {Value}.</pre></font><font face="Verdana" size=1>
+     This would allow for the constants to be used in other SQL statements like:</font><font face="Courier New" size=2><pre>
+       CREATE DOMAIN TTypeKind AS SMALLINT DEFAULT {Constant) NOT NULL CHECK( VALUE IN ( {Constant}, {Constant}..));</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451927&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451927
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451927&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     ROWSAFFECTED system variable
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Expose the current variable, which is available through the API for INSERT, DELETE and UPDATE statements, to be available to SP and triggers.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=433293&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     433293
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=433293&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Replication in linux
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Add multi-machine replication support on linux<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446249&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446249
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446249&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Server Bi-directional cursors
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Enable Bi-directional cursors for server processing<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509981&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     509981
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509981&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Server Error Email/Pager Notifications
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     In addition to writing entries to the Interbase.log files, the ability to send out mail/pager notifications would be of benefit.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451915&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451915
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451915&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Server needs to detect disconnects
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Currently if a client disconnects, the server continues to execute the any pending query.  It only stops the query when it is ready to return the first row from the result set.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446180&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446180
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446180&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Server-side database aliases
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Add functionality to engine to allow for database aliases to be defined in a server side text/INI file (FBAlias.INI) to assist in resolving client database names.<br>
+     <br>
+     This would allow for clients to specify as database string like server:alias, and have the server resolve the 'alias' value into the full 'path\database.gdb' string.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446236&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446236
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446236&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Session variable space
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Support should be added to allow for session variables to be maintained.  This includes support for Create/Set/Get/Drop operations.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446255&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446255
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446255&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Support explicit record lock/unlock
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     ?<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446234&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446234
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446234&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Support for Nested Transaction
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Support should be added to provide support for nested transactions<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=497361&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     497361
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=497361&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Support for WideChar
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I'd like to see WIDECHAR fields with native unicode support.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451929&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451929
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451929&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Tablespaces
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The ability to define/control the location of data/user tables within a multi-file database.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451924&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451924
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451924&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Temporary tables
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for the definition of temporary tables which are only visible within the current connection context and which are deleted upon connection disconnect/lost.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446243&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446243
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446243&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Transaction ID
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Similar to the Connection variables (SF #446238), each transaction should have it own unique ID value which should be exposed as a system variable to triggers/SPs and SELECT statements.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446214&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446214
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446214&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Triggers/SPs on database operations
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It would be a good thing if a trigger or SP was run when a database is attached/detached by the engine or when a user logs in or disconnects (also lost connection) from a database.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446223&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446223
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446223&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     True SMP support
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Old news -- FB doesn't support SMP very well.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451952&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451952
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451952&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     UDF Search path
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Include the database path when searching for UDF library.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451922&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451922
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451922&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Universal Insert/Delete/Update triggers
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     As in the case of Oracle, allow for a single trigger to be defined for INSERT and/or DELETE and/or UPDATE operations for all tables in the database.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=507937&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     507937
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=507937&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Wildcards/Regular Expressions in WHERE clause
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     In addiition to the existing "LIKE" and "CONTAINING" syntax, support for both DOS "*?" and Unix "\([^,]*\)" would be beneficial<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=470859&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     470859
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=470859&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     exception created 'on-the-fly'
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I think it would be usefull if an exception could be generated inside a trigger or procedure without having to declare it before. Something like:</font><font face="Courier New" size=2><pre>
+     if ( condition ) then
+      exception 'my exception';</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=452830&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     452830
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=452830&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     tx independent of connection
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     In order to really support an xa driver such as for ejb application servers, it would be really helpful if transactions were not tied to connections.  I would like to be able to request work within any transaction on any connection.  One obvious first step is to always use transaction ids rather than handles for server-client communication.  I haven't yet thought about security and multithreading/smp issues.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=518355&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     518355
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=518355&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     udf's adaptive return type
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     To be really useful and not a nuisance as they are now, some descriptor based udfs (like *nvl) should be able to report a compatible data type and the engine should check and accept the conversion if possible or otherwise complain.<br>
+     <br>
+     Example: invl takes two integers. It should be used with integers. There's another int64nvl that works with int64 quantities and returns int64. If the user misses the right input parameter type, trash is returned:</font><font face="Courier New" size=2><pre>
+     Select i64nvl(1,1) from rdb$database;
+
+                    I64NVL
+     =====================
+          2012179293274113</pre></font><font face="Verdana" size=1>
+     It happens because the engine assumes the return descriptor costains a pointer to an int64 and doesn't check the returned descriptor and in this case, the values passed are integers. Hence, a developer currently should check the precision of a numeric argument or do explicit casts to avoid those traps. Ideally, the engine should inspect the return descriptor and see if it can be converted to the declared UDF's return type, otherwise raise an exception. In this case, an int can be safely converted to a greater type, int64.<br>
+     <br>
+     Also, the current behavior that may result from mixing a return value by descriptor and FREE_IT is undefined.<br>
+     <br>
+     What should the engine deallocate, the value, the DSC or both?<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=412673&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     412673
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=412673&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     using collate in stored procedure
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It would be nice to have collate in stored procedure for varchar data type.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: DSQL                           </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446225&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446225
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446225&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Allow FK indexes to be disabled
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     This will resolve the current performance issues related to poor selectivity indexes.  By disabling the index the system will not maintain an index which would otherwise contain too many duplicates to be efficient.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446251&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446251
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446251&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Array support in SPs, Select, Insert...
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Enable support for Array elements in SPs as well as SELECT, INSERT and UPDATE statements.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446229&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446229
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446229&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Blob Type 1 compatibility with VarChar
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Currently Blob Sub-Type 1 (text) column can not be treated in the same manner as a VarChar column.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451917&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451917
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451917&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     CASE, IIFand COALESE
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Add support for CASE, IIF and COALESE.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446222&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446222
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446222&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Comments in definition of db objects
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     When defining database objects, the user should be able to provide comments which would be stored in the existing (unused) columns in the system tables.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446238&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446238
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446238&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Connection ID/User IP/Computer Name variables
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     System variables should be maintained for each connection.  The variables include: CONNECTION_ID, CONNECTION_IP, CONNECTION_COMPUTER<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=447001&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     447001
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=447001&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Create Table as Select ....
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Submitted by nick@upsonuk.com. I'd like to see Firebird support, as Ingress does:</font><font face="Courier New" size=2><pre>
+     Create Table as Select ....</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446246&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446246
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446246&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Domain for SP parameters
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow domains to be used in the definition of the input/output parameters of SPs.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446245&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446245
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446245&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Domain for Trigger/SP variables
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow domains to be applied to variables within a trigger or SP.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446256&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446256
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446256&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Dynamic SQL in Stored Procedures
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for Stored Procedures to support dynamic elements -- tablename, columnnames....<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446250&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446250
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446250&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Event # and Text at runtime
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for Event #'s and Text to be specified at runtime.  Thus removing the requirement for Event to be pre-defined in the database<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446240&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446240
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446240&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Exception code and text at runtime
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow exception code and text to be specified at runtime, ie. do not require the values to the pre-defined in order for an exception to be raised.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=437859&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     437859
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=437859&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Execute procedure and string concat
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The engine does not allow to pass an expression with string concatenation to a SP. When I'm compiling a procedure with a line like this one:</font><font face="Courier New" size=2><pre>
+     execute procedure p_do_something('a' || 'b');</pre></font><font face="Verdana" size=1>
+     I get an error:<br>
+     <br>
+     Invalid token. Dynamic SQL Error. SQL error code = -104. Token unknown - line 14, char 57.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446253&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446253
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446253&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Expression based indexes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Enable support for indexes based on Expressions (i.e. UPPER(NAME) ).<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446211&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446211
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446211&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Full Blob susport for Triggers and SPs
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow blobs to be used as parameters and variables in Triggers and Stored Procedures.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451932&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451932
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451932&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Functions as column values
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for functions, like procedures, to be used as column value.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446244&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446244
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446244&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Multi-database access in triggers and SP
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for other databases to be accessed from within triggers and SPs.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446209&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446209
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446209&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     ON SELECT Triggers
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow trigger to be defined and execute when SELECT statement is executed for a table.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446231&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446231
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446231&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Order By/Group By computed columns
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Order By/Group By needs to support computed columns<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451935&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451935
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451935&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     REPLACE for procedures and triggers
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     This would allow for procedures and triggers to be created or altered without concern for whether the function already exists.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451936&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451936
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451936&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     REPLACE statement
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     This statement would combine the functionality of the INSERT and UPDATE statements.  This is not a SQL standard feature.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509979&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     509979
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509979&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Short Parameter/Variable syntax for SPs
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Rather than using the syntax:</font><font face="Courier New" size=2><pre>
+     create procedure dummy( param1 integer, param2 integer, param3 char(32), param4 char(32))</pre></font><font face="Verdana" size=1>
+     and</font><font face="Courier New" size=2><pre>
+     declare variable i1 integer;
+     declare variable i2 integer;
+     declare variable i3 integer;
+     declare variable i4 integer;</pre></font><font face="Verdana" size=1>
+     It would be good is you could use the syntax:</font><font face="Courier New" size=2><pre>
+     create procedure dummy( param1, param2 integer, param3, param4 char(32))</pre></font><font face="Verdana" size=1>
+     and</font><font face="Courier New" size=2><pre>
+     declare variable i1, i2, i3, i4 integer;</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446218&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446218
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446218&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Trigger/SP on start/commit/rollback
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Similar to the triggers/SPs for database operations, these procedures would fire on transaction start/committ/rollack.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446212&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446212
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446212&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Type Flag for Stored Procedures
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Add a new flag to the system tables to distinguish between SELECT and execute only Stored Procedures.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451916&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451916
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451916&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Update ... From Select ...
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Extends the UPDATE syntax to support using the SELECT statement.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=441942&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     441942
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=441942&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     User Account maintanance in SQL
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I think it a good idea to have the ability in the sql interface to Create, Edit and Delete User Accounts.</font><font face="Courier New" size=2><pre>
+     Create User MyUsername MyPassword;
+     Delete User MyUsername;
+     Alter User MyUsername MyPassword NewPassword;</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451925&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451925
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451925&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     User names for PK and FK indexes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The user should be able to specify the names of the PK and FK indexes.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Data Types/On-Disk Struc(ODS)  </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446206&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446206
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446206&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     INT64 datatype alias for Numeric(18,0)
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It is a common request/question for new users -- how do I create INT64 datatypes.  Accordingly, we should create an alias INT64 which would equate to NUMERIC(18,0).<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451923&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451923
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451923&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Increase size of metadata update counter
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Currently the maximum number of metadata update is limited to 255.  This needs to be increased or eliminated.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446221&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446221
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446221&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Longer index key values --  1024 bytes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     The current size limitation (252 char) creates problems for systems which use multi-byte collation sequences.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446220&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446220
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446220&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Object names of at least 64bytes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Like other RDBMS's we should be supporting longer object names.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446215&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446215
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446215&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Support for GUID datatype
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     This includes supporting a new function to create GUID values.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446258&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446258
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446258&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     True Boolean Datatype
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     A new datatype which has three states - true/false/null.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: GBAK                           </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446224&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446224
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446224&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     New snapshot DB backup
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Create a new utility which would allow for realtime snapshots of database to be created, with the database online/active/open.  This program would create a 'image' of the database, which could be immediately restored, since it would be a physical copy of the source database.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: ISQL                           </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=494979&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     494979
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=494979&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Easy metadata extract improvements
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     When working with databases, it is very nice to create all the tables first, then convert the data to Interbase, and at last put on the constraints, indexes, triggers etc., that are needed.<br>
+     <br>
+     Having separated CREATE INDEX from CREATE TABLE etc., is a very nice feature in the metadata extraction, but unfortunately, the CREATE DOMAIN statements are not separated into</font><font face="Courier New" size=2><pre>
+     CREATE DOMAIN D_YEAR AS SMALLINT;
+     CREATE DOMAIN D_MONTH AS SMALLINT;
+     CREATE DOMAIN D_DAY AS SMALLINT;
+
+     ALTER DOMAIN D_YEAR ADD CONSTRAINT CHECK (VALUE1900 AND VALUE2100);
+     ALTER DOMAIN D_MONTH ADD CONSTRAINT CHECK (VALUE=1 AND =12);</pre></font><font face="Verdana" size=1>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=494980&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     494980
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=494980&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Metadata delete extraction
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It would be extremely useful for database management purposes, if the user could extract the SQL statements to DELETE stored procedures, triggers, constraints, DOMAIN constraints, user rights etc from a database, in a way similar to how the user today can extract the SQL statements that build up a database.<br>
+     <br>
+     This way, it would be possible to take an existing database, remove all constraints, make major modifications, and then add it all again afterwards.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446226&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446226
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446226&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     isql - Command Line History Editing
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It would be nice to have command line history and editing added to isql a la bash or tcsh.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Java/JDBC Client               </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=524159&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     524159
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=524159&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Accuracy of TIMESTAMP type
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Mandip Singh Sangha reported:<br>
+     <br>
+     Is it possible to make the timestamp datatype more accurate than to the nearest second?<br>
+     <br>
+     At the moment current_timestamp returns: 2002-02-27 17:17:10.0000, where the last four digits are always zero.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Security Issues                </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451938&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451938
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451938&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Configurable server network settings
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for the server to control the connections it will accept.  Possible settings include:<br>
+     - listen only unix-socket (don't listen INET),<br>
+     - listen all from eth0,<br>
+     - listen only IP xxx.xxx.xxx.xxx,<br>
+     - listen only mask.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451948&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451948
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451948&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Database encryption
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Allow for database to be encrypted -- user defined/selectable library/parameters.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451918&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451918
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451918&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Groups of users and rights
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Database rights can be assigned to Groups. Groups can be assigned to users.  The resulting user database rights are the combination of the group rights as well as user rights.  All this must work without roles.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=229239&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     229239
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=229239&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Password algorithm poor
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Users with the same password currently get the same hashed password stored in the USERS table in isc4.gdb and this seems to be a fairly poor method of doing it.<br>
+     <br>
+     Also the isc4.gdb installed from Firebird 0.9-4 has the permissions of 666 which leaves it wide open to attack.  Having it wide open like this is at least as bad as the backdoor recently discovered and more attention should be given to security issues like this.<br>
+     <br>
+     For example as a simple denial of service attack, I just did a /opt/interbase/isc4.gdb as a regular user and pow; no users can login anymore to any database on the system!  I could just as easily of used a binary editor to copy my password over another users and thus have changed their password to mine (an example why the same crypt result for two identical passwords is bad!).<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=213433&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     213433
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=213433&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Poor ib security in unix installed version
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     From:  sskracic@lavsa.com (Sebastian Skracic)<br>
+     <br>
+     Some time ago I found out that default Linux installation of IB4.0 introduces Huge security holes. I've put up some thoughts about it at http://acs.lavsa.com/bboard/q-and-a-fetch-msg.tcl?msg_id=00000O<br>
+     <br>
+     Pretty much all outlined above is still valid for InterBase 6.0, at least SuperServer which I have just (re)installed.  This is not good.<br>
+     <br>
+     The point here is that _default_ installation must be reasonably secure. Just to sum up some of the items (there are probably more) should necessarily be done in installation process:<br>
+     <br>
+     - create 'interbas' (or some other) unix user<br>
+     - all installed files should be owned by that user<br>
+     - through 'gsec', add an entry in isc4.gdb for 'interbas' user<br>
+     - through 'isql', exec 'grant all on users to interbas;' to /opt/interbase/isc4.gdb security database to which you have attached as sysdba - the point here is that all future db  maintenance will be performed by 'interbas' user, so this step is necessary to allow 'interbas' managing user accounts through 'gsec'.<br>
+     - fix 666 (or 777) modes on some files.<br>
+     - create directory /var/interbase (or something like that) where .gdb files will be stored (or somewhere in ~interbase)<br>
+     <br>
+     Somewhere deep in server code:<br>
+     - check which will prevent InterBase daemon from as root<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446248&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446248
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446248&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     SQL rights for defining External tables
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Restrict definition of External tables to specified users.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446247&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446247
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446247&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     SQL security rights for adding UDFs
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Restrict adding UDF definitions to specified users.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=217055&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     217055
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=217055&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Security of SuperServer installs on NT
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     I wanted to see steps to make the engine run under an account that's not SYSTEM or has administrative privileges under NT.<br>
+     <br>
+     Currently, I was able to setup IB in an administrative account, then I proceed to subtract some privileges from the account, but using a plain userid even with several special OS privileges granted did not work. At least I was able to make IB run on an account other than SYSTEM and ADMINISTRATOR.<br>
+     <br>
+     The problem seems to be the communication with the Guardian. IB alone can be started automatically as a service, but not through the guardian.<br>
+     <br>
+     Since only SYSTEM is allowed to interact with the desktop but IB/Guardian as a service don't show a tray icon, I don't see the problem in removing administrative requirements other than revisiting the IPC schema between IB and the Guardian.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451931&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     451931
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=451931&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     User rights for metadata changes
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Extend the rights model to incorporate INSERT/UPDATE/DELETE database objects (databases, procedures, triggers, tables, UDFs).  As well as rights to backup/restore and database connection.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=453322&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     453322
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=453322&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     location of users lists /DB permission/
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     here is 2 possible ways :<br>
+     1.relocate user list from isc4.gdb to user DB<br>
+     2.create additional user list in user DB and secondary authentification mechanism per database<br>
+     <br>
+     it's needed when developers don't want share the metadata/structure of a database with others including SYSDBAs<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: UDF/Built-In Functions         </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=474793&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     474793
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=474793&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Add statistical functions (as agreg.?)
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     May be implemented in Firebird some statistical functions?<br>
+     <br>
+     - computing of Median<br>
+     - computing of Standard deviation (StdDev)<br>
+     - computing of Skew<br>
+     - computing of Kurtosis<br>
+     - common and central statistical moments<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446216&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     446216
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=446216&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Built in GUID generator
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     A GUID generator should be added to the list of built-in functions.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=484836&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     484836
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=484836&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Multi-plataform UDF Lib
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     It will be very usefull if there was a UDF Library that could be compiled in all the platforms that FB is compiled, too.  Because, altougth FB is a multi-platform database server, when i choose some UDF Library that works just in a platform, I restrict my use of FB to this platform only.<br>
+     <br>
+     Is it hard to do?<br>
+     <br>
+     PS: If someone is thinking to do this, don't forget the POWER funcion. It's missing in various UDF Libs and it's a very important function, because is the base function of almost all financial calculations.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=496082&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     496082
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=496082&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     POWER function
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     Power(2,3) -&gt; 2^3 -&gt; 8<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=524285&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     524285
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=524285&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     UDF thread
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     All UDFs in IB are executed in context of one special thread.  This results in blocking when a lot of UDFs (string functions, f.i.). are used.<br>
+     <hr size=1>
+     </td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=512782&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     512782
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=512782&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     UDF with no return value
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     For some operation I prefer UDFs that no returns value. It is problem ?<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     <b> Category: Utilities gstat, gfix, gsec    </b><p> <table>
+     <tr><td width="10%"><font face="Verdana" size="-1"><b>
+     SF ID
+     </b></td><td width="75%"><font face="Verdana" size="-1"><b>
+     Description
+     </b></td><td width="15%"><font face="Verdana" size="-1"><b>
+     Group/Status
+     </b>&nbsp;</td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509988&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     509988
+     </a></b></td><td width="75%"><font face="Verdana" size="1"><b>
+     <a href="http://sourceforge.net/tracker/?func=detail&atid=109028&aid=509988&group_id=9028" style="text-decoration:none;color:#4169e1;">
+     Option to ignore constraints
+     </a></b></td><td width="15%"><font face="Verdana" size="1"><b>
+      Feature request
+     </b></td></tr>
+     <tr><td width="10%"><font face="Verdana" size="1">&nbsp;
+     </td><td colspan=2><font face="Verdana" size="1">
+     <br>
+     InterBase (and Firebird by inheritance) doesn't check validity conditions when they're added.  The result is a database if then backed up, can't be restored.<br>
+     <br>
+     There should be a GBAK option for restoring data without regard to any constraint, thus salvaging the data.<br>
+     <hr size=1>
+     </td></tr>
+      </table>
+     </td></tr>
+     <tr><td><hr size=1></td></tr>
+     </table></td>
+     <td width="15%">&nbsp;</td>
+     </tr>
+     </table>
+    <table CELLSPACING="5" border="0" width="100%">
+      <tr>
+        <td align="left" width="10%">
+          <a href="http://sourceforge.net/project/?group_id=9028">
+          <img src="http://sourceforge.net/sflogo.php?group_id=9028&amp;type=1" width="88" height="31"
+          border="0" alt="Firebird at SourceForge"></a>
+        </td>
+        <td align="left" width="90%">
+          <FONT face="Lucida,Verdana,Helvetica,Arial"
+          size= "1" color="black"> This page and the information contained within is
+          Copyright © 2002, Firebird Project.<br> Firebird - Relational
+          Database for the New Millennium.
+          </font>
+        </td>
+      </tr>
+    </table>
+     </body>
+     </html>

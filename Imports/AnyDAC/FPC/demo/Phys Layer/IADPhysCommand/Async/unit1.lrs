@@ -1,0 +1,25 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TForm1','FORMDATA',[
+  'TPF0'#6'TForm1'#5'Form1'#4'Left'#3'"'#1#6'Height'#3#173#1#3'Top'#3#149#0#5'W'
+  +'idth'#3#144#1#18'HorzScrollBar.Page'#3#143#1#18'VertScrollBar.Page'#3#172#1
+  +#7'Caption'#6#5'Form1'#0#6'TLabel'#6'Label1'#4'Left'#3#180#0#6'Height'#2#14#3
+  +'Top'#2'-'#5'Width'#2''''#7'Caption'#6#7'Timeout'#5'Color'#7#6'clNone'#11'Pa'
+  +'rentColor'#8#0#0#5'TMemo'#7'Console'#4'Left'#2#12#6'Height'#3#10#1#3'Top'#3
+  +#152#0#5'Width'#3'~'#1#8'TabOrder'#2#0#0#0#7'TButton'#7'Button1'#4'Left'#2#12
+  +#6'Height'#2#25#3'Top'#2#7#5'Width'#2'K'#25'BorderSpacing.InnerBorder'#2#4#7
+  +'Caption'#6#7'Connect'#7'OnClick'#7#12'Button1Click'#8'TabOrder'#2#1#0#0#7'T'
+  +'Button'#7'Button2'#4'Left'#2'\'#6'Height'#2#25#3'Top'#2#7#5'Width'#2'K'#25
+  +'BorderSpacing.InnerBorder'#2#4#7'Caption'#6#3'Run'#7'OnClick'#7#12'Button2C'
+  +'lick'#8'TabOrder'#2#2#0#0#11'TRadioGroup'#6'rgMode'#4'Left'#2#16#6'Height'#2
+  +'d'#3'Top'#2'('#5'Width'#3#150#0#8'AutoFill'#9#7'Caption'#6#20'Async executi'
+  +'on mode'#28'ChildSizing.LeftRightSpacing'#2#6#28'ChildSizing.TopBottomSpaci'
+  +'ng'#2#6#29'ChildSizing.EnlargeHorizontal'#7#24'crsHomogenousChildResize'#27
+  +'ChildSizing.EnlargeVertical'#7#24'crsHomogenousChildResize'#28'ChildSizing.'
+  +'ShrinkHorizontal'#7#14'crsScaleChilds'#26'ChildSizing.ShrinkVertical'#7#14
+  +'crsScaleChilds'#18'ChildSizing.Layout'#7#29'cclLeftToRightThenTopToBottom'
+  +#27'ChildSizing.ControlsPerLine'#2#1#13'Items.Strings'#1#6#8'Blocking'#6#12
+  +'Non blocking'#6#13'Cancel dialog'#6#5'Async'#0#8'TabOrder'#2#3#0#0#5'TEdit'
+  +#10'edtTimeout'#4'Left'#3#182#0#6'Height'#2#23#3'Top'#2'@'#5'Width'#2'P'#8'T'
+  +'abOrder'#2#4#4'Text'#6#9'$FFFFFFFF'#0#0#0
+]);

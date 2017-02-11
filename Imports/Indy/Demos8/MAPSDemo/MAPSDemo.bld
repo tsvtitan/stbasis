@@ -1,0 +1,8 @@
+[Options]
+Windows
+
+[Files]
+mapsMain.pas
+mapsMain.dfm
+MapsDemo.dpr
+MapsDemo.res

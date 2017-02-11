@@ -1,0 +1,98 @@
+inherited fmEditRBSync_Office: TfmEditRBSync_Office
+  Left = 397
+  Top = 195
+  Caption = 'fmEditRBSync_Office'
+  ClientHeight = 179
+  ClientWidth = 321
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbName: TLabel [0]
+    Left = 7
+    Top = 13
+    Width = 79
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Наименование:'
+    FocusControl = edName
+  end
+  object lbNote: TLabel [1]
+    Left = 33
+    Top = 39
+    Width = 53
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Описание:'
+    FocusControl = edNote
+  end
+  object lbKeys: TLabel [2]
+    Left = 57
+    Top = 65
+    Width = 29
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Ключ:'
+    FocusControl = edKeys
+  end
+  object lbContact: TLabel [3]
+    Left = 38
+    Top = 92
+    Width = 48
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Телефон:'
+    FocusControl = edContact
+  end
+  inherited pnBut: TPanel
+    Top = 141
+    Width = 321
+    TabOrder = 5
+    inherited Panel2: TPanel
+      Left = 136
+    end
+  end
+  inherited cbInString: TCheckBox
+    Left = 8
+    Top = 120
+    TabOrder = 4
+  end
+  object edName: TEdit [6]
+    Left = 92
+    Top = 9
+    Width = 222
+    Height = 21
+    MaxLength = 100
+    TabOrder = 0
+    OnChange = edNameChange
+  end
+  object edNote: TEdit [7]
+    Left = 92
+    Top = 35
+    Width = 222
+    Height = 21
+    MaxLength = 250
+    TabOrder = 1
+    OnChange = edNameChange
+  end
+  object edKeys: TEdit [8]
+    Left = 92
+    Top = 61
+    Width = 222
+    Height = 21
+    MaxLength = 250
+    TabOrder = 2
+    OnChange = edNameChange
+  end
+  object edContact: TEdit [9]
+    Left = 92
+    Top = 88
+    Width = 222
+    Height = 21
+    MaxLength = 250
+    TabOrder = 3
+    OnChange = edNameChange
+  end
+  inherited IBTran: TIBTransaction
+    Left = 34
+    Top = 9
+  end
+end

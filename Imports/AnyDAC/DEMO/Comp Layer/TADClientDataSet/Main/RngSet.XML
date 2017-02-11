@@ -1,0 +1,142 @@
+<?xml version="1.0" standalone="yes"?>
+
+<ProgramGS ID="TAPRProgramGS">
+	<Version Int="20"/>
+	<StreamFlags Int="0"/>
+	<Enabled Bool="True"/>
+	<Comment Str=""/>
+
+	<VariableListGS ID="">
+		<Enabled Bool="True"/>
+	</VariableListGS>
+
+	<InstructionListGS ID="">
+		<Enabled Bool="True"/>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1"/>
+			<ContentType Int="1"/>
+			<Value Str="Indexes"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1&apos; control value">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1"/>
+			<ContentType Int="1"/>
+			<Value Str="I_ST"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet1.N:ListBox1"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="1"/>
+		</ClickCtrlGS>
+
+		<SetCtrlValueGS ID="Write &apos;F:TfrmMain.N:PageControl1&apos; control value1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1"/>
+			<ContentType Int="1"/>
+			<Value Str="Ranges"/>
+			<VarName Str=""/>
+		</SetCtrlValueGS>
+
+		<SetCtrlSizeGS ID="Size and move window &apos;F:TfrmMain&apos;">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain"/>
+			<ContentType Int="1"/>
+			<SizeMode Int="1"/>
+			<MoveMode Int="5"/>
+		</SetCtrlSizeGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet4.N:bntRngSetStart&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet4.N:bntRngSetStart"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<LoopDSGS ID="For each &apos;F:TfrmMain.N:DBGrid1&apos; dataset record">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:DBGrid1"/>
+			<ContentType Int="1"/>
+			<SelectRecord Bool="True"/>
+			<FromCurrentRecord Bool="True"/>
+
+			<LoopDSInstructionListGS ID="">
+				<Enabled Bool="True"/>
+
+				<SetCtrlValueGS ID="Write &apos;Field &apos;F:TfrmMain.N:DBGrid1.State&apos;&apos; control value">
+					<Enabled Bool="True"/>
+					<Comment Str=""/>
+					<ControlName Str="Field &apos;F:TfrmMain.N:DBGrid1.State&apos;"/>
+					<ContentType Int="1"/>
+					<Value Str="C"/>
+					<VarName Str=""/>
+				</SetCtrlValueGS>
+
+				<BreakGS ID="Break">
+					<Enabled Bool="True"/>
+					<Comment Str=""/>
+				</BreakGS>
+			</LoopDSInstructionListGS>
+		</LoopDSGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet4.N:btnRngSetEnd&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet4.N:btnRngSetEnd"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+
+		<LoopDSGS ID="For each &apos;F:TfrmMain.N:DBGrid1&apos; dataset record1">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:DBGrid1"/>
+			<ContentType Int="1"/>
+			<SelectRecord Bool="True"/>
+			<FromCurrentRecord Bool="True"/>
+
+			<LoopDSInstructionListGS ID="">
+				<Enabled Bool="True"/>
+
+				<SetCtrlValueGS ID="Write &apos;Field &apos;F:TfrmMain.N:DBGrid1.State&apos;&apos; control value">
+					<Enabled Bool="True"/>
+					<Comment Str=""/>
+					<ControlName Str="Field &apos;F:TfrmMain.N:DBGrid1.State&apos;"/>
+					<ContentType Int="1"/>
+					<Value Str="O"/>
+					<VarName Str=""/>
+				</SetCtrlValueGS>
+
+				<BreakGS ID="Break">
+					<Enabled Bool="True"/>
+					<Comment Str=""/>
+				</BreakGS>
+			</LoopDSInstructionListGS>
+		</LoopDSGS>
+
+		<ClickCtrlGS ID="Click &apos;F:TfrmMain.N:PageControl1.N:TabSheet4.N:btnRngApply&apos; control">
+			<Enabled Bool="True"/>
+			<Comment Str=""/>
+			<ControlName Str="F:TfrmMain.N:PageControl1.N:TabSheet4.N:btnRngApply"/>
+			<ContentType Int="1"/>
+			<ClickMode Int="0"/>
+		</ClickCtrlGS>
+	</InstructionListGS>
+
+	<ModuleListGS ID="">
+		<Enabled Bool="True"/>
+	</ModuleListGS>
+</ProgramGS>

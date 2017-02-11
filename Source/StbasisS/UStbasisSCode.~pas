@@ -1,0 +1,55 @@
+unit UStbasisSCode;
+
+interface
+
+uses Forms;
+
+procedure InitApplication;
+
+implementation
+
+uses SysUtils,
+     StbasisSCmdLine, StbasisSLog, StbasisSConfig;
+
+var
+ FCmdLine: TStbasisSCmdLine;
+ FLog: TStbasisSLog;
+ FConfig: TStbasisSConfig;
+
+procedure InitApplication;
+
+  function PrepareFileName(FileName,Param,Ext: string; var ParamExists: Boolean; Def: Boolean=true): String;
+  var
+    Path: string;
+  begin
+    Result:=FileName;
+    ParamExists:=false;
+    if FCmdLine.ParamExists(Param) then begin
+      ParamExists:=true;
+      Result:=FCmdLine.ValueByParam(Param);
+    end else
+      if Def then
+        Result:=ChangeFileExt(ParamStr(0),Ext);
+
+    Path:=ExtractFilePath(Result);
+    if (Trim(Path)='') and (Trim(Result)<>'') then
+      Result:=ExtractFilePath(ParamStr(0))+
+              ChangeFileExt(ExtractFileName(Result),Ext);
+  end;
+
+begin
+  Application.Initialize;
+  Application.Run;
+end;
+
+initialization
+  FCmdLine:=TStbasisSCmdLine.Create(nil);
+  FLog:=TStbasisSLog.Create(nil);
+  FConfig:=TStbasisSConfig.Create(nil);
+
+finalization
+  FConfig.Free;
+  FLog.Free;
+  FCmdLine.Free;
+
+end.

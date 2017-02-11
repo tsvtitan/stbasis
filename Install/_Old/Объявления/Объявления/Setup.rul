@@ -1,0 +1,140 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            
+//  IIIIIII SSSSSS                                                            
+//    II    SS                          InstallShield (R)                     
+//    II    SSSSSS      (c) 1996-2002, InstallShield Software Corporation     
+//    II        SS                     All rights reserved.             
+//  IIIIIII SSSSSS                  
+//                                                                            
+//                                                                            
+//  This template script provides the code necessary to build an entry-point 
+//  function to be called in an InstallScript custom action. 
+//                                                                            
+//                                                                            
+//    File Name:  Setup.rul                                                   
+//                                                                            
+//  Description:  InstallShield script                                        
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// Include Isrt.h for built-in InstallScript function prototypes.
+#include "isrt.h"
+
+// Include Iswi.h for Windows Installer API function prototypes and constants,
+// and to declare code for the OnBegin and OnEnd events.
+#include "iswi.h"
+
+    // The keyword export identifies MyFunction() as an entry-point function.
+    // The argument it accepts must be a handle to the Installer database.
+    export prototype RunAll(HWND);    
+    export prototype CheckProductId(HWND); 
+    export prototype SetEnabledRunAll(HWND);    
+    
+    #define RES_DIALOG_ID     12027   // ID of Dialog itself
+    #define RES_PBUT_NEXT         1   // ID of 'Next' push button
+    #define RES_PBUT_CANCEL       9   // ID of 'Cancel' push button
+    #define RES_PBUT_BACK        12   // ID of 'Back' push button
+    
+
+    // To Do:  Declare global variables, define constants, and prototype user-
+    //         defined and DLL functions here.
+ 
+
+// To Do:  Create a custom action for this entry-point function:
+// 1.  Right-click on "Custom Actions" in the Sequences/Actions view.
+// 2.  Select "Custom Action Wizard" from the context menu.
+// 3.  Proceed through the wizard and give the custom action a unique name.
+// 4.  Select "Run InstallScript code" for the custom action type, and in
+//     the next panel select "MyFunction" (or the new name of the entry-
+//     point function) for the source. 
+// 5.  Click Next, accepting the default selections until the wizard 
+//     creates the custom action.
+//
+// Once you have made a custom action, you must execute it in your setup by 
+// inserting it into a sequence or making it the result of a dialog's 
+// control event.
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           
+// Function:  MyFunction
+//                                                                           
+//  Purpose:  This function will be called by the script engine when 
+//            Windows(TM) Installer executes your custom action (see the "To 
+//            Do," above).
+//                                                                           
+///////////////////////////////////////////////////////////////////////////////
+function RunAll(hMSI)   
+    STRING svName,szRet;
+    NUMBER nvSize, nResponse;   
+    HWND nHwnd; 
+begin      
+   nvSize = 256;
+   svName="";
+   MsiGetProperty (hMSI, "CRP", svName, nvSize);  
+   if (svName="1") then
+     MsiDoAction(hMSI,"RunProgram"); 
+   endif; 
+   svName="";
+   MsiGetProperty (hMSI, "CRF", svName, nvSize);
+   if (svName="1") then  
+     nHwnd = FindWindow ("IB_Server", "");   
+     if (nHwnd=NULL) then 
+       MsiDoAction(hMSI,"RunFirebird"); 
+     endif;  
+   endif; 
+end;
+         
+function CheckProductId(hMSI)     
+ string szResult;
+begin                    
+  Disable(BACKBUTTON);
+  AskPath("HEllo","c://",szResult);
+  Enable(BACKBUTTON);
+  MessageBox(szResult,SEVERE);   
+end;         
+
+function SetEnabledRunAll(hMSI)     
+    STRING szPropertyName,szPropertyValue,szFeature;
+    number nvInstallState,nvActionState;
+begin                    
+   szFeature="Program";              
+   nvInstallState=INSTALLSTATE_LOCAL;
+   nvActionState=nvInstallState;
+   MsiGetFeatureState(hMSI,szFeature,nvInstallState,nvActionState);
+   szPropertyName="ECRP";
+   if (nvActionState=INSTALLSTATE_LOCAL) then
+     szPropertyValue="1";
+   else                  
+     szPropertyValue="";
+   endif;
+   MsiSetProperty(hMSI,szPropertyName,szPropertyValue); 
+   if (szPropertyValue="") then
+      MsiSetProperty(hMSI,"CheckRunProgram","");      
+   endif;
+   szFeature="FirebirdServer";              
+   nvInstallState=INSTALLSTATE_LOCAL;               
+   nvActionState=nvInstallState;
+   MsiGetFeatureState(hMSI,szFeature,nvInstallState,nvActionState);
+   szPropertyName="ECRF";
+   if (nvActionState=INSTALLSTATE_LOCAL) then
+     szPropertyValue="1";
+   else 
+     szPropertyValue="";  
+   endif;
+   MsiSetProperty(hMSI,szPropertyName,szPropertyValue);
+   if (szPropertyValue="") then
+      MsiSetProperty(hMSI,"CheckRunFirebird","");      
+   endif;
+end;         
+
+// To Do:  Handle initialization code before the sequence (User Interface or 
+//         Execute) starts.  This will be called only once in an installation.
+// function OnBegin()
+// begin
+// end;
+
+// To Do:  Write clean-up code when the sequence (User Interface or Execute)
+//         ends.  This will be called only once in an installation.
+// function OnEnd()
+// begin
+// end;

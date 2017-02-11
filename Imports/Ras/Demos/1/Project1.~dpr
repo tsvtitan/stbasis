@@ -1,0 +1,17 @@
+program Project1;
+
+uses
+  Forms,
+  Unit1 in 'Unit1.pas' {Form1},
+  RasUtils in '..\..\Utils\RasUtils.pas',
+  RasHelperClasses in '..\..\Utils\RasHelperClasses.pas',
+  Lmcons in '..\Lmcons.pas',
+  LmErr in '..\LmErr.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

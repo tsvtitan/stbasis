@@ -1,0 +1,35 @@
+unit tsvInterpreterZlib;
+
+interface
+
+uses Classes, tsvZLib,     
+     tsvInterpreterCore;
+
+{ TtsvZIP }
+
+procedure TtsvZIP_Create(var Value: Variant; Args: TArguments);
+procedure TtsvZIP_FileToFile(var Value: Variant; Args: TArguments);
+procedure TtsvZIP_StringsToFile(var Value: Variant; Args: TArguments);
+
+implementation
+
+{ TtsvZIP }
+
+procedure TtsvZIP_Create(var Value: Variant; Args: TArguments);
+begin
+  Value:=O2V(TtsvZIP.Create(V2O(Args.Values[0]) as TComponent));
+end;
+
+// procedure FileToFile(SourceFile: String; DestFile: string);
+procedure TtsvZIP_FileToFile(var Value: Variant; Args: TArguments);
+begin
+  TtsvZIP(Args.Obj).FileToFile(Args.Values[0],Args.Values[1]);
+end;
+
+// procedure StringsToFile(Strings: TStrings; DestFile: string);
+procedure TtsvZIP_StringsToFile(var Value: Variant; Args: TArguments);
+begin
+  TtsvZIP(Args.Obj).StringsToFile(V2O(Args.Values[0]) as TStrings,Args.Values[1]);
+end;
+
+end.

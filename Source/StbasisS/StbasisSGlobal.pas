@@ -1,0 +1,37 @@
+unit StbasisSGlobal;
+
+interface
+
+type
+
+  TStbasisSGlobalCommand=(gcInit,gcData,gcDone);
+
+  PStbasisSGlobal=^TStbasisSGlobal;
+  TStbasisSGlobal=packed record
+    Command: TStbasisSGlobalCommand;
+  end;
+
+  PStbasisSGlobalResult=^TStbasisSGlobalResult;
+  TStbasisSGlobalResult=packed record
+    Code: Integer;
+    Message: array [0..1023] of char;
+  end;
+
+  PStbasisSGlobalInit=^TStbasisSGlobalInit;
+  TStbasisSGlobalInit=packed record
+    OfficeName: array [0..249] of char;
+  end;
+
+  PStbasisSGlobalData=^TStbasisSGlobalData;
+  TStbasisSGlobalData=packed record
+  end;
+
+const
+  GLOBAL_RESULT_ERROR=0;
+  GLOBAL_RESULT_SUCCESS=1;
+resourcestring
+  SDateSync='Дата синхронизации';  
+
+implementation
+
+end.

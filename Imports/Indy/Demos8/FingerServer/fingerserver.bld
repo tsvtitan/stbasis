@@ -1,0 +1,9 @@
+[Options]
+Windows
+
+[Files]
+FingerServer.dpr
+FingerServer.res
+mainform.dfm
+mainform.pas
+
